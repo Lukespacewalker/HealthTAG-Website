@@ -1,0 +1,6 @@
+---
+import DetailPage from '../../components/DetailPage.astro';
+export function getStaticPaths(){return ['interoperability','phr','how-it-works','trust','deployments'].map(slug=>({params:{slug}}))}
+const {slug}=Astro.params;
+---
+<DetailPage locale="en" slug={slug!} />
