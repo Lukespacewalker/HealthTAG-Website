@@ -1,32 +1,18 @@
 # HealthTAG Website
 
-Clinical Systems Editorial website for HealthTAG, built with Astro and native CSS.
+Astro corporate website for HealthTAG.
 
-## Stack
+## Architecture principles
 
-- Astro 7.2.x
-- Native CSS only, no Tailwind
-- Static-first rendering
-- Thai primary content with English routes
+- Hospitals remain custodians of patient clinical data.
+- Hospital data enters the FHIR layer through either a hospital-managed IT script or HealthTAG FHIR Transformer.
+- The current source-node stack uses HAPI FHIR Server with HL7 FHIR R4 and PostgreSQL.
+- Kong API Gateway protects the HAPI FHIR API.
+- HealthTAG Module (Hospital API) runs inside the hospital network for PromptCare ID, identity linkage, and authorization.
+- The current authorized access window is 15 minutes.
+- Blockchain records consent and access events; clinical records are not stored on blockchain.
 
-## Development
+## Deployment examples
 
-```bash
-npm install
-npm run dev
-```
-
-Production check:
-
-```bash
-npm run build
-npm run preview
-```
-
-## Positioning
-
-The site presents HealthTAG as healthcare interoperability infrastructure rather than a generic blockchain PHR company. The core story is:
-
-**HIS → FHIR → Identity → Authorization → PHR**, with blockchain used as an immutable consent/access audit ledger.
-
-The current deployment copy is deliberately scoped to the FHIR Transformer deployments at Siriraj Hospital and Khian Sa Hospital. Review all production claims before launch.
+- Siriraj Hospital: HealthTAG participated in the Permission-based Blockchain for Personal Health Record workstream under Siriraj 5G Smart Hospital. Siriraj IT uses its own HIS-to-FHIR script.
+- Khian Sa Hospital: uses HealthTAG FHIR Transformer for selected HIS-to-FHIR R4 transformation.
