@@ -1,0 +1,14 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string; locale?: 'th'|'en'; path?: string }
+const { title='HealthTAG', description='Healthcare interoperability infrastructure', locale='th', path='' } = Astro.props;
+const isEn = locale === 'en';
+const home = isEn ? '/en/' : '/';
+const prefix = isEn ? '/en' : '';
+const alt = isEn ? (path ? `/${path}/` : '/') : (path ? `/en/${path}/` : '/en/');
+---
+<!doctype html><html lang={locale}><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><title>{title}</title><meta name="description" content={description}/><meta name="theme-color" content="#102f36"/><link rel="icon" href="/favicon.svg"/></head><body>
+<header class="site-header"><div class="container nav"><a class="brand" href={home}><span class="mark" aria-hidden="true"></span><span>HealthTAG</span></a><nav class="nav-links" aria-label="Main navigation"><a href={`${prefix}/interoperability/`}>{isEn?'Interoperability':'การเชื่อมต่อข้อมูล'}</a><a href={`${prefix}/phr/`}>PHR</a><a href={`${prefix}/how-it-works/`}>{isEn?'How it works':'ระบบทำงานอย่างไร'}</a><a href={`${prefix}/trust/`}>{isEn?'Trust & Access':'สิทธิ์และความน่าเชื่อถือ'}</a><a href={`${prefix}/deployments/`}>{isEn?'Deployments':'การใช้งานจริง'}</a><a class="lang" href={alt}>{isEn?'TH':'EN'}</a><a class="nav-cta" href="mailto:contact@healthtag.io">{isEn?'Contact':'ติดต่อเรา'}</a></nav></div></header>
+<slot/>
+<footer class="footer"><div class="container footer-grid"><span>© {new Date().getFullYear()} HealthTAG</span><span>{isEn?'Clinical data is not stored on the blockchain.':'ข้อมูลเวชระเบียนไม่ได้ถูกเก็บไว้บน blockchain'}</span><a href="mailto:contact@healthtag.io">contact@healthtag.io</a></div></footer>
+</body></html>
