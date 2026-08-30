@@ -6,13 +6,13 @@ const en = locale === 'en';
 ---
 <figure class="architecture" aria-labelledby="architecture-title" aria-describedby="architecture-description">
   <figcaption id="architecture-title">
-    <span class="mono">01 / DOCUMENTED COMPONENT SCOPE + CONTEXT</span>
-    <strong>{en ? 'HealthTAG Module, Kong, and HAPI shown by responsibility—not as an invented physical request sequence.' : 'แสดง HealthTAG Module, Kong และ HAPI ตามหน้าที่ โดยไม่สร้างลำดับคำขอจริงขึ้นเอง'}</strong>
-    <p>{en ? 'The hospital boundary follows the linked Data Source Node documentation. The identity, authorization, PHR, and audit row below is broader HealthTAG context from the maintained repository baseline—not a claim that the System Architecture page alone documents every item.' : 'ขอบเขตโรงพยาบาลอ้างอิงเอกสาร Data Source Node ที่ลิงก์ไว้ ส่วนแถวตัวตน การอนุญาต PHR และการตรวจสอบด้านล่างเป็นบริบท HealthTAG จาก baseline ของ repository ไม่ใช่การอ้างว่าหน้า System Architecture เพียงหน้าเดียวยืนยันทุกองค์ประกอบ'}</p>
+    <span class="mono">01 / SYSTEM OVERVIEW</span>
+    <strong>{en ? 'Hospital API, Kong, and HAPI shown by responsibility.' : 'Hospital API, Kong และ HAPI แสดงตามหน้าที่ของแต่ละส่วน'}</strong>
+    <p>{en ? 'The Data Source Node documentation covers the systems inside the hospital environment. PromptCare ID, authorization, PHR, and audit are shown in a separate row to explain the connected HealthTAG services.' : 'เอกสาร Data Source Node ครอบคลุมระบบภายในโรงพยาบาล ส่วน PromptCare ID การตรวจสิทธิ์ PHR และการตรวจสอบย้อนหลังแสดงไว้ในอีกแถว เพื่ออธิบายบริการ HealthTAG ที่เชื่อมต่อกัน'}</p>
   </figcaption>
-  <div id="architecture-description" class="sr-only">{en ? 'Conceptual component map. Inside the official hospital Data Source Node scope, an existing HIS uses either a hospital IT script or HealthTAG FHIR Transformer to populate HAPI FHIR Server with PostgreSQL persistence. Kong protects the HAPI FHIR API boundary, and HealthTAG Module or Hospital API checks identity and authorization. In the broader HealthTAG context, PromptCare ID linkage is stored in Amazon DynamoDB; Hospital API checks a 15-minute access window defined from blockchain state; authorized PHR applications receive permitted FHIR responses; and only consent and access events go to the audit ledger. Clinical records never flow through blockchain.' : 'แผนผังส่วนประกอบเชิงแนวคิด ภายในขอบเขต Data Source Node ทางการของโรงพยาบาล ข้อมูลจาก HIS เดิมเข้าสู่ HAPI FHIR Server ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer โดยใช้ PostgreSQL เป็นชั้นจัดเก็บ Kong ปกป้องขอบเขต HAPI FHIR API และ HealthTAG Module หรือ Hospital API ตรวจสอบตัวตนและสิทธิ์ ในบริบท HealthTAG ที่กว้างขึ้น การเชื่อมโยง PromptCare ID จัดเก็บใน Amazon DynamoDB; Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain; PHR หรือแอปที่ได้รับสิทธิ์รับข้อมูลตอบกลับ FHIR; และมีเพียงเหตุการณ์การให้ความยินยอมและการเข้าถึงที่เข้าสู่ประวัติตรวจสอบ เวชระเบียนไม่ไหลผ่าน blockchain'}</div>
+  <div id="architecture-description" class="sr-only">{en ? 'The diagram shows system responsibilities. An existing HIS uses a hospital IT script or HealthTAG FHIR Transformer to send data to HAPI FHIR Server, which stores data in PostgreSQL. Kong protects the HAPI FHIR API. HealthTAG Module or Hospital API checks identity and authorization. PromptCare ID linkage is stored in Amazon DynamoDB. Hospital API checks a 15-minute access window defined from blockchain state. Authorized PHR applications receive permitted FHIR responses. Blockchain receives consent and access events, while clinical records remain in hospital systems.' : 'แผนผังนี้แสดงหน้าที่ของระบบ ข้อมูลจาก HIS เดิมเข้าสู่ HAPI FHIR Server ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer และจัดเก็บด้วย PostgreSQL โดยมี Kong ปกป้อง HAPI FHIR API ส่วน HealthTAG Module หรือ Hospital API ตรวจตัวตนและสิทธิ์ การเชื่อมโยง PromptCare ID จัดเก็บใน Amazon DynamoDB และ Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain แอป PHR ที่ได้รับสิทธิ์จึงรับข้อมูล FHIR ได้ ส่วน blockchain รับเฉพาะเหตุการณ์การให้ความยินยอมและการเข้าถึง เวชระเบียนยังอยู่ในระบบของโรงพยาบาล'}</div>
   <div class="boundary">
-    <div class="boundary-title"><span></span>{en ? 'Official Data Source Node documentation scope · hospital environment' : 'ขอบเขตเอกสาร Data Source Node ทางการ · สภาพแวดล้อมโรงพยาบาล'}</div>
+    <div class="boundary-title"><span></span>{en ? 'Hospital systems covered by the Data Source Node documentation' : 'ระบบโรงพยาบาลที่ครอบคลุมในเอกสาร Data Source Node'}</div>
     <div class="ingestion">
       <div class="his node"><b>Existing HIS</b><small>{en ? 'Existing hospital system' : 'ระบบโรงพยาบาลเดิม'}</small></div>
       <div class="route clinical"><span>{en ? 'Choose one ingestion path' : 'เลือกเส้นทางนำเข้าข้อมูล'}</span></div>
@@ -28,15 +28,15 @@ const en = locale === 'en';
     </div>
     <div class="module-row">
       <div class="node module"><b>{en ? 'HealthTAG Module / Hospital API' : 'HealthTAG Module / Hospital API'}</b><small>{en ? 'Identity linkage and authorization inside the hospital network' : 'เชื่อมตัวตนและอนุญาตสิทธิ์ภายในเครือข่ายโรงพยาบาล'}</small></div>
-      <div class="documented-note"><b>{en ? 'Documented component boundary' : 'ขอบเขตส่วนประกอบที่เอกสารยืนยัน'}</b><small>Hospital API · Kong · HAPI FHIR · {en ? 'supporting data-node services' : 'บริการประกอบของ data node'}</small></div>
+      <div class="documented-note"><b>{en ? 'Systems covered in this documentation' : 'ระบบที่เอกสารนี้ครอบคลุม'}</b><small>Hospital API · Kong · HAPI FHIR · {en ? 'supporting services' : 'บริการที่เกี่ยวข้อง'}</small></div>
     </div>
   </div>
-  <div class="context-title">{en ? 'Broader HealthTAG responsibility context · maintained repository baseline' : 'บริบทหน้าที่ของ HealthTAG ในภาพรวม · baseline ของ repository'}</div>
+  <div class="context-title">{en ? 'HealthTAG services connected to the hospital node' : 'บริการ HealthTAG ที่เชื่อมต่อกับระบบโรงพยาบาล'}</div>
   <div class="outside">
     <div class="identity"><b>PromptCare ID · Amazon DynamoDB</b><small>{en ? 'Stores linkage for hospital-local patient identities' : 'จัดเก็บการเชื่อมโยงตัวตนผู้ป่วยเฉพาะแต่ละโรงพยาบาล'}</small></div>
     <div class="permission-path"><span class="path-key"></span><b>{en ? 'Authorization gate' : 'จุดตรวจสอบสิทธิ์'}</b><small>{en ? '15-minute window defined from blockchain state and checked by Hospital API' : 'ช่วงเวลา 15 นาทีกำหนดจากสถานะบน blockchain และตรวจสอบโดย Hospital API'}</small></div>
     <div class="authorized"><b>{en ? 'Authorized PHR & applications' : 'PHR และแอปพลิเคชันที่ได้รับสิทธิ์'}</b><small>{en ? 'Receive permitted FHIR responses' : 'รับข้อมูลตอบกลับ FHIR ที่ได้รับอนุญาต'}</small></div>
-    <div class="audit"><span class="path-key"></span><b>{en ? 'Audit ledger' : 'ประวัติเหตุการณ์ตรวจสอบ'}</b><small>{en ? 'Consent and access events only — not clinical records' : 'เฉพาะเหตุการณ์การให้ความยินยอมและการเข้าถึง ไม่ใช่เวชระเบียน'}</small></div>
+    <div class="audit"><span class="path-key"></span><b>{en ? 'Audit ledger' : 'ประวัติเหตุการณ์ตรวจสอบ'}</b><small>{en ? 'Stores consent and access events; clinical records remain in hospital systems' : 'เก็บเหตุการณ์การให้ความยินยอมและการเข้าถึง ส่วนเวชระเบียนยังอยู่ในระบบโรงพยาบาล'}</small></div>
   </div>
   <div class="legend"><span><i class="clinical-key"></i>{en ? 'Clinical-data path' : 'เส้นทางข้อมูลทางคลินิก'}</span><span><i class="permission-key"></i>{en ? 'Permission / audit event' : 'เหตุการณ์สิทธิ์และการตรวจสอบย้อนหลัง'}</span></div>
 </figure>

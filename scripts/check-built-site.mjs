@@ -32,6 +32,12 @@ function textContent(node) {
   return (node.childNodes ?? []).map(textContent).join('');
 }
 
+function visibleText(node) {
+  if (['script', 'style', 'template'].includes(node.nodeName)) return '';
+  if (node.nodeName === '#text') return node.value ?? '';
+  return (node.childNodes ?? []).map(visibleText).join(' ');
+}
+
 function routeForFile(file) {
   const relative = path.relative(dist, file).replaceAll('\\', '/');
   if (relative === 'index.html') return '/';
@@ -60,6 +66,11 @@ for (const file of htmlFiles) {
   walk(document, (node) => nodes.push(node));
 
   const elements = (name) => nodes.filter((node) => node.nodeName === name);
+  const bodyText = visibleText(elements('body')[0] ?? {}).replace(/\s+/g, ' ').trim();
+  const internalTerms = bodyText.match(/\b(?:baseline|owner-confirmed|site-owner|workstream|claim|claims|source-node stack|production scope|component boundary)\b/gi) ?? [];
+  if (internalTerms.length) errors.push(`${route}: internal wording is visible (${[...new Set(internalTerms)].join(', ')})`);
+  if (/Historical Network|เครือข่ายในอดีต/i.test(bodyText)) errors.push(`${route}: network relationship is incorrectly labeled historical`);
+  if (bodyText.includes('—')) errors.push(`${route}: em dash remains in public copy`);
   const lang = attr(elements('html')[0], 'lang');
   const expectedLang = route.startsWith('/en/') ? 'en' : 'th';
   if (!isErrorRoute(route) && lang !== expectedLang) errors.push(`${route}: html lang=${lang ?? 'missing'}, expected ${expectedLang}`);
