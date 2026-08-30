@@ -1,0 +1,49 @@
+name: Import verified legacy assets
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-asset-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/partner-logo-assets'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/partner-logo-assets
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+      - name: Retrieve only images matching approved source blob hashes
+        id: import
+        continue-on-error: true
+        run: node scripts/import-legacy-assets.mjs --from-public
+      - name: Commit verified images to migration branch
+        run: |
+          if [ -d src/assets/legacy ]; then
+            git add src/assets/legacy
+            if ! git diff --cached --quiet; then
+              git config user.name 'github-actions[bot]'
+              git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+              git commit -m 'chore: import verified original legacy image assets'
+              git push origin HEAD:feat/partner-logo-assets
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verified-legacy-images
+          path: src/assets/legacy
+          if-no-files-found: warn
+          retention-days: 5
+      - name: Require the complete asset set
+        run: node scripts/import-legacy-assets.mjs
