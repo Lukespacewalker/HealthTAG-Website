@@ -23,7 +23,7 @@ jobs:
       - name: Import source-repository partner artifact
         shell: python
         env:
-          LEGACY_ARCHIVE_URL: 'https://sdmntprseasia.oaiusercontent.com/files/00000000-0904-8207-ade5-42948a817df0/raw?se=2026-08-30T03%3A46%3A20Z&sp=r&sv=2026-02-06&sr=b&scid=9ff9b5fb-18bf-5921-8172-462dc37b73fa&skoid=54865dd2-31dc-44cc-a877-635aa4250446&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-29T21%3A49%3A23Z&ske=2026-08-30T21%3A49%3A23Z&sks=b&skv=2026-02-06&sig=RXx2AqAdzY00rnSYXB9h08Ucir%2BLgV24Bmli%2BSmC2iQ%3D'
+          LEGACY_ARCHIVE_URL: 'https://productionresultssa15.blob.core.windows.net/actions-results/0944d787-710d-4ee2-a20d-f983e4c047f0/workflow-job-run-85b280b7-5823-5033-b664-965d501bcfcd/artifacts/c0a4d5d15c3d282f797b75a8d602bff51e6cd0bfb8638536e3075e064caf0cbc.zip?rscd=attachment%3B+filename%3D%22original-healthtag-partner-logos.zip%22&rsct=application%2Fzip&se=2026-08-30T03%3A57%3A44Z&sig=JmagTDN9%2BT57e53dWLsNnc8GfXDgE6U%2Fl4iMg%2FIUEpE%3D&ske=2026-08-30T06%3A53%3A24Z&skoid=ca7593d4-ee42-46cd-af88-8b886a2f84eb&sks=b&skt=2026-08-30T02%3A53%3A24Z&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skv=2025-11-05&sp=r&spr=https&sr=b&st=2026-08-30T03%3A47%3A39Z&sv=2025-11-05'
         run: |
           import hashlib, io, json, os, pathlib, urllib.request, zipfile
           assets = json.loads(pathlib.Path('scripts/legacy-assets.json').read_text())['assets']
@@ -36,7 +36,7 @@ jobs:
               print('::add-mask::' + url)
               with urllib.request.urlopen(url, timeout=45) as response:
                   archive = response.read(4 * 1024 * 1024)
-              assert hashlib.sha256(archive).hexdigest() == 'ac6e1f69c2c4ef0fea293ed9781c6818928f19fae16ca9cd9b8efaae14d46e6b', 'Archive checksum mismatch'
+              assert hashlib.sha256(archive).hexdigest() == '07ecc229a04bcbd142d6e354fac81c490e9ecd29b925eae11e7c2a43ac73f5fc', 'Archive checksum mismatch'
               with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
                   for asset in missing:
                       data = bundle.read('partners/' + pathlib.PurePosixPath(asset['source']).name)
