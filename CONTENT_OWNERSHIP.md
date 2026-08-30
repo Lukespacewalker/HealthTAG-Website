@@ -12,6 +12,7 @@ To avoid repetition, each recurring concept has one canonical page:
 - **Evidence:** externally sourced validation and milestone links.
 - **Company:** vision, values, founder, and team context.
 - **Contact:** corporate enquiry routing, sensitive-data warning, and the honest email fallback.
+- **Support:** reader selection, drivers and installers, setup steps, legacy downloads, troubleshooting, and support escalation.
 - **Privacy:** corporate website/contact handling and its separation from clinical systems and PHR access.
 
 When adding content, prefer linking to the canonical page instead of repeating implementation details elsewhere.

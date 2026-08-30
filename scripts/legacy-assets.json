@@ -23,6 +23,9 @@
     {"source":"frontend/public/images/teams/ton.png","target":"src/assets/legacy/team/suttisak.png","sha":"d1b785a7ce315aaf7ce9dedf45e97121a965de45"},
     {"source":"frontend/public/images/teams/bank.jpg","target":"src/assets/legacy/team/tanawat.jpg","sha":"0f221bb555e4ccb8d695689e530ddb3081d6a0e0"},
     {"source":"frontend/src/assets/logo-dark.png","target":"src/assets/legacy/brand/logo-dark.png","sha":"de78bbe8f054fe0e2721384760c92db9906a8db6"},
-    {"source":"frontend/src/assets/logo-light.png","target":"src/assets/legacy/brand/logo-light.png","sha":"368632156c42bc3cf80d56e15e98ef6ea5dfbe7f"}
+    {"source":"frontend/src/assets/logo-light.png","target":"src/assets/legacy/brand/logo-light.png","sha":"368632156c42bc3cf80d56e15e98ef6ea5dfbe7f"},
+    {"source":"frontend/src/assets/support/nfc-new-scanner.png","target":"src/assets/legacy/support/healthtag-card-reader.png","sha":"c0a0044ac48bfbaae3a12482f3a9c071c99964bb"},
+    {"source":"frontend/src/assets/support/nfc-scanner.jpg","target":"src/assets/legacy/support/healthtag-nfc-reader-legacy.jpg","sha":"7aac802e5801cbe90b8678cf1232b009c2e5af3f"},
+    {"source":"frontend/src/assets/support/20220909_130154822_iOS.jpg","target":"src/assets/legacy/support/silicon-craft-adr12.jpg","sha":"bc90ad367ed48f4ff60d214ef10a4781e225f731"}
   ]
 }
