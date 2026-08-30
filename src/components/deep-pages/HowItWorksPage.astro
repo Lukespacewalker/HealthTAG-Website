@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import type { Locale } from '../../data/site-content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const stages = en ? [
+  ['01','Connect','Bring existing HIS data into a hospital FHIR layer through a hospital IT script or HealthTAG FHIR Transformer.','interoperability'],
+  ['02','Standardize','Represent selected information in HL7 FHIR R4 so participating systems work from a shared structure.','interoperability'],
+  ['03','Identify','Link hospital-local patient identities with PromptCare ID without treating a local record identifier as universal.','phr'],
+  ['04','Authorize','Hospital API checks whether an access request is valid for the 15-minute window defined from blockchain state.','trust'],
+  ['05','Exchange','Return permitted FHIR data to a PHR or approved application through the authorized path.','phr'],
+  ['06','Audit','Record consent and access events so the decision can be examined later; clinical records stay outside the ledger.','trust']
+] : [
+  ['01','เชื่อมข้อมูล','นำข้อมูลจาก HIS เดิมเข้าสู่ FHIR layer ของโรงพยาบาล ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer','interoperability'],
+  ['02','ทำให้เป็นมาตรฐาน','แทนข้อมูลที่เลือกด้วย HL7 FHIR R4 เพื่อให้ระบบที่เข้าร่วมใช้งานโครงสร้างข้อมูลร่วมกัน','interoperability'],
+  ['03','เชื่อมตัวตน','เชื่อมตัวตนผู้ป่วยในแต่ละโรงพยาบาลกับ PromptCare ID โดยไม่ถือว่ารหัสเวชระเบียนเฉพาะโรงพยาบาลเป็นตัวตนกลาง','phr'],
+  ['04','อนุญาตสิทธิ์','Hospital API ตรวจว่าคำขอมีสิทธิ์ภายในช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หรือไม่','trust'],
+  ['05','แลกเปลี่ยน','ส่งคืนข้อมูล FHIR ที่ได้รับอนุญาตให้ PHR หรือแอปที่ผ่านการอนุญาตตามเส้นทางที่กำหนด','phr'],
+  ['06','ตรวจสอบย้อนหลัง','บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงเพื่อตรวจสอบการตัดสินใจภายหลัง โดยเวชระเบียนไม่อยู่ในประวัติเหตุการณ์ตรวจสอบ','trust']
+];
+---
+<Base locale={locale} path="how-it-works" title={en ? 'How It Works | HealthTAG' : 'ระบบทำงานอย่างไร | HealthTAG'} description={en ? 'A conceptual six-stage model for hospital-controlled health-data exchange.' : 'โมเดลเชิงแนวคิด 6 ขั้นของการแลกเปลี่ยนข้อมูลสุขภาพที่โรงพยาบาลควบคุม'}>
+  <main>
+    <section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en ? 'How it works' : 'ระบบทำงานอย่างไร'}</div><h1>{en ? 'Six distinct responsibilities. One controlled exchange.' : 'หกหน้าที่ที่แยกกันชัดเจน เพื่อการแลกเปลี่ยนที่ควบคุมได้'}</h1><p>{en ? 'This is a conceptual model of responsibilities, not a claim about one fixed network topology or request sequence.' : 'นี่คือโมเดลเชิงแนวคิดของหน้าที่ในระบบ ไม่ใช่การอ้างว่าโครงสร้างเครือข่ายหรือลำดับคำขอต้องเป็นแบบตายตัว'}</p></div></section>
+    <section class="section flow-section"><div class="container"><ol class="flow" aria-label={en ? 'Six stages of HealthTAG exchange' : 'หกขั้นของการแลกเปลี่ยนข้อมูล HealthTAG'}>{stages.map(([number, title, body, slug], index) => <li class:list={[index > 2 && 'permission-stage']}><div class="stage-number mono">{number}</div><div class="stage-copy"><h2>{title}</h2><p>{body}</p><a href={`${prefix}/${slug}/`}>{en ? 'Explore this layer' : 'ดูรายละเอียดของหน้าที่นี้'} <span aria-hidden="true">→</span></a></div></li>)}</ol></div></section>
+    <section class="section boundaries"><div class="container"><div class="section-head"><h2>{en ? 'Keep the layers honest.' : 'แยกแต่ละส่วนให้ตรงกับหน้าที่จริง'}</h2><p>{en ? 'The model separates data representation, identity, authorization, exchange, and audit so that no single label carries claims it cannot support.' : 'โมเดลนี้แยกการแทนข้อมูล ตัวตน การอนุญาต การแลกเปลี่ยน และการตรวจสอบย้อนหลัง เพื่อไม่ให้คำเรียกหนึ่งคำถูกใช้กล่าวอ้างเกินหน้าที่จริง'}</p></div><div class="boundary-notes"><p><b>{en ? 'Clinical data:' : 'ข้อมูลทางคลินิก:'}</b> {en ? 'hospital-controlled FHIR infrastructure.' : 'อยู่ในโครงสร้างพื้นฐาน FHIR ที่โรงพยาบาลควบคุม'}</p><p><b>{en ? 'Permission:' : 'สิทธิ์:'}</b> {en ? 'time-bounded authorization decision.' : 'การตัดสินใจอนุญาตสิทธิ์ที่จำกัดเวลา'}</p><p><b>{en ? 'Ledger:' : 'ประวัติเหตุการณ์:'}</b> {en ? 'consent and access events, not medical records.' : 'บันทึกการให้ความยินยอมและการเข้าถึง ไม่ใช่เวชระเบียน'}</p></div></div></section>
+  </main>
+</Base>
+<style>
+  .flow-section { background: #102f36; color: var(--paper); } .flow { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); position: relative; } .flow:before { content: ''; position: absolute; top: 25px; left: 5%; right: 5%; border-top: 1px solid rgba(117,211,200,.55); } .flow li { min-width: 0; position: relative; padding: 0 14px 22px; border-left: 1px solid rgba(221,243,235,.17); } .flow li:first-child { border-left: 0; } .stage-number { display: inline-grid; place-items: center; width: 51px; height: 51px; border-radius: 50%; border: 1px solid #75d3c8; background: #102f36; color: #9ae3da; position: relative; z-index: 1; font-size: .72rem; } .stage-copy { margin-top: 38px; } h2 { margin: 0; font-size: 1.3rem; line-height: 1.25; letter-spacing: -.025em; } p { margin: 10px 0 0; color: #bdd0d0; font-size: .86rem; line-height: 1.55; } .stage-copy a { display: inline-block; margin-top: 18px; color: #9ae3da; font-size: .8rem; font-weight: 600; } .permission-stage .stage-number { border-color: #e1a458; color: #f1c28d; } .boundaries { background: var(--mint); } .boundary-notes { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #a7cec7; } .boundary-notes p { margin: 0; padding: 20px; border-right: 1px solid #a7cec7; color: var(--ink); } .boundary-notes p:first-child { padding-left: 0; } .boundary-notes p:last-child { border: 0; } @media (max-width: 980px) { .flow { grid-template-columns: repeat(3,1fr); gap: 25px 0; } .flow:before { display: none; } .flow li { border-top: 1px solid rgba(221,243,235,.17); padding-top: 15px; } .flow li:nth-child(3n + 1) { border-left: 0; } .stage-copy { margin-top: 18px; } } @media (max-width: 620px) { .flow { grid-template-columns: 1fr; } .flow li { display: grid; grid-template-columns: 58px 1fr; gap: 16px; border-left: 0; } .stage-copy { margin-top: 5px; } .boundary-notes { grid-template-columns: 1fr; } .boundary-notes p, .boundary-notes p:first-child { padding: 18px 0; border-right: 0; border-bottom: 1px solid #a7cec7; } .boundary-notes p:last-child { border-bottom: 0; } }
+</style>

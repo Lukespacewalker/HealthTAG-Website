@@ -6,7 +6,17 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
-const members = team.map(([name, role]) => ({ name, role, image: portraitForName(name) }));
+const thaiRoles: Record<string, string> = {
+  'CEO & Founder': 'ประธานเจ้าหน้าที่บริหารและผู้ก่อตั้ง',
+  'Tech Lead Developer': 'หัวหน้าฝ่ายพัฒนาเทคโนโลยี',
+  'Personal Assistant': 'ผู้ช่วยส่วนตัว',
+  'Project Manager': 'ผู้จัดการโครงการ',
+  'Developer': 'นักพัฒนา',
+  'Software Tester': 'นักทดสอบซอฟต์แวร์',
+  'Graphic Designer': 'นักออกแบบกราฟิก',
+  'Account Executive': 'ผู้บริหารงานลูกค้า',
+};
+const members = team.map(([name, role]) => ({ name, role: en ? role : (thaiRoles[role] ?? role), image: portraitForName(name) }));
 const photographed = members.filter((member) => member.image);
 const otherContributors = members.filter((member) => !member.image);
 ---

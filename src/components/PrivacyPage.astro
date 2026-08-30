@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Locale } from '../data/site-content';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+---
+
+<Base
+  locale={locale}
+  path="privacy"
+  title={en ? 'Website privacy notice | HealthTAG' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์ | HealthTAG'}
+  description={en ? 'How the HealthTAG corporate website and its email-based contact flow handle information, separate from clinical systems and PHR access.' : 'คำอธิบายการจัดการข้อมูลของเว็บไซต์บริษัท HealthTAG และการติดต่อผ่านอีเมล ซึ่งแยกจากระบบข้อมูลทางคลินิกและการเข้าถึง PHR'}
+>
+  <main>
+    <section class="page-hero policy-hero">
+      <div class="container">
+        <div class="eyebrow">HealthTAG / {en ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</div>
+        <h1>{en ? 'A notice for this corporate website—not clinical systems.' : 'ประกาศสำหรับเว็บไซต์บริษัท ไม่ใช่ระบบข้อมูลทางคลินิก'}</h1>
+        <p>{en ? 'This notice describes the public HealthTAG website and its email-based contact flow. It does not describe hospital clinical systems, the PHR, or patient authorization workflows.' : 'ประกาศนี้อธิบายเว็บไซต์สาธารณะของ HealthTAG และการติดต่อผ่านอีเมล ไม่ครอบคลุมระบบข้อมูลทางคลินิกของโรงพยาบาล PHR หรือกระบวนการอนุญาตเข้าถึงข้อมูลผู้ป่วย'}</p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container policy-layout">
+        <aside aria-label={en ? 'Notice scope' : 'ขอบเขตประกาศ'}>
+          <span>{en ? 'Last updated' : 'ปรับปรุงล่าสุด'}</span>
+          <strong>{en ? '30 August 2026' : '30 สิงหาคม 2569'}</strong>
+          <p>{en ? 'Contact questions about this notice at contact@healthtag.io.' : 'สอบถามเกี่ยวกับประกาศนี้ได้ที่ contact@healthtag.io'}</p>
+        </aside>
+        <div class="policy-copy">
+          <section>
+            <h2>{en ? 'Information you choose to send' : 'ข้อมูลที่คุณเลือกส่ง'}</h2>
+            <p>{en ? 'The contact page asks for an enquiry type, your name, a reply email, an optional organization name, and your message. The page prepares this information as a draft in your own email application.' : 'หน้าติดต่อขอประเภทการติดต่อ ชื่อ อีเมลสำหรับตอบกลับ ชื่อองค์กรซึ่งไม่บังคับ และข้อความของคุณ หน้าดังกล่าวจะเตรียมข้อมูลเหล่านี้เป็นข้อความร่างในแอปอีเมลของคุณ'}</p>
+            <p>{en ? 'Completing the form does not upload or submit its contents to a HealthTAG website endpoint. Your message reaches HealthTAG only after you review and send it from your mail application.' : 'การกรอกฟอร์มไม่ได้อัปโหลดหรือส่งเนื้อหาไปยัง endpoint ของเว็บไซต์ HealthTAG ข้อความจะถึง HealthTAG ต่อเมื่อคุณตรวจสอบและกดส่งจากแอปอีเมลแล้วเท่านั้น'}</p>
+          </section>
+          <section>
+            <h2>{en ? 'How corporate enquiries are used' : 'การใช้ข้อมูลติดต่อบริษัท'}</h2>
+            <p>{en ? 'Information sent to the corporate mailbox is used to understand, route, and respond to the enquiry. The appropriate HealthTAG recipient may depend on whether the subject concerns a healthcare provider, technical integration, a partnership, or media/general matters.' : 'ข้อมูลที่ส่งไปยังอีเมลองค์กรใช้เพื่อทำความเข้าใจ ส่งต่อ และตอบคำถาม ผู้รับภายใน HealthTAG อาจแตกต่างกันตามหัวข้อ เช่น ผู้ให้บริการด้านสุขภาพ การเชื่อมต่อทางเทคนิค ความร่วมมือ หรือสื่อและเรื่องทั่วไป'}</p>
+            <p>{en ? 'HealthTAG does not state a fixed public retention period or broader processing guarantee on this page. Ask contact@healthtag.io if you need information about a specific corporate enquiry.' : 'หน้านี้ไม่ได้ระบุระยะเวลาจัดเก็บแบบตายตัวหรือรับรองการประมวลผลในขอบเขตที่กว้างกว่านี้ หากต้องการข้อมูลเกี่ยวกับการติดต่อบริษัทกรณีใดกรณีหนึ่ง โปรดสอบถามที่ contact@healthtag.io'}</p>
+          </section>
+          <section class="sensitive-section">
+            <h2>{en ? 'Do not use this contact flow for sensitive data' : 'ห้ามใช้ช่องทางนี้ส่งข้อมูลอ่อนไหว'}</h2>
+            <p>{en ? 'Do not send patient information, medical records, health data, passwords, API keys, credentials, or other sensitive information. Do not use the corporate mailbox to request access to a patient record or to report an urgent clinical matter.' : 'ห้ามส่งข้อมูลผู้ป่วย เวชระเบียน ข้อมูลสุขภาพ รหัสผ่าน API key ข้อมูลรับรองการเข้าใช้ระบบ หรือข้อมูลอ่อนไหวประเภทอื่น และห้ามใช้อีเมลองค์กรเพื่อขอเข้าถึงเวชระเบียนผู้ป่วยหรือแจ้งเหตุทางคลินิกเร่งด่วน'}</p>
+          </section>
+          <section>
+            <h2>{en ? 'Separate from clinical systems and PHR' : 'แยกจากระบบข้อมูลทางคลินิกและ PHR'}</h2>
+            <p>{en ? 'Hospitals remain responsible for the clinical records in their systems. Website contact handling is not part of the hospital-controlled FHIR layer, patient identity linkage, authorization, the 15-minute access window, PHR access, or the consent/access audit ledger.' : 'โรงพยาบาลยังรับผิดชอบเวชระเบียนในระบบของตน การติดต่อผ่านเว็บไซต์ไม่ใช่ส่วนหนึ่งของ FHIR layer ที่โรงพยาบาลควบคุม การเชื่อมโยงตัวตนผู้ป่วย การอนุญาต ช่วงเวลาเข้าถึง 15 นาที การเข้าถึง PHR หรือประวัติเหตุการณ์ตรวจสอบสำหรับการให้ความยินยอมและการเข้าถึง'}</p>
+          </section>
+          <div class="actions">
+            <a class="btn primary" href={`${prefix}/contact/`}>{en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a>
+            <a class="btn secondary" href={`${prefix}/trust/`}>{en ? 'Trust & access model' : 'รูปแบบความไว้วางใจและสิทธิ์เข้าถึง'}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .policy-hero h1 { max-width: 980px; }
+  .policy-layout { display: grid; grid-template-columns: minmax(230px, .45fr) minmax(0, 1.25fr); gap: 84px; align-items: start; }
+  .policy-layout aside { position: sticky; top: 108px; border-top: 3px solid var(--teal); padding-top: 18px; }
+  .policy-layout aside span, .policy-layout aside strong { display: block; }
+  .policy-layout aside span { color: var(--muted); font-size: .8rem; }
+  .policy-layout aside strong { margin: 4px 0 14px; }
+  .policy-layout aside p { color: var(--muted); margin: 0; }
+  .policy-copy { max-width: 820px; }
+  .policy-copy section { padding: 0 0 42px; margin-bottom: 42px; border-bottom: 1px solid var(--line); }
+  .policy-copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.65rem); line-height: 1.15; letter-spacing: -.035em; margin: 0 0 16px; }
+  .policy-copy p { color: var(--muted); }
+  .sensitive-section { border: 1px solid #dfc7a9 !important; border-radius: var(--radius); padding: 26px 28px !important; background: var(--amber-soft); }
+  .sensitive-section p:last-child { margin-bottom: 0; }
+  @media (max-width: 780px) { .policy-layout { grid-template-columns: 1fr; gap: 48px; } .policy-layout aside { position: static; } }
+</style>

@@ -1,0 +1,38 @@
+# Verified legacy product and process routes
+/how-it-work            /how-it-works/       301
+/how-it-work/           /how-it-works/       301
+/en/how-it-work         /en/how-it-works/    301
+/en/how-it-work/        /en/how-it-works/    301
+/product                /phr/                301
+/product/               /phr/                301
+/en/product             /en/phr/             301
+/en/product/            /en/phr/             301
+
+# Verified legacy company routes
+/about                  /company/            301
+/about/                 /company/            301
+/about-us/vision        /company/            301
+/about-us/vision/       /company/            301
+/about-us/team          /company/            301
+/about-us/team/         /company/            301
+/about/vision           /company/            301
+/about/vision/          /company/            301
+/about/team             /company/            301
+/about/team/            /company/            301
+/en/about               /en/company/         301
+/en/about/              /en/company/         301
+/en/about/vision        /en/company/         301
+/en/about/vision/       /en/company/         301
+/en/about/team          /en/company/         301
+/en/about/team/         /en/company/         301
+
+# Verified legacy award routes
+/awards                 /evidence/           301
+/awards/                /evidence/           301
+/th/awards              /evidence/           301
+/th/awards/             /evidence/           301
+/en/awards              /en/evidence/        301
+/en/awards/             /en/evidence/        301
+
+# Support, news, articles, personal cards, and downloads intentionally have no
+# blanket redirect until their content or continued operational need is verified.

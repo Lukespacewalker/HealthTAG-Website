@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  locale="th"
+  path="404"
+  noindex
+  title="ไม่พบหน้า | Page not found | HealthTAG"
+  description="ไม่พบหน้าที่ต้องการบนเว็บไซต์ HealthTAG / The requested HealthTAG page could not be found."
+>
+  <main>
+    <section class="not-found">
+      <div class="container not-found-grid">
+        <div class="error-code" aria-hidden="true">404</div>
+        <div>
+          <section lang="th">
+            <div class="eyebrow">ไม่พบหน้า</div>
+            <h1>ลิงก์นี้อาจย้ายไปยังหน้าที่เฉพาะเจาะจงกว่าเดิม</h1>
+            <p>ลองเลือกหน้าหลักด้านล่าง หากเป็นลิงก์ข่าว บทความ support หรือไฟล์ดาวน์โหลดเดิม หน้านั้นอาจยังไม่ได้ย้ายมา และเราไม่ส่งลิงก์ที่ไม่เกี่ยวข้องกลับหน้าแรกโดยอัตโนมัติ</p>
+            <div class="actions">
+              <a class="btn primary" href="/">หน้าแรก</a>
+              <a class="btn secondary" href="/interoperability/">แพลตฟอร์ม</a>
+              <a class="btn secondary" href="/evidence/">หลักฐาน</a>
+              <a class="btn secondary" href="/contact/">ติดต่อ</a>
+            </div>
+          </section>
+          <section lang="en" class="english-copy">
+            <div class="eyebrow">Page not found</div>
+            <h2>This link may have moved to a more specific page.</h2>
+            <p>Choose a primary destination below. If this was an older news, article, support, or download URL, it may not have been migrated; unrelated legacy links are not automatically sent to Home.</p>
+            <div class="actions">
+              <a class="btn primary" href="/en/">Home</a>
+              <a class="btn secondary" href="/en/interoperability/">Platform</a>
+              <a class="btn secondary" href="/en/evidence/">Evidence</a>
+              <a class="btn secondary" href="/en/contact/">Contact</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .not-found { min-height: 72vh; padding: clamp(64px, 10vw, 130px) 0; display: grid; align-items: center; }
+  .not-found-grid { display: grid; grid-template-columns: minmax(180px, .42fr) minmax(0, 1.2fr); gap: clamp(40px, 8vw, 110px); align-items: start; }
+  .error-code { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: var(--teal); font-size: clamp(6rem, 16vw, 13rem); line-height: .8; letter-spacing: -.1em; }
+  h1, h2 { max-width: 880px; margin: 0; font-size: clamp(2.4rem, 5vw, 4.8rem); line-height: 1.06; letter-spacing: -.05em; }
+  h2 { font-size: clamp(1.9rem, 3.7vw, 3.2rem); }
+  p { max-width: 780px; color: var(--muted); font-size: 1.03rem; }
+  .english-copy { margin-top: 70px; padding-top: 48px; border-top: 1px solid var(--line); }
+  @media (max-width: 760px) { .not-found-grid { grid-template-columns: 1fr; } .error-code { font-size: 6rem; } .english-copy { margin-top: 52px; } }
+</style>

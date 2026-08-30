@@ -1,13 +1,101 @@
 ---
 import Base from '../layouts/Base.astro';
 import { evidence } from '../data/evidence';
-interface Props { locale:'th'|'en' }
-const { locale } = Astro.props; const en = locale === 'en';
+
+interface Props { locale: 'th' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
 ---
-<Base locale={locale} path="evidence" title={en?'Evidence & Milestones | HealthTAG':'หลักฐานและหมุดหมาย | HealthTAG'} description={en?'Source-backed milestones and external validation for HealthTAG.':'หลักฐานภายนอกและหมุดหมายสำคัญของ HealthTAG พร้อมลิงก์ต้นทาง'}>
-<main>
-<section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en?'Evidence':'หลักฐาน'}</div><h1>{en?'Claims should be traceable.':'ทุก claim ควรย้อนกลับไปดูแหล่งที่มาได้'}</h1><p>{en?'External validation, public-sector programs, awards, deployments, and strategic collaborations with direct links to original sources.':'รวบรวมหลักฐานจากหน่วยงานภายนอก โครงการภาครัฐ รางวัล การใช้งานจริง และความร่วมมือเชิงยุทธศาสตร์ พร้อมลิงก์ต้นทางโดยตรง'}</p></div></section>
-<section class="section"><div class="container evidence-grid">{evidence.map(item=><article class="evidence-card"><div class="evidence-top"><span class="evidence-year">{item.year}</span><span class="evidence-tag">{item.tag[locale]}</span></div><h2>{item.title}</h2><p>{item.body[locale]}</p><a class="source-link" href={item.href[locale]} target="_blank" rel="noopener noreferrer">{en?'Read original source':'เปิดแหล่งข้อมูลต้นทาง'} ↗ <span>{item.source[locale]}</span></a></article>)}</div></section>
-<section class="section"><div class="container prose"><div class="callout"><strong>{en?'Evidence policy:':'หลักการของหน้านี้:'}</strong> {en?'A partner relationship is not presented as a deployment, an award is not presented as regulatory approval, and a future collaboration is not presented as a live production capability.':'ความสัมพันธ์กับ partner จะไม่ถูกเขียนให้เหมือน deployment, รางวัลจะไม่ถูกเขียนให้เหมือนการรับรองด้านกฎระเบียบ และความร่วมมือในอนาคตจะไม่ถูกเขียนให้เหมือน capability ที่ใช้งาน production แล้ว'}</div></div></section>
-</main>
+
+<Base
+  locale={locale}
+  path="evidence"
+  title={en ? 'Evidence, sources, and limits | HealthTAG' : 'หลักฐาน แหล่งข้อมูล และขอบเขต | HealthTAG'}
+  description={en ? 'Primary-source evidence for HealthTAG milestones, separated from HealthTAG-confirmed implementation context and explicit limitations.' : 'หลักฐานจากแหล่งต้นทางสำหรับหมุดหมายของ HealthTAG โดยแยกจากบริบทการติดตั้งที่ HealthTAG ยืนยันและระบุขอบเขตอย่างชัดเจน'}
+>
+  <main>
+    <section class="page-hero evidence-hero">
+      <div class="container evidence-hero-grid">
+        <div>
+          <div class="eyebrow">HealthTAG / {en ? 'Evidence' : 'หลักฐาน'}</div>
+          <h1>{en ? 'Read the source. Then read its limit.' : 'อ่านแหล่งที่มา แล้วอ่านขอบเขตของหลักฐาน'}</h1>
+        </div>
+        <p>{en ? 'Each entry separates what an external source directly confirms from implementation context supplied by HealthTAG. Awards, sandboxes, programmes, collaborations, and deployments are not interchangeable.' : 'แต่ละรายการแยกสิ่งที่แหล่งภายนอกยืนยันโดยตรง ออกจากบริบทการติดตั้งที่ HealthTAG ให้ข้อมูล รางวัล sandbox โครงการ ความร่วมมือ และการติดตั้งใช้งาน ไม่ใช่ความสัมพันธ์ประเภทเดียวกัน'}</p>
+      </div>
+    </section>
+
+    <section class="section evidence-section">
+      <div class="container evidence-list">
+        {evidence.map((item, index) => (
+          <article class="evidence-entry">
+            <header class="evidence-index">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <time datetime={item.eventDate}>{item.displayDate[locale]}</time>
+              <strong class="evidence-tag">{item.tag[locale]}</strong>
+            </header>
+            <div class="evidence-body">
+              <h2>{item.title}</h2>
+              <dl class="source-meta">
+                <div><dt>{en ? 'Source organization' : 'หน่วยงานต้นทาง'}</dt><dd>{item.sourceOrganization[locale]}</dd></div>
+                <div><dt>{en ? 'Source publication' : 'วันที่เผยแพร่ของแหล่งข้อมูล'}</dt><dd>{item.sourcePublicationDate[locale]}</dd></div>
+                <div><dt>{en ? 'Last verified' : 'ตรวจสอบล่าสุด'}</dt><dd>30 Aug 2026</dd></div>
+              </dl>
+              <section class="claim-block external-claim">
+                <span>{en ? 'Externally confirmed' : 'สิ่งที่แหล่งภายนอกยืนยัน'}</span>
+                <p>{item.externallyConfirmed[locale]}</p>
+              </section>
+              <section class="claim-block context-claim">
+                <span>{en ? 'HealthTAG context and limitation' : 'บริบทจาก HealthTAG และข้อจำกัด'}</span>
+                <p>{item.healthTagContext[locale]}</p>
+              </section>
+              <a class="source-link" href={item.href[locale]} target="_blank" rel="noopener noreferrer" aria-label={`${en ? 'Open the original source for' : 'เปิดแหล่งข้อมูลต้นทางของ'} ${item.title} ${en ? 'in a new tab' : 'ในแท็บใหม่'}`}>{en ? 'Open original source' : 'เปิดแหล่งข้อมูลต้นทาง'} <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="evidence-policy">
+      <div class="container policy-grid">
+        <div><span>POLICY</span><h2>{en ? 'Relationship type is part of the evidence.' : 'ประเภทความสัมพันธ์เป็นส่วนหนึ่งของหลักฐาน'}</h2></div>
+        <p>{en ? 'A network listing is not a deployment. An award is not regulatory approval. Sandbox exit is not certification. A collaboration is not a live production capability. A programme is not a customer contract.' : 'รายชื่อในเครือข่ายไม่ใช่การติดตั้งใช้งาน รางวัลไม่ใช่การอนุมัติด้านกฎระเบียบ การออกจาก sandbox ไม่ใช่การรับรอง ความร่วมมือไม่ใช่ความสามารถที่เปิดใช้งานจริง และการเข้าร่วมโครงการไม่ใช่สัญญาลูกค้า'}</p>
+      </div>
+    </section>
+  </main>
 </Base>
+
+<style>
+  .evidence-hero-grid { display: grid; grid-template-columns: 1.15fr .65fr; gap: 68px; align-items: end; }
+  .evidence-hero p { margin: 0 0 8px; }
+  .evidence-section { background: #eef3f1; }
+  .evidence-list { display: grid; gap: 18px; }
+  .evidence-entry { display: grid; grid-template-columns: minmax(170px, .35fr) minmax(0, 1.65fr); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--white); }
+  .evidence-index { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 30px; border-right: 1px solid var(--line); background: var(--paper); }
+  .evidence-index > span { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: var(--teal); font-size: 2rem; line-height: 1; }
+  .evidence-index time { color: var(--muted); font-size: .86rem; }
+  .evidence-tag { display: inline-flex; min-height: 30px; align-items: center; margin-top: auto; border: 1px solid #8fbab3; border-radius: 999px; padding: 4px 9px; color: var(--ink); background: #f6fbf9; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+  .evidence-body { padding: clamp(26px, 4vw, 46px); }
+  .evidence-body h2 { margin: 0 0 24px; font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -.04em; }
+  .source-meta { display: grid; grid-template-columns: 1.1fr .9fr .7fr; gap: 18px; margin: 0 0 28px; }
+  .source-meta div { border-top: 1px solid var(--line); padding-top: 10px; }
+  .source-meta dt { color: var(--muted); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+  .source-meta dd { margin: 4px 0 0; font-size: .9rem; font-weight: 600; }
+  .claim-block { display: grid; grid-template-columns: minmax(150px, .35fr) minmax(0, 1.65fr); gap: 22px; padding: 20px 0; border-top: 1px solid var(--line); }
+  .claim-block > span { font-size: .72rem; font-weight: 600; letter-spacing: .065em; text-transform: uppercase; color: var(--teal); }
+  .claim-block p { margin: 0; color: var(--muted); }
+  .context-claim > span { color: var(--amber-ink); }
+  .source-link { display: inline-flex; gap: 8px; margin-top: 22px; color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .evidence-policy { padding: 68px 0; background: var(--ink); color: var(--paper); }
+  .policy-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: end; }
+  .policy-grid span { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #8bd9d1; font-size: .7rem; letter-spacing: .1em; }
+  .policy-grid h2 { margin: 12px 0 0; font-size: clamp(2rem, 3.7vw, 3.4rem); line-height: 1.1; letter-spacing: -.045em; }
+  .policy-grid p { margin: 0; color: #bdd0d0; font-size: 1.03rem; }
+  @media (max-width: 760px) {
+    .evidence-hero-grid, .evidence-entry, .policy-grid { grid-template-columns: 1fr; gap: 30px; }
+    .evidence-index { display: grid; grid-template-columns: auto 1fr auto; align-items: center; padding: 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+    .evidence-tag { margin: 0; }
+    .source-meta { grid-template-columns: 1fr; gap: 10px; }
+    .claim-block { grid-template-columns: 1fr; gap: 8px; }
+  }
+  @media (max-width: 420px) { .evidence-index { grid-template-columns: auto 1fr; } .evidence-tag { grid-column: 1 / -1; } }
+</style>
