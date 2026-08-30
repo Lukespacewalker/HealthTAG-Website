@@ -1,0 +1,1 @@
+Content data lives here so page structure and copy can evolve independently. Keep recurring concepts on their canonical pages as documented in `/CONTENT_OWNERSHIP.md`; link across pages instead of duplicating technical detail.
