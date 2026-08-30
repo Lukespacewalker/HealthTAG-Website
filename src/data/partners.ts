@@ -4,6 +4,7 @@ import siriraj from '../assets/legacy/partners/hospital-partner1.png';
 import sirirajFaculty from '../assets/legacy/partners/hospital-partner2.png';
 import siph from '../assets/legacy/partners/hospital-partner3.png';
 import thammasat from '../assets/legacy/partners/hospital-partner4.png';
+import khonKaenMedicine from '../assets/legacy/partners/hospital-partner5.png';
 import depa from '../assets/legacy/partners/thaipartner1.png';
 import etda from '../assets/legacy/partners/thaipartner2.png';
 import ticta from '../assets/legacy/partners/thaipartner3.png';
@@ -41,6 +42,8 @@ export const networkGroups: NetworkGroup[] = [
       { id: 'siriraj-faculty', name: { th: 'คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล', en: 'Faculty of Medicine Siriraj Hospital, Mahidol University' }, logo: sirirajFaculty, relationship: listing },
       { id: 'siph', name: { th: 'โรงพยาบาลศิริราช ปิยมหาราชการุณย์', en: 'Siriraj Piyamaharajkarun Hospital' }, logo: siph, relationship: listing },
       { id: 'thammasat', name: { th: 'โรงพยาบาลธรรมศาสตร์เฉลิมพระเกียรติ', en: 'Thammasat University Hospital' }, logo: thammasat, relationship: listing },
+      // The site owner confirmed this original logo's identity on 2026-08-30.
+      { id: 'khon-kaen-medicine', name: { th: 'คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น', en: 'Faculty of Medicine, Khon Kaen University' }, logo: khonKaenMedicine, relationship: listing },
     ],
   },
   {
@@ -69,7 +72,3 @@ export const networkGroups: NetworkGroup[] = [
     ],
   },
 ];
-
-// hospital-partner5.png is preserved in the asset manifest but intentionally not
-// imported into a page: the legacy code does not establish its organization name.
-// Do not infer identity from list position or reuse the previously guessed label.
