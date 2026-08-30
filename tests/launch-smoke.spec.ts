@@ -12,7 +12,9 @@ const routes = [
   '/company/',
   '/evidence/',
   '/contact/',
+  '/support/',
   '/privacy/',
+  '/en/support/',
 ];
 
 for (const width of [320, 390, 768, 1440]) {
@@ -32,7 +34,7 @@ for (const width of [320, 390, 768, 1440]) {
 
 test('lazy and responsive images decode on image-heavy pages', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  for (const route of ['/', '/network/', '/company/']) {
+  for (const route of ['/', '/network/', '/company/', '/support/', '/en/support/']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' });
     await page.locator('img').evaluateAll((images) => images.forEach((image) => ((image as HTMLImageElement).loading = 'eager')));
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -47,7 +49,7 @@ test('lazy and responsive images decode on image-heavy pages', async ({ page }) 
 
 test('Thai headings preserve safe line boxes for tone marks', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 900 });
-  for (const route of ['/', '/interoperability/', '/trust/', '/network/', '/contact/']) {
+  for (const route of ['/', '/interoperability/', '/trust/', '/network/', '/contact/', '/support/']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
     const metrics = await page.locator('h1, h2, h3').evaluateAll((headings) => headings.map((heading) => {
@@ -67,6 +69,7 @@ test('mobile navigation works with keyboard and exposes launch routes', async ({
   await expect(page.locator('.mobile-nav')).toHaveAttribute('open', '');
   await expect(page.locator('.mobile-panel a[href="/evidence/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/contact/"]')).toBeVisible();
+  await expect(page.locator('.mobile-panel a[href="/support/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/privacy/"]')).toBeVisible();
   await page.keyboard.press('Space');
   await expect(page.locator('.mobile-nav')).not.toHaveAttribute('open', '');
@@ -102,7 +105,23 @@ test('network relationships are presented as current network relationships', asy
   await expect(page.locator('.relationship-badge', { hasText: 'Network' }).first()).toBeVisible();
 });
 
-for (const route of ['/interoperability/', '/network/', '/contact/', '/en/evidence/']) {
+test('support separates the recommended and legacy reader paths', async ({ page }) => {
+  await page.goto('/support/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('ตั้งค่าเครื่องอ่าน HealthTAG');
+  await expect(page.locator('#recommended')).toContainText('Driver 3.8');
+  await expect(page.locator('#recommended')).toContainText('Silicon Craft ADR12');
+  await expect(page.locator('#legacy')).toContainText('ไม่แนะนำสำหรับการติดตั้งใหม่');
+  await expect(page.locator('#legacy details')).not.toHaveAttribute('open', '');
+  const downloadHrefs = await page.locator('main a[href^="https://"]').evaluateAll((links) => links.map((link) => (link as HTMLAnchorElement).href));
+  expect(downloadHrefs.length).toBeGreaterThanOrEqual(5);
+  expect(downloadHrefs.every((href) => href.startsWith('https://'))).toBe(true);
+
+  await page.goto('/en/support/');
+  await expect(page.locator('#legacy')).toContainText('Not recommended for new installations');
+  await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
+});
+
+for (const route of ['/interoperability/', '/network/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });

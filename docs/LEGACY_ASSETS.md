@@ -2,7 +2,7 @@
 
 Reviewed: 2026-08-30. Source: `Lukespacewalker/healthtag.io-nx`.
 
-The allowlist in `scripts/legacy-assets.json` records each source path, target path, and Git blob SHA. All 21 binaries are copied unchanged. Astro generates display renditions from these local originals; a normal build has no dependency on the old website, a signed download URL, or private repository credentials.
+The allowlist in `scripts/legacy-assets.json` records each source path, target path, and Git blob SHA. All 24 binaries are copied unchanged. Astro generates display renditions from these local originals; a normal build has no dependency on the old website, a signed download URL, or private repository credentials.
 
 ## Partner marks
 
@@ -40,6 +40,18 @@ The site owner identified `hospital-partner5.png` as **คณะแพทยศ�
 - `bank.jpg`, renamed `tanawat.jpg`: source `frontend/src/data/card.ts` associates it with Tanawat Udom.
 
 Identity mappings are taken from source records, not face recognition. Preserve target spelling and role text during this asset-only migration. Team roles are shown as a historical contributor record, not current employment. People without a verified image remain in a text list. No private phone numbers, personal social profiles, placeholder contact details, or pravatar images are migrated.
+
+## Support images
+
+The legacy Support component maps these original files directly to the named downloads. They are retained unchanged and used only where the image helps identify an interface or device.
+
+| Original file | Current use |
+| --- | --- |
+| `nfc-new-scanner.png` | Screenshot of HealthTAG Card Reader, used with the recommended Windows reader. |
+| `nfc-scanner.jpg` | Screenshot of the older HealthTAG NFC Reader, shown only inside the Legacy section. |
+| `20220909_130154822_iOS.jpg` | Photograph whose visible product label identifies the Silicon Craft ADR12 reader. |
+
+The generic Samsung tablet image and stock meeting image from the old Support page are not migrated because they do not show the supported connection or Community Edition interface. The old Community Edition manual route has no corresponding source document in the legacy repository and is not published as a working manual.
 
 ## Brand
 

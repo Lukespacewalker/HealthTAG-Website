@@ -92,6 +92,7 @@ const orgJson = JSON.stringify({
         <a class="brand" href={home} aria-label={isEn ? 'HealthTAG home' : 'หน้าแรก HealthTAG'}><BrandLogo priority /></a>
         <nav class="nav-links" aria-label={isEn ? 'Main navigation' : 'เมนูหลัก'}>
           {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`}>{label}</a>)}
+          <a class="support-link" href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
           <a class="lang" href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'TH' : 'EN'}</a>
           <a class="nav-cta" href={`${prefix}/contact/`}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
         </nav>
@@ -103,6 +104,7 @@ const orgJson = JSON.stringify({
               <a href={`${prefix}/how-it-works/`}>{isEn ? 'How it works' : 'ระบบทำงานอย่างไร'}</a>
               <a href={`${prefix}/trust/`}>{isEn ? 'Trust & access' : 'ความไว้วางใจและสิทธิ์เข้าถึง'}</a>
               <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
+              <a href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
               <a href={`${prefix}/privacy/`}>{isEn ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</a>
               <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
               <a class="btn primary" href={`${prefix}/contact/`}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
@@ -135,6 +137,7 @@ const orgJson = JSON.stringify({
         </nav>
         <nav aria-label={isEn ? 'Contact and policy links' : 'ลิงก์ติดต่อและนโยบาย'}>
           <strong>{isEn ? 'Contact' : 'ติดต่อ'}</strong>
+          <a href={`${prefix}/support/`}>{isEn ? 'Reader setup and downloads' : 'ติดตั้งเครื่องอ่านและดาวน์โหลด'}</a>
           <a href={`${prefix}/contact/`}>{isEn ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a>
           <a href={`${prefix}/privacy/`}>{isEn ? 'Website privacy notice' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์'}</a>
           <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>

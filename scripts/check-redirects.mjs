@@ -13,6 +13,8 @@ const required = new Map([
   ['/about-us/team', '/company/'],
   ['/awards', '/evidence/'],
   ['/th/awards', '/evidence/'],
+  ['/support', '/support/'],
+  ['/en/support', '/en/support/'],
 ]);
 
 const lines = (await fs.readFile(redirectFile, 'utf8'))

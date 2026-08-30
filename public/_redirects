@@ -34,5 +34,9 @@
 /en/awards              /en/evidence/        301
 /en/awards/             /en/evidence/        301
 
-# Support, news, articles, personal cards, and downloads intentionally have no
-# blanket redirect until their content or continued operational need is verified.
+# Canonical support routes
+/support                /support/            301
+/en/support             /en/support/         301
+
+# News, articles, personal cards, and downloads intentionally have no blanket
+# redirect until their content or continued operational need is verified.
