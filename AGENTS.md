@@ -53,6 +53,17 @@ The architecture summary in `README.md` is the repository baseline. In particula
 - Preserve important legacy URLs with deliberate redirects.
 - Keep dependencies, lockfile, Node requirements, and CI aligned.
 
+## Public copy discipline
+
+- Public copy must describe HealthTAG, the system, the evidence, or the relationship itself. Do not narrate the page layout, badge system, card structure, or editorial process.
+- Delete meta-UI sentences when the heading or visible structure already communicates the point. Examples to reject include “แต่ละองค์กรมีป้ายกำกับ…”, “หน้านี้แสดง…”, “วิธีอ่านป้ายกำกับ”, “Each entry shows…”, “This list applies…”, and “shown separately”.
+- Replace meta-UI copy with a concrete fact. If no fact is added, remove the sentence instead of rephrasing it.
+- Keep source boundaries on Evidence and Deployments, but state them directly: name what the source confirms and what information comes from HealthTAG.
+- Keep functional instructions where users need them, including form requirements, sensitive-data warnings, error recovery, and accessible text alternatives for diagrams.
+- Avoid internal editorial and engineering terms in public copy, including `baseline`, `repository`, `owner-confirmed`, `workstream`, `claim`, `source-node stack`, `production scope`, and `component boundary`.
+- Run a Humanizer review on new or materially revised public copy. Preserve facts and technical names; remove slogans, repetitive negative framing, filler, and manufactured punchlines.
+- Thai and English should sound natural in their own language. Do not preserve an English sentence shape when Thai can state the fact more directly.
+
 ## Workflow and verification
 
 1. Inspect the repository, relevant sources, and rendered output.

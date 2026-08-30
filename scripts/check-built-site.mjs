@@ -69,6 +69,16 @@ for (const file of htmlFiles) {
   const bodyText = visibleText(elements('body')[0] ?? {}).replace(/\s+/g, ' ').trim();
   const internalTerms = bodyText.match(/\b(?:baseline|owner-confirmed|site-owner|workstream|claim|claims|source-node stack|production scope|component boundary)\b/gi) ?? [];
   if (internalTerms.length) errors.push(`${route}: internal wording is visible (${[...new Set(internalTerms)].join(', ')})`);
+  const metaUiPatterns = [
+    /\bEach (?:organization|entry|item)\b/i,
+    /\b(?:This page|This list|This overview)\s+(?:shows|lists|explains|states|applies)\b/i,
+    /\b(?:How to read the labels|Relationship types on this page|shown together|shown separately)\b/i,
+    /(?:แต่ละองค์กร|แต่ละรายการ).*(?:ป้ายกำกับ|แสดง|ระบุ)/i,
+    /(?:หน้านี้|รายการนี้|ภาพรวมนี้).*(?:แสดง|ระบุ|อธิบาย|เป็นข้อมูล|ใช้กับ)/i,
+    /(?:วิธีอ่านป้ายกำกับ|ประเภทความสัมพันธ์ในหน้านี้|แสดงไว้ในกลุ่มเดียว|แสดงแยกจากกัน)/i,
+  ];
+  const metaUiMatch = metaUiPatterns.find((pattern) => pattern.test(bodyText));
+  if (metaUiMatch) errors.push(`${route}: public copy narrates the interface or editorial structure (${metaUiMatch})`);
   if (/Historical Network|เครือข่ายในอดีต/i.test(bodyText)) errors.push(`${route}: network relationship is incorrectly labeled historical`);
   if (bodyText.includes('—')) errors.push(`${route}: em dash remains in public copy`);
   const lang = attr(elements('html')[0], 'lang');

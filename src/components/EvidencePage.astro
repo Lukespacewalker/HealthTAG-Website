@@ -21,7 +21,7 @@ const verifiedDate = new Intl.DateTimeFormat(en ? 'en-GB' : 'th-TH', { day: 'num
           <div class="eyebrow">HealthTAG / {en ? 'Evidence' : 'หลักฐาน'}</div>
           <h1>{en ? 'Sources and what they confirm' : 'แหล่งข้อมูลและสิ่งที่ยืนยัน'}</h1>
         </div>
-        <p>{en ? 'Each entry shows the original source alongside information supplied by HealthTAG. The relationship label identifies whether the item is a programme, award, sandbox, collaboration, profile, or deployment.' : 'แต่ละรายการแสดงแหล่งข้อมูลต้นทางคู่กับข้อมูลจาก HealthTAG พร้อมป้ายกำกับว่าเป็นโครงการ รางวัล sandbox ความร่วมมือ บทความแนะนำ หรือการติดตั้งใช้งาน'}</p>
+        <p>{en ? 'External sources confirm programmes, awards, sandbox testing, collaborations, and published profiles. Some implementation details come directly from HealthTAG.' : 'แหล่งข้อมูลภายนอกยืนยันโครงการ รางวัล การทดสอบใน sandbox ความร่วมมือ และบทความแนะนำ ส่วนรายละเอียดการติดตั้งบางรายการมาจาก HealthTAG โดยตรง'}</p>
       </div>
     </section>
 
@@ -58,8 +58,8 @@ const verifiedDate = new Intl.DateTimeFormat(en ? 'en-GB' : 'th-TH', { day: 'num
 
     <section class="evidence-policy">
       <div class="container policy-grid">
-        <div><span>{en ? 'RELATIONSHIPS' : 'ความสัมพันธ์'}</span><h2>{en ? 'How to read the labels' : 'วิธีอ่านป้ายกำกับ'}</h2></div>
-        <p>{en ? 'Network identifies an ongoing relationship. Deployment describes an implementation. Award records a competition result. Sandbox records programme testing. Programme and collaboration record participation or public cooperation. See each source for the details.' : 'เครือข่ายหมายถึงความสัมพันธ์ที่ยังดำเนินอยู่ การติดตั้งใช้งานหมายถึงการนำระบบไปใช้ รางวัลคือผลการประกวด sandbox คือการทดสอบในโครงการ ส่วนโครงการและความร่วมมือบันทึกการเข้าร่วมหรือความร่วมมือสาธารณะ รายละเอียดของแต่ละรายการอยู่ในแหล่งข้อมูลที่ลิงก์ไว้'}</p>
+        <div><span>{en ? 'RELATIONSHIPS' : 'ความสัมพันธ์'}</span><h2>{en ? 'What each relationship means' : 'ความหมายของความสัมพันธ์แต่ละประเภท'}</h2></div>
+        <p>{en ? 'Network identifies an ongoing relationship. Deployment describes an implementation. Award records a competition result. Sandbox records programme testing. Programme and collaboration record participation or public cooperation.' : 'เครือข่ายหมายถึงความสัมพันธ์ที่ยังดำเนินอยู่ การติดตั้งใช้งานหมายถึงการนำระบบไปใช้ รางวัลคือผลการประกวด sandbox คือการทดสอบในโครงการ ส่วนโครงการและความร่วมมือหมายถึงการเข้าร่วมหรือความร่วมมือสาธารณะ'}</p>
       </div>
     </section>
   </main>
