@@ -1,0 +1,171 @@
+---
+import Base from '../../layouts/Base.astro';
+
+interface Props { locale: 'th' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+const capabilities = en ? [
+  {
+    index: '01',
+    title: 'A health overview without losing the detail',
+    body: 'The overview brings together the available clinical summary, biological-age results, and continuous readings. Patients can move from a high-level health score to the underlying category that needs attention.',
+    labels: ['Clinical summary', 'Biological age', 'Continuous readings'],
+  },
+  {
+    index: '02',
+    title: 'Records organized around common patient questions',
+    body: 'Separate views cover medicines, allergies, vaccinations, hospital visits, and special reports. The medicine view uses a calendar to show when medicine was received, while special reports group items such as NCD and kidney-clinic results.',
+    labels: ['Medicines', 'Allergies', 'Vaccinations', 'Visits'],
+  },
+  {
+    index: '03',
+    title: 'Hospital connections remain visible',
+    body: 'Patients can see connected data sources and the number of available visit, medicine, document, and medical-image records. Connection controls are shown alongside the hospital or provider identity.',
+    labels: ['Data sources', 'Connection control', 'Record counts'],
+  },
+  {
+    index: '04',
+    title: 'More than a record list',
+    body: 'The current interface also includes biological-age analytics, an AI assistant area, referral, emergency information, and profile settings. Availability and content depend on the account, connected services, and the data supplied to the PHR.',
+    labels: ['BioAge analytics', 'AI assistant', 'Referral', 'Emergency'],
+  },
+] : [
+  {
+    index: '01',
+    title: 'เห็นภาพรวมสุขภาพ โดยยังลงไปดูรายละเอียดได้',
+    body: 'หน้า Overview รวมสรุปข้อมูลทางคลินิก ผลอายุชีวภาพ และข้อมูลต่อเนื่องที่มีอยู่ ผู้ป่วยจึงเริ่มจากคะแนนภาพรวม แล้วเลือกดูหมวดที่ต้องการติดตามต่อได้',
+    labels: ['ข้อมูลทางคลินิก', 'อายุชีวภาพ', 'ข้อมูลต่อเนื่อง'],
+  },
+  {
+    index: '02',
+    title: 'แยกข้อมูลตามเรื่องที่ผู้ป่วยต้องการดู',
+    body: 'ข้อมูลยา การแพ้ วัคซีน การรับบริการ และรายงานสุขภาพมีหน้าของตนเอง หน้ายาใช้ปฏิทินแสดงวันที่รับยา ส่วนรายงานสุขภาพรวบรวมหัวข้ออย่างคลินิก NCD และคลินิกโรคไต',
+    labels: ['ยา', 'การแพ้', 'วัคซีน', 'การรับบริการ'],
+  },
+  {
+    index: '03',
+    title: 'ตรวจสอบการเชื่อมต่อโรงพยาบาลได้',
+    body: 'ผู้ป่วยเห็นแหล่งข้อมูลที่เชื่อมต่อ พร้อมจำนวนข้อมูลการรับบริการ ยา เอกสาร และภาพทางการแพทย์ การควบคุมการเชื่อมต่อแสดงคู่กับชื่อโรงพยาบาลหรือผู้ให้บริการ',
+    labels: ['แหล่งข้อมูล', 'ควบคุมการเชื่อมต่อ', 'จำนวนรายการ'],
+  },
+  {
+    index: '04',
+    title: 'มีเครื่องมือมากกว่าการเปิดดูเวชระเบียน',
+    body: 'หน้าจอปัจจุบันมีการวิเคราะห์อายุชีวภาพ พื้นที่ผู้ช่วย AI การส่งต่อ ข้อมูลฉุกเฉิน และการตั้งค่าโปรไฟล์ เนื้อหาที่เห็นขึ้นกับบัญชี บริการที่เชื่อมต่อ และข้อมูลที่ส่งเข้ามายัง PHR',
+    labels: ['BioAge analytics', 'ผู้ช่วย AI', 'การส่งต่อ', 'ข้อมูลฉุกเฉิน'],
+  },
+];
+---
+
+<Base
+  locale={locale}
+  path="phr"
+  title={en ? 'Personal Health Record | HealthTAG' : 'Personal Health Record | HealthTAG'}
+  description={en ? 'HealthTAG PHR organizes authorized health information into an overview, medicines, allergies, vaccinations, visits, reports, and connected data sources.' : 'HealthTAG PHR จัดข้อมูลสุขภาพที่ได้รับอนุญาตเป็นภาพรวม ยา การแพ้ วัคซีน การรับบริการ รายงาน และแหล่งข้อมูลที่เชื่อมต่อ'}
+>
+  <main>
+    <section class="page-hero phr-hero">
+      <div class="container phr-hero-grid">
+        <div>
+          <div class="eyebrow">Personal Health Record</div>
+          <h1>{en ? 'Health information arranged for the person who needs to use it.' : 'จัดข้อมูลสุขภาพให้ผู้ป่วยเปิดดูและใช้งานได้'}</h1>
+          <p>{en ? 'HealthTAG PHR presents health information that the patient is authorized to access. It organizes available records by purpose, keeps data-source connections visible, and provides a route from the overview to each record category.' : 'HealthTAG PHR แสดงข้อมูลสุขภาพที่ผู้ป่วยได้รับสิทธิ์เข้าถึง จัดข้อมูลตามวัตถุประสงค์ของการใช้งาน แสดงแหล่งข้อมูลที่เชื่อมต่อ และพาผู้ป่วยจากภาพรวมไปยังข้อมูลแต่ละหมวด'}</p>
+          <div class="actions">
+            <a class="btn primary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer" aria-label={en ? 'Open the HealthTAG PHR website in a new tab' : 'เปิดเว็บไซต์ HealthTAG PHR ในแท็บใหม่'}>{en ? 'Open PHR website' : 'เปิดเว็บไซต์ PHR'} ↗</a>
+            <a class="btn secondary" href={`${prefix}/how-it-works/`}>{en ? 'See how data reaches the PHR' : 'ดูเส้นทางข้อมูลมายัง PHR'} →</a>
+          </div>
+        </div>
+        <div class="phr-map" aria-label={en ? 'PHR information map showing overview, health records, connected hospitals, and patient tools' : 'แผนผังข้อมูล PHR แสดงภาพรวม ข้อมูลสุขภาพ โรงพยาบาลที่เชื่อมต่อ และเครื่องมือสำหรับผู้ป่วย'}>
+          <div class="map-title"><span>PHR</span><small>{en ? 'Authorized patient view' : 'มุมมองของผู้ป่วยตามสิทธิ์'}</small></div>
+          <div class="map-grid">
+            <div><b>{en ? 'Overview' : 'ภาพรวม'}</b><small>{en ? 'Clinical · biological · continuous' : 'คลินิก · ชีวภาพ · ต่อเนื่อง'}</small></div>
+            <div><b>{en ? 'Records' : 'ข้อมูลสุขภาพ'}</b><small>{en ? 'Medicines · allergies · visits' : 'ยา · การแพ้ · การรับบริการ'}</small></div>
+            <div><b>{en ? 'Connections' : 'การเชื่อมต่อ'}</b><small>{en ? 'Hospitals and providers' : 'โรงพยาบาลและผู้ให้บริการ'}</small></div>
+            <div><b>{en ? 'Patient tools' : 'เครื่องมือผู้ป่วย'}</b><small>{en ? 'Reports · referral · emergency' : 'รายงาน · ส่งต่อ · ฉุกเฉิน'}</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section phr-capabilities">
+      <div class="container">
+        <div class="section-head phr-section-head">
+          <span class="mono">{en ? 'CURRENT PRODUCT SCOPE' : 'ขอบเขตผลิตภัณฑ์ปัจจุบัน'}</span>
+          <h2>{en ? 'What patients can do in the PHR' : 'ผู้ป่วยใช้ PHR ทำอะไรได้บ้าง'}</h2>
+        </div>
+        <div class="capability-list">
+          {capabilities.map((item) => (
+            <article>
+              <span class="capability-index">{item.index}</span>
+              <div><h3>{item.title}</h3><p>{item.body}</p></div>
+              <div class="capability-labels">{item.labels.map((label) => <span>{label}</span>)}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section phr-boundary">
+      <div class="container boundary-grid">
+        <div>
+          <span class="mono">{en ? 'ACCESS AND DATA BOUNDARY' : 'ขอบเขตสิทธิ์และข้อมูล'}</span>
+          <h2>{en ? 'The PHR presents what is available and authorized' : 'PHR แสดงเฉพาะข้อมูลที่มีและได้รับอนุญาต'}</h2>
+        </div>
+        <div>
+          <p>{en ? 'A category may be empty when no matching record is available. The information shown varies with the patient account, connected hospital or provider, authorization, and the data supplied by those systems.' : 'บางหมวดอาจไม่มีรายการเมื่อระบบต้นทางไม่มีข้อมูลที่ตรงกัน ข้อมูลที่แสดงจึงแตกต่างตามบัญชีผู้ป่วย โรงพยาบาลหรือผู้ให้บริการที่เชื่อมต่อ สิทธิ์การเข้าถึง และข้อมูลที่ระบบเหล่านั้นส่งมา'}</p>
+          <p class="demo-note">{en ? 'Product behavior was checked with an authorized demonstration account containing synthetic data. This does not establish a live deployment or data exchange with any named hospital.' : 'การทำงานของผลิตภัณฑ์ตรวจสอบจากบัญชีสาธิตที่ได้รับอนุญาตและใช้ข้อมูลจำลอง จึงไม่ใช่หลักฐานว่ามีการติดตั้งใช้งานหรือแลกเปลี่ยนข้อมูลจริงกับโรงพยาบาลที่ระบุชื่อ'}</p>
+          <a href={`${prefix}/trust/`}>{en ? 'Read about authorization and audit' : 'อ่านเรื่องการอนุญาตและการตรวจสอบย้อนหลัง'} →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .phr-hero { padding-bottom: clamp(3.5rem, 8vw, 7rem); }
+  .phr-hero-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(22rem, .98fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
+  .phr-hero h1 { max-width: 16ch; overflow-wrap: anywhere; }
+  .phr-hero p { max-width: 62ch; }
+  .phr-map { position: relative; padding: 1rem; border: 1px solid var(--line); background: var(--white); }
+  .phr-map::before { content: ''; position: absolute; inset: -12px 12px 12px -12px; z-index: -1; background: var(--mint); border: 1px solid color-mix(in srgb, var(--teal) 20%, transparent); }
+  .map-title { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.2rem 1.3rem; border-bottom: 1px solid var(--line); }
+  .map-title span { color: var(--teal); font: 700 clamp(2.5rem, 6vw, 5rem)/.85 'IBM Plex Sans', sans-serif; letter-spacing: -.08em; }
+  .map-title small { color: var(--muted); text-align: right; }
+  .map-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .map-grid > div { min-height: 8.5rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: flex-end; gap: .35rem; border-bottom: 1px solid var(--line); }
+  .map-grid > div:nth-child(odd) { border-right: 1px solid var(--line); }
+  .map-grid > div:nth-child(3), .map-grid > div:nth-child(4) { border-bottom: 0; }
+  .map-grid b { font-size: 1.05rem; }
+  .map-grid small { color: var(--muted); line-height: 1.45; }
+  .phr-capabilities { background: var(--white); }
+  .phr-section-head { max-width: 54rem; }
+  .phr-section-head .mono, .phr-boundary .mono { display: block; margin-bottom: 1rem; color: var(--teal); }
+  .capability-list { border-top: 1px solid var(--line); }
+  .capability-list article { display: grid; grid-template-columns: 5rem minmax(0, 1.35fr) minmax(13rem, .65fr); gap: clamp(1rem, 3vw, 3rem); padding: 2.2rem 0; border-bottom: 1px solid var(--line); align-items: start; }
+  .capability-index { color: var(--teal); font: 600 1rem/1 'IBM Plex Mono', monospace; }
+  .capability-list h3 { margin: 0 0 .65rem; font-size: clamp(1.25rem, 2.4vw, 1.75rem); }
+  .capability-list p { margin: 0; color: var(--muted); max-width: 68ch; }
+  .capability-labels { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .capability-labels span { padding: .45rem .65rem; border: 1px solid var(--line); color: var(--ink); font: 500 .75rem/1.2 'IBM Plex Mono', monospace; }
+  .phr-boundary { background: var(--ink); color: var(--white); }
+  .boundary-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); }
+  .boundary-grid h2 { max-width: 16ch; margin-bottom: 0; }
+  .boundary-grid p { color: color-mix(in srgb, var(--white) 78%, transparent); }
+  .boundary-grid .demo-note { padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--white) 18%, transparent); font-size: .92rem; }
+  .boundary-grid a { color: var(--white); }
+  @media (max-width: 850px) {
+    .phr-hero-grid, .boundary-grid { grid-template-columns: 1fr; }
+    .phr-map { margin: .75rem .75rem 0 0; }
+    .capability-list article { grid-template-columns: 3rem 1fr; }
+    .capability-labels { grid-column: 2; }
+  }
+  @media (max-width: 520px) {
+    .map-grid { grid-template-columns: 1fr; }
+    .map-grid > div { min-height: 6.5rem; border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
+    .map-grid > div:last-child { border-bottom: 0 !important; }
+    .capability-list article { grid-template-columns: 1fr; }
+    .capability-labels { grid-column: 1; }
+  }
+</style>
