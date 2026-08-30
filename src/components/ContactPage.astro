@@ -31,9 +31,9 @@ const enquiryTypes = en ? [
       <div class="container contact-hero-grid">
         <div>
           <div class="eyebrow">HealthTAG / {en ? 'Contact' : 'ติดต่อ'}</div>
-          <h1>{en ? 'Start with the context, not sensitive data.' : 'เริ่มจากบริบท โดยไม่ส่งข้อมูลอ่อนไหว'}</h1>
+          <h1>{en ? 'Tell us about your system without including sensitive data' : 'เล่าระบบที่ต้องการเชื่อม โดยไม่ส่งข้อมูลอ่อนไหว'}</h1>
         </div>
-        <p>{en ? 'Tell us what kind of conversation you need. This static website prepares an email in your own mail app; it does not submit a form to a HealthTAG server.' : 'เลือกหัวข้อที่ต้องการพูดคุย เว็บไซต์แบบ static นี้จะเตรียมอีเมลในแอปอีเมลของคุณ โดยไม่ได้ส่งฟอร์มเข้าเซิร์ฟเวอร์ของ HealthTAG'}</p>
+        <p>{en ? 'Choose a topic and write your message. The form opens an email draft in your mail app, where you can review it before sending.' : 'เลือกหัวข้อและเขียนข้อความ แบบฟอร์มจะเปิดร่างอีเมลในแอปอีเมลของคุณ เพื่อให้ตรวจสอบก่อนส่ง'}</p>
       </div>
     </section>
 
@@ -55,10 +55,10 @@ const enquiryTypes = en ? [
         <form class="contact-form" data-contact-form>
           <div class="form-intro">
             <div>
-              <div class="eyebrow">{en ? 'Structured email' : 'อีเมลแบบมีโครงสร้าง'}</div>
-              <h2>{en ? 'Prepare your enquiry' : 'เตรียมข้อความติดต่อ'}</h2>
+              <div class="eyebrow">{en ? 'Email draft' : 'ร่างอีเมล'}</div>
+              <h2>{en ? 'Write your message' : 'เขียนข้อความติดต่อ'}</h2>
             </div>
-            <p>{en ? 'Required fields are marked “required”. Nothing is uploaded when you fill this form.' : 'ช่องที่จำเป็นมีคำว่า “จำเป็น” ข้อมูลจะยังไม่ถูกอัปโหลดระหว่างกรอกแบบฟอร์มนี้'}</p>
+            <p>{en ? 'Required fields are clearly labelled. The form keeps the text in your browser until it opens the email draft.' : 'ช่องที่จำเป็นมีป้ายกำกับชัดเจน ข้อความจะอยู่ในเบราว์เซอร์จนกว่าแบบฟอร์มจะเปิดร่างอีเมล'}</p>
           </div>
 
           <div class="field full">
@@ -122,7 +122,7 @@ const enquiryTypes = en ? [
       `Enquiry type: ${enquiry}`,
       `Name: ${name}`,
       `Reply email: ${email}`,
-      `Organization: ${organization || '—'}`,
+      `Organization: ${organization || 'Not provided'}`,
       '',
       'Message:',
       message,

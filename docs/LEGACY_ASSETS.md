@@ -6,7 +6,7 @@ The allowlist in `scripts/legacy-assets.json` records each source path, target p
 
 ## Partner marks
 
-The source `frontend/src/components/pages/NetworkPage.astro` imports 5 healthcare marks, 7 Thai marks, and 4 international marks. These are historical groupings, not proof of 16 deployments or current contracts. The new page publishes all 16 marks after the site owner confirmed the final healthcare logo's identity on 2026-08-30.
+The source `frontend/src/components/pages/NetworkPage.astro` imports 5 healthcare marks, 7 Thai marks, and 4 international marks. The site owner confirmed on 2026-08-30 that these organizations remain in the HealthTAG network. Network status does not by itself establish 16 deployments or current contracts. The new page publishes all 16 marks and labels other relationship types separately.
 
 | Original file | Identified organization |
 | --- | --- |
@@ -31,7 +31,7 @@ Names are read from the marks or explicitly confirmed by the site owner, not inf
 
 ### Khon Kaen identity confirmation
 
-The site owner identified `hospital-partner5.png` as **คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น** on 2026-08-30. Its English label is **Faculty of Medicine, Khon Kaen University**. It is now displayed in Hospitals & medical institutions with the historical network listing relationship. This confirmation resolves image identity only; it does not establish a new production deployment or current contract. The original binary and its manifest checksum remain unchanged.
+The site owner identified `hospital-partner5.png` as **คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น** on 2026-08-30. Its English label is **Faculty of Medicine, Khon Kaen University**. The site owner also confirmed that it remains in the HealthTAG network. This confirmation establishes its identity and network status only; it does not establish a production deployment or current contract. The original binary and its manifest checksum remain unchanged.
 
 ## Team photographs
 

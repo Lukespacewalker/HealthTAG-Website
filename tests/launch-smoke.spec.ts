@@ -93,6 +93,15 @@ test('contact flow prepares an email draft without claiming submission', async (
   await expect(page.locator('[data-contact-status]')).toContainText('ข้อความยังไม่ถูกส่ง');
 });
 
+test('network relationships are presented as current network relationships', async ({ page }) => {
+  await page.goto('/network/');
+  await expect(page.locator('body')).not.toContainText('เครือข่ายในอดีต');
+  await expect(page.locator('.relationship-badge', { hasText: 'เครือข่าย' }).first()).toBeVisible();
+  await page.goto('/en/network/');
+  await expect(page.locator('body')).not.toContainText('Historical Network');
+  await expect(page.locator('.relationship-badge', { hasText: 'Network' }).first()).toBeVisible();
+});
+
 for (const route of ['/interoperability/', '/network/', '/contact/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });

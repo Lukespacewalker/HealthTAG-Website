@@ -35,14 +35,14 @@ const d = pageContent[slug]?.[locale] ?? { label: 'HealthTAG', title: en ? 'Heal
     {slug === 'phr' && <section class="section product-story">
       <div class="container product-story-grid">
         <div>
-          <div class="eyebrow">{en ? 'Product proof' : 'ตัวอย่างผลิตภัณฑ์'}</div>
-          <h2>{en ? 'A patient-facing view of authorized records.' : 'มุมมองข้อมูลที่ผู้ป่วยได้รับสิทธิ์เข้าถึง'}</h2>
-          <p>{en ? 'This illustrative interface uses synthetic data. It is not a current-product screenshot or evidence of production exchange between named hospitals.' : 'หน้าจอนี้เป็นภาพประกอบที่ใช้ข้อมูลสังเคราะห์ ไม่ใช่ภาพหน้าจอผลิตภัณฑ์ปัจจุบันหรือหลักฐานการแลกเปลี่ยนข้อมูลจริงระหว่างโรงพยาบาลที่ระบุชื่อ'}</p>
+          <div class="eyebrow">{en ? 'Illustrative PHR view' : 'ภาพประกอบ PHR'}</div>
+          <h2>{en ? 'Authorized records presented to the patient' : 'ข้อมูลที่ผู้ป่วยได้รับสิทธิ์เข้าถึง'}</h2>
+          <p>{en ? 'This illustration uses synthetic data and generic provider names to show the information structure. It does not represent the current product interface or a live exchange between named hospitals.' : 'ภาพประกอบนี้ใช้ข้อมูลสังเคราะห์และชื่อผู้ให้บริการทั่วไปเพื่อแสดงโครงสร้างข้อมูล โดยไม่ได้อ้างอิงหน้าจอผลิตภัณฑ์ปัจจุบันหรือการแลกเปลี่ยนข้อมูลจริงระหว่างโรงพยาบาลที่ระบุชื่อ'}</p>
           <a class="btn secondary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer" aria-label={en ? 'Open the HealthTAG PHR website in a new tab' : 'เปิดเว็บไซต์ HealthTAG PHR ในแท็บใหม่'}>{en ? 'Open PHR website' : 'เปิดเว็บไซต์ PHR'} ↗</a>
         </div>
         <div class="phr-window">
-          <div class="phr-bar"><span></span><strong>{en ? 'Illustrative interface · synthetic data' : 'ภาพประกอบ · ข้อมูลสังเคราะห์'}</strong></div>
-          <div class="phr-profile"><div class="avatar">PT</div><div><strong>PromptCare ID · PC-02814</strong><small>{en ? 'Illustrative providers: 2' : 'ผู้ให้บริการในภาพประกอบ: 2'}</small></div><span class="access-live">{en ? 'Access window · 15 minutes' : 'ช่วงเวลาการเข้าถึง · 15 นาที'}</span></div>
+          <div class="phr-bar"><span></span><strong>{en ? 'Illustration · synthetic data' : 'ภาพประกอบ · ข้อมูลสังเคราะห์'}</strong></div>
+          <div class="phr-profile"><div class="avatar">PT</div><div><strong>PromptCare ID · PC-02814</strong><small>{en ? 'Example providers: 2' : 'ตัวอย่างผู้ให้บริการ: 2'}</small></div><span class="access-live">{en ? 'Access window · 15 minutes' : 'ช่วงเวลาการเข้าถึง · 15 นาที'}</span></div>
           <div class="phr-record"><time>12 AUG</time><div><strong>{en ? 'Outpatient encounter' : 'การรับบริการผู้ป่วยนอก'}</strong><small>{en ? 'Provider A' : 'ผู้ให้บริการ A'} · Encounter</small></div></div>
           <div class="phr-record"><time>04 JUL</time><div><strong>Amoxicillin</strong><small>{en ? 'Provider B' : 'ผู้ให้บริการ B'} · MedicationDispense</small></div></div>
         </div>

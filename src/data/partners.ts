@@ -33,42 +33,42 @@ export interface NetworkGroup {
   introduction: Localized;
   organizations: NetworkOrganization[];
 }
-const listing: Localized = { th: 'รายชื่อในเครือข่ายเดิม', en: 'Historical network listing' };
+const listing: Localized = { th: 'เครือข่าย HealthTAG', en: 'HealthTAG network' };
 export const networkGroups: NetworkGroup[] = [
   {
     id: 'healthcare',
     title: { th: 'โรงพยาบาลและสถาบันการแพทย์', en: 'Hospitals & medical institutions' },
-    introduction: { th: 'องค์กรด้านการดูแลสุขภาพที่ปรากฏในเครือข่ายเดิมของ HealthTAG', en: 'Healthcare organizations represented in HealthTAG’s earlier network.' },
+    introduction: { th: 'โรงพยาบาลและสถาบันการแพทย์ในเครือข่าย HealthTAG', en: 'Hospitals and medical institutions in the HealthTAG network.' },
     organizations: [
       { id: 'siriraj', name: { th: 'โรงพยาบาลศิริราช', en: 'Siriraj Hospital' }, logo: siriraj, relationship: { th: 'กรณีศึกษาการติดตั้งภายใต้โครงการ Siriraj 5G Smart Hospital', en: 'Deployment case study within the Siriraj 5G Smart Hospital programme' }, badge: { th: 'การติดตั้งใช้งาน', en: 'Deployment' }, detailPage: 'deployments', featured: true },
-      { id: 'siriraj-faculty', name: { th: 'คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล', en: 'Faculty of Medicine Siriraj Hospital, Mahidol University' }, logo: sirirajFaculty, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
-      { id: 'siph', name: { th: 'โรงพยาบาลศิริราช ปิยมหาราชการุณย์', en: 'Siriraj Piyamaharajkarun Hospital' }, logo: siph, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
-      { id: 'thammasat', name: { th: 'โรงพยาบาลธรรมศาสตร์เฉลิมพระเกียรติ', en: 'Thammasat University Hospital' }, logo: thammasat, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
+      { id: 'siriraj-faculty', name: { th: 'คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล', en: 'Faculty of Medicine Siriraj Hospital, Mahidol University' }, logo: sirirajFaculty, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'siph', name: { th: 'โรงพยาบาลศิริราช ปิยมหาราชการุณย์', en: 'Siriraj Piyamaharajkarun Hospital' }, logo: siph, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'thammasat', name: { th: 'โรงพยาบาลธรรมศาสตร์เฉลิมพระเกียรติ', en: 'Thammasat University Hospital' }, logo: thammasat, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       // The site owner confirmed this original logo's identity on 2026-08-30.
-      { id: 'khon-kaen-medicine', name: { th: 'คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น', en: 'Faculty of Medicine, Khon Kaen University' }, logo: khonKaenMedicine, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
+      { id: 'khon-kaen-medicine', name: { th: 'คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น', en: 'Faculty of Medicine, Khon Kaen University' }, logo: khonKaenMedicine, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
     ],
   },
   {
     id: 'thailand',
     title: { th: 'องค์กรและโครงการในประเทศไทย', en: 'Thai organizations & programmes' },
-    introduction: { th: 'ความร่วมมือ โครงการทดสอบ และเครือข่ายนวัตกรรม โดยแยกประเภทความสัมพันธ์ไว้กับแต่ละองค์กร', en: 'Collaboration, testing programmes, and innovation networks, labeled by relationship.' },
+    introduction: { th: 'หน่วยงานไทยในเครือข่าย โครงการ และความร่วมมือของ HealthTAG', en: 'Thai organizations in the HealthTAG network, programmes, and public collaborations.' },
     organizations: [
       { id: 'depa', name: { th: 'depa', en: 'depa' }, logo: depa, relationship: { th: 'บันทึกความเข้าใจด้านโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน', en: 'Public MoU on blockchain infrastructure for public services' }, badge: { th: 'ความร่วมมือสาธารณะ', en: 'Public Collaboration' }, detailPage: 'evidence' },
-      { id: 'etda', name: { th: 'ETDA', en: 'ETDA' }, logo: etda, relationship: { th: 'Digital Service Sandbox ไม่ใช่การรับรอง', en: 'Digital Service Sandbox, not a certification' }, badge: { th: 'Sandbox', en: 'Sandbox' }, detailPage: 'evidence' },
-      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: 'เวทีรางวัลในข้อมูลเครือข่ายเดิม', en: 'Awards programme in legacy material' }, badge: { th: 'รางวัล', en: 'Award' } },
+      { id: 'etda', name: { th: 'ETDA', en: 'ETDA' }, logo: etda, relationship: { th: 'Digital Service Sandbox ดูขอบเขตผลการทดสอบได้ที่หน้าหลักฐาน', en: 'Digital Service Sandbox; see Evidence for the testing scope' }, badge: { th: 'Sandbox', en: 'Sandbox' }, detailPage: 'evidence' },
+      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: 'ความสัมพันธ์ด้านรางวัลของ HealthTAG', en: 'HealthTAG award relationship' }, badge: { th: 'รางวัล', en: 'Award' } },
       { id: 'nia', name: { th: 'สำนักงานนวัตกรรมแห่งชาติ (NIA)', en: 'National Innovation Agency (NIA)' }, logo: nia, relationship: { th: 'โครงการสนับสนุนการขยายตลาดและการจับคู่ธุรกิจ', en: 'Market-expansion and business-matching programme' }, badge: { th: 'โครงการ', en: 'Programme' }, detailPage: 'evidence' },
-      { id: 'sidata', name: { th: 'SiData', en: 'SiData' }, logo: sidata, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
-      { id: 'sil-th', name: { th: 'Standards and Interoperability Lab–Thailand', en: 'Standards and Interoperability Lab–Thailand' }, logo: silth, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
-      { id: 'kin-yoo-dee', name: { th: 'Kin Yoo Dee Platform', en: 'Kin Yoo Dee Platform' }, logo: kinYooDee, relationship: listing, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
+      { id: 'sidata', name: { th: 'SiData', en: 'SiData' }, logo: sidata, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'sil-th', name: { th: 'Standards and Interoperability Lab–Thailand', en: 'Standards and Interoperability Lab–Thailand' }, logo: silth, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'kin-yoo-dee', name: { th: 'Kin Yoo Dee Platform', en: 'Kin Yoo Dee Platform' }, logo: kinYooDee, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
     ],
   },
   {
     id: 'international',
     title: { th: 'เครือข่ายและโครงการต่างประเทศ', en: 'International networks & programmes' },
-    introduction: { th: 'เวทีรางวัลและเครือข่ายสากลที่ปรากฏในข้อมูลเดิมของบริษัท', en: 'Awards and international networks documented in the earlier company material.' },
+    introduction: { th: 'รางวัลและเครือข่ายต่างประเทศของ HealthTAG', en: 'HealthTAG awards and international networks.' },
     organizations: [
-      { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: { th: 'ชื่อและตราสัญลักษณ์ตามข้อมูลเดิม', en: 'Historical name and branding' }, badge: { th: 'เครือข่ายในอดีต', en: 'Historical Network' } },
-      { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category – Start-Up', en: '2022 winner · Cross Category – Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },
+      { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: { th: 'เครือข่าย HealthTAG โดยใช้ชื่อและตราสัญลักษณ์เดิม', en: 'HealthTAG network, shown with its former name and branding' }, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category: Start-Up', en: '2022 winner · Cross Category: Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },
       { id: 'aehin', name: { th: 'Asia eHealth Information Network (AeHIN)', en: 'Asia eHealth Information Network (AeHIN)' }, logo: aehin, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },
       { id: 'aodp', name: { th: 'Asia Open Data Partnership', en: 'Asia Open Data Partnership' }, logo: aodp, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },
     ],

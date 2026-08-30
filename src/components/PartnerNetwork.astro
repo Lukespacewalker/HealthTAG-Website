@@ -31,15 +31,15 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
           <span class="relationship-badge">{featured.badge[locale]}</span>
           <h3>{featured.name[locale]}</h3>
           <p>{featured.relationship[locale]}</p>
-          <a href={`${prefix}/deployments/`}>{en ? 'Read the confirmed deployment scope' : 'อ่านขอบเขตการติดตั้งที่ยืนยันแล้ว'} <span aria-hidden="true">→</span></a>
+          <a href={`${prefix}/deployments/`}>{en ? 'Read the Siriraj deployment case' : 'อ่านกรณีการติดตั้งที่ศิริราช'} <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
       <section class="ecosystem-cluster" aria-labelledby="siriraj-ecosystem-heading">
         <div class="cluster-heading">
-          <span>{en ? 'Related Siriraj organizations' : 'องค์กรที่เกี่ยวข้องในระบบนิเวศศิริราช'}</span>
-          <h3 id="siriraj-ecosystem-heading">{en ? 'Grouped as one ecosystem—not separate deployment claims.' : 'จัดเป็นกลุ่มระบบนิเวศเดียว ไม่ใช่การอ้างว่าเป็นการติดตั้งแยกกัน'}</h3>
-          <p>{en ? 'These original marks are preserved from the historical network listing. Only the Siriraj Hospital item above carries the confirmed deployment relationship.' : 'ตราสัญลักษณ์เดิมเหล่านี้คงไว้ตามรายชื่อเครือข่ายในอดีต โดยเฉพาะรายการโรงพยาบาลศิริราชด้านบนเท่านั้นที่แสดงความสัมพันธ์แบบการติดตั้งที่ยืนยันแล้ว'}</p>
+          <span>{en ? 'Siriraj organizations in the HealthTAG network' : 'องค์กรศิริราชในเครือข่าย HealthTAG'}</span>
+          <h3 id="siriraj-ecosystem-heading">{en ? 'Related organizations, shown together.' : 'องค์กรที่เกี่ยวข้องกัน แสดงไว้ในกลุ่มเดียว'}</h3>
+          <p>{en ? 'All three organizations are in the HealthTAG network. The deployment case study applies to Siriraj Hospital.' : 'ทั้งสามองค์กรอยู่ในเครือข่าย HealthTAG ส่วนกรณีศึกษาการติดตั้งเป็นข้อมูลของโรงพยาบาลศิริราช'}</p>
         </div>
         <ul class="logo-grid ecosystem-grid" role="list">
           {relatedSiriraj.map((organization) => (
@@ -52,7 +52,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
       </section>
 
       <div class="other-medical">
-        <div class="subheading"><strong>{en ? 'Other medical institutions in the historical listing' : 'สถาบันการแพทย์อื่นในรายชื่อเครือข่ายเดิม'}</strong><p>{en ? 'Presence here does not establish production use or a current contract.' : 'การปรากฏในส่วนนี้ไม่ยืนยันการใช้งานจริงหรือสัญญาปัจจุบัน'}</p></div>
+        <div class="subheading"><strong>{en ? 'Other medical institutions in the HealthTAG network' : 'สถาบันการแพทย์อื่นในเครือข่าย HealthTAG'}</strong><p>{en ? 'A network relationship does not by itself indicate a deployment or current contract.' : 'สถานะเครือข่ายไม่ได้หมายถึงการติดตั้งใช้งานหรือสัญญาปัจจุบัน'}</p></div>
         <ul class="logo-grid medical-grid" role="list">
           {otherMedical.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
@@ -82,7 +82,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
                 <span class="relationship-badge">{organization.badge[locale]}</span>
                 <h3>{organization.name[locale]}</h3>
                 <p>{organization.relationship[locale]}</p>
-                {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'Read the evidence context for' : 'อ่านบริบทหลักฐานของ'} ${organization.name[locale]}`}>{en ? 'Read the evidence context' : 'อ่านบริบทหลักฐาน'} <span aria-hidden="true">→</span></a>}
+                {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'View evidence for' : 'ดูหลักฐานของ'} ${organization.name[locale]}`}>{en ? 'View evidence' : 'ดูหลักฐาน'} <span aria-hidden="true">→</span></a>}
               </div>
             </li>
           ))}
@@ -95,8 +95,8 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 <section class="network-note">
   <div class="container note-inner">
     <div>
-      <strong>{en ? 'Read relationship labels before drawing conclusions.' : 'อ่านป้ายประเภทความสัมพันธ์ก่อนสรุป'}</strong>
-      <p>{en ? 'Network presence, an award, sandbox participation, a programme, or a public collaboration does not mean that every organization uses HealthTAG in production. Deployment scope and external evidence are documented separately.' : 'การปรากฏในเครือข่าย รางวัล การเข้าร่วม sandbox โครงการ หรือความร่วมมือสาธารณะ ไม่ได้หมายความว่าทุกองค์กรใช้ HealthTAG ในระบบจริง ขอบเขตการติดตั้งและหลักฐานภายนอกถูกจัดแยกไว้ชัดเจน'}</p>
+      <strong>{en ? 'Relationship types on this page' : 'ประเภทความสัมพันธ์ในหน้านี้'}</strong>
+      <p>{en ? 'Network, deployment, award, sandbox, programme, and public collaboration describe different relationships. See Deployments and Evidence for the supporting details.' : 'เครือข่าย การติดตั้งใช้งาน รางวัล sandbox โครงการ และความร่วมมือสาธารณะ เป็นความสัมพันธ์คนละประเภท ดูรายละเอียดเพิ่มเติมได้ที่หน้าการติดตั้งใช้งานและหลักฐาน'}</p>
     </div>
     <div class="actions"><a class="btn secondary" href={`${prefix}/deployments/`}>{en ? 'Deployment details' : 'รายละเอียดการติดตั้งใช้งาน'}</a><a class="btn secondary" href={`${prefix}/evidence/`}>{en ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a></div>
   </div>

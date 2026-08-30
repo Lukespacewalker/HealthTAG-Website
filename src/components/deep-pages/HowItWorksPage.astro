@@ -6,26 +6,26 @@ const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
 const stages = en ? [
-  ['01','Connect','Bring existing HIS data into a hospital FHIR layer through a hospital IT script or HealthTAG FHIR Transformer.','interoperability'],
-  ['02','Standardize','Represent selected information in HL7 FHIR R4 so participating systems work from a shared structure.','interoperability'],
-  ['03','Identify','Link hospital-local patient identities with PromptCare ID without treating a local record identifier as universal.','phr'],
+  ['01','Connect','Send HIS data to the hospital FHIR system through an IT script or HealthTAG FHIR Transformer.','interoperability'],
+  ['02','Standardize','Use HL7 FHIR R4 so connected systems share the same data structure.','interoperability'],
+  ['03','Identify','Link each hospital patient ID to PromptCare ID so records can be matched to the same person.','phr'],
   ['04','Authorize','Hospital API checks whether an access request is valid for the 15-minute window defined from blockchain state.','trust'],
-  ['05','Exchange','Return permitted FHIR data to a PHR or approved application through the authorized path.','phr'],
-  ['06','Audit','Record consent and access events so the decision can be examined later; clinical records stay outside the ledger.','trust']
+  ['05','Exchange','Send authorized FHIR data to the PHR or another approved application.','phr'],
+  ['06','Record','Write consent and access events to blockchain for later review. Clinical records remain in hospital systems.','trust']
 ] : [
-  ['01','เชื่อมข้อมูล','นำข้อมูลจาก HIS เดิมเข้าสู่ FHIR layer ของโรงพยาบาล ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer','interoperability'],
-  ['02','ทำให้เป็นมาตรฐาน','แทนข้อมูลที่เลือกด้วย HL7 FHIR R4 เพื่อให้ระบบที่เข้าร่วมใช้งานโครงสร้างข้อมูลร่วมกัน','interoperability'],
-  ['03','เชื่อมตัวตน','เชื่อมตัวตนผู้ป่วยในแต่ละโรงพยาบาลกับ PromptCare ID โดยไม่ถือว่ารหัสเวชระเบียนเฉพาะโรงพยาบาลเป็นตัวตนกลาง','phr'],
+  ['01','เชื่อมข้อมูล','ส่งข้อมูลจาก HIS เข้าสู่ระบบ FHIR ของโรงพยาบาล ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer','interoperability'],
+  ['02','ทำให้เป็นมาตรฐาน','ใช้ HL7 FHIR R4 เพื่อให้ระบบที่เชื่อมต่อกันใช้โครงสร้างข้อมูลเดียวกัน','interoperability'],
+  ['03','เชื่อมตัวตน','เชื่อมรหัสผู้ป่วยของแต่ละโรงพยาบาลกับ PromptCare ID เพื่อจับคู่ข้อมูลของคนเดียวกัน','phr'],
   ['04','อนุญาตสิทธิ์','Hospital API ตรวจว่าคำขอมีสิทธิ์ภายในช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หรือไม่','trust'],
-  ['05','แลกเปลี่ยน','ส่งคืนข้อมูล FHIR ที่ได้รับอนุญาตให้ PHR หรือแอปที่ผ่านการอนุญาตตามเส้นทางที่กำหนด','phr'],
-  ['06','ตรวจสอบย้อนหลัง','บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงเพื่อตรวจสอบการตัดสินใจภายหลัง โดยเวชระเบียนไม่อยู่ในประวัติเหตุการณ์ตรวจสอบ','trust']
+  ['05','แลกเปลี่ยน','ส่งข้อมูล FHIR ที่ได้รับอนุญาตไปยัง PHR หรือแอปอื่นที่ได้รับสิทธิ์','phr'],
+  ['06','บันทึกเหตุการณ์','บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงบน blockchain เพื่อตรวจสอบภายหลัง โดยเวชระเบียนยังอยู่ในระบบโรงพยาบาล','trust']
 ];
 ---
-<Base locale={locale} path="how-it-works" title={en ? 'How It Works | HealthTAG' : 'ระบบทำงานอย่างไร | HealthTAG'} description={en ? 'A conceptual six-stage model for hospital-controlled health-data exchange.' : 'โมเดลเชิงแนวคิด 6 ขั้นของการแลกเปลี่ยนข้อมูลสุขภาพที่โรงพยาบาลควบคุม'}>
+<Base locale={locale} path="how-it-works" title={en ? 'How It Works | HealthTAG' : 'ระบบทำงานอย่างไร | HealthTAG'} description={en ? 'Six stages from HIS ingestion and identity matching to authorized exchange and audit.' : '6 ขั้นตั้งแต่การนำข้อมูลจาก HIS และการจับคู่ตัวตน ไปจนถึงการแลกเปลี่ยนตามสิทธิ์และตรวจสอบย้อนหลัง'}>
   <main>
-    <section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en ? 'How it works' : 'ระบบทำงานอย่างไร'}</div><h1>{en ? 'Six distinct responsibilities. One controlled exchange.' : 'หกหน้าที่ที่แยกกันชัดเจน เพื่อการแลกเปลี่ยนที่ควบคุมได้'}</h1><p>{en ? 'This is a conceptual model of responsibilities, not a claim about one fixed network topology or request sequence.' : 'นี่คือโมเดลเชิงแนวคิดของหน้าที่ในระบบ ไม่ใช่การอ้างว่าโครงสร้างเครือข่ายหรือลำดับคำขอต้องเป็นแบบตายตัว'}</p></div></section>
-    <section class="section flow-section"><div class="container"><ol class="flow" aria-label={en ? 'Six stages of HealthTAG exchange' : 'หกขั้นของการแลกเปลี่ยนข้อมูล HealthTAG'}>{stages.map(([number, title, body, slug], index) => <li class:list={[index > 2 && 'permission-stage']}><div class="stage-number mono">{number}</div><div class="stage-copy"><h2>{title}</h2><p>{body}</p><a href={`${prefix}/${slug}/`}>{en ? 'Explore this layer' : 'ดูรายละเอียดของหน้าที่นี้'} <span aria-hidden="true">→</span></a></div></li>)}</ol></div></section>
-    <section class="section boundaries"><div class="container"><div class="section-head"><h2>{en ? 'Keep the layers honest.' : 'แยกแต่ละส่วนให้ตรงกับหน้าที่จริง'}</h2><p>{en ? 'The model separates data representation, identity, authorization, exchange, and audit so that no single label carries claims it cannot support.' : 'โมเดลนี้แยกการแทนข้อมูล ตัวตน การอนุญาต การแลกเปลี่ยน และการตรวจสอบย้อนหลัง เพื่อไม่ให้คำเรียกหนึ่งคำถูกใช้กล่าวอ้างเกินหน้าที่จริง'}</p></div><div class="boundary-notes"><p><b>{en ? 'Clinical data:' : 'ข้อมูลทางคลินิก:'}</b> {en ? 'hospital-controlled FHIR infrastructure.' : 'อยู่ในโครงสร้างพื้นฐาน FHIR ที่โรงพยาบาลควบคุม'}</p><p><b>{en ? 'Permission:' : 'สิทธิ์:'}</b> {en ? 'time-bounded authorization decision.' : 'การตัดสินใจอนุญาตสิทธิ์ที่จำกัดเวลา'}</p><p><b>{en ? 'Ledger:' : 'ประวัติเหตุการณ์:'}</b> {en ? 'consent and access events, not medical records.' : 'บันทึกการให้ความยินยอมและการเข้าถึง ไม่ใช่เวชระเบียน'}</p></div></div></section>
+    <section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en ? 'How it works' : 'ระบบทำงานอย่างไร'}</div><h1>{en ? 'Six stages from HIS ingestion to audit' : 'จาก HIS ถึงการตรวจสอบย้อนหลังใน 6 ขั้น'}</h1><p>{en ? 'This overview explains the responsibility of each system. It is a responsibility map rather than a physical request sequence.' : 'ภาพรวมนี้อธิบายหน้าที่ของแต่ละระบบ จึงเป็นแผนผังหน้าที่ ไม่ใช่ลำดับคำขอทางเทคนิค'}</p></div></section>
+    <section class="section flow-section"><div class="container"><ol class="flow" aria-label={en ? 'Six stages of HealthTAG exchange' : 'หกขั้นของการแลกเปลี่ยนข้อมูล HealthTAG'}>{stages.map(([number, title, body, slug], index) => <li class:list={[index > 2 && 'permission-stage']}><div class="stage-number mono">{number}</div><div class="stage-copy"><h2>{title}</h2><p>{body}</p><a href={`${prefix}/${slug}/`}>{en ? 'Read more' : 'ดูรายละเอียด'} <span aria-hidden="true">→</span></a></div></li>)}</ol></div></section>
+    <section class="section boundaries"><div class="container"><div class="section-head"><h2>{en ? 'Data, permission, and audit have different roles' : 'ข้อมูล สิทธิ์ และการตรวจสอบมีหน้าที่ต่างกัน'}</h2><p>{en ? 'Separating these responsibilities makes it clear where records are stored, who checks access, and what is written to blockchain.' : 'การแยกหน้าที่ช่วยให้เห็นชัดว่าเวชระเบียนอยู่ที่ใด ใครตรวจสิทธิ์ และข้อมูลใดถูกบันทึกบน blockchain'}</p></div><div class="boundary-notes"><p><b>{en ? 'Clinical data:' : 'ข้อมูลทางคลินิก:'}</b> {en ? 'stored in hospital-controlled FHIR systems.' : 'เก็บในระบบ FHIR ที่โรงพยาบาลควบคุม'}</p><p><b>{en ? 'Permission:' : 'สิทธิ์:'}</b> {en ? 'checked for a defined access window.' : 'ตรวจสอบตามช่วงเวลาการเข้าถึงที่กำหนด'}</p><p><b>{en ? 'Blockchain:' : 'Blockchain:'}</b> {en ? 'records consent and access events.' : 'บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึง'}</p></div></div></section>
   </main>
 </Base>
 <style>

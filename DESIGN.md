@@ -117,7 +117,7 @@ Network is broader than deployment.
 Relationship types must be visibly distinct, for example:
 
 - Deployment
-- Historical Network
+- Network
 - Sandbox
 - Public Collaboration
 - Award

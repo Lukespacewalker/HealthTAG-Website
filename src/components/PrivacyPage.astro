@@ -18,8 +18,8 @@ const prefix = en ? '/en' : '';
     <section class="page-hero policy-hero">
       <div class="container">
         <div class="eyebrow">HealthTAG / {en ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</div>
-        <h1>{en ? 'A notice for this corporate website—not clinical systems.' : 'ประกาศสำหรับเว็บไซต์บริษัท ไม่ใช่ระบบข้อมูลทางคลินิก'}</h1>
-        <p>{en ? 'This notice describes the public HealthTAG website and its email-based contact flow. It does not describe hospital clinical systems, the PHR, or patient authorization workflows.' : 'ประกาศนี้อธิบายเว็บไซต์สาธารณะของ HealthTAG และการติดต่อผ่านอีเมล ไม่ครอบคลุมระบบข้อมูลทางคลินิกของโรงพยาบาล PHR หรือกระบวนการอนุญาตเข้าถึงข้อมูลผู้ป่วย'}</p>
+        <h1>{en ? 'Website privacy for corporate enquiries' : 'ความเป็นส่วนตัวสำหรับเว็บไซต์และการติดต่อบริษัท'}</h1>
+        <p>{en ? 'This notice covers the public HealthTAG website and its email contact form. Hospital clinical systems, PHR access, and patient authorization follow separate processes.' : 'ประกาศนี้ครอบคลุมเว็บไซต์สาธารณะของ HealthTAG และแบบฟอร์มติดต่อผ่านอีเมล ส่วนระบบข้อมูลทางคลินิก การเข้าถึง PHR และการอนุญาตข้อมูลผู้ป่วยมีกระบวนการแยกต่างหาก'}</p>
       </div>
     </section>
     <section class="section">
@@ -33,20 +33,20 @@ const prefix = en ? '/en' : '';
           <section>
             <h2>{en ? 'Information you choose to send' : 'ข้อมูลที่คุณเลือกส่ง'}</h2>
             <p>{en ? 'The contact page asks for an enquiry type, your name, a reply email, an optional organization name, and your message. The page prepares this information as a draft in your own email application.' : 'หน้าติดต่อขอประเภทการติดต่อ ชื่อ อีเมลสำหรับตอบกลับ ชื่อองค์กรซึ่งไม่บังคับ และข้อความของคุณ หน้าดังกล่าวจะเตรียมข้อมูลเหล่านี้เป็นข้อความร่างในแอปอีเมลของคุณ'}</p>
-            <p>{en ? 'Completing the form does not upload or submit its contents to a HealthTAG website endpoint. Your message reaches HealthTAG only after you review and send it from your mail application.' : 'การกรอกฟอร์มไม่ได้อัปโหลดหรือส่งเนื้อหาไปยัง endpoint ของเว็บไซต์ HealthTAG ข้อความจะถึง HealthTAG ต่อเมื่อคุณตรวจสอบและกดส่งจากแอปอีเมลแล้วเท่านั้น'}</p>
+            <p>{en ? 'The form opens a draft in your mail application. HealthTAG receives the message after you review and send that email.' : 'แบบฟอร์มจะเปิดข้อความร่างในแอปอีเมลของคุณ HealthTAG จะได้รับข้อความเมื่อคุณตรวจสอบและส่งอีเมลนั้นแล้ว'}</p>
           </section>
           <section>
             <h2>{en ? 'How corporate enquiries are used' : 'การใช้ข้อมูลติดต่อบริษัท'}</h2>
-            <p>{en ? 'Information sent to the corporate mailbox is used to understand, route, and respond to the enquiry. The appropriate HealthTAG recipient may depend on whether the subject concerns a healthcare provider, technical integration, a partnership, or media/general matters.' : 'ข้อมูลที่ส่งไปยังอีเมลองค์กรใช้เพื่อทำความเข้าใจ ส่งต่อ และตอบคำถาม ผู้รับภายใน HealthTAG อาจแตกต่างกันตามหัวข้อ เช่น ผู้ให้บริการด้านสุขภาพ การเชื่อมต่อทางเทคนิค ความร่วมมือ หรือสื่อและเรื่องทั่วไป'}</p>
-            <p>{en ? 'HealthTAG does not state a fixed public retention period or broader processing guarantee on this page. Ask contact@healthtag.io if you need information about a specific corporate enquiry.' : 'หน้านี้ไม่ได้ระบุระยะเวลาจัดเก็บแบบตายตัวหรือรับรองการประมวลผลในขอบเขตที่กว้างกว่านี้ หากต้องการข้อมูลเกี่ยวกับการติดต่อบริษัทกรณีใดกรณีหนึ่ง โปรดสอบถามที่ contact@healthtag.io'}</p>
+            <p>{en ? 'HealthTAG uses the information to route and respond to your enquiry. The recipient depends on whether the message concerns a healthcare provider, technical integration, partnership, media, or a general question.' : 'HealthTAG ใช้ข้อมูลเพื่อส่งต่อและตอบคำถาม ผู้รับข้อความขึ้นอยู่กับหัวข้อ เช่น ผู้ให้บริการด้านสุขภาพ การเชื่อมต่อทางเทคนิค ความร่วมมือ สื่อ หรือเรื่องทั่วไป'}</p>
+            <p>{en ? 'This page states no fixed retention period for website enquiries. Contact contact@healthtag.io for information about a specific message.' : 'หน้านี้ไม่ได้ระบุระยะเวลาจัดเก็บข้อความติดต่อแบบตายตัว หากต้องการข้อมูลเกี่ยวกับข้อความใดข้อความหนึ่ง โปรดติดต่อ contact@healthtag.io'}</p>
           </section>
           <section class="sensitive-section">
             <h2>{en ? 'Do not use this contact flow for sensitive data' : 'ห้ามใช้ช่องทางนี้ส่งข้อมูลอ่อนไหว'}</h2>
             <p>{en ? 'Do not send patient information, medical records, health data, passwords, API keys, credentials, or other sensitive information. Do not use the corporate mailbox to request access to a patient record or to report an urgent clinical matter.' : 'ห้ามส่งข้อมูลผู้ป่วย เวชระเบียน ข้อมูลสุขภาพ รหัสผ่าน API key ข้อมูลรับรองการเข้าใช้ระบบ หรือข้อมูลอ่อนไหวประเภทอื่น และห้ามใช้อีเมลองค์กรเพื่อขอเข้าถึงเวชระเบียนผู้ป่วยหรือแจ้งเหตุทางคลินิกเร่งด่วน'}</p>
           </section>
           <section>
-            <h2>{en ? 'Separate from clinical systems and PHR' : 'แยกจากระบบข้อมูลทางคลินิกและ PHR'}</h2>
-            <p>{en ? 'Hospitals remain responsible for the clinical records in their systems. Website contact handling is not part of the hospital-controlled FHIR layer, patient identity linkage, authorization, the 15-minute access window, PHR access, or the consent/access audit ledger.' : 'โรงพยาบาลยังรับผิดชอบเวชระเบียนในระบบของตน การติดต่อผ่านเว็บไซต์ไม่ใช่ส่วนหนึ่งของ FHIR layer ที่โรงพยาบาลควบคุม การเชื่อมโยงตัวตนผู้ป่วย การอนุญาต ช่วงเวลาเข้าถึง 15 นาที การเข้าถึง PHR หรือประวัติเหตุการณ์ตรวจสอบสำหรับการให้ความยินยอมและการเข้าถึง'}</p>
+            <h2>{en ? 'Clinical systems and PHR use separate processes' : 'ระบบข้อมูลทางคลินิกและ PHR ใช้กระบวนการแยกต่างหาก'}</h2>
+            <p>{en ? 'Hospitals remain responsible for clinical records in their systems. The website contact form is separate from hospital FHIR systems, patient identity linkage, authorization, PHR access, and the consent and access history.' : 'โรงพยาบาลยังรับผิดชอบเวชระเบียนในระบบของตน แบบฟอร์มติดต่อบนเว็บไซต์แยกจากระบบ FHIR ของโรงพยาบาล การเชื่อมตัวตนผู้ป่วย การตรวจสิทธิ์ การเข้าถึง PHR และประวัติการให้ความยินยอมและการเข้าถึง'}</p>
           </section>
           <div class="actions">
             <a class="btn primary" href={`${prefix}/contact/`}>{en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a>
