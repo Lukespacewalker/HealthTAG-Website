@@ -15,35 +15,49 @@ jobs:
   import:
     if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feat/partner-logo-assets'
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
         with:
           ref: feat/partner-logo-assets
+      - name: Import source-repository partner artifact
+        shell: python
+        env:
+          LEGACY_ARCHIVE_URL: 'https://sdmntprseasia.oaiusercontent.com/files/00000000-0904-8207-ade5-42948a817df0/raw?se=2026-08-30T03%3A46%3A20Z&sp=r&sv=2026-02-06&sr=b&scid=9ff9b5fb-18bf-5921-8172-462dc37b73fa&skoid=54865dd2-31dc-44cc-a877-635aa4250446&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-08-29T21%3A49%3A23Z&ske=2026-08-30T21%3A49%3A23Z&sks=b&skv=2026-02-06&sig=RXx2AqAdzY00rnSYXB9h08Ucir%2BLgV24Bmli%2BSmC2iQ%3D'
+        run: |
+          import hashlib, io, json, os, pathlib, urllib.request, zipfile
+          assets = json.loads(pathlib.Path('scripts/legacy-assets.json').read_text())['assets']
+          selected = [a for a in assets if '/partners/' in a['target']]
+          def sha(data):
+              return hashlib.sha1(f'blob {len(data)}\0'.encode() + data).hexdigest()
+          missing = [a for a in selected if not pathlib.Path(a['target']).exists() or sha(pathlib.Path(a['target']).read_bytes()) != a['sha']]
+          if missing:
+              url = os.environ['LEGACY_ARCHIVE_URL']
+              print('::add-mask::' + url)
+              with urllib.request.urlopen(url, timeout=45) as response:
+                  archive = response.read(4 * 1024 * 1024)
+              assert hashlib.sha256(archive).hexdigest() == 'ac6e1f69c2c4ef0fea293ed9781c6818928f19fae16ca9cd9b8efaae14d46e6b', 'Archive checksum mismatch'
+              with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
+                  for asset in missing:
+                      data = bundle.read('partners/' + pathlib.PurePosixPath(asset['source']).name)
+                      assert sha(data) == asset['sha'], 'Original image checksum mismatch'
+                      target = pathlib.Path(asset['target'])
+                      assert str(target).startswith('src/assets/legacy/partners/') and '..' not in target.parts
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      target.write_bytes(data)
+                      print('Imported original:', target)
+          print('All 16 original partner images are present.')
+      - name: Commit only verified partner images
+        run: |
+          git add src/assets/legacy/partners
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'chore: copy all 16 original partner logos from source repository'
+            git push origin HEAD:feat/partner-logo-assets
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22.12.0'
-      - name: Retrieve only images matching approved source blob hashes
-        id: import
-        continue-on-error: true
-        run: node scripts/import-legacy-assets.mjs --from-public
-      - name: Commit verified images to migration branch
-        run: |
-          if [ -d src/assets/legacy ]; then
-            git add src/assets/legacy
-            if ! git diff --cached --quiet; then
-              git config user.name 'github-actions[bot]'
-              git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-              git commit -m 'chore: import verified original legacy image assets'
-              git push origin HEAD:feat/partner-logo-assets
-            fi
-          fi
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: verified-legacy-images
-          path: src/assets/legacy
-          if-no-files-found: warn
-          retention-days: 5
-      - name: Require the complete asset set
+      - name: Verify all 21 legacy images without network access
         run: node scripts/import-legacy-assets.mjs
