@@ -10,7 +10,7 @@ const name = en ? 'Dechowat Promda, M.D.' : 'นพ. เดโชวัต พ�
 <article class="founder-panel">
   <div class="founder-photo"><Image src={portraits.dechowat} alt={name} width={320} widths={[200, 320, 480]} sizes="(max-width: 600px) 180px, 240px" format="webp" quality={90} loading="lazy" decoding="async" /></div>
   <div class="founder-caption">
-    <div class="kicker">CEO & Founder</div>
+    <div class="kicker">{en ? 'Founder' : 'ผู้ก่อตั้ง'}</div>
     <h3>{name}</h3>
     <p>{en ? 'A physician-led company focused on solving health-data flow at infrastructure scale.' : 'บริษัทที่ก่อตั้งโดยแพทย์และมุ่งแก้ปัญหาการไหลของข้อมูลสุขภาพในระดับ infrastructure'}</p>
     <a class="btn secondary" href={en ? '/en/company/' : '/company/'}>{en ? 'Company & founder' : 'บริษัทและผู้ก่อตั้ง'}</a>

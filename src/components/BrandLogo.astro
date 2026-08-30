@@ -2,11 +2,11 @@
 import { Image } from 'astro:assets';
 import light from '../assets/legacy/brand/logo-light.png';
 import dark from '../assets/legacy/brand/logo-dark.png';
-interface Props { background?: 'light' | 'dark' }
-const { background = 'light' } = Astro.props;
+interface Props { background?: 'light' | 'dark'; priority?: boolean }
+const { background = 'light', priority = false } = Astro.props;
 const logo = background === 'dark' ? dark : light;
 ---
-<Image class="brand-logo" src={logo} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading="eager" decoding="async" />
+<Image class="brand-logo" src={logo} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />
 <style>
   .brand-logo { display: block; width: 178px; max-width: 100%; height: auto; }
   @media (max-width: 600px) { .brand-logo { width: 150px; } }

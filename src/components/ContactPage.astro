@@ -1,0 +1,184 @@
+---
+import Base from '../layouts/Base.astro';
+import type { Locale } from '../data/site-content';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+const enquiryTypes = en ? [
+  'Hospital / Healthcare Provider',
+  'Technical Integration',
+  'Partnership',
+  'Media / General',
+] : [
+  'โรงพยาบาล / ผู้ให้บริการด้านสุขภาพ',
+  'การเชื่อมต่อระบบทางเทคนิค',
+  'ความร่วมมือ',
+  'สื่อ / เรื่องทั่วไป',
+];
+---
+
+<Base
+  locale={locale}
+  path="contact"
+  title={en ? 'Contact HealthTAG | Hospital integration and partnerships' : 'ติดต่อ HealthTAG | การเชื่อมระบบโรงพยาบาลและความร่วมมือ'}
+  description={en ? 'Contact HealthTAG about hospital interoperability, technical integration, partnerships, or media enquiries. Do not include health data or credentials.' : 'ติดต่อ HealthTAG เรื่องการเชื่อมโยงข้อมูลโรงพยาบาล การเชื่อมต่อทางเทคนิค ความร่วมมือ หรือสื่อ โดยไม่ส่งข้อมูลสุขภาพหรือข้อมูลลับ'}
+>
+  <main>
+    <section class="page-hero contact-hero">
+      <div class="container contact-hero-grid">
+        <div>
+          <div class="eyebrow">HealthTAG / {en ? 'Contact' : 'ติดต่อ'}</div>
+          <h1>{en ? 'Start with the context, not sensitive data.' : 'เริ่มจากบริบท โดยไม่ส่งข้อมูลอ่อนไหว'}</h1>
+        </div>
+        <p>{en ? 'Tell us what kind of conversation you need. This static website prepares an email in your own mail app; it does not submit a form to a HealthTAG server.' : 'เลือกหัวข้อที่ต้องการพูดคุย เว็บไซต์แบบ static นี้จะเตรียมอีเมลในแอปอีเมลของคุณ โดยไม่ได้ส่งฟอร์มเข้าเซิร์ฟเวอร์ของ HealthTAG'}</p>
+      </div>
+    </section>
+
+    <section class="section contact-section">
+      <div class="container contact-layout">
+        <aside class="contact-aside" aria-labelledby="contact-safety-heading">
+          <div class="safety-panel">
+            <div class="safety-label">{en ? 'Before you write' : 'ก่อนเขียนข้อความ'}</div>
+            <h2 id="contact-safety-heading">{en ? 'Do not send sensitive information.' : 'โปรดอย่าส่งข้อมูลอ่อนไหว'}</h2>
+            <p>{en ? 'Do not include patient information, medical records, health data, passwords, API keys, credentials, or other sensitive information.' : 'ห้ามระบุข้อมูลผู้ป่วย เวชระเบียน ข้อมูลสุขภาพ รหัสผ่าน API key ข้อมูลรับรองการเข้าใช้ระบบ หรือข้อมูลอ่อนไหวประเภทอื่น'}</p>
+          </div>
+          <div class="contact-direct">
+            <span>{en ? 'Corporate email' : 'อีเมลองค์กร'}</span>
+            <a href="mailto:contact@healthtag.io">contact@healthtag.io</a>
+            <p>{en ? 'Corporate enquiries are separate from hospital clinical systems and PHR access.' : 'การติดต่อบริษัทแยกจากระบบข้อมูลทางคลินิกของโรงพยาบาลและการเข้าถึง PHR'}</p>
+          </div>
+        </aside>
+
+        <form class="contact-form" data-contact-form>
+          <div class="form-intro">
+            <div>
+              <div class="eyebrow">{en ? 'Structured email' : 'อีเมลแบบมีโครงสร้าง'}</div>
+              <h2>{en ? 'Prepare your enquiry' : 'เตรียมข้อความติดต่อ'}</h2>
+            </div>
+            <p>{en ? 'Required fields are marked “required”. Nothing is uploaded when you fill this form.' : 'ช่องที่จำเป็นมีคำว่า “จำเป็น” ข้อมูลจะยังไม่ถูกอัปโหลดระหว่างกรอกแบบฟอร์มนี้'}</p>
+          </div>
+
+          <div class="field full">
+            <label for={`enquiry-${locale}`}>{en ? 'Enquiry type · required' : 'ประเภทการติดต่อ · จำเป็น'}</label>
+            <select id={`enquiry-${locale}`} name="enquiry" required>
+              <option value="">{en ? 'Choose one' : 'เลือกหนึ่งรายการ'}</option>
+              {enquiryTypes.map((type) => <option value={type}>{type}</option>)}
+            </select>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for={`name-${locale}`}>{en ? 'Your name · required' : 'ชื่อของคุณ · จำเป็น'}</label>
+              <input id={`name-${locale}`} name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for={`email-${locale}`}>{en ? 'Reply email · required' : 'อีเมลสำหรับตอบกลับ · จำเป็น'}</label>
+              <input id={`email-${locale}`} name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required />
+            </div>
+          </div>
+          <div class="field full">
+            <label for={`organization-${locale}`}>{en ? 'Organization · optional' : 'องค์กร · ไม่บังคับ'}</label>
+            <input id={`organization-${locale}`} name="organization" type="text" autocomplete="organization" />
+          </div>
+          <div class="field full">
+            <label for={`message-${locale}`}>{en ? 'What would you like to discuss? · required' : 'ต้องการพูดคุยเรื่องใด · จำเป็น'}</label>
+            <textarea id={`message-${locale}`} name="message" rows="7" required aria-describedby={`message-help-${locale}`}></textarea>
+            <small id={`message-help-${locale}`}>{en ? 'Describe the goal and relevant system context only. Do not paste records, logs with secrets, or credentials.' : 'อธิบายเป้าหมายและบริบทของระบบเท่าที่จำเป็น ห้ามวางเวชระเบียน log ที่มีข้อมูลลับ หรือข้อมูลรับรองการเข้าใช้ระบบ'}</small>
+          </div>
+          <div class="form-submit">
+            <button class="btn primary" type="submit">{en ? 'Prepare email' : 'เตรียมอีเมล'}</button>
+            <p>{en ? 'Your mail app will open with a draft. The message is not sent until you review and send it there.' : 'แอปอีเมลจะเปิดพร้อมข้อความร่าง ข้อความจะยังไม่ถูกส่งจนกว่าคุณจะตรวจสอบและกดส่งในแอปนั้น'}</p>
+          </div>
+          <p class="form-status" data-contact-status role="status" aria-live="polite"></p>
+          <p class="privacy-link">{en ? 'See how this corporate contact flow is described in the' : 'อ่านรายละเอียดการติดต่อบริษัทได้ใน'} <a href={`${prefix}/privacy/`}>{en ? 'website privacy notice' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์'}</a>.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = document.querySelector<HTMLElement>('[data-contact-status]');
+  let formIsDirty = false;
+  form?.addEventListener('input', () => { formIsDirty = true; });
+  window.addEventListener('beforeunload', (event) => {
+    if (!formIsDirty) return;
+    event.preventDefault();
+  });
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    const values = new FormData(form);
+    const enquiry = String(values.get('enquiry') ?? '');
+    const name = String(values.get('name') ?? '');
+    const email = String(values.get('email') ?? '');
+    const organization = String(values.get('organization') ?? '');
+    const message = String(values.get('message') ?? '');
+    const subject = `HealthTAG enquiry · ${enquiry}`;
+    const body = [
+      `Enquiry type: ${enquiry}`,
+      `Name: ${name}`,
+      `Reply email: ${email}`,
+      `Organization: ${organization || '—'}`,
+      '',
+      'Message:',
+      message,
+      '',
+      'Safety confirmation: No patient information, medical records, health data, passwords, API keys, credentials, or other sensitive information is included.',
+    ].join('\n');
+    formIsDirty = false;
+    if (status) status.textContent = document.documentElement.lang === 'en'
+      ? 'Opening your mail app. Review and send the draft there; it has not been sent yet.'
+      : 'กำลังเปิดแอปอีเมล โปรดตรวจสอบและกดส่งในแอป ขณะนี้ข้อความยังไม่ถูกส่ง';
+    window.location.href = `mailto:contact@healthtag.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
+
+<style>
+  .contact-hero { padding-bottom: 74px; }
+  .contact-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .7fr); gap: 72px; align-items: end; }
+  .contact-hero h1 { max-width: 820px; }
+  .contact-hero p { margin: 0 0 8px; }
+  .contact-section { background: #eef3f1; }
+  .contact-layout { display: grid; grid-template-columns: minmax(280px, .65fr) minmax(0, 1.35fr); gap: 28px; align-items: start; }
+  .contact-aside { display: grid; gap: 18px; position: sticky; top: 104px; }
+  .safety-panel, .contact-direct, .contact-form { border: 1px solid var(--line); border-radius: var(--radius); }
+  .safety-panel { background: var(--amber-soft); border-color: #dfc7a9; padding: 28px; }
+  .safety-label { color: var(--amber-ink); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .safety-panel h2 { font-size: clamp(1.6rem, 3vw, 2.35rem); line-height: 1.18; margin: 12px 0; letter-spacing: -.035em; }
+  .safety-panel p, .contact-direct p { color: var(--muted); margin: 0; }
+  .contact-direct { background: var(--white); padding: 24px 28px; }
+  .contact-direct span { display: block; color: var(--muted); font-size: .8rem; }
+  .contact-direct > a { display: inline-block; margin: 5px 0 15px; color: var(--teal); font-size: 1.08rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .contact-form { background: var(--white); padding: clamp(24px, 4vw, 44px); }
+  .form-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 34px; }
+  .form-intro h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.08; letter-spacing: -.04em; }
+  .form-intro p { color: var(--muted); margin: 4px 0 0; }
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .field { margin-bottom: 20px; }
+  .field label { display: block; margin-bottom: 8px; font-weight: 600; }
+  .field input, .field select, .field textarea { width: 100%; min-height: 48px; border: 1px solid #b8c9c4; border-radius: 8px; background: #fbfcfb; color: var(--ink); font: inherit; padding: 11px 13px; }
+  .field textarea { resize: vertical; min-height: 160px; }
+  .field small { display: block; color: var(--muted); margin-top: 7px; }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 3px solid rgba(0, 118, 111, .22); border-color: var(--teal); }
+  .form-submit { display: flex; gap: 18px; align-items: center; margin-top: 8px; }
+  .form-submit p, .privacy-link { color: var(--muted); margin: 0; font-size: .9rem; }
+  .form-submit p { max-width: 500px; }
+  .form-status { min-height: 1.7em; margin: 14px 0 0; color: var(--teal); font-weight: 600; }
+  .privacy-link { border-top: 1px solid var(--line); padding-top: 18px; }
+  .privacy-link a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 900px) {
+    .contact-hero-grid, .contact-layout { grid-template-columns: 1fr; gap: 34px; }
+    .contact-hero p { margin: 0; }
+    .contact-aside { position: static; grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .contact-aside, .form-intro, .field-grid { grid-template-columns: 1fr; }
+    .contact-form { padding: 22px 18px; }
+    .form-submit { align-items: stretch; flex-direction: column; }
+    .form-submit .btn { width: 100%; }
+  }
+</style>

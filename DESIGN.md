@@ -91,8 +91,8 @@ Show, where relevant:
 - PostgreSQL persistence
 - Kong API Gateway around or protecting the HAPI FHIR API
 - HealthTAG Module or Hospital API inside the hospital network
-- PromptCare ID and identity linkage
-- Authorization and the 15-minute access window
+- PromptCare ID identity linkage stored in Amazon DynamoDB
+- Authorization, with the 15-minute access window defined from blockchain state and checked by the Hospital API
 - Authorized PHR or application access
 - Consent and access events flowing to the audit ledger
 

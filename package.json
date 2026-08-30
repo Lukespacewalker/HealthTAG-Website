@@ -8,17 +8,26 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
-    "validate": "npm run check && npm run build"
+    "check:site": "node scripts/check-built-site.mjs",
+    "check:redirects": "node scripts/check-redirects.mjs",
+    "test:smoke": "playwright test",
+    "preview:screenshots": "node scripts/capture-preview.mjs",
+    "validate": "npm run check && npm run build && npm run check:site && npm run check:redirects"
   },
   "dependencies": {
+    "@ibm/plex": "6.4.1",
     "astro": "7.2.9"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "parse5": "8.0.1",
+    "sharp": "0.35.4",
     "typescript": "5.9.2",
     "wrangler": "^4.127.1"
   },
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.12.0 <27"
   }
 }

@@ -1,0 +1,25 @@
+/* IBM Plex Sans Thai Looped needs more vertical room than the English face. */
+html[lang='th'] body {
+  font-family: 'IBM Plex Sans Thai Looped', 'IBM Plex Sans', system-ui, sans-serif;
+  line-height: 1.78;
+}
+
+html[lang='th'] body h1 {
+  line-height: 1.22 !important;
+}
+
+html[lang='th'] body h2 {
+  line-height: 1.3 !important;
+}
+
+html[lang='th'] body :is(h3, h4, h5, h6) {
+  line-height: 1.42 !important;
+}
+
+html[lang='th'] body :is(p, li, dd, label, input, textarea, select, button, small, a) {
+  line-height: 1.78;
+}
+
+html[lang='th'] body :is(.eyebrow, .kicker, .mono, code) {
+  line-height: 1.65;
+}
