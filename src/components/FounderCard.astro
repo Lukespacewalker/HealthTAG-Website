@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import { portraits } from '../data/team-portraits';
+import type { Locale } from '../data/site-content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const name = en ? 'Dechowat Promda, M.D.' : 'นพ. เดโชวัต พรมดา';
+---
+<article class="founder-panel">
+  <div class="founder-photo"><Image src={portraits.dechowat} alt={name} width={320} widths={[200, 320, 480]} sizes="(max-width: 600px) 180px, 240px" format="webp" quality={90} loading="lazy" decoding="async" /></div>
+  <div class="founder-caption">
+    <div class="kicker">CEO & Founder</div>
+    <h3>{name}</h3>
+    <p>{en ? 'A physician-led company focused on solving health-data flow at infrastructure scale.' : 'บริษัทที่ก่อตั้งโดยแพทย์และมุ่งแก้ปัญหาการไหลของข้อมูลสุขภาพในระดับ infrastructure'}</p>
+    <a class="btn secondary" href={en ? '/en/company/' : '/company/'}>{en ? 'Company & founder' : 'บริษัทและผู้ก่อตั้ง'}</a>
+  </div>
+</article>
+<style>
+  .founder-panel { min-width: 0; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--white); }
+  .founder-photo { display: flex; justify-content: center; height: 240px; padding: 16px 20px 0; background: var(--mint); }
+  .founder-photo img { width: auto; max-width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+  .founder-caption { padding: 24px; }
+  .kicker { color: var(--teal); font-size: .8rem; letter-spacing: .08em; }
+  h3 { margin: 10px 0; font-size: 1.5rem; line-height: 1.5; }
+  p { color: var(--muted); margin: 0 0 20px; }
+  @media (max-width: 600px) { .founder-photo { height: 220px; } }
+</style>

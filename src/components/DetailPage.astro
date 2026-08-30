@@ -1,16 +1,47 @@
 ---
 import Base from '../layouts/Base.astro';
-import { pageContent, team, hospitalNetwork } from '../data/site-content';
-interface Props { locale:'th'|'en'; slug:string }
-const {locale,slug}=Astro.props; const en=locale==='en'; const p=en?'/en':'';
-const d=pageContent[slug]?.[locale] ?? {label:'HealthTAG',title:en?'Healthcare interoperability infrastructure':'โครงสร้างพื้นฐานเชื่อมโยงข้อมูลสุขภาพ',intro:'',sections:[]};
+import PartnerNetwork from './PartnerNetwork.astro';
+import TeamGallery from './TeamGallery.astro';
+import { pageContent } from '../data/site-content';
+interface Props { locale: 'th' | 'en'; slug: string }
+const { locale, slug } = Astro.props;
+const en = locale === 'en';
+const d = pageContent[slug]?.[locale] ?? { label: 'HealthTAG', title: en ? 'Healthcare interoperability infrastructure' : 'โครงสร้างพื้นฐานเชื่อมโยงข้อมูลสุขภาพ', intro: '', sections: [] };
 ---
 <Base locale={locale} path={slug} title={`${d.label} | HealthTAG`} description={d.intro}>
-<main>
-<section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {d.label}</div><h1>{d.title}</h1><p>{d.intro}</p></div></section>
-<section class="section"><div class="container detail-layout"><div class="prose">{d.sections.map(x=><section class="detail-section"><h2>{x.heading}</h2><p>{x.body}</p></section>)}{slug==='interoperability'&&<div class="resource-list"><span class="chip">HAPI FHIR</span><span class="chip">FHIR R4</span><span class="chip">PostgreSQL</span><span class="chip">Kong</span><span class="chip">Hospital API</span></div>}</div></div></section>
-{slug==='phr'&&<section class="section product-story"><div class="container product-story-grid"><div><div class="eyebrow">{en?'Product proof':'ตัวอย่างผลิตภัณฑ์'}</div><h2>{en?'A patient-facing view of authorized records.':'มุมมองข้อมูลที่ผู้ป่วยได้รับสิทธิ์เข้าถึง'}</h2><p>{en?'This illustrative interface uses synthetic data. It demonstrates the information model without exposing a real patient account.':'หน้าจอนี้ใช้ข้อมูลสังเคราะห์เพื่ออธิบาย information model โดยไม่แสดงบัญชีผู้ป่วยจริง'}</p><a class="btn secondary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer">{en?'Open PHR':'เปิด PHR'} ↗</a></div><div class="phr-window"><div class="phr-bar"><span></span><strong>{en?'Synthetic demo':'ตัวอย่างข้อมูลสังเคราะห์'}</strong></div><div class="phr-profile"><div class="avatar">PT</div><div><strong>PromptCare ID · PC-02814</strong><small>{en?'Connected providers: 2':'เชื่อมข้อมูลจาก 2 สถานพยาบาล'}</small></div><span class="access-live">15:00</span></div><div class="phr-record"><time>12 AUG</time><div><strong>{en?'Outpatient encounter':'การรับบริการผู้ป่วยนอก'}</strong><small>Siriraj Hospital · Encounter</small></div></div><div class="phr-record"><time>04 JUL</time><div><strong>Amoxicillin</strong><small>Khian Sa Hospital · MedicationDispense</small></div></div></div></div></section>}
-{slug==='network'&&<section class="section"><div class="container"><div class="section-head"><h2>{en?'Named hospital relationships':'รายชื่อเครือข่ายโรงพยาบาล'}</h2><p>{en?'Historical HealthTAG network material identifies these hospital relationships.':'ข้อมูลเครือข่ายเดิมของ HealthTAG ระบุความสัมพันธ์กับโรงพยาบาลเหล่านี้'}</p></div><div class="partner-wordmarks">{hospitalNetwork.map(x=><span>{x}</span>)}</div><div class="actions"><a class="btn secondary" href={`${p}/deployments/`}>{en?'See deployments':'ดู deployment'}</a><a class="btn secondary" href={`${p}/evidence/`}>{en?'See evidence':'ดูหลักฐาน'}</a></div></div></section>}
-{slug==='company'&&<section class="section"><div class="container"><div class="section-head"><h2>{en?'The team behind the infrastructure':'ทีมที่อยู่เบื้องหลัง infrastructure'}</h2><p>{en?'Healthcare, engineering, product, testing, design, and commercial roles represented in historical HealthTAG team material.':'รายชื่อทีมจากข้อมูล HealthTAG เดิม ครอบคลุมงานด้านสุขภาพ วิศวกรรม product testing design และธุรกิจ'}</p></div><div class="team-grid">{team.map(([name,role],i)=><article class="team-person"><div class="team-avatar">{name.split(' ').slice(0,2).map(x=>x[0]).join('')}</div><div><strong>{name}</strong><span>{role}</span></div>{i===0&&<a href="https://healthtag.io/about-us/team" target="_blank" rel="noopener noreferrer">{en?'Source profile':'โปรไฟล์ต้นทาง'} ↗</a>}</article>)}</div><div class="actions"><a class="btn secondary" href={`${p}/evidence/`}>{en?'Evidence & milestones':'หลักฐานและหมุดหมาย'}</a></div></div></section>}
-</main>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow">HealthTAG / {d.label}</div>
+        <h1>{d.title}</h1><p>{d.intro}</p>
+      </div>
+    </section>
+    {d.sections.length > 0 && <section class="section">
+      <div class="container detail-layout"><div class="prose">
+        {d.sections.map((section) => <section class="detail-section"><h2>{section.heading}</h2><p>{section.body}</p></section>)}
+        {slug === 'interoperability' && <div class="resource-list"><span class="chip">HAPI FHIR</span><span class="chip">FHIR R4</span><span class="chip">PostgreSQL</span><span class="chip">Kong</span><span class="chip">Hospital API</span></div>}
+      </div></div>
+    </section>}
+    {slug === 'phr' && <section class="section product-story">
+      <div class="container product-story-grid">
+        <div>
+          <div class="eyebrow">{en ? 'Product proof' : 'ตัวอย่างผลิตภัณฑ์'}</div>
+          <h2>{en ? 'A patient-facing view of authorized records.' : 'มุมมองข้อมูลที่ผู้ป่วยได้รับสิทธิ์เข้าถึง'}</h2>
+          <p>{en ? 'This illustrative interface uses synthetic data. It demonstrates the information model without exposing a real patient account.' : 'หน้าจอนี้ใช้ข้อมูลสังเคราะห์เพื่ออธิบาย information model โดยไม่แสดงบัญชีผู้ป่วยจริง'}</p>
+          <a class="btn secondary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer">{en ? 'Open PHR' : 'เปิด PHR'} ↗</a>
+        </div>
+        <div class="phr-window">
+          <div class="phr-bar"><span></span><strong>{en ? 'Synthetic demo' : 'ตัวอย่างข้อมูลสังเคราะห์'}</strong></div>
+          <div class="phr-profile"><div class="avatar">PT</div><div><strong>PromptCare ID · PC-02814</strong><small>{en ? 'Connected providers: 2' : 'เชื่อมข้อมูลจาก 2 สถานพยาบาล'}</small></div><span class="access-live">15:00</span></div>
+          <div class="phr-record"><time>12 AUG</time><div><strong>{en ? 'Outpatient encounter' : 'การรับบริการผู้ป่วยนอก'}</strong><small>Siriraj Hospital · Encounter</small></div></div>
+          <div class="phr-record"><time>04 JUL</time><div><strong>Amoxicillin</strong><small>Khian Sa Hospital · MedicationDispense</small></div></div>
+        </div>
+      </div>
+    </section>}
+    {slug === 'network' && <PartnerNetwork locale={locale} />}
+    {slug === 'company' && <TeamGallery locale={locale} />}
+  </main>
 </Base>
+<style>
+  .page-hero h1 { overflow-wrap: anywhere; }
+</style>

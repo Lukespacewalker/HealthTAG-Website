@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { team, type Locale } from '../data/site-content';
+import { portraitForName } from '../data/team-portraits';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const members = team.map(([name, role]) => ({ name, role, image: portraitForName(name) }));
+const photographed = members.filter((member) => member.image);
+const otherContributors = members.filter((member) => !member.image);
+---
+<section class="section" aria-labelledby="people-heading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="people-heading">{en ? 'People who built HealthTAG' : 'ผู้ร่วมสร้าง HealthTAG'}</h2>
+      <p>{en ? 'People and roles documented in HealthTAG’s earlier team material. This is a contributor record, not a statement of current employment.' : 'รายชื่อและบทบาทจากข้อมูลทีมเดิมของ HealthTAG เพื่อบอกเล่าผู้ร่วมพัฒนาบริษัท ไม่ใช่การยืนยันสถานะการทำงานปัจจุบัน'}</p>
+    </div>
+    <ul class="portrait-grid" role="list">
+      {photographed.map((member) => (
+        <li class="portrait-card">
+          <div class="portrait-frame">
+            {member.image && <Image src={member.image} alt={member.name} width={Math.min(360, member.image.width)} widths={[Math.min(180, member.image.width), Math.min(360, member.image.width)]} sizes="(max-width: 700px) 240px, 300px" format="webp" quality={90} loading="lazy" decoding="async" />}
+          </div>
+          <div class="portrait-caption"><h3>{member.name}</h3><p>{member.role}</p></div>
+        </li>
+      ))}
+    </ul>
+    {otherContributors.length > 0 && <div class="contributors">
+      <h3>{en ? 'Additional contributors' : 'ผู้ร่วมงานด้านอื่น ๆ'}</h3>
+      <ul class="contributor-list" role="list">
+        {otherContributors.map((member) => <li><strong>{member.name}</strong><span>{member.role}</span></li>)}
+      </ul>
+    </div>}
+    <div class="actions"><a class="btn secondary" href={`${prefix}/evidence/`}>{en ? 'Evidence & milestones' : 'หลักฐานและหมุดหมาย'}</a></div>
+  </div>
+</section>
+<style>
+  .portrait-grid, .contributor-list { list-style: none; margin: 0; padding: 0; }
+  .portrait-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .portrait-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
+  .portrait-frame { height: 300px; display: flex; align-items: end; justify-content: center; padding: 20px 20px 0; background: var(--mint); }
+  .portrait-frame img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+  .portrait-caption { padding: 20px 22px; }
+  .portrait-caption h3 { margin: 0; font-size: 1.15rem; line-height: 1.5; overflow-wrap: anywhere; }
+  .portrait-caption p { margin: 8px 0 0; color: var(--muted); }
+  .contributors { margin-top: 42px; }
+  .contributors > h3 { margin-bottom: 18px; font-size: 1.15rem; }
+  .contributor-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .contributor-list li { padding: 18px 0; border-top: 1px solid var(--line); min-width: 0; }
+  .contributor-list strong, .contributor-list span { display: block; overflow-wrap: anywhere; }
+  .contributor-list span { margin-top: 4px; color: var(--muted); font-size: .9rem; }
+  @media (max-width: 900px) { .portrait-grid { gap: 14px; } .portrait-frame { height: 240px; padding: 12px 12px 0; } }
+  @media (max-width: 700px) { .portrait-grid, .contributor-list { grid-template-columns: 1fr; } .portrait-frame { height: 300px; } }
+</style>

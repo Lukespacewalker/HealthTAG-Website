@@ -1,0 +1,28 @@
+{
+  "sourceRepository": "Lukespacewalker/healthtag.io-nx",
+  "sourceRef": "master",
+  "reviewedOn": "2026-08-30",
+  "assets": [
+    {"source":"frontend/src/assets/network/hospital-partner1.png","target":"src/assets/legacy/partners/hospital-partner1.png","sha":"60dcc92acdd5314e6a3560ddd728011cc1c0a55f"},
+    {"source":"frontend/src/assets/network/hospital-partner2.png","target":"src/assets/legacy/partners/hospital-partner2.png","sha":"69b9e34d3b4050b4a6057e044175ed18499e29c2"},
+    {"source":"frontend/src/assets/network/hospital-partner3.png","target":"src/assets/legacy/partners/hospital-partner3.png","sha":"f3390bf42a8656344064faa2c7cc91b273b3c7be"},
+    {"source":"frontend/src/assets/network/jospital-partner4.png","target":"src/assets/legacy/partners/hospital-partner4.png","sha":"7aeb6a8bc8c5be0ca5b4e5977e027d9c36719578"},
+    {"source":"frontend/src/assets/network/hospital-partner5.png","target":"src/assets/legacy/partners/hospital-partner5.png","sha":"29c8454966dd88d2600e79f95bbea22e699da6db"},
+    {"source":"frontend/src/assets/network/thaipartner1.png","target":"src/assets/legacy/partners/thaipartner1.png","sha":"23894dbcac0506ca5cc776e4022548456d4bb277"},
+    {"source":"frontend/src/assets/network/thaipartner2.png","target":"src/assets/legacy/partners/thaipartner2.png","sha":"63d02d6bdf85c5587b33dcdb2c4c899dbdfe5d51"},
+    {"source":"frontend/src/assets/network/thaipartner3.png","target":"src/assets/legacy/partners/thaipartner3.png","sha":"074ad22cfcc4febfbcc51cdcbfa528357debcf23"},
+    {"source":"frontend/src/assets/network/thaipartner4.png","target":"src/assets/legacy/partners/thaipartner4.png","sha":"6db5d733bb554e993f237724e1fd88d24d600c30"},
+    {"source":"frontend/src/assets/network/thaipartner5.png","target":"src/assets/legacy/partners/thaipartner5.png","sha":"7f368078069352d6071610f33f8f97c9929b8597"},
+    {"source":"frontend/src/assets/network/thaipartner6.png","target":"src/assets/legacy/partners/thaipartner6.png","sha":"020c3babf470c7de964b00354c32c3557e3810fb"},
+    {"source":"frontend/src/assets/network/thaipartner7.png","target":"src/assets/legacy/partners/thaipartner7.png","sha":"0a5a9ba7db664549db39e75eecac0fd9bcbc29f0"},
+    {"source":"frontend/src/assets/network/interPartner1.png","target":"src/assets/legacy/partners/interPartner1.png","sha":"570d132fd4219edb42c0f2c5b03ff2452e187cac"},
+    {"source":"frontend/src/assets/network/interPartner2.png","target":"src/assets/legacy/partners/interPartner2.png","sha":"1b8539973c6ed746bdaeb7e34ee281cb4353751d"},
+    {"source":"frontend/src/assets/network/interPartner3.png","target":"src/assets/legacy/partners/interPartner3.png","sha":"e4dd5dd4a6eea8672a325aab88837d5117d94b55"},
+    {"source":"frontend/src/assets/network/interPartner4.png","target":"src/assets/legacy/partners/interPartner4.png","sha":"8ebc282c9c074c5dbd98349c43089fb653c2fe40"},
+    {"source":"frontend/public/images/teams/dechowat.png","target":"src/assets/legacy/team/dechowat.png","sha":"3b37c9e1dbe4ac5b98849dced0ab2182e99e7bf1"},
+    {"source":"frontend/public/images/teams/ton.png","target":"src/assets/legacy/team/suttisak.png","sha":"d1b785a7ce315aaf7ce9dedf45e97121a965de45"},
+    {"source":"frontend/public/images/teams/bank.jpg","target":"src/assets/legacy/team/tanawat.jpg","sha":"0f221bb555e4ccb8d695689e530ddb3081d6a0e0"},
+    {"source":"frontend/src/assets/logo-dark.png","target":"src/assets/legacy/brand/logo-dark.png","sha":"de78bbe8f054fe0e2721384760c92db9906a8db6"},
+    {"source":"frontend/src/assets/logo-light.png","target":"src/assets/legacy/brand/logo-light.png","sha":"368632156c42bc3cf80d56e15e98ef6ea5dfbe7f"}
+  ]
+}

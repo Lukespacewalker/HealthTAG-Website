@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { networkGroups } from '../data/partners';
+import type { Locale } from '../data/site-content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+---
+<div class="network-groups">
+  {networkGroups.map((group) => (
+    <section class="network-group" aria-labelledby={`network-${group.id}`}>
+      <div class="container">
+        <div class="group-heading">
+          <h2 id={`network-${group.id}`}>{group.title[locale]}</h2>
+          <p>{group.introduction[locale]}</p>
+        </div>
+        <ul class="logo-grid" role="list">
+          {group.organizations.map((organization) => (
+            <li class="logo-card" data-organization={organization.id}>
+              <div class="logo-frame">
+                <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} />
+              </div>
+              <div class="organization-copy">
+                <h3>{organization.name[locale]}</h3>
+                <p>{organization.relationship[locale]}</p>
+                {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'Read the context for' : 'อ่านบริบทของ'} ${organization.name[locale]}`}>{en ? 'Read the context' : 'อ่านรายละเอียด'} <span aria-hidden="true">→</span></a>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+</div>
+<section class="network-note">
+  <div class="container note-inner">
+    <p>{en ? 'Network membership, an award, or participation in a programme does not imply that every organization uses HealthTAG in production. Deployment scope and external sources are documented separately.' : 'การอยู่ในเครือข่าย การได้รับรางวัล หรือการร่วมโครงการ ไม่ได้หมายความว่าทุกองค์กรใช้งาน HealthTAG ใน production ดูขอบเขตการติดตั้งและหลักฐานภายนอกได้แยกกัน'}</p>
+    <div class="actions"><a class="btn secondary" href={`${prefix}/deployments/`}>{en ? 'Deployment details' : 'รายละเอียดการใช้งานจริง'}</a><a class="btn secondary" href={`${prefix}/evidence/`}>{en ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a></div>
+  </div>
+</section>
+<style>
+  .network-group { padding: 48px 0 60px; border-top: 1px solid var(--line); }
+  .network-group:nth-child(2) { background: #eef3f1; }
+  .group-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 28px; align-items: start; }
+  .group-heading h2 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.45; letter-spacing: -.02em; }
+  .group-heading p { margin: 6px 0 0; color: var(--muted); }
+  .logo-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+  .logo-card { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--white); overflow: hidden; }
+  .logo-frame { height: 168px; padding: 20px; display: flex; align-items: center; justify-content: center; }
+  .logo-frame img { display: block; max-width: 100%; width: auto; max-height: 118px; height: auto; object-fit: contain; }
+  .organization-copy { border-top: 1px solid var(--line); padding: 18px 20px 22px; }
+  .organization-copy h3 { margin: 0; font-size: 1rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .organization-copy p { margin: 8px 0 0; font-size: .85rem; color: var(--muted); }
+  .organization-copy a { display: inline-block; margin-top: 12px; color: var(--teal); text-decoration: underline; text-underline-offset: 4px; font-size: .9rem; }
+  .network-note { padding: 40px 0 64px; border-top: 1px solid var(--line); }
+  .note-inner > p { max-width: 840px; margin: 0; color: var(--muted); }
+  @media (max-width: 1050px) { .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 760px) { .group-heading { grid-template-columns: 1fr; gap: 10px; } .logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .logo-frame { padding: 14px; height: 148px; } .organization-copy { padding: 16px; } }
+  @media (max-width: 400px) { .logo-grid { grid-template-columns: 1fr; } .logo-frame { height: 152px; } }
+</style>
