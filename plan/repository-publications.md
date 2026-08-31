@@ -20,7 +20,7 @@ Move HealthTAG news, articles, and verified awards into schema-validated reposit
 - [x] Verify legacy and publication assets
 - [x] Run `npm ci`, `npm run validate`, Playwright, and axe checks
 - [x] Inspect Thai and English pages at 320, 390, 768, and 1440 px
-- [ ] Commit coherent changes and open an unmerged PR with sources, dates, tests, preview evidence, limitations, and owner confirmations
+- [x] Commit coherent changes and open an unmerged PR with sources, dates, tests, preview evidence, limitations, and owner confirmations
 
 ## Decision log
 
