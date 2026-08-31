@@ -20,8 +20,10 @@ const routes = [
   '/en/articles/why-ncds-are-thailands-hidden-crisis/',
   '/contact/',
   '/support/',
+  '/support/community-edition/user-manual/',
   '/privacy/',
   '/en/support/',
+  '/en/support/community-edition/user-manual/',
   '/en/posts/',
   '/en/news/',
   '/en/articles/',
@@ -124,13 +126,41 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('#recommended')).toContainText('Silicon Craft ADR12');
   await expect(page.locator('#legacy')).toContainText('ไม่แนะนำสำหรับการติดตั้งใหม่');
   await expect(page.locator('#legacy details')).not.toHaveAttribute('open', '');
+  await expect(page.locator('#community-edition')).toContainText('open source');
+  await expect(page.locator('#community-edition')).toContainText('คนละผลิตภัณฑ์');
+  await expect(page.locator('#community-edition a[href="/support/community-edition/user-manual/"]')).toBeVisible();
   const downloadHrefs = await page.locator('main a[href^="https://"]').evaluateAll((links) => links.map((link) => (link as HTMLAnchorElement).href));
   expect(downloadHrefs.length).toBeGreaterThanOrEqual(5);
   expect(downloadHrefs.every((href) => href.startsWith('https://'))).toBe(true);
 
   await page.goto('/en/support/');
   await expect(page.locator('#legacy')).toContainText('Not recommended for new installations');
+  await expect(page.locator('#community-edition')).toContainText('Latest available manual');
+  await expect(page.locator('#community-edition a[href="/en/support/community-edition/user-manual/"]')).toBeVisible();
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
+});
+
+test('Community Edition manual has contents navigation and language-aware code samples', async ({ page }) => {
+  await page.goto('/support/community-edition/user-manual/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('คู่มือ Community Edition');
+  expect(await page.locator('.manual-toc .toc-link').count()).toBeGreaterThan(10);
+  expect(await page.locator('.manual-article h2[id]').count()).toBeGreaterThanOrEqual(4);
+  await expect(page.locator('pre[data-language="bash"]')).not.toHaveCount(0);
+  await expect(page.locator('pre[data-language="dotenv"]')).not.toHaveCount(0);
+  await expect(page.locator('pre[data-language="python"]')).toHaveCount(1);
+  await expect(page.locator('.code-sample .copy-code').first()).toBeVisible();
+  expect(await page.locator('.manual-article img').count()).toBeGreaterThanOrEqual(40);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/support/community-edition/user-manual/');
+  await expect(page.locator('.mobile-toc')).toBeVisible();
+  await page.locator('.mobile-toc summary').click();
+  await expect(page.locator('.mobile-toc')).toHaveAttribute('open', '');
+
+  await page.goto('/en/support/community-edition/user-manual/');
+  await expect(page.locator('.language-note')).toContainText('source manual is available in Thai');
+  await expect(page.locator('.manual-article')).toHaveAttribute('lang', 'th');
+  await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/community-edition/user-manual/');
 });
 
 test('repository publications support search, pagination, local details, and bilingual metadata', async ({ page }) => {
@@ -214,7 +244,7 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/news/siriraj-registration-site-visit-2024/', '/en/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/en/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/en/awards/mobile-id-innovation-awards-top-10/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
+for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/news/siriraj-registration-site-visit-2024/', '/en/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/en/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/en/awards/mobile-id-innovation-awards-top-10/', '/contact/', '/support/', '/support/community-edition/user-manual/', '/en/support/', '/en/support/community-edition/user-manual/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });

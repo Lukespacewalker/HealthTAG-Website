@@ -51,7 +51,9 @@ The legacy Support component maps these original files directly to the named dow
 | `nfc-scanner.jpg` | Screenshot of the older HealthTAG NFC Reader, shown only inside the Legacy section. |
 | `20220909_130154822_iOS.jpg` | Photograph whose visible product label identifies the Silicon Craft ADR12 reader. |
 
-The generic Samsung tablet image and stock meeting image from the old Support page are not migrated because they do not show the supported connection or Community Edition interface. The old Community Edition manual route has no corresponding source document in the legacy repository and is not published as a working manual.
+The generic Samsung tablet image and stock meeting image from the old Support page are not migrated because they do not show the supported connection or Community Edition interface.
+
+The Community Edition manual screenshots come from `health-tag/healthtag.io` at commit `32d1b20ebb6116ddfeaad855345f6f3907aef5b8`. The allowlist in `scripts/community-edition-assets.json` records the source path, target path, and Git blob SHA for each image. The screenshots remain unchanged; Astro creates the web renditions. See `docs/COMMUNITY_EDITION_SUPPORT.md` for the product boundary and source treatment.
 
 `src/assets/support/silicon-craft-adr12-cutout.png` is a transparent-background derivative of `20220909_130154822_iOS.jpg`, created on 2026-08-31 for the Support hero to remove the wooden table. The original photograph remains in `src/assets/legacy/support/` and in the integrity manifest. The derivative is not treated as an original legacy binary.
 

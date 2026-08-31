@@ -1,0 +1,222 @@
+{
+  "sourceRepository": "health-tag/healthtag.io",
+  "sourceRef": "32d1b20ebb6116ddfeaad855345f6f3907aef5b8",
+  "reviewedOn": "2026-08-31",
+  "assets": [
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image10.png",
+      "target": "src/assets/legacy/community-edition/image10.png",
+      "sha": "bb51763bd170e6df6aeb069f499c988c24edf231"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image11.png",
+      "target": "src/assets/legacy/community-edition/image11.png",
+      "sha": "de4e4e0a0ed11570cc2155edda75f9d769806f73"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image12.png",
+      "target": "src/assets/legacy/community-edition/image12.png",
+      "sha": "36fad5dc07af1266752e9806c0af157b157ed94d"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image13.png",
+      "target": "src/assets/legacy/community-edition/image13.png",
+      "sha": "437bbd3186bcd9c8e16a531a04e2aeaf95e4a109"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image14.png",
+      "target": "src/assets/legacy/community-edition/image14.png",
+      "sha": "087d30d8824f5bc52463945a7a6e8b3cfbeaa2c9"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image15.png",
+      "target": "src/assets/legacy/community-edition/image15.png",
+      "sha": "9bf083288bd623d210cfe6fe543e5fbef0d2bf91"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image16.png",
+      "target": "src/assets/legacy/community-edition/image16.png",
+      "sha": "0d63fd9342ee21b4551affaf63de038f69b1da2d"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image17.png",
+      "target": "src/assets/legacy/community-edition/image17.png",
+      "sha": "1d49c8127860f4fc735233c6929b77c1c24e3c56"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image18.png",
+      "target": "src/assets/legacy/community-edition/image18.png",
+      "sha": "2807e07b75225982347f101d7c236dd118526bd8"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image19.png",
+      "target": "src/assets/legacy/community-edition/image19.png",
+      "sha": "866fd4543517ca3c73d474efefd38732dfd2873f"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image20.png",
+      "target": "src/assets/legacy/community-edition/image20.png",
+      "sha": "09bd9943315d0551c31507c2a92c8c141c257f2a"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image21.png",
+      "target": "src/assets/legacy/community-edition/image21.png",
+      "sha": "12553cdadbaa9e8328592b39c6a7dcd7688ec1b3"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image22.png",
+      "target": "src/assets/legacy/community-edition/image22.png",
+      "sha": "a74981b58f7e400929a0ff08db1d4238f2fe388a"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image23.png",
+      "target": "src/assets/legacy/community-edition/image23.png",
+      "sha": "1f315b031efefe59a8f39f6a87e7c6bf1326dd8d"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image24.png",
+      "target": "src/assets/legacy/community-edition/image24.png",
+      "sha": "5a6a37f7f166b265615188f3007f3b08402f8e6e"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image25.png",
+      "target": "src/assets/legacy/community-edition/image25.png",
+      "sha": "74874e2dd1d08d8da681b1836294422e817ca792"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image26.png",
+      "target": "src/assets/legacy/community-edition/image26.png",
+      "sha": "426c53054182df1d53eda5cea1c2a731475241a7"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image27.png",
+      "target": "src/assets/legacy/community-edition/image27.png",
+      "sha": "b8a8e94c30afc755fc5b72e2be68dc15a7f79575"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image28.png",
+      "target": "src/assets/legacy/community-edition/image28.png",
+      "sha": "b550e6744544cee070e6bdc53b100a74fa51c634"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image29.png",
+      "target": "src/assets/legacy/community-edition/image29.png",
+      "sha": "025ec98f6bed3375d0a61d9cbc487c9b7ea96a71"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image30.png",
+      "target": "src/assets/legacy/community-edition/image30.png",
+      "sha": "15a63b85b371bb09132149e625c2f8b439e35340"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image31.png",
+      "target": "src/assets/legacy/community-edition/image31.png",
+      "sha": "ae7a25419091d7aeffca4150a256e37c472ef623"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image32.png",
+      "target": "src/assets/legacy/community-edition/image32.png",
+      "sha": "a1767f72798203eb85c430693b4944b926e6b434"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image33.png",
+      "target": "src/assets/legacy/community-edition/image33.png",
+      "sha": "c6a733351b11cda0f8b19fda6d88a3dbf66e106a"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image34.png",
+      "target": "src/assets/legacy/community-edition/image34.png",
+      "sha": "e7e7b6aa3b8ca077d4c3f88de9330add7e8dfc47"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image35.png",
+      "target": "src/assets/legacy/community-edition/image35.png",
+      "sha": "7045bd8add20d2ea1e19e92ab866c5b1d73da1ec"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image36.png",
+      "target": "src/assets/legacy/community-edition/image36.png",
+      "sha": "c0bd6decb6f246ade177f4b67c56e39eaf63ebd9"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image37.png",
+      "target": "src/assets/legacy/community-edition/image37.png",
+      "sha": "a86b130fb0fb8a12eeecd66eb6bb0b16158f2ae5"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image38.png",
+      "target": "src/assets/legacy/community-edition/image38.png",
+      "sha": "d4025484312173dfc97eb40c8034536fbe5102d2"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image39.png",
+      "target": "src/assets/legacy/community-edition/image39.png",
+      "sha": "9ac67a7c07dc5d81b5a4c1d519778272a3b18f86"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image40.png",
+      "target": "src/assets/legacy/community-edition/image40.png",
+      "sha": "82ba2ddc1af4396e5aa3e2c9775bef53ebf73d6c"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image41.png",
+      "target": "src/assets/legacy/community-edition/image41.png",
+      "sha": "264fae44e2e10ca3370879cf0e5e67c9ca054833"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image42.png",
+      "target": "src/assets/legacy/community-edition/image42.png",
+      "sha": "c88245da5907ab2979a3520df179a1d8cba10d0b"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image43.png",
+      "target": "src/assets/legacy/community-edition/image43.png",
+      "sha": "2bc075fefba3db9446fb1630c008a7913c8788ee"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image44.jpeg",
+      "target": "src/assets/legacy/community-edition/image44.jpeg",
+      "sha": "f1d7b66e33b5452bb062a7fa806db66347f88934"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image45.jpeg",
+      "target": "src/assets/legacy/community-edition/image45.jpeg",
+      "sha": "98de5e422cc62436f4549787bc4989a0a0d3acd3"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image46.jpeg",
+      "target": "src/assets/legacy/community-edition/image46.jpeg",
+      "sha": "bdbccd3dc519583e6d859008d0fc4d8b881d0240"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image47.jpeg",
+      "target": "src/assets/legacy/community-edition/image47.jpeg",
+      "sha": "0b2478e90d4ced79c9ff75400dc3687b58ed3948"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image48.jpeg",
+      "target": "src/assets/legacy/community-edition/image48.jpeg",
+      "sha": "9520d9305168ea5601b7b59f8f5aa629af85dc7c"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image49.jpeg",
+      "target": "src/assets/legacy/community-edition/image49.jpeg",
+      "sha": "1ca4f6334a44d2796f04ec9530581fb2e521e280"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image7.png",
+      "target": "src/assets/legacy/community-edition/image7.png",
+      "sha": "68749590335f0bb5b2f66d20ebf5a07c56b052a4"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image8.png",
+      "target": "src/assets/legacy/community-edition/image8.png",
+      "sha": "265fd06f8b7002c1d3a3cc8d136b16de00480126"
+    },
+    {
+      "source": "frontend/src/pages/support/community-edition/user-manual/media/image9.png",
+      "target": "src/assets/legacy/community-edition/image9.png",
+      "sha": "509923798a6e982aea37519c7621fa3f4d1e331a"
+    }
+  ]
+}

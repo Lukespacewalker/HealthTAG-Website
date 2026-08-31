@@ -5,10 +5,14 @@ import { resolve, relative, isAbsolute } from 'node:path';
 
 // Offline integrity check. A normal checkout/build never contacts the legacy site.
 const root = fileURLToPath(new URL('../', import.meta.url));
-const manifest = JSON.parse(await readFile(new URL('./legacy-assets.json', import.meta.url), 'utf8'));
+const manifestUrls = [
+  new URL('./legacy-assets.json', import.meta.url),
+  new URL('./community-edition-assets.json', import.meta.url),
+];
+const manifests = await Promise.all(manifestUrls.map(async (url) => JSON.parse(await readFile(url, 'utf8'))));
 const seen = new Set();
 const errors = [];
-for (const asset of manifest.assets) {
+for (const asset of manifests.flatMap((manifest) => manifest.assets)) {
   const path = resolve(root, asset.target);
   const within = relative(resolve(root, 'src/assets/legacy'), path);
   if (!within || within.startsWith('..') || isAbsolute(within) || seen.has(asset.target)) {

@@ -35,6 +35,8 @@
 # Canonical support routes
 /support                /support/            301
 /en/support             /en/support/         301
+/support/community-edition/user-manual      /support/community-edition/user-manual/      301
+/en/support/community-edition/user-manual   /en/support/community-edition/user-manual/   301
 
 # Canonical news and article index routes
 /posts                  /posts/              301
