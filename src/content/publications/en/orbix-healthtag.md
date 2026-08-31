@@ -28,11 +28,26 @@ images:
     checksum: "sha256:2eaae4c97e5fd41ce6064e6decdef34feb9c5eca2001270f3ea2dafa23fb9b72"
 ---
 
-## The collaboration announcement
+## The collaboration between Orbix Technology and HealthTAG
 
-KASIKORNBANK announced a collaboration between Orbix Technology and HealthTAG, referring to HealthTAG Wallet, HL7 FHIR, Quarix, and system testing.
+Orbix Technology and Innovation, the developer of the Quarix blockchain infrastructure, announced a collaboration with HealthTAG on 13 March 2026. The work concerns health data infrastructure that connects information from healthcare providers and gives data owners a way to manage permissions through HealthTAG Wallet.
 
-## Scope of this record
+HealthTAG develops and manages HealthTAG Wallet and connects information across healthcare providers using HL7 FHIR. Orbix Technology provides Quarix infrastructure for system testing and for mechanisms that require an auditable record.
 
-The announcement says some financial services remained under discussion and would require regulatory approval before commercial launch.
+## Hospitals retain control of clinical records
 
+Healthcare providers remain the controllers of clinical records in their source systems. HealthTAG Wallet lets people access their information and manage who may view particular records. The blockchain records consent and data access events. It does not hold clinical records.
+
+This design assigns a distinct job to each part of the system. HL7 FHIR supports health data exchange between systems, while consent and access event records make the use of permissions auditable. Testing on Quarix therefore focuses on connectivity and trust mechanisms for digital transactions.
+
+## Discussions about financial services
+
+The announcement says Orbix Technology and HealthTAG are discussing financial services that could use information supplied with the data owner's permission as supporting documentation. The possible applications named in the announcement include supply chain payments, insurance underwriting, and customer profiling.
+
+These commercial services remain at the discussion stage. The two companies will develop the details and seek approval from the relevant regulators before any launch.
+
+## What the work means for HealthTAG Wallet
+
+For HealthTAG, the collaboration provides a setting to test how HealthTAG Wallet connects with external blockchain infrastructure while keeping users in control of permissions and using health standards that allow providers to exchange information.
+
+The work with Orbix Technology also allows the teams to assess access controls, privacy, interoperability, and regulatory requirements before taking the financial concepts under discussion into further development.

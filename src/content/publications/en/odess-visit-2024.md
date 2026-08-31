@@ -21,6 +21,10 @@ sources:
     url: "https://www.odess.io/en/the-conference/laureates/"
     organization: "ODESS"
     type: "primary"
+  - label: "Read the ODESS profile of HealthTAG"
+    url: "https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/"
+    organization: "ODESS"
+    type: "primary"
 images:
   - src: "../../../assets/news/odess-visit-2024.jpg"
     alt: "HealthTAG representatives and a visitor stand with a HealthTAG sign inside a hospital area"
@@ -29,10 +33,26 @@ images:
     checksum: "sha256:b6859ee85c2367c188261c1a04b565a72a107bb58f6e29dd0dd1744f2d1c41f9"
 ---
 
-## The visit
+## The assessment visit on 16 and 17 May
 
-HealthTAG recorded a visit by a Fondation Pierre Fabre representative on 16 and 17 May 2024. ODESS separately lists HealthTAG among its selected 2024 initiatives.
+HealthTAG welcomed an official representative of Fondation Pierre Fabre who travelled from Paris to Bangkok on 16 and 17 May 2024. The visit formed part of the assessment of HealthTAG as a finalist in the 2024 ODESS Awards.
 
-## Scope of this record
+HealthTAG's original post records that the team presented its implementation for inspection. ODESS later named HealthTAG among its 2024 digital health laureates.
 
-A visit and inclusion in the initiative list do not establish a deployment, contract, or certification.
+## The challenge presented to ODESS
+
+HealthTAG described its goal to ODESS as using information and communication technology to improve access to care and quality medicines, with a particular focus on Asia and South Africa.
+
+The ODESS project profile places HealthTAG in the context of fragmented health information held by healthcare institutions at different levels and limited interoperability between those systems. The initiative aims to connect hospital-controlled information, give patients access through a Personal Health Record, and support coordination across the health system.
+
+## The partners who welcomed the representative
+
+HealthTAG named Siriraj Hospital, Golden Jubilee Medical Center and Standards and Interoperability Lab Thailand, or SIL-TH, as partners involved during the assessment visit. The visit allowed the Fondation Pierre Fabre representative to see both the healthcare-provider perspective and the health-data standards work associated with the initiative.
+
+Each organisation contributes to the shared task of making health information usable across systems while hospitals remain responsible for their clinical records.
+
+## The system reviewed during the visit
+
+HealthTAG connects clinical data through FHIR and manages identity, authorisation and access auditing. Hospitals control the clinical records, while blockchain records consent and access events for later review.
+
+In this context, the word decentralised refers to helping patients access their own health information without consolidating every clinical record in one place. The two-day visit gave HealthTAG and its partners an opportunity to present that approach directly to the ODESS representative.
