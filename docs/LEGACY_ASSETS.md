@@ -53,6 +53,8 @@ The legacy Support component maps these original files directly to the named dow
 
 The generic Samsung tablet image and stock meeting image from the old Support page are not migrated because they do not show the supported connection or Community Edition interface. The old Community Edition manual route has no corresponding source document in the legacy repository and is not published as a working manual.
 
+`src/assets/support/silicon-craft-adr12-cutout.png` is a transparent-background derivative of `20220909_130154822_iOS.jpg`, created on 2026-08-31 for the Support hero to remove the wooden table. The original photograph remains in `src/assets/legacy/support/` and in the integrity manifest. The derivative is not treated as an original legacy binary.
+
 ## Brand
 
 `logo-light.png` has dark lettering for a light background; `logo-dark.png` has white lettering for a dark background. Keep the original colors and aspect ratio. Do not redraw the logo or apply CSS recoloring.
