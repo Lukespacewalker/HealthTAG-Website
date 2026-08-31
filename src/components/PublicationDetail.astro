@@ -37,9 +37,8 @@ const articleJson = JSON.stringify({
     <section class="publication-detail"><div class="container publication-detail-grid">
       <article class="publication-prose" data-publication-prose>
         <Content />
-        {data.kind === 'award' && <section class="award-boundary" aria-label={en ? 'Award evidence boundary' : 'ขอบเขตหลักฐานของรางวัล'}>
-          <div><h2>{en ? 'What this award confirms' : 'รางวัลนี้ยืนยันอะไร'}</h2><ul>{data.confirms?.map((item) => <li>{item}</li>)}</ul></div>
-          <div><h2>{en ? 'What it does not confirm' : 'รางวัลนี้ไม่ได้ยืนยันอะไร'}</h2><ul>{data.doesNotConfirm?.map((item) => <li>{item}</li>)}</ul></div>
+        {data.kind === 'award' && <section class="award-boundary" aria-label={en ? 'Confirmed award result' : 'ผลรางวัลที่ยืนยันแล้ว'}>
+          <div><p class="award-status">{data.resultStatus}</p><h2>{en ? 'Confirmed result' : 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน'}</h2><ul>{data.confirmedResult?.map((item) => <li>{item}</li>)}</ul></div>
         </section>}
         <section class="publication-sources" aria-labelledby="publication-sources-heading"><h2 id="publication-sources-heading">{en ? 'Sources' : 'แหล่งข้อมูล'}</h2><ul>{data.sources.map((source) => <li>{source.url ? <a href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel={source.url.startsWith('http') ? 'noopener noreferrer' : undefined}>{source.label}</a> : source.label} ({source.organization})</li>)}</ul></section>
       </article>

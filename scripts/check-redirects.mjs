@@ -27,6 +27,12 @@ const required = new Map([
   ['/posts/article-8', '/awards/odess-laureate-2024/'],
   ['/posts/data-is-the-new-medicine-', '/articles/data-is-the-new-medicine/'],
   ['/posts/blockchain-digital-decentralized-system', '/articles/blockchain-digital-decentralized-system/'],
+  ['/posts/top-5-finalist-of-mobile-id-by-nbtc', '/awards/mobile-id-nbtc-top-5/'],
+  ['/posts/thailand-ict-award-2022', '/awards/thailand-ict-award-2022/'],
+  ['/posts/article', '/news/siriraj-registration-site-visit-2024/'],
+  ['/posts/tan-tock-seng-hospital', '/news/tan-tock-seng-hospital-visit-2022/'],
+  ['/posts/article-9', '/awards/asean-digital-awards-2024/'],
+  ['/posts/katalyst-start-up-launchpad-2022', '/awards/katalyst-start-up-launchpad-2022/'],
 ]);
 
 const lines = (await fs.readFile(redirectFile, 'utf8'))

@@ -17,5 +17,21 @@
   { "path": "src/assets/publications/articles/why-ncds-are-thailands-hidden-crisis.jpg", "width": 2048, "height": 2048, "sha256": "1739C831978807906F70EB8DF60735BCAFC77EA6EA4D2AEE1E3DD76D4D9F82B5" },
   { "path": "src/assets/publications/articles/smart-contract-healthcare-system.png", "width": 574, "height": 374, "sha256": "DB8F65B96F022E837718CCC1CAF1C8997386A88DA35FB7342C0EC89CB181FAD3" },
   { "path": "src/assets/publications/awards/apicta-2022.jpg", "width": 1440, "height": 1080, "sha256": "E6036D8A5669E9CA5FBA5D6DED51A4505120A104012D5A7A026F220360D6C39D" },
-  { "path": "src/assets/publications/awards/odess-laureate-2024.jpg", "width": 600, "height": 503, "sha256": "64E968A330AACC5C8163A37F65B58133192BFF2148BC755244FF2208ABDCC403" }
+  { "path": "src/assets/publications/awards/odess-laureate-2024.jpg", "width": 600, "height": 503, "sha256": "64E968A330AACC5C8163A37F65B58133192BFF2148BC755244FF2208ABDCC403" },
+  { "path": "src/assets/publications/awards/asean-digital-awards.jpg", "width": 892, "height": 1190, "sha256": "DDF22958F9EE2E2B64D361110B025BCED244DD3F79EAB2B6BD6AD6960EC8C1B5" },
+  { "path": "src/assets/publications/awards/mobile-id-nbtc-top-5.jpg", "width": 1280, "height": 720, "sha256": "DF5829D64775881A71EFA9F80D96F6664EB63668FBB576AD1D4EB78CAF10A4D9" },
+  { "path": "src/assets/publications/awards/tech-investment-show-2023-top-8.jpg", "width": 1080, "height": 1440, "sha256": "54F34B6E096DE2E46A5DEF37596BF6572C22B87AFBC3BB4E832B9D66B1F88035" },
+  { "path": "src/assets/publications/awards/mobile-id-innovation-awards-top-10.jpg", "width": 1004, "height": 1440, "sha256": "278572CB85A28895A93BCF18B6E26BD78E16A83000780514A3251A87275F33FA" },
+  { "path": "src/assets/publications/awards/thailand-ict-award-2022.png", "width": 1920, "height": 1080, "sha256": "AA8F0FB48460D93308225EB82B8C6F3FB9B02B75F705A77524995D3514BF4B31" },
+  { "path": "src/assets/publications/awards/ticta-pitching-day-2022.jpg", "width": 526, "height": 701, "sha256": "99341871C380B9CBCA311E1362895227C74698A6F4CBA6E3E96AA360FEBF0FBF" },
+  { "path": "src/assets/publications/awards/nia-corporate-spark-2025.jpg", "width": 1440, "height": 1080, "sha256": "374EDB7F7767120EAB9447AF8F783D50ADF21DDA8F3BA1BA72FFE5AA572FFA6B" },
+  { "path": "src/assets/publications/awards/katalyst-start-up-launchpad-2022.jpg", "width": 960, "height": 683, "sha256": "465DDDC022E093E17101D4EEB82F5CE1B11A5E93544B6A9EC92A0052D88A59E7" },
+  { "path": "src/assets/publications/news/siriraj-registration-site-visit-2024-1.jpg", "width": 1477, "height": 1108, "sha256": "4594D82911BAF213680FAEE6B5C40BD9827B90407C0A95540AE1AA488564760E" },
+  { "path": "src/assets/publications/news/siriraj-registration-site-visit-2024-2.jpg", "width": 1477, "height": 1108, "sha256": "24A81BDA27FFC4DA406940766FA56EA891E7D3C02C324EE26D9EDB9491897997" },
+  { "path": "src/assets/publications/news/centre-health-innovation-fellowship-visit-2022-1.jpg", "width": 1200, "height": 800, "sha256": "EAD4070F08BACE6B47D148795F2B5865DDA6CFED1C2366DBECE3F985B3C5DE99" },
+  { "path": "src/assets/publications/news/centre-health-innovation-fellowship-visit-2022-2.jpg", "width": 2048, "height": 1714, "sha256": "B07C00DC057D1BD80D4A8AC59DDB244E59B30FF9356A343ACF331E3C99B8CB84" },
+  { "path": "src/assets/publications/news/tan-tock-seng-hospital-visit-2022-1.jpg", "width": 1170, "height": 779, "sha256": "AB43B7E5587984CAD9723F55DFACCFDF2177AC75EC3904750B237036EB99371F" },
+  { "path": "src/assets/publications/news/tan-tock-seng-hospital-visit-2022-2.jpg", "width": 2048, "height": 1536, "sha256": "BC047A62D29F13443DD34E1EF5519E88B74707774564EC5DEB195407585B49FE" },
+  { "path": "src/assets/publications/news/siriraj-youth-phr-presentation-2022-1.jpg", "width": 1200, "height": 800, "sha256": "BF7FB7BFC3F44B3963538352215E25825EE345B424AAB3E07E8C9C5E0705D69E" },
+  { "path": "src/assets/publications/news/siriraj-youth-phr-presentation-2022-2.jpg", "width": 1478, "height": 1108, "sha256": "166B8DF1C543DE683717CFEBC55D0EFC36FB3158ABE522D7400BDC71BB78D781" }
 ]

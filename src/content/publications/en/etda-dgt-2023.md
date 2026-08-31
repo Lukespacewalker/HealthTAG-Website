@@ -28,11 +28,24 @@ images:
     checksum: "sha256:66594ac719c5e39f88818e817bd28e667ef9305045db14bafea3a7f0173435f4"
 ---
 
-## The session
+## HealthTAG at DGT 2023
 
-Dr Dechowat Promda joined the AI for Better Health and Well-being session on 25 February 2023. ETDA names the speakers and confirms that DGT 2023 ran on 24 and 25 February.
+Dr Dechowat Promda of HealthTAG joined the "AI for Better Health and Well-being" panel at DGT 2023: Happiness Creation on 25 February 2023. ETDA's annual event ran on 24 and 25 February under the theme "A good life with digital technology."
 
-## Scope of this record
+HealthTAG thanked ETDA for the opportunity to take part in the discussion and stated its aim of helping advance Thailand's health technology community.
 
-The sources confirm participation in the session. They do not establish a deployment or system certification.
+## The panel
 
+ETDA's recording names five participants: Assistant Professor Dr Theerawit Wilaiprasitporn of the CHIVID app at VISTEC, Pongchai Petsanghan of Dietz Application, Dr Dechowat Promda of HealthTAG, Dr Sak Segkhoonthod of ETDA, and Nopparit Kamonsuwan of Spring News.
+
+The panel brought health technology developers, a digital-policy specialist and a media representative into the same conversation. It connected product experience in healthcare with the wider question of how AI can support health and well-being.
+
+## HealthTAG's context in the discussion
+
+HealthTAG works on the problem of health information that remains in separate hospital systems and is difficult to exchange. Its infrastructure connects data through FHIR and manages identity, authorisation and access history so patients can use their information through a Personal Health Record.
+
+Connected, permissioned health information provides a practical foundation for applying newer technologies in healthcare. Participation in DGT 2023 allowed HealthTAG to bring its experience in health information infrastructure into a discussion that looked ahead to AI.
+
+## ETDA's session record
+
+ETDA published the complete session video after the event, with the topic, date and all five participants identified. The recording is the primary record of the activity and preserves more of the discussion's context than the stage photograph alone.

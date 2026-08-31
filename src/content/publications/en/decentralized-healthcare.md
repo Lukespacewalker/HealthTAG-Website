@@ -22,7 +22,7 @@ images:
   - src: ../../../assets/publications/articles/decentralized-healthcare.jpg
     alt: "Illustration of a decentralized healthcare network connecting a patient with healthcare providers"
     credit: "HealthTAG"
-    sourceUrl: "https://cms.healthtag.io/posts/decentralized-healthcare"
+    sourceUrl: "https://cms.healthtag.io/api/media/file/decentralized-healthcare.jpg"
     checksum: "sha256:00226b862756701da91cfcd8f9d76bdc9512f6b9ffceb1c67a6c434bdac3fdf3"
 status: published
 ---
@@ -70,6 +70,10 @@ Good exchange can reduce repeated work and make important information available 
 ## Other applications need a separate boundary
 
 Healthcare discussions also propose blockchain and smart contracts for research, payments, insurance, and pharmaceutical supply chains. These ideas may benefit from auditable events or automated conditions, but each use case needs trustworthy input data, governance, and a way to correct errors.
+
+In research, a participant might authorize the use of de-identified information for a named study and a defined period. The agreement could include compensation or another benefit for the participant, with a smart contract recording whether the agreed conditions were met. The study would still need ethics review, a consent-withdrawal process, and controls for the risk that information could be linked back to a person.
+
+The phrase "the patient holds the key" needs to be read in the context of the implemented architecture. Patients manage access through the authorization process, hospitals control clinical records, and the responsible systems manage credentials and keys within their own boundaries. Control over permission does not mean that a patient's device holds the keys to every medical record.
 
 They are examples of decentralized healthcare in general, not confirmation of current HealthTAG features or deployments. HealthTAG's documented scope covers FHIR connectivity, identity linkage, authorization, access auditing, and the PHR experience.
 

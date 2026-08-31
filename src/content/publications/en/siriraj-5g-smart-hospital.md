@@ -28,11 +28,34 @@ images:
     checksum: "sha256:8ef15e8ca342aa9511b042b032ae5a8128c3cfb6c26015785d83c6cb94932c7b"
 ---
 
-## Programme launch
+## Launching a smart hospital model
 
-Siriraj announced the Siriraj World Class 5G Smart Hospital with nine subprojects, including Permission based blockchain for personal health record.
+The Faculty of Medicine Siriraj Hospital, Mahidol University, the Office of the NBTC, and Huawei Thailand launched the Siriraj World Class 5G Smart Hospital on 16 December 2021 at Siriraj Hospital's Srisavarindira Building. General Prayut Chan-o-cha, then Prime Minister of Thailand, presided over the ceremony.
 
-## Scope of this record
+Siriraj developed the programme as a model for applying 5G networks, cloud services, and AI in a hospital. Its stated aims included more efficient services, a better patient experience, and wider access to advanced tertiary care for people in remote areas. The programme also included an Innovation Lab and a platform intended to incubate future medical innovation.
 
-HealthTAG says it participated in the PHR subproject and that Siriraj IT uses its own HIS-to-FHIR script. The Siriraj announcement does not mention HealthTAG or those implementation details.
+## The nine subprojects
 
+Siriraj's announcement listed nine subprojects:
+
+1. Smart EMS, an intelligent emergency medical service using 5G and AI
+2. Smart Emergency Room, an emergency room system using 5G and AI
+3. A pathological diagnosis system using AI over a 5G network
+4. 5G AI Platform for NCD, a personalized health and care assistant for people with noncommunicable diseases
+5. Smart Inventory Management, using AI and 5G to forecast demand and manage inventory
+6. Permission based blockchain for personal health record
+7. Smart Logistic with 5G Self-Driving Car, an autonomous central transport system
+8. Multi-access Edge Computing, or MEC, equipment
+9. A Hybrid Cloud system
+
+The Office of the NBTC supported the programme through funding, spectrum coordination, and technology knowledge transfer. Huawei supported 5G infrastructure and the Innovation Lab. The programme therefore covered telecommunications infrastructure, computing, and clinical use cases.
+
+## HealthTAG's work on the Personal Health Record
+
+HealthTAG participated in the Permission-based Blockchain for Personal Health Record subproject. Siriraj's IT team developed its own HIS-to-FHIR script to move data from the HIS into the FHIR Server. This is Siriraj's specific ingestion path and does not use HealthTAG FHIR Transformer.
+
+In the implemented architecture, clinical records remain in systems controlled by the hospital. The system verifies identity and authorization before sending approved information to the PHR. Blockchain records consent and access events for later review. This separation keeps the hospital responsible for clinical information while the patient uses the PHR to view information they are authorized to access.
+
+## From infrastructure to clinical services
+
+The nine workstreams covered several layers of a smart hospital, including networks, cloud computing, emergency care, pathology, NCD support, logistics, and access to health information. Siriraj tested and developed each technology to work with hospital operations.
