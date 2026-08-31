@@ -7,7 +7,7 @@ const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
 const thaiRoles: Record<string, string> = {
-  'CEO & Founder': 'ประธานเจ้าหน้าที่บริหารและผู้ก่อตั้ง',
+  'Chief Executive Officer': 'ประธานเจ้าหน้าที่บริหาร',
   'Tech Lead Developer': 'หัวหน้าฝ่ายพัฒนาเทคโนโลยี',
   'Personal Assistant': 'ผู้ช่วยส่วนตัว',
   'Project Manager': 'ผู้จัดการโครงการ',
@@ -23,8 +23,7 @@ const otherContributors = members.filter((member) => !member.image);
 <section class="section" aria-labelledby="people-heading">
   <div class="container">
     <div class="section-head">
-      <h2 id="people-heading">{en ? 'Previous contributors' : 'ผู้ร่วมงานในช่วงก่อนหน้า'}</h2>
-      <p>{en ? 'These names and roles come from earlier HealthTAG team material and record the roles shown at that time.' : 'รายชื่อและบทบาทมาจากข้อมูลทีมของ HealthTAG ในช่วงก่อนหน้า และแสดงบทบาทตามข้อมูลในเวลานั้น'}</p>
+      <h2 id="people-heading">{en ? 'Current team' : 'ทีมงานปัจจุบัน'}</h2>
     </div>
     <ul class="portrait-grid" role="list">
       {photographed.map((member) => (
@@ -37,7 +36,7 @@ const otherContributors = members.filter((member) => !member.image);
       ))}
     </ul>
     {otherContributors.length > 0 && <div class="contributors">
-      <h3>{en ? 'Additional contributors' : 'ผู้ร่วมงานด้านอื่น ๆ'}</h3>
+      <h3>{en ? 'Team members' : 'สมาชิกทีม'}</h3>
       <ul class="contributor-list" role="list">
         {otherContributors.map((member) => <li><strong>{member.name}</strong><span>{member.role}</span></li>)}
       </ul>
