@@ -41,7 +41,7 @@ Move HealthTAG news, articles, and verified awards into schema-validated reposit
 - [x] Update sitemap, structured data, exact legacy redirects, automated checks, and Playwright/axe coverage
 - [x] Run Humanizer review across all revised Award, Article, and News copy
 - [x] Run asset verification, `npm ci`, `npm run validate`, full Playwright/axe, and responsive visual review
-- [ ] Commit coherent changes and open a new unmerged PR with sources, dates, tests, preview evidence, and unresolved source precision
+- [x] Commit coherent changes and open a new unmerged PR with sources, dates, tests, preview evidence, and unresolved source precision
 
 ## Decision log
 
