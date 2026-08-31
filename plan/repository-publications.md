@@ -54,3 +54,20 @@ Move HealthTAG news, articles, and verified awards into schema-validated reposit
 - Search and pagination query states use the canonical index URL and are intentionally excluded from the sitemap to avoid duplicate crawl URLs.
 - Follow-up owner direction keeps all 10 original Awards-category records in the Awards section while naming their actual result status precisely.
 - Follow-up owner direction adds four first-party HealthTAG visit and presentation records to the file-based newsroom.
+
+## Follow-up: complete remaining news bodies
+
+- [x] Expand Digital Health Forum 2026 into a source-complete bilingual HealthTAG article
+- [x] Expand Orbix Technology × HealthTAG from the KASIKORNBANK-confirmed collaboration facts
+- [x] Expand Thailand Insurance Symposium 2024 with the full event and session context
+- [x] Expand BITKUB Summit 2024 with the complete presentation and project context
+- [x] Expand ODESS Visit 2024 with the complete visit and laureate context
+- [x] Expand ETDA DGT 2023 with the complete session context
+- [x] Expand depa × HealthTAG with the complete MoU and infrastructure-development context
+- [x] Expand Siriraj 5G Smart Hospital with the confirmed programme and HealthTAG implementation context
+- [x] Combine the complete 14 Apr 2020 and 10 May 2021 NFC records with the later NFC-sticker role
+- [x] Verify all nine Thai/English bodies are materially equivalent and have useful TOCs
+- [x] Confirm summaries remain independent and search indexes title, summary, category, and author only
+- [x] Update automated full-body checks, tests, preview evidence, and PR #18 description
+- [x] Run `npm run validate`, `npm run test:smoke`, `git diff --check`, and GitHub Actions
+- [ ] Push the completed follow-up into PR #18 without merging

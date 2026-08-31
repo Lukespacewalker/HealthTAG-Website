@@ -7,12 +7,24 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = path.join(root, 'src', 'content', 'publications');
 const errors = [];
 const translations = new Map();
+const newsStructures = new Map();
 const awardLocales = { th: 0, en: 0 };
 const ownerConfirmedNews = new Set([
   'siriraj-registration-site-visit-2024',
   'centre-health-innovation-fellowship-visit-2022',
   'tan-tock-seng-hospital-visit-2022',
   'siriraj-youth-phr-presentation-2022',
+]);
+const fullBodyNews = new Set([
+  'digital-health-forum-2026',
+  'orbix-healthtag',
+  'thailand-insurance-symposium-2024',
+  'bitkub-summit-2024',
+  'odess-visit-2024',
+  'etda-dgt-2023',
+  'depa-healthtag',
+  'siriraj-5g-smart-hospital',
+  'nfc-access-evolution-2020-2021',
 ]);
 
 async function filesBelow(directory) {
@@ -44,7 +56,15 @@ for (const file of (await filesBelow(contentRoot)).filter((item) => /\.mdx?$/.te
   const summary = field(source, 'summary') ?? '';
   const firstParagraph = body.split(/\n\s*\n/).find((block) => !block.trim().startsWith('#'))?.replace(/[*_`>#\[\]()]/g, '').trim() ?? '';
   if (body.length < 40) errors.push(`${relative}: full body is missing or too short`);
-  if ((kind === 'award' || kind === 'article' || ownerConfirmedNews.has(translationKey)) && summary && firstParagraph && (summary === firstParagraph || firstParagraph.startsWith(summary))) errors.push(`${relative}: summary must be written independently from the body opening`);
+  if ((kind === 'award' || kind === 'article' || ownerConfirmedNews.has(translationKey) || fullBodyNews.has(translationKey)) && summary && firstParagraph && (summary === firstParagraph || firstParagraph.startsWith(summary))) errors.push(`${relative}: summary must be written independently from the body opening`);
+  if (fullBodyNews.has(translationKey)) {
+    const sectionCount = (body.match(/^##\s+/gm) ?? []).length;
+    const paragraphCount = body.split(/\n\s*\n/).filter((block) => block.trim() && !block.trim().startsWith('#') && !block.trim().startsWith('- ')).length;
+    newsStructures.set(`${translationKey}:${locale}`, { sectionCount, paragraphCount });
+    if (body.length < 700) errors.push(`${relative}: source-complete news body must contain substantive detail`);
+    if (sectionCount < 2) errors.push(`${relative}: source-complete news body needs at least two useful sections`);
+    if (/(?:ขอบเขตของข้อมูล|Scope of this record)/i.test(body)) errors.push(`${relative}: replace generic boundary headings with substantive event sections`);
+  }
   if (kind === 'award') {
     if (locale === 'th' || locale === 'en') awardLocales[locale] += 1;
     if (/(?:ไม่ยืนยัน|ไม่ได้หมายความ|ไม่ใช่การรับรอง|does not confirm|does not establish|not a certification)/i.test(source)) errors.push(`${relative}: award copy must state the confirmed result positively`);
@@ -63,6 +83,11 @@ for (const [key, locales] of translations) {
   if (locales.size !== 2 || !locales.has('th') || !locales.has('en')) errors.push(`${key}: expected Thai and English entries`);
 }
 if (awardLocales.th !== 10 || awardLocales.en !== 10) errors.push(`Awards collection must contain 10 Thai and 10 English records; found th=${awardLocales.th}, en=${awardLocales.en}`);
+for (const key of fullBodyNews) {
+  const th = newsStructures.get(`${key}:th`);
+  const en = newsStructures.get(`${key}:en`);
+  if (!th || !en || th.sectionCount !== en.sectionCount || th.paragraphCount !== en.paragraphCount) errors.push(`${key}: Thai and English full-body structures must remain equivalent`);
+}
 
 if (errors.length) {
   console.error(`Publication content validation failed:\n${errors.map((error) => `- ${error}`).join('\n')}`);

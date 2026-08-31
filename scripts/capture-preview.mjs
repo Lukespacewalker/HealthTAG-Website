@@ -20,6 +20,8 @@ const captures = [
   ['publication-award-th-mobile.jpg', '/awards/apicta-2022/', 320, 844],
   ['awards-desktop.jpg', '/awards/', 1440, 1000],
   ['news-registration-th-mobile.jpg', '/news/siriraj-registration-site-visit-2024/', 390, 844],
+  ['news-nfc-th-mobile.jpg', '/news/nfc-access-evolution-2020-2021/', 390, 844],
+  ['news-digital-health-en-desktop.jpg', '/en/news/digital-health-forum-2026/', 1440, 1000],
 ];
 
 await fs.mkdir(outputDir, { recursive: true });

@@ -176,6 +176,9 @@ test('repository publications support search, pagination, local details, and bil
   await page.getByRole('button', { name: 'ค้นหา' }).click();
   await expect(page).toHaveURL(/\?q=NFC(?:\+|%20)sticker/);
   await expect(page.locator('.publication-card:visible')).toHaveCount(1);
+  await page.goto('/posts/?q=สำนักสารนิเทศ');
+  await expect(page.locator('.publication-card:visible')).toHaveCount(0);
+  await expect(page.locator('[data-empty]')).toBeVisible();
 
   await page.goto('/news/digital-health-forum-2026/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Digital Health Forum 2026');
@@ -232,6 +235,32 @@ test('repository publications support search, pagination, local details, and bil
   await expect(page.locator('time[datetime="2024-11-26"]')).toBeVisible();
   await expect(page.locator('.publication-gallery img')).toHaveCount(2);
   await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/news/siriraj-registration-site-visit-2024/');
+});
+
+test('source-complete news bodies have useful sections in both languages', async ({ page }) => {
+  const slugs = [
+    'digital-health-forum-2026',
+    'orbix-healthtag',
+    'thailand-insurance-symposium-2024',
+    'bitkub-summit-2024',
+    'odess-visit-2024',
+    'etda-dgt-2023',
+    'depa-healthtag',
+    'siriraj-5g-smart-hospital',
+    'nfc-access-evolution-2020-2021',
+  ];
+  for (const slug of slugs) {
+    for (const prefix of ['', '/en']) {
+      const route = `${prefix}/news/${slug}/`;
+      await page.goto(route);
+      expect(await page.locator('.publication-toc a').count(), `${route} should have a useful TOC`).toBeGreaterThanOrEqual(2);
+      expect(await page.locator('.publication-prose > p').count(), `${route} should have a full body`).toBeGreaterThanOrEqual(4);
+      const summary = (await page.locator('.publication-detail-summary').innerText()).trim();
+      const opening = (await page.locator('.publication-prose > p').first().innerText()).trim();
+      expect(opening, `${route} opening should differ from card summary`).not.toBe(summary);
+      await expect(page.locator('.publication-prose')).not.toContainText(/Scope of this record|ขอบเขตของข้อมูล/);
+    }
+  }
 });
 
 test('PHR page explains the NFC sticker boundary in both languages', async ({ page }) => {
