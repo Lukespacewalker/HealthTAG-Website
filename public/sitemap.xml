@@ -1,33 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://healthtag.io/</loc></url>
-  <url><loc>https://healthtag.io/interoperability/</loc></url>
-  <url><loc>https://healthtag.io/phr/</loc></url>
-  <url><loc>https://healthtag.io/how-it-works/</loc></url>
-  <url><loc>https://healthtag.io/trust/</loc></url>
-  <url><loc>https://healthtag.io/deployments/</loc></url>
-  <url><loc>https://healthtag.io/network/</loc></url>
-  <url><loc>https://healthtag.io/company/</loc></url>
-  <url><loc>https://healthtag.io/evidence/</loc></url>
-  <url><loc>https://healthtag.io/posts/</loc></url>
-  <url><loc>https://healthtag.io/news/</loc></url>
   <url><loc>https://healthtag.io/articles/</loc></url>
+  <url><loc>https://healthtag.io/articles/blockchain-digital-decentralized-system/</loc></url>
+  <url><loc>https://healthtag.io/articles/blockchain-healthcare-decentralized/</loc></url>
+  <url><loc>https://healthtag.io/articles/data-is-the-new-medicine/</loc></url>
+  <url><loc>https://healthtag.io/articles/decentralized-healthcare/</loc></url>
+  <url><loc>https://healthtag.io/articles/smart-contract-healthcare-system/</loc></url>
+  <url><loc>https://healthtag.io/articles/why-ncds-are-thailands-hidden-crisis/</loc></url>
+  <url><loc>https://healthtag.io/awards/</loc></url>
+  <url><loc>https://healthtag.io/awards/apicta-2022/</loc></url>
+  <url><loc>https://healthtag.io/awards/odess-laureate-2024/</loc></url>
+  <url><loc>https://healthtag.io/company/</loc></url>
   <url><loc>https://healthtag.io/contact/</loc></url>
-  <url><loc>https://healthtag.io/support/</loc></url>
-  <url><loc>https://healthtag.io/privacy/</loc></url>
+  <url><loc>https://healthtag.io/deployments/</loc></url>
   <url><loc>https://healthtag.io/en/</loc></url>
-  <url><loc>https://healthtag.io/en/interoperability/</loc></url>
-  <url><loc>https://healthtag.io/en/phr/</loc></url>
-  <url><loc>https://healthtag.io/en/how-it-works/</loc></url>
-  <url><loc>https://healthtag.io/en/trust/</loc></url>
-  <url><loc>https://healthtag.io/en/deployments/</loc></url>
-  <url><loc>https://healthtag.io/en/network/</loc></url>
-  <url><loc>https://healthtag.io/en/company/</loc></url>
-  <url><loc>https://healthtag.io/en/evidence/</loc></url>
-  <url><loc>https://healthtag.io/en/posts/</loc></url>
-  <url><loc>https://healthtag.io/en/news/</loc></url>
   <url><loc>https://healthtag.io/en/articles/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/blockchain-digital-decentralized-system/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/blockchain-healthcare-decentralized/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/data-is-the-new-medicine/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/decentralized-healthcare/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/smart-contract-healthcare-system/</loc></url>
+  <url><loc>https://healthtag.io/en/articles/why-ncds-are-thailands-hidden-crisis/</loc></url>
+  <url><loc>https://healthtag.io/en/awards/</loc></url>
+  <url><loc>https://healthtag.io/en/awards/apicta-2022/</loc></url>
+  <url><loc>https://healthtag.io/en/awards/odess-laureate-2024/</loc></url>
+  <url><loc>https://healthtag.io/en/company/</loc></url>
   <url><loc>https://healthtag.io/en/contact/</loc></url>
-  <url><loc>https://healthtag.io/en/support/</loc></url>
+  <url><loc>https://healthtag.io/en/deployments/</loc></url>
+  <url><loc>https://healthtag.io/en/evidence/</loc></url>
+  <url><loc>https://healthtag.io/en/how-it-works/</loc></url>
+  <url><loc>https://healthtag.io/en/interoperability/</loc></url>
+  <url><loc>https://healthtag.io/en/network/</loc></url>
+  <url><loc>https://healthtag.io/en/news/</loc></url>
+  <url><loc>https://healthtag.io/en/news/bitkub-summit-2024/</loc></url>
+  <url><loc>https://healthtag.io/en/news/depa-healthtag/</loc></url>
+  <url><loc>https://healthtag.io/en/news/digital-health-forum-2026/</loc></url>
+  <url><loc>https://healthtag.io/en/news/etda-dgt-2023/</loc></url>
+  <url><loc>https://healthtag.io/en/news/nfc-access-evolution-2020-2021/</loc></url>
+  <url><loc>https://healthtag.io/en/news/nia-corporate-spark-china/</loc></url>
+  <url><loc>https://healthtag.io/en/news/odess-visit-2024/</loc></url>
+  <url><loc>https://healthtag.io/en/news/orbix-healthtag/</loc></url>
+  <url><loc>https://healthtag.io/en/news/siriraj-5g-smart-hospital/</loc></url>
+  <url><loc>https://healthtag.io/en/news/thailand-insurance-symposium-2024/</loc></url>
+  <url><loc>https://healthtag.io/en/phr/</loc></url>
+  <url><loc>https://healthtag.io/en/posts/</loc></url>
   <url><loc>https://healthtag.io/en/privacy/</loc></url>
+  <url><loc>https://healthtag.io/en/support/</loc></url>
+  <url><loc>https://healthtag.io/en/trust/</loc></url>
+  <url><loc>https://healthtag.io/evidence/</loc></url>
+  <url><loc>https://healthtag.io/how-it-works/</loc></url>
+  <url><loc>https://healthtag.io/interoperability/</loc></url>
+  <url><loc>https://healthtag.io/network/</loc></url>
+  <url><loc>https://healthtag.io/news/</loc></url>
+  <url><loc>https://healthtag.io/news/bitkub-summit-2024/</loc></url>
+  <url><loc>https://healthtag.io/news/depa-healthtag/</loc></url>
+  <url><loc>https://healthtag.io/news/digital-health-forum-2026/</loc></url>
+  <url><loc>https://healthtag.io/news/etda-dgt-2023/</loc></url>
+  <url><loc>https://healthtag.io/news/nfc-access-evolution-2020-2021/</loc></url>
+  <url><loc>https://healthtag.io/news/nia-corporate-spark-china/</loc></url>
+  <url><loc>https://healthtag.io/news/odess-visit-2024/</loc></url>
+  <url><loc>https://healthtag.io/news/orbix-healthtag/</loc></url>
+  <url><loc>https://healthtag.io/news/siriraj-5g-smart-hospital/</loc></url>
+  <url><loc>https://healthtag.io/news/thailand-insurance-symposium-2024/</loc></url>
+  <url><loc>https://healthtag.io/phr/</loc></url>
+  <url><loc>https://healthtag.io/posts/</loc></url>
+  <url><loc>https://healthtag.io/privacy/</loc></url>
+  <url><loc>https://healthtag.io/support/</loc></url>
+  <url><loc>https://healthtag.io/trust/</loc></url>
 </urlset>

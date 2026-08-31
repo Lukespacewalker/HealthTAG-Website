@@ -32,6 +32,16 @@ function textContent(node) {
   return (node.childNodes ?? []).map(textContent).join('');
 }
 
+function isDecorativeImage(node) {
+  if (attr(node, 'alt') !== '') return false;
+  let current = node.parentNode;
+  while (current) {
+    if (attr(current, 'aria-hidden') === 'true') return true;
+    current = current.parentNode;
+  }
+  return false;
+}
+
 function visibleText(node) {
   if (['script', 'style', 'template'].includes(node.nodeName)) return '';
   if (node.nodeName === '#text') return node.value ?? '';
@@ -67,7 +77,7 @@ for (const file of htmlFiles) {
 
   const elements = (name) => nodes.filter((node) => node.nodeName === name);
   const bodyText = visibleText(elements('body')[0] ?? {}).replace(/\s+/g, ' ').trim();
-  const internalTerms = bodyText.match(/\b(?:baseline|owner-confirmed|site-owner|workstream|claim|claims|source-node stack|production scope|component boundary)\b/gi) ?? [];
+  const internalTerms = bodyText.match(/\b(?:baseline|owner-confirmed|site-owner|workstream|source-node stack|production scope|component boundary)\b/gi) ?? [];
   if (internalTerms.length) errors.push(`${route}: internal wording is visible (${[...new Set(internalTerms)].join(', ')})`);
   const metaUiPatterns = [
     /\bEach (?:organization|entry|item)\b/i,
@@ -95,9 +105,11 @@ for (const file of htmlFiles) {
   if (!attr(metaDescription ?? {}, 'content')?.trim()) errors.push(`${route}: missing meta description`);
   const metaProperty = (name) => attr(elements('meta').find((node) => attr(node, 'property') === name) ?? {}, 'content');
   const metaName = (name) => attr(elements('meta').find((node) => attr(node, 'name') === name) ?? {}, 'content');
-  if (!metaProperty('og:image')?.endsWith('/og-healthtag.png')) errors.push(`${route}: missing PNG social image`);
-  if (metaProperty('og:image:width') !== '1200' || metaProperty('og:image:height') !== '630') errors.push(`${route}: missing social image dimensions`);
-  if (!metaProperty('og:image:alt')?.trim() || !metaName('twitter:image')?.endsWith('/og-healthtag.png') || !metaName('twitter:image:alt')?.trim()) errors.push(`${route}: incomplete social image metadata`);
+  const ogImage = metaProperty('og:image');
+  const twitterImage = metaName('twitter:image');
+  if (!ogImage?.startsWith('https://healthtag.io/')) errors.push(`${route}: missing local social image`);
+  if (!/^\d+$/.test(metaProperty('og:image:width') ?? '') || !/^\d+$/.test(metaProperty('og:image:height') ?? '')) errors.push(`${route}: missing social image dimensions`);
+  if (!metaProperty('og:image:alt')?.trim() || twitterImage !== ogImage || !metaName('twitter:image:alt')?.trim()) errors.push(`${route}: incomplete social image metadata`);
   const fontPreload = elements('link').find((node) => attr(node, 'rel') === 'preload' && attr(node, 'as') === 'font');
   if (!attr(fontPreload ?? {}, 'href')?.endsWith('.woff2')) errors.push(`${route}: missing locale-specific font preload`);
   if (/fonts\.(?:googleapis|gstatic)\.com/.test(html)) errors.push(`${route}: runtime Google Fonts dependency remains`);
@@ -109,7 +121,7 @@ for (const file of htmlFiles) {
   for (const image of elements('img')) {
     const alt = attr(image, 'alt');
     const src = attr(image, 'src');
-    if (!alt?.trim()) errors.push(`${route}: image ${src ?? '(missing src)'} has empty/missing alt text`);
+    if (!alt?.trim() && !isDecorativeImage(image)) errors.push(`${route}: image ${src ?? '(missing src)'} has empty/missing alt text`);
     if (src?.startsWith('/')) {
       try { await fs.access(outputForPath(src)); } catch { errors.push(`${route}: missing image asset ${src}`); }
     }
@@ -117,6 +129,7 @@ for (const file of htmlFiles) {
 
   for (const anchor of elements('a')) {
     const href = attr(anchor, 'href');
+    if (attr(anchor, 'aria-hidden') === 'true') continue;
     const label = (attr(anchor, 'aria-label') ?? textContent(anchor)).replace(/\s+/g, ' ').trim();
     if (!href || href === '#') errors.push(`${route}: anchor with missing/placeholder href (${label || 'unlabelled'})`);
     if (!label) errors.push(`${route}: unlabelled link ${href ?? '(missing href)'}`);

@@ -11,8 +11,9 @@ const required = new Map([
   ['/en/product', '/en/phr/'],
   ['/about-us/vision', '/company/'],
   ['/about-us/team', '/company/'],
-  ['/awards', '/evidence/'],
-  ['/th/awards', '/evidence/'],
+  ['/awards', '/awards/'],
+  ['/th/awards', '/awards/'],
+  ['/en/awards', '/en/awards/'],
   ['/support', '/support/'],
   ['/en/support', '/en/support/'],
   ['/posts', '/posts/'],
@@ -21,6 +22,9 @@ const required = new Map([
   ['/en/posts', '/en/posts/'],
   ['/en/news', '/en/news/'],
   ['/en/articles', '/en/articles/'],
+  ['/posts/article-8', '/awards/odess-laureate-2024/'],
+  ['/posts/data-is-the-new-medicine-', '/articles/data-is-the-new-medicine/'],
+  ['/posts/blockchain-digital-decentralized-system', '/articles/blockchain-digital-decentralized-system/'],
 ]);
 
 const lines = (await fs.readFile(redirectFile, 'utf8'))

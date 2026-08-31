@@ -27,12 +27,10 @@
 /en/about/team/         /en/company/         301
 
 # Verified legacy award routes
-/awards                 /evidence/           301
-/awards/                /evidence/           301
-/th/awards              /evidence/           301
-/th/awards/             /evidence/           301
-/en/awards              /en/evidence/        301
-/en/awards/             /en/evidence/        301
+/awards                 /awards/             301
+/th/awards              /awards/             301
+/th/awards/             /awards/             301
+/en/awards              /en/awards/          301
 
 # Canonical support routes
 /support                /support/            301
@@ -46,5 +44,20 @@
 /en/news                /en/news/            301
 /en/articles            /en/articles/        301
 
-# News and article detail routes, personal cards, and downloads intentionally
-# have no blanket redirect until each destination is reviewed.
+# Reviewed legacy publication detail routes
+/posts/article-1                                                   /news/thailand-insurance-symposium-2024/              301
+/posts/article-3                                                   /news/bitkub-summit-2024/                              301
+/posts/article-5                                                   /news/odess-visit-2024/                                301
+/posts/article-8                                                   /awards/odess-laureate-2024/                           301
+/posts/ai-for-better-health-and-well-being-etda-dgt-happiness-creation-2023 /news/etda-dgt-2023/                          301
+/posts/depa-health-tag-blockchain                                  /news/depa-healthtag/                                   301
+/posts/siriraj-world-class-5-g-smart-hospital                      /news/siriraj-5g-smart-hospital/                       301
+/posts/cross-category-start-up-asia-pacific-ict-alliance-awards-apicta-2022 /awards/apicta-2022/                         301
+/posts/data-is-the-new-medicine-                                   /articles/data-is-the-new-medicine/                    301
+/posts/decentralized-healthcare                                    /articles/decentralized-healthcare/                    301
+/posts/blockchain-healthcare-decentralized                         /articles/blockchain-healthcare-decentralized/         301
+/posts/blockchain-digital-decentralized-system                     /articles/blockchain-digital-decentralized-system/     301
+/posts/why-ncds-are-thailands-hidden-crisis                        /articles/why-ncds-are-thailands-hidden-crisis/        301
+/posts/smart-contract-healthcare-system                            /articles/smart-contract-healthcare-system/            301
+
+# Personal cards, jobs, and downloads remain unmapped until each destination is reviewed.

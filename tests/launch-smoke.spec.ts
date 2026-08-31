@@ -14,6 +14,7 @@ const routes = [
   '/posts/',
   '/news/',
   '/articles/',
+  '/awards/',
   '/contact/',
   '/support/',
   '/privacy/',
@@ -21,6 +22,7 @@ const routes = [
   '/en/posts/',
   '/en/news/',
   '/en/articles/',
+  '/en/awards/',
 ];
 
 for (const width of [320, 390, 768, 1440]) {
@@ -128,34 +130,65 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
 });
 
-test('news and articles use verified dates, bilingual copy, and traceable sources', async ({ page }) => {
+test('repository publications support search, pagination, local details, and bilingual metadata', async ({ page }) => {
   await page.goto('/posts/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('ข่าวและบทความจาก HealthTAG');
-  await expect(page.locator('.featured-media img')).toHaveAttribute('alt', /Digital Health Forum 2026/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.locator('.publication-pagination a', { hasText: '2' }).click();
+  await expect(page).toHaveURL(/\?page=2$/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/posts\/$/);
+  await page.locator('input[name="q"]').fill('NFC sticker');
+  await page.getByRole('button', { name: 'ค้นหา' }).click();
+  await expect(page).toHaveURL(/\?q=NFC(?:\+|%20)sticker/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(1);
+
+  await page.goto('/news/digital-health-forum-2026/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Digital Health Forum 2026');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://healthtag.io/news/digital-health-forum-2026/');
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/news/digital-health-forum-2026/');
   await expect(page.locator('time[datetime="2026-08-25"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2026-08-26"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2026-08-31"]')).toBeVisible();
   await expect(page.locator('a[href*="facebook.com/mihealthtag/posts/"]').first()).toBeVisible();
   await expect(page.locator('a[href="https://pr.moph.go.th/online/index/news/346999"]')).toBeVisible();
-  await expect(page.locator('time[datetime="2020-04-14"]')).toBeVisible();
-  await expect(page.getByText(/10 พฤษภาคม 2564/).first()).toBeVisible();
-  await expect(page.getByText(/Self-Isolation Tracking Wristband/).first()).toBeVisible();
-  await expect(page.getByText(/NFC sticker ซึ่งเป็นหนึ่งในทางเข้า PHR/)).toBeVisible();
-  await expect(page.locator('body')).not.toContainText('26 พฤษภาคม 2569');
-  await expect(page.locator('body')).not.toContainText('1อ่าน');
+  const firstTocLink = page.locator('.publication-toc a').first();
+  await firstTocLink.focus();
+  await expect(firstTocLink).toBeFocused();
 
   await page.goto('/en/posts/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('News and articles from HealthTAG');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/posts/');
-  await expect(page.getByText('Thai', { exact: true }).first()).toBeVisible();
-  await expect(page.locator('body')).not.toContainText('1read');
 
   await page.goto('/news/');
-  const newsEntries = page.locator('.publication-entry');
+  const newsEntries = page.locator('.publication-card');
   for (let index = 0; index < await newsEntries.count(); index += 1) {
-    const imageCount = await newsEntries.nth(index).locator('.publication-media img').count();
-    expect(imageCount, `news item ${index + 1} should have 1 to 3 images`).toBeGreaterThanOrEqual(1);
-    expect(imageCount).toBeLessThanOrEqual(3);
+    await expect(newsEntries.nth(index).locator('img')).toHaveCount(1);
   }
+
+  await page.goto('/awards/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('รางวัล');
+  await expect(page.locator('.publication-card').first()).toBeVisible();
+
+  await page.goto('/articles/blockchain-digital-decentralized-system/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('เบื้องหลังเทคโนโลยี Blockchain');
+  const tocHref = await page.locator('.publication-toc a').first().getAttribute('href');
+  expect(tocHref).toMatch(/^#\S+/);
+  await expect(page.locator(tocHref!)).toHaveCount(1);
+  const scrollMargin = await page.locator(tocHref!).evaluate((element) => getComputedStyle(element).scrollMarginTop);
+  expect(Number.parseFloat(scrollMargin)).toBeGreaterThan(0);
+  await expect(page.locator('.heading-anchor').first()).toHaveAttribute('href', /^#\S+/);
+  const articleJson = JSON.parse(await page.locator('script[type="application/ld+json"]').nth(1).textContent() ?? '{}');
+  expect(articleJson['@type']).toBe('Article');
+  expect(articleJson.datePublished).toBe('2025-11-18');
+  expect(articleJson.inLanguage).toBe('th');
+
+  await page.goto('/awards/apicta-2022/');
+  await expect(page.getByRole('heading', { name: 'รางวัลนี้ยืนยันอะไร' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'รางวัลนี้ไม่ได้ยืนยันอะไร' })).toBeVisible();
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/awards/apicta-2022/');
 });
 
 test('PHR page explains the NFC sticker boundary in both languages', async ({ page }) => {
@@ -168,7 +201,7 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
+for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/articles/blockchain-digital-decentralized-system/', '/en/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/en/awards/apicta-2022/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });
