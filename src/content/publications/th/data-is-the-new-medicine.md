@@ -18,11 +18,19 @@ sources:
     url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
     organization: "HealthTAG"
     type: primary
+  - label: "Digital-in-Health: Unlocking the Value for Everyone"
+    url: "https://www.worldbank.org/en/topic/health/publication/digital-in-health-unlocking-the-value-for-everyone"
+    organization: "World Bank"
+    type: primary
+  - label: "Digital Health"
+    url: "https://www.efpia.eu/about-medicines/development-of-medicines/digital-health/"
+    organization: "European Federation of Pharmaceutical Industries and Associations"
+    type: primary
 images:
   - src: ../../../assets/publications/articles/data-is-the-new-medicine.png
     alt: "ภาพประกอบแนวคิด Data is the New Medicine ที่เชื่อมข้อมูลสุขภาพกับการดูแลผู้ป่วย"
     credit: "HealthTAG"
-    sourceUrl: "https://cms.healthtag.io/posts/data-is-the-new-medicine-"
+    sourceUrl: "https://cms.healthtag.io/api/media/file/data-is-the-new-medicine.png"
     checksum: "sha256:2ff60cfecde27d85f08658b3df72a2d050f209de08bc6ccc1903d4d836ea7af9"
 status: published
 ---
@@ -75,3 +83,15 @@ HealthTAG ใช้ blockchain เป็นชั้นสำหรับบั�
 ผู้ใช้ยังต้องเข้าใจว่าข้อมูลชนิดใดเหมาะกับการตัดสินใจเรื่องใด ค่าจากอุปกรณ์สวมใส่อาจมีประโยชน์ต่อการติดตามแนวโน้ม แต่ไม่ได้มีความแม่นยำหรือความหมายเท่ากับการตรวจทางคลินิกทุกกรณี กฎหมาย จริยธรรม และการสื่อสารที่ตรงไปตรงมาจึงเป็นส่วนหนึ่งของระบบ ไม่ใช่งานที่ทำภายหลัง
 
 ข้อมูลช่วยดูแลสุขภาพได้เมื่อคนที่เกี่ยวข้องตีความและใช้อย่างรับผิดชอบ เป้าหมายไม่ใช่การรวบรวมข้อมูลให้มากที่สุด แต่คือการทำให้ข้อมูลที่จำเป็นมีคุณภาพ เข้าถึงได้ตามสิทธิ์ และนำไปใช้เพื่อการดูแลที่เหมาะกับผู้ป่วยแต่ละคน
+
+## แหล่งอ่านเพิ่มเติม
+
+- [Digital-in-Health: Unlocking the Value for Everyone](https://www.worldbank.org/en/topic/health/publication/digital-in-health-unlocking-the-value-for-everyone), World Bank
+- Data for Health, MedTech Europe, 2023
+- [Digital Health](https://www.efpia.eu/about-medicines/development-of-medicines/digital-health/), European Federation of Pharmaceutical Industries and Associations
+- The Growing Role of Digital Health Data in Shaping Healthcare Outcomes, Logex, 2024
+- How Digital Health Data Can Transform Care, NIH, 2024
+- Health Data, Wikipedia, 2025
+- AI and Health Data Analytics, arXiv, 2024
+- [HL7 FHIR overview](https://www.hl7.org/fhir/overview.html), HL7 International
+- [สถาปัตยกรรม Data Source Node](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

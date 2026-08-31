@@ -32,6 +32,10 @@ export function pairedPublication(entry: PublicationEntry, entries: PublicationE
 
 export function formatPublicationDate(date: string, locale: PublicationLocale) {
   if (/^\d{4}$/.test(date)) return new Intl.DateTimeFormat(locale === 'th' ? 'th-TH' : 'en-GB', { year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(Number(date), 0, 1)));
+  if (/^\d{4}-\d{2}$/.test(date)) {
+    const [year, month] = date.split('-').map(Number);
+    return new Intl.DateTimeFormat(locale === 'th' ? 'th-TH' : 'en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(year, month - 1, 1)));
+  }
   const [year, month, day] = date.split('-').map(Number);
   return new Intl.DateTimeFormat(locale === 'th' ? 'th-TH' : 'en-GB', {
     day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC',

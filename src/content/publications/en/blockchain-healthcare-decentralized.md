@@ -22,7 +22,7 @@ images:
   - src: ../../../assets/publications/articles/blockchain-healthcare-decentralized.jpg
     alt: "Illustration of connected blocks representing blockchain in a healthcare system"
     credit: "HealthTAG"
-    sourceUrl: "https://cms.healthtag.io/posts/blockchain-healthcare-decentralized"
+    sourceUrl: "https://cms.healthtag.io/api/media/file/blockchain-healthcare-decentralized.jpg"
     checksum: "sha256:9ecadb63d73c5882402deade75fc4f4e241371613535fc7fc9636c4f58dbf1f9"
 status: published
 ---

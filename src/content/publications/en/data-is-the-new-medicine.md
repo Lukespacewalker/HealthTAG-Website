@@ -18,11 +18,19 @@ sources:
     url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
     organization: "HealthTAG"
     type: primary
+  - label: "Digital-in-Health: Unlocking the Value for Everyone"
+    url: "https://www.worldbank.org/en/topic/health/publication/digital-in-health-unlocking-the-value-for-everyone"
+    organization: "World Bank"
+    type: primary
+  - label: "Digital Health"
+    url: "https://www.efpia.eu/about-medicines/development-of-medicines/digital-health/"
+    organization: "European Federation of Pharmaceutical Industries and Associations"
+    type: primary
 images:
   - src: ../../../assets/publications/articles/data-is-the-new-medicine.png
     alt: "Illustration of the Data is the New Medicine concept connecting health information with patient care"
     credit: "HealthTAG"
-    sourceUrl: "https://cms.healthtag.io/posts/data-is-the-new-medicine-"
+    sourceUrl: "https://cms.healthtag.io/api/media/file/data-is-the-new-medicine.png"
     checksum: "sha256:2ff60cfecde27d85f08658b3df72a2d050f209de08bc6ccc1903d4d836ea7af9"
 status: published
 ---
@@ -75,3 +83,15 @@ Health information is highly sensitive. Bringing together data from multiple sou
 People also need to understand which information is suitable for a particular decision. A wearable reading may be useful for tracking a trend, but it does not always have the accuracy or clinical meaning of a medical test. Law, ethics, and honest communication belong in the design of the system rather than being added after deployment.
 
 Data supports better care when people interpret and use it responsibly. The goal is not to collect as much information as possible. It is to make necessary information accurate, available under the right authorization, and useful to the care of each patient.
+
+## Further reading
+
+- [Digital-in-Health: Unlocking the Value for Everyone](https://www.worldbank.org/en/topic/health/publication/digital-in-health-unlocking-the-value-for-everyone), World Bank
+- Data for Health, MedTech Europe, 2023
+- [Digital Health](https://www.efpia.eu/about-medicines/development-of-medicines/digital-health/), European Federation of Pharmaceutical Industries and Associations
+- The Growing Role of Digital Health Data in Shaping Healthcare Outcomes, Logex, 2024
+- How Digital Health Data Can Transform Care, NIH, 2024
+- Health Data, Wikipedia, 2025
+- AI and Health Data Analytics, arXiv, 2024
+- [HL7 FHIR overview](https://www.hl7.org/fhir/overview.html), HL7 International
+- [Data Source Node architecture](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

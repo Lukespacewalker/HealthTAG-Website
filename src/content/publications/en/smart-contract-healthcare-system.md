@@ -19,6 +19,14 @@ sources:
     url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
     organization: HealthTAG
     type: first-party
+  - label: "Smart contracts documentation"
+    url: "https://ethereum.org/developers/docs/smart-contracts/"
+    organization: Ethereum Foundation
+    type: primary
+  - label: "Oracles documentation"
+    url: "https://ethereum.org/developers/docs/oracles/"
+    organization: Ethereum Foundation
+    type: primary
 images:
   - src: "../../../assets/publications/articles/smart-contract-healthcare-system.png"
     alt: "Smart Contract Healthcare System diagram showing a patient-record input passing to a smart contract and branching to access granted or denied"
@@ -49,13 +57,21 @@ This is different from placing a medical record inside a smart contract. Clinica
 
 A smart contract could be designed to check policy data, treatment documentation, or approval status before starting a payment step. Blockchain cannot discover facts outside the network on its own. The design needs trusted data sources and a way to handle incorrect information, exceptions, appeals, and regulatory requirements.
 
-The archived article used automated claims as a general example. The sources available for this migration do not establish that HealthTAG operates an insurance-claims service or automatic payment transfer. That example should not be presented as a current HealthTAG capability.
+A general example might begin when a hospital system sends diagnosis codes and billing items to a validation service. An oracle then supplies the required status to a smart contract, which compares it with the policy conditions. If the conditions are met, the system can start the next approval or payment step. Conflicting information should send the case to human review.
+
+This design may reduce repeated document handling and rule checks. The actual time depends on the insurer, data quality, fraud controls, and applicable rules, so a system should not promise that every process will finish within minutes.
+
+Automated claims are a general smart-contract example. HealthTAG's current confirmed scope covers authorization and access history.
 
 ## Supply chains and research need separate evidence
 
 Similar rules could check medicine-transport conditions or record the completion of steps in a research project. Sensors, certifiers, and external processes still create the underlying facts. A smart contract only evaluates the information it receives.
 
-The source article discussed these examples as possible applications of the technology. It did not provide evidence that HealthTAG has a live medicine supply-chain or clinical-trial system. Any product, deployment, or collaboration in those areas needs its own supporting source.
+In a supply chain, a rule might check that transport temperature remained within a defined range, a named body issued the required certificate, and the recipient confirmed delivery. The system could then release payment or record completion of that stage. This example depends on trustworthy sensors and certifiers because a smart contract cannot inspect the condition of a medicine by itself.
+
+In research, a rule might record that a participant completed a scheduled study step and initiate compensation under the study agreement. Trial results still belong in a system designed for research data. Ethics approval, consent withdrawal, and correction of inaccurate information remain part of the study process.
+
+These examples describe possible applications of the technology. Any HealthTAG product, deployment, or collaboration in those areas needs its own supporting source.
 
 ## Code does not replace human judgement
 
@@ -68,3 +84,10 @@ An auditable history does not mean every detail should be public. Developers sho
 HealthTAG uses blockchain as a layer for authorization state and the history of consent and access. Hospitals still control clinical records. The Hospital API checks access, and clinical information travels through a FHIR API only after the request has been authorized.
 
 An accurate account of smart contracts states both what the code does and what remains outside it. A contract can make some rules consistent and auditable. It does not make every input correct, replace governance, or turn blockchain into a clinical-record store.
+
+## Further reading
+
+- V. Singh and K. Sharma (2023), "The Role of Smart Contracts in Revolutionizing Healthcare Insurance Claim Processing," as listed in the original archived article
+- [Smart contracts](https://ethereum.org/developers/docs/smart-contracts/), Ethereum Foundation
+- [Oracles](https://ethereum.org/developers/docs/oracles/), Ethereum Foundation
+- [Data Source Node architecture](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

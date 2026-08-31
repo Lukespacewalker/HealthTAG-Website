@@ -1,41 +1,45 @@
 ---
 kind: award
-title: HealthTAG selected as a 2024 ODESS laureate
-summary: "ODESS includes HealthTAG among its laureates and profiles it as a digital health initiative from Thailand."
+title: HealthTAG named a 2024 ODESS laureate
+summary: "ODESS included HealthTAG among its 2024 digital health laureates, recognising a Thai initiative focused on patient access to health information and healthcare interoperability."
 author: HealthTAG
 locale: en
 translationKey: odess-laureate-2024
 slug: odess-laureate-2024
-category: International selection
+category: International award
 status: published
-publishedAt: "2024-10-10"
+publishedAt: "2024-10-13"
 migratedAt: "2026-08-31"
 eventDate: "2024-10-10"
 sources:
-  - label: ODESS laureate list
-    url: https://www.odess.io/en/the-conference/laureates/
+  - label: ODESS 2024 laureates
+    url: "https://www.odess.io/en/the-conference/laureates/"
     organization: ODESS / Fondation Pierre Fabre
     type: primary
-  - label: Archived HealthTAG report
-    url: https://cms.healthtag.io/posts/article-8
+  - label: ODESS Conference 2024
+    url: "https://www.odess.io/en/the-conference/conference-2024/"
+    organization: ODESS / Fondation Pierre Fabre
+    type: primary
+  - label: Original HealthTAG announcement
+    url: "https://www.facebook.com/reel/1057181826138578"
     organization: HealthTAG
-    type: archive
+    type: first-party
 images:
   - src: ../../../assets/publications/awards/odess-laureate-2024.jpg
-    alt: HealthTAG graphic announcing the ODESS Winner Award 2024
-    credit: "Announcement image: HealthTAG"
-    sourceUrl: https://cms.healthtag.io/api/media/file/strapi-90-odess-winner-award-2024.jpg
-    checksum: sha256:64e968a330aacc5c8163a37f65b58133192bff2148bc755244ff2208abdcc403
-confirms:
-  - "ODESS includes HealthTAG in its digital health laureate list"
-  - "The ODESS entry identifies HealthTAG as an initiative from Thailand"
-doesNotConfirm:
-  - "Laureate selection is not a security certification or regulatory approval"
-  - "The laureate list does not establish a hospital deployment or contract"
+    alt: HealthTAG announcement graphic for the ODESS Winner Award 2024
+    credit: "Announcement graphic: HealthTAG"
+    sourceUrl: "https://cms.healthtag.io/api/media/file/strapi-90-odess-winner-award-2024.jpg"
+    checksum: "sha256:64e968a330aacc5c8163a37f65b58133192bff2148bc755244ff2208abdcc403"
+resultStatus: "2024 laureate"
+confirmedResult:
+  - "ODESS includes HealthTAG in its 2024 digital health laureate list"
+  - "The ODESS profile identifies HealthTAG as an initiative from Thailand"
 ---
 
-## What ODESS records
+## Recognition from ODESS
 
-The Fondation Pierre Fabre's ODESS laureate list includes HealthTAG. Its profile describes a digital health initiative from Thailand that supports patient access to health information and healthcare interoperability.
+We are proud that HealthTAG was named a 2024 ODESS laureate. For our team, this recognition marks an important point in the work to improve access to health information and strengthen healthcare interoperability.
 
-HealthTAG reported the selection after the 2024 ODESS conference. This evidence confirms laureate status only. It is not a product certification, regulatory approval, or record of a hospital deployment.
+We are especially pleased to bring this recognition to Thailand. It reflects the sustained work of the HealthTAG team, the valuable support of Siriraj Hospital, and the contributions of many people behind the scenes.
+
+Thank you to everyone who has shared this journey with us. Your support has encouraged the team to keep improving health technology that can make a practical difference for people.
