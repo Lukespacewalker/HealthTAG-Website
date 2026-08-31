@@ -23,7 +23,7 @@ const links = {
   locale={locale}
   path="support"
   title={en ? 'Support | HealthTAG reader downloads and setup' : 'ศูนย์ช่วยเหลือ | ดาวน์โหลดและตั้งค่าเครื่องอ่าน HealthTAG'}
-  description={en ? 'Download the recommended HealthTAG reader, install the Silicon Craft ADR12 driver, and find legacy or Android options.' : 'ดาวน์โหลดโปรแกรม HealthTAG ที่แนะนำ ติดตั้ง Driver สำหรับ Silicon Craft ADR12 และดูตัวเลือก Legacy หรือ Android'}
+  description={en ? 'Set up HealthTAG readers and open the latest available Community Edition open-source manual.' : 'ตั้งค่าเครื่องอ่าน HealthTAG และเปิดคู่มือล่าสุดที่มีสำหรับ Community Edition แบบ open source'}
 >
   <main>
     <section class="page-hero support-hero">
@@ -64,6 +64,11 @@ const links = {
             <span class="path-code">ANDROID</span>
             <strong>{en ? 'Android 9 or newer' : 'Android 9 ขึ้นไป'}</strong>
             <small>Silicon Craft ADR12</small>
+          </a>
+          <a href="#community-edition">
+            <span class="path-code community-code">OPEN SOURCE</span>
+            <strong>Community Edition</strong>
+            <small>{en ? 'Installation and usage manual' : 'คู่มือติดตั้งและใช้งาน'}</small>
           </a>
           <a href="#legacy">
             <span class="path-code legacy-code">LEGACY</span>
@@ -140,11 +145,45 @@ const links = {
       </div>
     </section>
 
+    <section class="section community-section" id="community-edition">
+      <div class="container">
+        <div class="section-head community-head">
+          <div>
+            <span class="sequence">03 / Community Edition</span>
+            <h2>{en ? 'Community Edition, open source' : 'Community Edition รุ่น open source'}</h2>
+          </div>
+          <p>{en ? 'Community Edition and Data Source Node are separate products. Their services, commands, and configuration files are not interchangeable.' : 'Community Edition และ Data Source Node เป็นคนละผลิตภัณฑ์ service, คำสั่ง และไฟล์ตั้งค่าของสองระบบใช้แทนกันไม่ได้'}</p>
+        </div>
+
+        <div class="community-product">
+          <div class="community-copy">
+            <span class="status-badge">{en ? 'Latest available manual' : 'คู่มือล่าสุดที่มี'}</span>
+            <h3>Personal Health Record Community Edition</h3>
+            <p>{en ? 'The open-source manual covers the Community Edition stack, Kong configuration, CSOP-to-FHIR processing, hospital administration, and the patient web application. The source manual is in Thai.' : 'คู่มือ open source ครอบคลุมการติดตั้งระบบ Community Edition, การตั้งค่า Kong, การแปลง CSOP เป็น FHIR, งานของผู้ดูแลระบบโรงพยาบาล และ web application สำหรับผู้ป่วย'}</p>
+            <a class="btn primary" href={`${prefix}/support/community-edition/user-manual/`}>{en ? 'Open Community Edition manual' : 'เปิดคู่มือ Community Edition'}</a>
+          </div>
+          <div class="manual-scope">
+            <span class="path-code">{en ? 'Manual sections' : 'เนื้อหาในคู่มือ'}</span>
+            <ol>
+              <li><span>01</span>{en ? 'HAPI FHIR Server and Docker' : 'HAPI FHIR Server และ Docker'}</li>
+              <li><span>02</span>{en ? 'Kong API Gateway with Konga' : 'Kong API Gateway ด้วย Konga'}</li>
+              <li><span>03</span>{en ? 'CSOP files and FHIR conversion' : 'ไฟล์ CSOP และการแปลงเป็น FHIR'}</li>
+              <li><span>04</span>{en ? 'Hospital admin and patient web application' : 'ระบบผู้ดูแลโรงพยาบาลและ web application สำหรับผู้ป่วย'}</li>
+            </ol>
+            <div class="community-warning" role="note">
+              <strong>{en ? 'Before installation' : 'ก่อนติดตั้ง'}</strong>
+              <p>{en ? 'Example passwords and open ports come from the Community Edition manual. Use them only in an isolated test network and replace every credential before connecting a real system.' : 'รหัสผ่านและพอร์ตในตัวอย่างมาจากคู่มือ Community Edition ใช้เฉพาะในเครือข่ายทดสอบที่แยกจากระบบจริง และเปลี่ยน credential ทุกค่าก่อนเชื่อมต่อระบบจริง'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section legacy-section" id="legacy">
       <div class="container">
         <div class="section-head">
           <div>
-            <span class="sequence legacy-sequence">03 / Legacy</span>
+            <span class="sequence legacy-sequence">04 / Legacy</span>
             <h2>{en ? 'Older HealthTAG NFC Reader' : 'HealthTAG NFC Reader รุ่นเดิม'}</h2>
           </div>
           <p>{en ? 'This program remains available for older installations. New installations should use HealthTAG NFC & Smartcard Reader above.' : 'โปรแกรมนี้มีไว้สำหรับระบบเดิม การติดตั้งใหม่ควรใช้ HealthTAG NFC & Smartcard Reader ด้านบน'}</p>
@@ -188,7 +227,7 @@ const links = {
           <h2>{en ? 'Contact HealthTAG support' : 'ติดต่อฝ่ายสนับสนุน HealthTAG'}</h2>
         </div>
         <div>
-          <p>{en ? 'Describe the device model, Windows or Android version, and the step where the problem occurs. Do not send patient information, medical records, passwords, credentials, or logs containing secrets.' : 'ระบุรุ่นอุปกรณ์ เวอร์ชัน Windows หรือ Android และขั้นตอนที่พบปัญหา ห้ามส่งข้อมูลผู้ป่วย เวชระเบียน รหัสผ่าน ข้อมูลรับรองการเข้าใช้ระบบ หรือ log ที่มีข้อมูลลับ'}</p>
+          <p>{en ? 'For reader issues, include the device model, operating system version, and failed step. For Data Source Node, include its revision, service versions, failed verification step, and redacted logs. Never send patient information, medical records, passwords, credentials, private keys, or unredacted logs.' : 'ปัญหาเครื่องอ่านให้ระบุรุ่นอุปกรณ์ เวอร์ชันระบบปฏิบัติการ และขั้นตอนที่พบปัญหา ส่วน Data Source Node ให้ระบุ revision, เวอร์ชัน service, ขั้นตอนตรวจสอบที่ไม่ผ่าน และ log ที่ปกปิดข้อมูลแล้ว ห้ามส่งข้อมูลผู้ป่วย เวชระเบียน รหัสผ่าน credential, private key หรือ log ที่ยังมีข้อมูลลับ'}</p>
           <div class="actions">
             <a class="btn primary" href="mailto:support@healthtag.io">support@healthtag.io</a>
             <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Corporate enquiries' : 'ติดต่อเรื่องอื่น'}</a>
@@ -211,7 +250,7 @@ const links = {
   .setup-index { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--white); }
   .setup-index-grid { display: grid; grid-template-columns: .55fr 1.45fr; align-items: stretch; }
   .setup-index h2 { margin: 0; padding: 30px 30px 30px 0; align-self: center; font-size: 1.15rem; letter-spacing: -.02em; }
-  .setup-paths { display: grid; grid-template-columns: repeat(3,1fr); border-left: 1px solid var(--line); }
+  .setup-paths { display: grid; grid-template-columns: repeat(4,1fr); border-left: 1px solid var(--line); }
   .setup-paths a { min-width: 0; padding: 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; transition: background .18s ease; }
   .setup-paths a:last-child { border-right: 0; }
   .setup-paths a:hover { background: var(--mint); }
@@ -219,6 +258,7 @@ const links = {
   .setup-paths small { color: var(--muted); margin-top: 3px; }
   .path-code, .sequence { display: block; margin-bottom: 13px; font-family: 'IBM Plex Mono', monospace; color: var(--teal); font-size: .7rem; letter-spacing: .07em; text-transform: uppercase; }
   .legacy-code, .legacy-sequence { color: var(--amber-ink); }
+  .community-code { color: var(--ink); }
   .driver-notice { display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center; padding: 24px; margin-bottom: 22px; background: var(--amber-soft); border: 1px solid #dfc7a9; border-radius: var(--radius); }
   .driver-mark { width: 62px; height: 62px; display: grid; place-items: center; border-radius: 50%; background: var(--amber-ink); color: white; font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
   .notice-label { color: var(--amber-ink); font-size: .74rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
@@ -250,6 +290,20 @@ const links = {
   .android-copy h3 { margin: 0; font-size: 1.6rem; }
   .android-copy p { color: var(--muted); }
   .android-copy .btn { margin-top: 12px; }
+  .community-section { background: var(--white); scroll-margin-top: 84px; }
+  .community-head { margin-bottom: 24px; }
+  .community-product { display: grid; grid-template-columns: .86fr 1.14fr; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--paper); }
+  .community-copy { padding: clamp(30px, 5vw, 54px); background: var(--ink); color: var(--paper); }
+  .community-copy h3 { margin: 18px 0 12px; font-size: clamp(2rem, 3.4vw, 3.1rem); line-height: 1.12; letter-spacing: -.035em; }
+  .community-copy p { color: #bdd0d0; }
+  .community-copy .btn { margin-top: 22px; }
+  .manual-scope { padding: clamp(30px, 5vw, 54px); }
+  .manual-scope ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .manual-scope li { display: grid; grid-template-columns: 42px 1fr; gap: 14px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .manual-scope li span { color: var(--teal); font-family: 'IBM Plex Mono', monospace; font-size: .72rem; }
+  .community-warning { margin-top: 24px; padding: 18px 20px; border-left: 4px solid var(--amber); background: var(--amber-soft); }
+  .community-warning strong { color: var(--amber-ink); }
+  .community-warning p { margin: 5px 0 0; color: #654d35; font-size: .9rem; }
   .legacy-section { background: #f4f0ea; }
   .legacy-panel { border: 1px solid #dfc7a9; border-radius: var(--radius); background: var(--white); overflow: hidden; }
   .legacy-panel summary { list-style: none; min-height: 96px; padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
@@ -271,9 +325,12 @@ const links = {
   .support-contact p { margin: 0; max-width: 720px; color: #bdd0d0; }
   .support-contact .btn.secondary { color: var(--paper); border-color: rgba(221,243,235,.55); }
   @media (max-width: 900px) {
-    .support-hero-grid, .setup-index-grid, .program-spread, .android-grid, .support-contact-grid { grid-template-columns: 1fr; }
+    .support-hero-grid, .setup-index-grid, .program-spread, .android-grid, .support-contact-grid, .community-product { grid-template-columns: 1fr; }
     .setup-index h2 { padding: 24px 0; }
     .setup-paths { border-left: 0; border-top: 1px solid var(--line); }
+    .setup-paths { grid-template-columns: repeat(2, 1fr); }
+    .setup-paths a:nth-child(2) { border-right: 0; }
+    .setup-paths a:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
     .driver-notice { grid-template-columns: auto 1fr; }
     .driver-notice .btn { grid-column: 1 / -1; justify-self: start; }
     .install-steps { grid-template-columns: 1fr 1fr; }

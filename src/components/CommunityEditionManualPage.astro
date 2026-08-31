@@ -1,0 +1,209 @@
+---
+import Base from '../layouts/Base.astro';
+import { Content as ManualContent, getHeadings } from '../content/community-edition-manual-th.md';
+
+interface Props { locale: 'th' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const manualPath = 'support/community-edition/user-manual';
+const tocHeadings = getHeadings().filter((heading) => heading.depth === 2 || heading.depth === 3);
+---
+
+<Base
+  locale={locale}
+  path={manualPath}
+  title={en ? 'Community Edition manual | HealthTAG' : 'คู่มือ Community Edition | HealthTAG'}
+  description={en ? 'The latest available HealthTAG Community Edition open-source installation and usage manual.' : 'คู่มือล่าสุดที่มีสำหรับการติดตั้งและใช้งาน HealthTAG Community Edition แบบ open source'}
+>
+  <main class="manual-page">
+    <header class="manual-hero">
+      <div class="container manual-hero-grid">
+        <div>
+          <nav class="breadcrumbs" aria-label={en ? 'Breadcrumb' : 'เส้นทางหน้าเว็บ'}>
+            <a href={`${prefix}/support/`}>{en ? 'Support' : 'ศูนย์ช่วยเหลือ'}</a>
+            <span aria-hidden="true">/</span>
+            <span>Community Edition</span>
+          </nav>
+          <span class="manual-kicker">Open source / Community Edition</span>
+          <h1>{en ? 'Community Edition manual' : 'คู่มือ Community Edition'}</h1>
+          <p>{en ? 'The latest available installation and usage manual for the HealthTAG open-source edition.' : 'คู่มือล่าสุดที่มีสำหรับการติดตั้งและใช้งาน HealthTAG รุ่น open source'}</p>
+        </div>
+        <dl class="manual-meta">
+          <div><dt>{en ? 'Product' : 'ผลิตภัณฑ์'}</dt><dd>HealthTAG Community Edition</dd></div>
+          <div><dt>{en ? 'Manual language' : 'ภาษาของคู่มือ'}</dt><dd>{en ? 'Thai' : 'ไทย'}</dd></div>
+          <div><dt>{en ? 'Source type' : 'ประเภท'}</dt><dd>Open source</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <section class="product-boundary" aria-labelledby="product-boundary-heading">
+      <div class="container boundary-grid">
+        <h2 id="product-boundary-heading">{en ? 'Separate product line' : 'คนละผลิตภัณฑ์กับ Data Source Node'}</h2>
+        <p>{en ? 'Community Edition is a separate open-source codebase from the Data Source Node currently used by HealthTAG. Commands, services, and configuration files from the two products are not interchangeable.' : 'Community Edition เป็นระบบ open source คนละชุดกับ Data Source Node ที่ HealthTAG ใช้อยู่ในปัจจุบัน คำสั่ง service และไฟล์ตั้งค่าของสองผลิตภัณฑ์ใช้แทนกันไม่ได้'}</p>
+      </div>
+    </section>
+
+    <div class="container mobile-toc-wrap">
+      <details class="mobile-toc">
+        <summary>{en ? 'Contents' : 'สารบัญ'}</summary>
+        <nav aria-label={en ? 'Manual contents' : 'สารบัญคู่มือ'}>
+          {tocHeadings.map((heading) => <a class:list={['toc-link', `depth-${heading.depth}`]} href={`#${heading.slug}`}>{heading.text}</a>)}
+        </nav>
+      </details>
+    </div>
+
+    <div class="container manual-shell">
+      <aside class="manual-toc" aria-label={en ? 'Manual contents' : 'สารบัญคู่มือ'}>
+        <span>{en ? 'Contents' : 'สารบัญ'}</span>
+        <nav>
+          {tocHeadings.map((heading) => <a class:list={['toc-link', `depth-${heading.depth}`]} href={`#${heading.slug}`}>{heading.text}</a>)}
+        </nav>
+      </aside>
+
+      <article class="manual-article" lang="th">
+        {en && <p class="language-note" lang="en">The source manual is available in Thai. Product status and support navigation are provided in English.</p>}
+        <div class="manual-warning" role="note">
+          <strong>ข้อควรระวังก่อนติดตั้ง</strong>
+          <p>ค่ารหัสผ่าน พอร์ต และ credential ในตัวอย่างมาจากคู่มือ Community Edition เดิม ใช้ในเครือข่ายทดสอบเท่านั้น เปลี่ยน credential ก่อนเชื่อมต่อระบบจริง และห้ามใช้ข้อมูลผู้ป่วยจริงในการทดสอบ</p>
+        </div>
+        <ManualContent />
+        <section class="manual-support" aria-labelledby="manual-support-heading">
+          <h2 id="manual-support-heading">ติดต่อฝ่ายสนับสนุน</h2>
+          <p>ระบุ Community Edition, revision ของ source code, ระบบปฏิบัติการ, ขั้นตอนที่พบปัญหา และ log ที่ปกปิดข้อมูลแล้ว ห้ามส่งข้อมูลผู้ป่วย รหัสผ่าน credential, private key หรือ log ที่ยังมีข้อมูลลับ</p>
+          <a class="btn primary" href="mailto:support@healthtag.io">support@healthtag.io</a>
+        </section>
+      </article>
+    </div>
+  </main>
+</Base>
+
+<script is:inline define:vars={{ copyLabel: en ? 'Copy' : 'คัดลอก', copiedLabel: en ? 'Copied' : 'คัดลอกแล้ว', anchorLabel: en ? 'Copy link to section' : 'คัดลอกลิงก์หัวข้อ' }}>
+  const article = document.querySelector('.manual-article');
+
+  article?.querySelectorAll('pre').forEach((pre) => {
+    const language = pre.getAttribute('data-language') || pre.querySelector('code')?.className.replace('language-', '') || 'text';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-sample';
+    const toolbar = document.createElement('div');
+    toolbar.className = 'code-toolbar';
+    const label = document.createElement('span');
+    label.textContent = language;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copy-code';
+    button.textContent = copyLabel;
+    button.addEventListener('click', async () => {
+      const code = pre.textContent || '';
+      let copied = false;
+      try {
+        await navigator.clipboard.writeText(code);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+      if (!copied) return;
+      button.textContent = copiedLabel;
+      window.setTimeout(() => { button.textContent = copyLabel; }, 1800);
+    });
+    toolbar.append(label, button);
+    pre.before(wrapper);
+    wrapper.append(toolbar, pre);
+  });
+
+  article?.querySelectorAll('h2[id], h3[id], h4[id]').forEach((heading) => {
+    const anchor = document.createElement('a');
+    anchor.className = 'heading-anchor';
+    anchor.href = `#${heading.id}`;
+    anchor.setAttribute('aria-label', `${anchorLabel}: ${heading.textContent || ''}`);
+    anchor.textContent = '#';
+    heading.append(anchor);
+  });
+
+  const tocLinks = [...document.querySelectorAll('.toc-link')];
+  const headingTargets = [...document.querySelectorAll('.manual-article h2[id], .manual-article h3[id]')];
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries.find((entry) => entry.isIntersecting);
+    if (!visible) return;
+    tocLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`));
+  }, { rootMargin: '-18% 0px -72% 0px' });
+  headingTargets.forEach((heading) => observer.observe(heading));
+</script>
+
+<style>
+  .manual-page { background: var(--paper); }
+  .manual-hero { padding: 82px 0 58px; background: var(--ink); color: var(--paper); }
+  .manual-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: clamp(44px, 8vw, 110px); align-items: end; }
+  .breadcrumbs { display: flex; gap: 9px; align-items: center; margin-bottom: 42px; color: #b8cacb; font-size: .84rem; }
+  .breadcrumbs a { text-decoration: underline; text-underline-offset: 4px; }
+  .manual-kicker { display: block; margin-bottom: 15px; color: #9ae3da; font-family: 'IBM Plex Mono', monospace; font-size: .72rem; letter-spacing: .09em; text-transform: uppercase; }
+  .manual-hero h1 { margin: 0; max-width: 760px; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.03; letter-spacing: -.055em; }
+  .manual-hero p { max-width: 680px; margin: 24px 0 0; color: #bdd0d0; font-size: 1.12rem; }
+  .manual-meta { margin: 0; border-top: 1px solid rgba(221,243,235,.22); }
+  .manual-meta div { display: grid; grid-template-columns: 1fr 1.2fr; gap: 20px; padding: 12px 0; border-bottom: 1px solid rgba(221,243,235,.22); }
+  .manual-meta dt { color: #9fb5b7; }
+  .manual-meta dd { margin: 0; text-align: right; }
+  .product-boundary { border-bottom: 1px solid #dfc7a9; background: var(--amber-soft); }
+  .boundary-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 44px; padding-top: 24px; padding-bottom: 24px; }
+  .boundary-grid h2 { margin: 0; color: var(--amber-ink); font-size: 1rem; letter-spacing: -.01em; }
+  .boundary-grid p { margin: 0; color: #654d35; }
+  .manual-shell { display: grid; grid-template-columns: 250px minmax(0, 850px); gap: clamp(48px, 8vw, 110px); align-items: start; padding-top: 66px; padding-bottom: 100px; }
+  .manual-toc { position: sticky; top: 104px; max-height: calc(100dvh - 132px); overflow-y: auto; padding-right: 18px; }
+  .manual-toc > span { display: block; margin-bottom: 15px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: .7rem; letter-spacing: .09em; text-transform: uppercase; }
+  .manual-toc nav, .mobile-toc nav { display: grid; }
+  .toc-link { padding: 8px 10px; border-left: 2px solid var(--line); color: var(--muted); font-size: .84rem; line-height: 1.35; }
+  .toc-link.depth-3 { padding-left: 22px; font-size: .78rem; }
+  .toc-link:hover, .toc-link.active { border-left-color: var(--teal); background: var(--mint); color: var(--ink); }
+  .mobile-toc-wrap { display: none; }
+  .manual-article { min-width: 0; color: var(--ink); font-size: 1rem; }
+  .language-note, .manual-warning { margin: 0 0 34px; padding: 18px 21px; border-left: 4px solid var(--teal); background: var(--mint); }
+  .language-note { color: var(--muted); }
+  .manual-warning { border-color: var(--amber); background: var(--amber-soft); }
+  .manual-warning strong { color: var(--amber-ink); }
+  .manual-warning p { margin: 5px 0 0; color: #654d35; }
+  .manual-article :global(h2), .manual-article :global(h3), .manual-article :global(h4) { position: relative; color: var(--ink); line-height: 1.25; letter-spacing: -.03em; }
+  .manual-article :global(h2) { margin: 72px 0 18px; padding-top: 28px; border-top: 1px solid var(--line); font-size: clamp(2rem, 4vw, 3.2rem); }
+  .manual-article :global(h2:first-of-type) { margin-top: 0; padding-top: 0; border-top: 0; }
+  .manual-article :global(h3) { margin: 48px 0 14px; font-size: clamp(1.55rem, 2.5vw, 2.1rem); }
+  .manual-article :global(h4) { margin: 34px 0 12px; font-size: 1.25rem; }
+  .manual-article :global(p), .manual-article :global(li) { color: var(--muted); }
+  .manual-article :global(li) { margin: 8px 0; padding-left: 4px; }
+  .manual-article :global(a:not(.btn):not(.heading-anchor)) { color: var(--teal); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
+  .manual-article :global(code:not(pre code)) { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--white); color: var(--ink); font-size: .88em; overflow-wrap: anywhere; }
+  .manual-article :global(blockquote) { margin: 28px 0; padding: 16px 20px; border-left: 4px solid var(--amber); background: var(--amber-soft); }
+  .manual-article :global(blockquote p) { margin: 0; color: #654d35; }
+  .manual-article :global(p:has(> img)) { margin: 30px 0 0; padding: 14px; border: 1px solid var(--line); border-bottom: 0; border-radius: 14px 14px 0 0; background: var(--white); }
+  .manual-article :global(p > img) { display: block; width: 100%; height: auto; border-radius: 7px; }
+  .manual-article :global(.manual-caption) { display: block; margin: 0 0 30px; padding: 10px 14px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 14px 14px; background: var(--white); color: var(--muted); font-size: .78rem; }
+  .manual-article :global(.code-sample) { margin: 22px 0 28px; overflow: hidden; border: 1px solid #294b51; border-radius: 12px; background: #0c252b; }
+  .manual-article :global(.code-toolbar) { display: flex; align-items: center; justify-content: space-between; min-height: 42px; padding: 0 12px 0 16px; border-bottom: 1px solid rgba(221,243,235,.16); color: #9fb5b7; font-family: 'IBM Plex Mono', monospace; font-size: .7rem; text-transform: uppercase; }
+  .manual-article :global(.copy-code) { min-height: 30px; padding: 0 10px; border: 1px solid rgba(221,243,235,.25); border-radius: 6px; background: transparent; color: #d9ebe9; font-family: inherit; }
+  .manual-article :global(pre) { margin: 0 !important; padding: 20px !important; border-radius: 0 !important; overflow-x: auto; font-size: .84rem; line-height: 1.65; }
+  .manual-article :global(.heading-anchor) { position: absolute; right: calc(100% + 9px); top: inherit; color: var(--teal); font-family: 'IBM Plex Mono', monospace; font-size: .72em; opacity: 0; }
+  .manual-article :global(h2:hover .heading-anchor), .manual-article :global(h3:hover .heading-anchor), .manual-article :global(h4:hover .heading-anchor), .manual-article :global(.heading-anchor:focus-visible) { opacity: 1; }
+  .manual-support { margin-top: 74px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+  .manual-support h2 { margin: 0 0 12px !important; padding: 0 !important; border: 0 !important; font-size: 2rem !important; }
+  .manual-support .btn { margin-top: 12px; }
+  @media (max-width: 900px) {
+    .manual-hero-grid, .boundary-grid, .manual-shell { grid-template-columns: 1fr; }
+    .manual-meta { max-width: 560px; }
+    .manual-toc { display: none; }
+    .mobile-toc-wrap { display: block; padding-top: 26px; }
+    .mobile-toc { border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
+    .mobile-toc summary { padding: 15px 18px; font-weight: 600; }
+    .mobile-toc nav { max-height: 60dvh; overflow-y: auto; padding: 0 12px 14px; }
+    .manual-shell { padding-top: 38px; }
+  }
+  @media (max-width: 600px) {
+    .manual-hero { padding: 54px 0 42px; }
+    .breadcrumbs { margin-bottom: 28px; }
+    .manual-hero h1 { font-size: clamp(2.6rem, 13vw, 4rem); }
+    .manual-meta div { grid-template-columns: .8fr 1.2fr; }
+    .boundary-grid { gap: 8px; }
+    .manual-article :global(h2) { margin-top: 58px; }
+    .manual-article :global(h3) { margin-top: 40px; }
+    .manual-article :global(ol), .manual-article :global(ul) { padding-left: 24px; }
+    .manual-article :global(p:has(> img)) { margin-top: 24px; padding: 7px; }
+    .manual-article :global(.heading-anchor) { position: static; margin-left: 8px; opacity: 1; }
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { formatPublicationDate, publicationPath, type PublicationEntry } from '../lib/publications';
+
+interface Heading { depth: number; slug: string; text: string; }
+interface Props { entry: PublicationEntry; alternate?: PublicationEntry; Content: any; headings: Heading[]; }
+const { entry, alternate, Content, headings } = Astro.props;
+const { data } = entry;
+const locale = data.locale;
+const en = locale === 'en';
+const currentPath = publicationPath(entry);
+const alternatePath = alternate ? publicationPath(alternate) : (en ? '/' : '/en/');
+const section = data.kind === 'article' ? 'articles' : data.kind === 'award' ? 'awards' : 'news';
+const kindLabel = data.kind === 'article' ? (en ? 'Article' : 'บทความ') : data.kind === 'award' ? (en ? 'Award' : 'รางวัล') : (en ? 'News' : 'ข่าว');
+const tocHeadings = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const site = Astro.site ?? new URL('https://healthtag.io');
+const articleJson = JSON.stringify({
+  '@context': 'https://schema.org', '@type': data.kind === 'news' ? 'NewsArticle' : 'Article', headline: data.title, description: data.summary,
+  ...(data.publishedAt ? { datePublished: data.publishedAt } : {}), ...(data.modifiedAt ? { dateModified: data.modifiedAt } : {}), author: { '@type': 'Organization', name: data.author },
+  publisher: { '@type': 'Organization', name: 'HealthTAG Co., Ltd.', url: new URL('/', site).href }, inLanguage: locale,
+  mainEntityOfPage: new URL(currentPath, site).href, image: data.images.map((image) => new URL(image.src.src, site).href),
+  ...(data.eventDate ? { temporalCoverage: data.eventEndDate ? `${data.eventDate}/${data.eventEndDate}` : data.eventDate } : {}),
+});
+---
+<Base locale={locale} path={`${section}/${data.slug}`} canonicalPath={currentPath} alternatePath={alternatePath} socialImagePath={data.images[0].src.src} socialImageAlt={data.images[0].alt} socialImageWidth={data.images[0].src.width} socialImageHeight={data.images[0].src.height} socialType="article" title={`${data.title} | HealthTAG`} description={data.summary}>
+  <script type="application/ld+json" set:html={articleJson} is:inline></script>
+  <main>
+    <header class="publication-detail-hero"><div class="container publication-detail-hero-inner">
+      <a class="publication-detail-kind" href={`${en ? '/en' : ''}/${section}/`}>{kindLabel} / {data.category}</a>
+      <h1>{data.title}</h1><p class="publication-detail-summary">{data.summary}</p>
+      <div class="publication-detail-meta"><span>{en ? 'By' : 'โดย'} {data.author}</span>{data.publishedAt && <time datetime={data.publishedAt}>{en ? 'Published' : 'เผยแพร่'} {formatPublicationDate(data.publishedAt, locale)}</time>}{data.eventDate && <time datetime={data.eventDate}>{en ? 'Event' : 'เหตุการณ์'} {formatPublicationDate(data.eventDate, locale)}</time>}{data.modifiedAt && <time datetime={data.modifiedAt}>{en ? 'Updated' : 'แก้ไข'} {formatPublicationDate(data.modifiedAt, locale)}</time>}</div>
+    </div></header>
+    <section class="publication-gallery" aria-label={en ? 'Publication images' : 'ภาพประกอบเนื้อหา'}><div class="container publication-gallery-grid" style={`--image-count:${data.images.length}`}>
+      {data.images.map((image) => <figure><Image src={image.src} alt={image.alt} widths={[480, 760, 1100]} sizes="(max-width: 800px) calc(100vw - 28px), 50vw" /><figcaption>{image.credit}</figcaption></figure>)}
+    </div></section>
+    <section class="publication-detail"><div class="container publication-detail-grid">
+      <article class="publication-prose" data-publication-prose>
+        <Content />
+        {data.kind === 'award' && <section class="award-boundary" aria-label={en ? 'Confirmed award result' : 'ผลรางวัลที่ยืนยันแล้ว'}>
+          <div><p class="award-status">{data.resultStatus}</p><h2>{en ? 'Confirmed result' : 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน'}</h2><ul>{data.confirmedResult?.map((item) => <li>{item}</li>)}</ul></div>
+        </section>}
+        <section class="publication-sources" aria-labelledby="publication-sources-heading"><h2 id="publication-sources-heading">{en ? 'Sources' : 'แหล่งข้อมูล'}</h2><ul>{data.sources.map((source) => <li>{source.url ? <a href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel={source.url.startsWith('http') ? 'noopener noreferrer' : undefined}>{source.label}</a> : source.label} ({source.organization})</li>)}</ul></section>
+      </article>
+      {tocHeadings.length > 0 && <nav class="publication-toc" aria-labelledby="publication-toc-heading"><strong id="publication-toc-heading">{en ? 'On this page' : 'สารบัญ'}</strong><ol>{tocHeadings.map((heading) => <li data-depth={heading.depth}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ol></nav>}
+    </div></section>
+  </main>
+  <script is:inline>
+    document.querySelectorAll('[data-publication-prose] :is(h2,h3)[id]').forEach((heading) => {
+      if (heading.querySelector('.heading-anchor')) return;
+      const anchor = document.createElement('a'); anchor.className = 'heading-anchor'; anchor.href = `#${heading.id}`; anchor.textContent = '#';
+      anchor.setAttribute('aria-label', `${document.documentElement.lang === 'th' ? 'ลิงก์ไปยังหัวข้อ' : 'Link to section'} ${heading.textContent}`); heading.append(' ', anchor);
+    });
+  </script>
+</Base>

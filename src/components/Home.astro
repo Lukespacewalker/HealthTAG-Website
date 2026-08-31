@@ -2,13 +2,13 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import overviewScreen from '../assets/phr/phr-overview-redacted.png';
-import { publications } from '../data/publications';
+import { getPublishedPublications, publicationPath } from '../lib/publications';
 import FounderCard from './FounderCard.astro';
 interface Props { locale:'th'|'en' }
 const { locale }=Astro.props; const en=locale==='en'; const p=en?'/en':'';
-const heroStory = publications.find((item) => item.id === 'digital-health-forum-2026');
-if (!heroStory?.images?.[0]) throw new Error('Missing Digital Health Forum hero story');
-const heroStoryImage = heroStory.images[0];
+const heroStory = (await getPublishedPublications(locale, 'news')).find((item) => item.data.slug === 'digital-health-forum-2026');
+if (!heroStory?.data.images[0]) throw new Error('Missing Digital Health Forum hero story');
+const heroStoryImage = heroStory.data.images[0];
 const resources=['Patient','AllergyIntolerance','Encounter','MedicationDispense'];
 const proof = en ? [
   ['NIA Corporate SPARK','China Program 2025','https://www.nia.or.th/Shanghai-CorporateSPARK2025'],
@@ -82,11 +82,11 @@ const founderPillars = en ? [
       </figure>
     </div>
 
-    <a class="hero-story" href={`${p}/news/#publication-${heroStory.id}`}>
+    <a class="hero-story" href={publicationPath(heroStory)}>
       <figure>
         <Image
           src={heroStoryImage.src}
-          alt={heroStoryImage.alt[locale]}
+          alt={heroStoryImage.alt}
           width={heroStoryImage.src.width}
           height={heroStoryImage.src.height}
           widths={[240, 360, 480]}
@@ -99,8 +99,8 @@ const founderPillars = en ? [
       </figure>
       <div class="hero-story-copy">
         <span>{en ? 'Latest news · 25 and 26 Aug 2026' : 'ข่าวล่าสุด · 25 และ 26 ส.ค. 2569'}</span>
-        <h2>{heroStory.title[locale]}</h2>
-        <p>{heroStory.summary[locale]}</p>
+        <h2>{heroStory.data.title}</h2>
+        <p>{heroStory.data.summary}</p>
       </div>
       <i aria-hidden="true">→</i>
     </a>

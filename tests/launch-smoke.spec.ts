@@ -14,13 +14,20 @@ const routes = [
   '/posts/',
   '/news/',
   '/articles/',
+  '/awards/',
+  '/news/siriraj-registration-site-visit-2024/',
+  '/awards/mobile-id-innovation-awards-top-10/',
+  '/en/articles/why-ncds-are-thailands-hidden-crisis/',
   '/contact/',
   '/support/',
+  '/support/community-edition/user-manual/',
   '/privacy/',
   '/en/support/',
+  '/en/support/community-edition/user-manual/',
   '/en/posts/',
   '/en/news/',
   '/en/articles/',
+  '/en/awards/',
 ];
 
 for (const width of [320, 390, 768, 1440]) {
@@ -73,16 +80,14 @@ test('mobile navigation works with keyboard and exposes launch routes', async ({
   await summary.focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('.mobile-nav')).toHaveAttribute('open', '');
-
-  const proofGroup = page.locator('.mobile-nav-group', { hasText: 'ผลงานและหลักฐาน' });
-  await proofGroup.locator(':scope > summary').focus();
+  const evidenceLink = page.locator('.mobile-panel a[href="/evidence/"]');
+  await page.locator('.mobile-nav-group:has(a[href="/evidence/"]) > summary').focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.mobile-panel a[href="/evidence/"]')).toBeVisible();
-
-  const publicationsGroup = page.locator('.mobile-nav-group', { hasText: 'ข่าวและบทความ' });
-  await publicationsGroup.locator(':scope > summary').focus();
+  await expect(evidenceLink).toBeVisible();
+  const postsLink = page.locator('.mobile-panel a[href="/posts/"]');
+  await page.locator('.mobile-nav-group:has(a[href="/posts/"]) > summary').focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.mobile-panel a[href="/posts/"]')).toBeVisible();
+  await expect(postsLink).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/contact/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/support/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/privacy/"]')).toBeVisible();
@@ -128,42 +133,140 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('#recommended')).toContainText('Silicon Craft ADR12');
   await expect(page.locator('#legacy')).toContainText('ไม่แนะนำสำหรับการติดตั้งใหม่');
   await expect(page.locator('#legacy details')).not.toHaveAttribute('open', '');
+  await expect(page.locator('#community-edition')).toContainText('open source');
+  await expect(page.locator('#community-edition')).toContainText('คนละผลิตภัณฑ์');
+  await expect(page.locator('#community-edition a[href="/support/community-edition/user-manual/"]')).toBeVisible();
   const downloadHrefs = await page.locator('main a[href^="https://"]').evaluateAll((links) => links.map((link) => (link as HTMLAnchorElement).href));
   expect(downloadHrefs.length).toBeGreaterThanOrEqual(5);
   expect(downloadHrefs.every((href) => href.startsWith('https://'))).toBe(true);
 
   await page.goto('/en/support/');
   await expect(page.locator('#legacy')).toContainText('Not recommended for new installations');
+  await expect(page.locator('#community-edition')).toContainText('Latest available manual');
+  await expect(page.locator('#community-edition a[href="/en/support/community-edition/user-manual/"]')).toBeVisible();
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
 });
 
-test('news and articles use verified dates, bilingual copy, and traceable sources', async ({ page }) => {
+test('Community Edition manual has contents navigation and language-aware code samples', async ({ page }) => {
+  await page.goto('/support/community-edition/user-manual/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('คู่มือ Community Edition');
+  expect(await page.locator('.manual-toc .toc-link').count()).toBeGreaterThan(10);
+  expect(await page.locator('.manual-article h2[id]').count()).toBeGreaterThanOrEqual(4);
+  await expect(page.locator('pre[data-language="bash"]')).not.toHaveCount(0);
+  await expect(page.locator('pre[data-language="dotenv"]')).not.toHaveCount(0);
+  await expect(page.locator('pre[data-language="python"]')).toHaveCount(1);
+  await expect(page.locator('.code-sample .copy-code').first()).toBeVisible();
+  expect(await page.locator('.manual-article img').count()).toBeGreaterThanOrEqual(40);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/support/community-edition/user-manual/');
+  await expect(page.locator('.mobile-toc')).toBeVisible();
+  await page.locator('.mobile-toc summary').click();
+  await expect(page.locator('.mobile-toc')).toHaveAttribute('open', '');
+
+  await page.goto('/en/support/community-edition/user-manual/');
+  await expect(page.locator('.language-note')).toContainText('source manual is available in Thai');
+  await expect(page.locator('.manual-article')).toHaveAttribute('lang', 'th');
+  await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/community-edition/user-manual/');
+});
+
+test('repository publications support search, pagination, local details, and bilingual metadata', async ({ page }) => {
   await page.goto('/posts/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('ข่าวและบทความจาก HealthTAG');
-  await expect(page.locator('.featured-media img')).toHaveAttribute('alt', /Digital Health Forum 2026/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.locator('.publication-pagination a', { hasText: '2' }).click();
+  await expect(page).toHaveURL(/\?page=2$/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/posts\/$/);
+  await page.locator('input[name="q"]').fill('NFC sticker');
+  await page.getByRole('button', { name: 'ค้นหา' }).click();
+  await expect(page).toHaveURL(/\?q=NFC(?:\+|%20)sticker/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(1);
+  await page.goto('/posts/?q=สำนักสารนิเทศ');
+  await expect(page.locator('.publication-card:visible')).toHaveCount(0);
+  await expect(page.locator('[data-empty]')).toBeVisible();
+
+  await page.goto('/news/digital-health-forum-2026/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Digital Health Forum 2026');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://healthtag.io/news/digital-health-forum-2026/');
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/news/digital-health-forum-2026/');
   await expect(page.locator('time[datetime="2026-08-25"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2026-08-26"]')).toBeVisible();
+  await expect(page.locator('body')).not.toContainText('ย้ายเข้าเว็บไซต์นี้');
   await expect(page.locator('a[href*="facebook.com/mihealthtag/posts/"]').first()).toBeVisible();
   await expect(page.locator('a[href="https://pr.moph.go.th/online/index/news/346999"]')).toBeVisible();
-  await expect(page.locator('time[datetime="2020-04-14"]')).toBeVisible();
-  await expect(page.getByText(/10 พฤษภาคม 2564/).first()).toBeVisible();
-  await expect(page.getByText(/Self-Isolation Tracking Wristband/).first()).toBeVisible();
-  await expect(page.getByText(/NFC sticker ซึ่งเป็นหนึ่งในทางเข้า PHR/)).toBeVisible();
-  await expect(page.locator('body')).not.toContainText('26 พฤษภาคม 2569');
-  await expect(page.locator('body')).not.toContainText('1อ่าน');
+  const firstTocLink = page.locator('.publication-toc a').first();
+  await firstTocLink.focus();
+  await expect(firstTocLink).toBeFocused();
 
   await page.goto('/en/posts/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('News and articles from HealthTAG');
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/posts/');
-  await expect(page.getByText('Thai', { exact: true }).first()).toBeVisible();
-  await expect(page.locator('body')).not.toContainText('1read');
 
   await page.goto('/news/');
-  const newsEntries = page.locator('.publication-entry');
+  const newsEntries = page.locator('.publication-card');
   for (let index = 0; index < await newsEntries.count(); index += 1) {
-    const imageCount = await newsEntries.nth(index).locator('.publication-media img').count();
-    expect(imageCount, `news item ${index + 1} should have 1 to 3 images`).toBeGreaterThanOrEqual(1);
-    expect(imageCount).toBeLessThanOrEqual(3);
+    await expect(newsEntries.nth(index).locator('img')).toHaveCount(1);
+  }
+
+  await page.goto('/awards/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('รางวัล');
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.locator('.publication-pagination a', { hasText: '2' }).click();
+  await expect(page).toHaveURL(/\/awards\/\?page=2$/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(2);
+
+  await page.goto('/articles/blockchain-digital-decentralized-system/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('เบื้องหลังเทคโนโลยี Blockchain');
+  const tocHref = await page.locator('.publication-toc a').first().getAttribute('href');
+  expect(tocHref).toMatch(/^#\S+/);
+  await expect(page.locator(tocHref!)).toHaveCount(1);
+  const scrollMargin = await page.locator(tocHref!).evaluate((element) => getComputedStyle(element).scrollMarginTop);
+  expect(Number.parseFloat(scrollMargin)).toBeGreaterThan(0);
+  await expect(page.locator('.heading-anchor').first()).toHaveAttribute('href', /^#\S+/);
+  const articleJson = JSON.parse(await page.locator('script[type="application/ld+json"]').nth(1).textContent() ?? '{}');
+  expect(articleJson['@type']).toBe('Article');
+  expect(articleJson.datePublished).toBe('2025-11-18');
+  expect(articleJson.inLanguage).toBe('th');
+
+  await page.goto('/awards/apicta-2022/');
+  await expect(page.getByRole('heading', { name: 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน' })).toBeVisible();
+  await expect(page.locator('.award-status')).toHaveText('Winner');
+  await expect(page.locator('.award-boundary')).not.toContainText(/ไม่ได้ยืนยัน|ไม่ใช่การรับรอง/);
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/awards/apicta-2022/');
+
+  await page.goto('/news/siriraj-registration-site-visit-2024/');
+  await expect(page.locator('time[datetime="2024-11-25"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2024-11-26"]')).toBeVisible();
+  await expect(page.locator('.publication-gallery img')).toHaveCount(2);
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/news/siriraj-registration-site-visit-2024/');
+});
+
+test('source-complete news bodies have useful sections in both languages', async ({ page }) => {
+  const slugs = [
+    'digital-health-forum-2026',
+    'orbix-healthtag',
+    'thailand-insurance-symposium-2024',
+    'bitkub-summit-2024',
+    'odess-visit-2024',
+    'etda-dgt-2023',
+    'depa-healthtag',
+    'siriraj-5g-smart-hospital',
+    'nfc-access-evolution-2020-2021',
+  ];
+  for (const slug of slugs) {
+    for (const prefix of ['', '/en']) {
+      const route = `${prefix}/news/${slug}/`;
+      await page.goto(route);
+      expect(await page.locator('.publication-toc a').count(), `${route} should have a useful TOC`).toBeGreaterThanOrEqual(2);
+      expect(await page.locator('.publication-prose > p').count(), `${route} should have a full body`).toBeGreaterThanOrEqual(4);
+      const summary = (await page.locator('.publication-detail-summary').innerText()).trim();
+      const opening = (await page.locator('.publication-prose > p').first().innerText()).trim();
+      expect(opening, `${route} opening should differ from card summary`).not.toBe(summary);
+      await expect(page.locator('.publication-prose')).not.toContainText(/Scope of this record|ขอบเขตของข้อมูล/);
+    }
   }
 });
 
@@ -177,24 +280,7 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of [
-  '/',
-  '/company/',
-  '/trust/',
-  '/phr/',
-  '/interoperability/',
-  '/network/',
-  '/posts/',
-  '/contact/',
-  '/support/',
-  '/en/',
-  '/en/company/',
-  '/en/trust/',
-  '/en/phr/',
-  '/en/posts/',
-  '/en/support/',
-  '/en/evidence/',
-]) {
+for (const route of ['/', '/company/', '/trust/', '/phr/', '/interoperability/', '/network/', '/posts/', '/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/contact/', '/support/', '/support/community-edition/user-manual/', '/en/', '/en/company/', '/en/trust/', '/en/phr/', '/en/posts/', '/en/news/siriraj-registration-site-visit-2024/', '/en/articles/blockchain-digital-decentralized-system/', '/en/awards/mobile-id-innovation-awards-top-10/', '/en/support/', '/en/support/community-edition/user-manual/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });
