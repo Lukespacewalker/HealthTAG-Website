@@ -34,5 +34,15 @@ export const pageContent: Record<string, Record<Locale, PageCopy>> = {
 };
 
 export const team = [
-  ['Dechowat Promda, M.D.','CEO & Founder'],['Suttisak Denduangchai, M.D., Msc.','Tech Lead Developer'],['Aumphon Kaewatsadorn','Personal Assistant'],['Tanasit Klubtavee','Project Manager'],['Tanapon Inprasit','Developer'],['Tanawat Udom','Developer'],['Purin Janbai','Developer'],['Pensirinapang Jaitaboot','Software Tester'],['Kornnaphat Khumphuak','Graphic Designer'],['Akkarachai Kaewsakul','Account Executive'],['Chatchawan Sudsoom','Account Executive']
+  ['Dechowat Promda', 'Chief Executive Officer'],
+  ['Suttisak Denduangchai', 'Tech Lead Developer'],
+  ['Tanasit Klubtavee', 'Project Manager'],
+  ['Tanapon Inprasit', 'Developer'],
+  ['Tanawat Udom', 'Developer'],
+  ['Purin Janbai', 'Developer'],
+  ['Pensirinapang Jaitaboot', 'Software Tester'],
+  ['Kornnaphat Khumphuak', 'Graphic Designer'],
+  ['Aumphon Kaewatsadorn', 'Personal Assistant'],
+  ['Akkarachai Kaewsakul', 'Account Executive'],
+  ['Chatchawan Sudsoom', 'Account Executive'],
 ];
