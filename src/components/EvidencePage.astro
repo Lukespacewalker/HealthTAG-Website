@@ -5,7 +5,6 @@ import { evidence } from '../data/evidence';
 interface Props { locale: 'th' | 'en' }
 const { locale } = Astro.props;
 const en = locale === 'en';
-const verifiedDate = new Intl.DateTimeFormat(en ? 'en-GB' : 'th-TH', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <Base
@@ -39,7 +38,6 @@ const verifiedDate = new Intl.DateTimeFormat(en ? 'en-GB' : 'th-TH', { day: 'num
               <dl class="source-meta">
                 <div><dt>{en ? 'Source organization' : 'หน่วยงานต้นทาง'}</dt><dd>{item.sourceOrganization[locale]}</dd></div>
                 <div><dt>{en ? 'Source publication' : 'วันที่เผยแพร่ของแหล่งข้อมูล'}</dt><dd>{item.sourcePublicationDate[locale]}</dd></div>
-                <div><dt>{en ? 'Last verified' : 'ตรวจสอบล่าสุด'}</dt><dd>{verifiedDate.format(new Date(`${item.lastVerifiedDate}T00:00:00Z`))}</dd></div>
               </dl>
               <section class="claim-block external-claim">
                 <span>{en ? 'What the source states' : 'ข้อมูลจากหน่วยงานที่เกี่ยวข้อง'}</span>
@@ -77,7 +75,7 @@ const verifiedDate = new Intl.DateTimeFormat(en ? 'en-GB' : 'th-TH', { day: 'num
   .evidence-tag { display: inline-flex; min-height: 30px; align-items: center; margin-top: auto; border: 1px solid #8fbab3; border-radius: 999px; padding: 4px 9px; color: var(--ink); background: #f6fbf9; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
   .evidence-body { padding: clamp(26px, 4vw, 46px); }
   .evidence-body h2 { margin: 0 0 24px; font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.1; letter-spacing: -.04em; }
-  .source-meta { display: grid; grid-template-columns: 1.1fr .9fr .7fr; gap: 18px; margin: 0 0 28px; }
+  .source-meta { display: grid; grid-template-columns: 1.1fr .9fr; gap: 18px; margin: 0 0 28px; }
   .source-meta div { border-top: 1px solid var(--line); padding-top: 10px; }
   .source-meta dt { color: var(--muted); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
   .source-meta dd { margin: 4px 0 0; font-size: .9rem; font-weight: 600; }

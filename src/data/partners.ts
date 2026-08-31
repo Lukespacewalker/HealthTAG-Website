@@ -55,7 +55,7 @@ export const networkGroups: NetworkGroup[] = [
     organizations: [
       { id: 'depa', name: { th: 'depa', en: 'depa' }, logo: depa, relationship: { th: 'บันทึกความเข้าใจด้านโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน', en: 'Public MoU on blockchain infrastructure for public services' }, badge: { th: 'ความร่วมมือสาธารณะ', en: 'Public Collaboration' }, detailPage: 'evidence' },
       { id: 'etda', name: { th: 'ETDA', en: 'ETDA' }, logo: etda, relationship: { th: 'ผลการทดสอบใน Digital Service Sandbox เป็นไปตามเป้าหมายที่ ETDA กำหนด', en: 'Testing in the Digital Service Sandbox met the goals set by ETDA' }, badge: { th: 'Sandbox', en: 'Sandbox' }, detailPage: 'evidence' },
-      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: 'ความสัมพันธ์ด้านรางวัลของ HealthTAG', en: 'HealthTAG award relationship' }, badge: { th: 'รางวัล', en: 'Award' } },
+      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: '', en: '' }, badge: { th: 'รางวัล', en: 'Award' } },
       { id: 'nia', name: { th: 'สำนักงานนวัตกรรมแห่งชาติ (NIA)', en: 'National Innovation Agency (NIA)' }, logo: nia, relationship: { th: 'โครงการสนับสนุนการขยายตลาดและการจับคู่ธุรกิจ', en: 'Market-expansion and business-matching programme' }, badge: { th: 'โครงการ', en: 'Programme' }, detailPage: 'evidence' },
       { id: 'sidata', name: { th: 'SiData', en: 'SiData' }, logo: sidata, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'sil-th', name: { th: 'Standards and Interoperability Lab–Thailand', en: 'Standards and Interoperability Lab–Thailand' }, logo: silth, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
@@ -67,7 +67,7 @@ export const networkGroups: NetworkGroup[] = [
     title: { th: 'เครือข่ายและโครงการต่างประเทศ', en: 'International networks & programmes' },
     introduction: { th: 'รางวัลและเครือข่ายต่างประเทศของ HealthTAG', en: 'HealthTAG awards and international networks.' },
     organizations: [
-      { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: { th: 'เครือข่าย HealthTAG โดยใช้ชื่อและตราสัญลักษณ์เดิม', en: 'HealthTAG network, shown with its former name and branding' }, badge: { th: 'เครือข่าย', en: 'Network' } },
+      { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category: Start-Up', en: '2022 winner · Cross Category: Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },
       { id: 'aehin', name: { th: 'Asia eHealth Information Network (AeHIN)', en: 'Asia eHealth Information Network (AeHIN)' }, logo: aehin, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },
       { id: 'aodp', name: { th: 'Asia Open Data Partnership', en: 'Asia Open Data Partnership' }, logo: aodp, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },

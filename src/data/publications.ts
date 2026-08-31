@@ -308,16 +308,16 @@ const researchedLegacyNews: Publication[] = [
         kind: 'owner-confirmed',
         organization: { th: 'HealthTAG', en: 'HealthTAG' },
         label: {
-          th: 'HealthTAG ยืนยันข้อมูลเมื่อ 31 สิงหาคม 2569',
-          en: 'Confirmed by HealthTAG on 31 August 2026',
+          th: 'ข้อมูลจาก HealthTAG',
+          en: 'Information from HealthTAG',
         },
       },
     ],
     images: [{
       src: earlyNfcImage,
       alt: {
-        th: 'ภาพประกอบ HealthTAG เรื่องบัตรประจำตัวสุขภาพอิเล็กทรอนิกส์ในช่วงการระบาดปี 2563',
-        en: 'HealthTAG illustration for an electronic health identifier during the 2020 outbreak period',
+        th: 'กราฟิก HealthTAG เรื่องบัตรประจำตัวสุขภาพอิเล็กทรอนิกส์ในช่วงการระบาดปี 2563',
+        en: 'HealthTAG graphic about an electronic health identifier during the 2020 outbreak period',
       },
       credit: { th: 'ภาพ: HealthTAG', en: 'Image: HealthTAG' },
     }],
@@ -400,7 +400,7 @@ const evidenceNews: Publication[] = evidenceNewsIds.map((id) => {
       {
         kind: 'context',
         organization: { th: 'หลักฐานของ HealthTAG', en: 'HealthTAG evidence notes' },
-        label: { th: 'ดูขอบเขตที่หลักฐานยืนยัน', en: 'See the confirmed scope' },
+        label: { th: 'ดูหลักฐานและรายละเอียด', en: 'See evidence and details' },
         href: { th: `/evidence/#${item.id}`, en: `/en/evidence/#${item.id}` },
       },
     ],
@@ -478,8 +478,8 @@ const archivedArticles: Publication[] = [
       en: 'Blockchain and auditable access to health data',
     },
     summary: {
-      th: 'บทความจากคลังเดิมกล่าวถึง blockchain ในระบบสุขภาพ สำหรับขอบเขตปัจจุบันของ HealthTAG ให้ดูหน้า “ความไว้วางใจและสิทธิ์เข้าถึง” ซึ่งระบุว่าเวชระเบียนไม่ได้เก็บบน blockchain',
-      en: 'An archived article about blockchain in healthcare. The current Trust & Access page defines HealthTAG’s scope and states that clinical records are not stored on blockchain.',
+      th: 'บทความจากคลังเดิมกล่าวถึง blockchain ในระบบสุขภาพ ปัจจุบัน HealthTAG ใช้ blockchain บันทึกเหตุการณ์ความยินยอมและการเข้าถึง ส่วนเวชระเบียนยังอยู่ในระบบโรงพยาบาล',
+      en: 'An archived article about blockchain in healthcare. HealthTAG uses blockchain to record consent and access events, while clinical records remain in hospital systems.',
     },
     originalLanguage: 'th',
     companionPath: 'trust',

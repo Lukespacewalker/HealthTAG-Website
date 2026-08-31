@@ -18,8 +18,8 @@ const pageCopy = {
   all: {
     title: en ? 'News and articles from HealthTAG' : 'ข่าวและบทความจาก HealthTAG',
     description: en
-      ? 'Company activity, source-backed milestones, and archived explainers from HealthTAG.'
-      : 'ความเคลื่อนไหวของบริษัท เหตุการณ์ที่ตรวจสอบที่มาได้ และบทความจากคลัง HealthTAG',
+      ? 'Company activity, milestones, and archived articles from HealthTAG.'
+      : 'ความเคลื่อนไหว เหตุการณ์สำคัญ และบทความจากคลัง HealthTAG',
   },
   news: {
     title: en ? 'Company news from HealthTAG' : 'ข่าวและความเคลื่อนไหวจาก HealthTAG',
@@ -30,8 +30,8 @@ const pageCopy = {
   article: {
     title: en ? 'Articles from the HealthTAG archive' : 'บทความจากคลัง HealthTAG',
     description: en
-      ? 'Thai-language articles from the HealthTAG archive, with English summaries and links to current platform explanations.'
-      : 'บทความภาษาไทยจากคลัง HealthTAG พร้อมคำอธิบายสั้นและลิงก์ไปยังข้อมูลแพลตฟอร์มปัจจุบัน',
+      ? 'Thai-language articles from the HealthTAG archive, with English summaries and background on how HealthTAG works today.'
+      : 'บทความภาษาไทยจากคลัง HealthTAG พร้อมคำอธิบายสั้นและข้อมูลการทำงานของ HealthTAG ในปัจจุบัน',
   },
 };
 
@@ -47,6 +47,12 @@ const tabs = [
   { path: 'news', label: en ? 'Company news' : 'ข่าวบริษัท', active: view === 'news' },
   { path: 'articles', label: en ? 'Articles' : 'บทความ', active: view === 'articles' },
 ];
+
+const companionLabels: Record<string, Record<'th' | 'en', string>> = {
+  phr: { th: 'ดูการใช้งาน PHR', en: 'Explore the PHR' },
+  interoperability: { th: 'อ่านเรื่องการเชื่อมโยงข้อมูล', en: 'Read about interoperability' },
+  trust: { th: 'อ่านเรื่องความยินยอมและสิทธิ์', en: 'Read about consent and access' },
+};
 
 function utcDate(value: string) {
   const parts = value.split('-').map(Number);
@@ -115,11 +121,11 @@ const collectionJson = JSON.stringify({
           <h1>{currentCopy.title}</h1>
           <p>{currentCopy.description}</p>
         </div>
-        <aside class="publication-note" aria-label={en ? 'Publication policy' : 'หลักการเผยแพร่'}>
-          <strong>{en ? 'How dates are recorded' : 'การระบุวันที่'}</strong>
+        <aside class="publication-note" aria-label={en ? 'News dates' : 'วันที่ของข่าว'}>
+          <strong>{en ? 'News dates' : 'วันที่ของข่าว'}</strong>
           <p>{en
-            ? 'News dates refer to the event or the original source. The date assigned when older content was moved is not used as its original publication date.'
-            : 'วันที่ข่าวหมายถึงวันที่เกิดเหตุการณ์หรือวันที่หน่วยงานที่เกี่ยวข้องเผยแพร่ โดยไม่นำวันที่ย้ายเนื้อหาเก่ามาใช้แทนวันที่เผยแพร่เดิม'}</p>
+            ? 'News uses the date of the event or the publication date shown by the source.'
+            : 'ข่าวใช้วันที่เกิดเหตุการณ์หรือวันที่เผยแพร่ที่ระบุในแหล่งข้อมูล'}</p>
         </aside>
       </div>
       <div class="container">
@@ -166,7 +172,6 @@ const collectionJson = JSON.stringify({
                 )
               ))}
             </div>
-            <p class="verified-line">{en ? 'Sources checked' : 'ตรวจสอบล่าสุด'} <time datetime={featured.verifiedAt}>{formatDate(featured.verifiedAt)}</time></p>
           </article>
         </div>
       </section>
@@ -199,10 +204,6 @@ const collectionJson = JSON.stringify({
                   <dt>{en ? 'Source' : 'ที่มาของข่าว'}</dt>
                   <dd>{item.sources[0].organization[locale]}</dd>
                 </div>
-                <div>
-                  <dt>{en ? 'Sources checked' : 'ตรวจสอบล่าสุด'}</dt>
-                  <dd><time datetime={item.verifiedAt}>{formatDate(item.verifiedAt)}</time></dd>
-                </div>
                 {item.publishedAt && item.publishedAt !== item.eventStart && (
                   <div>
                     <dt>{en ? 'Company post date' : 'วันที่โพสต์ของบริษัท'}</dt>
@@ -232,7 +233,7 @@ const collectionJson = JSON.stringify({
                 })}
                 {item.companionPath && (
                   <a class="source-action secondary" href={`${prefix}/${item.companionPath}/`}>
-                    {en ? 'Read the current platform explanation' : 'อ่านคำอธิบายแพลตฟอร์มปัจจุบัน'}
+                    {companionLabels[item.companionPath][locale]}
                   </a>
                 )}
               </div>
@@ -245,13 +246,13 @@ const collectionJson = JSON.stringify({
     <section class="correction-band">
       <div class="container correction-grid">
         <div>
-          <span>{en ? 'PUBLICATION AND CORRECTIONS' : 'การเผยแพร่และการแก้ไขข้อมูล'}</span>
-          <h2>{en ? 'Source and correction policy' : 'ที่มาของข่าวและการแก้ไขข้อมูล'}</h2>
+          <span>{en ? 'CORRECTIONS' : 'การแก้ไขข้อมูล'}</span>
+          <h2>{en ? 'Found something incorrect?' : 'พบข้อมูลที่ควรแก้ไข?'}</h2>
         </div>
         <div>
           <p>{en
-            ? 'Company posts describe HealthTAG activity. External sources confirm the event, programme, award, or collaboration within the scope stated on the Evidence page. Archived articles keep their original language and link to the current platform pages where the technical scope has changed.'
-            : 'โพสต์ของบริษัทใช้บันทึกกิจกรรมของ HealthTAG ส่วนประกาศจากหน่วยงานที่เกี่ยวข้องใช้ยืนยันเหตุการณ์ โครงการ รางวัล หรือความร่วมมือตามขอบเขตที่ระบุในหน้าหลักฐาน บทความจากคลังเดิมคงภาษาต้นฉบับและเชื่อมไปยังหน้าแพลตฟอร์มปัจจุบันเมื่อขอบเขตทางเทคนิคเปลี่ยนไป'}</p>
+            ? 'Send us the title or link and describe what should be corrected. We review the source before updating published information.'
+            : 'ส่งชื่อข่าวหรือลิงก์พร้อมระบุข้อมูลที่ควรแก้ไข เราจะตรวจแหล่งข้อมูลก่อนปรับปรุงเนื้อหาที่เผยแพร่'}</p>
           <a href="mailto:contact@healthtag.io?subject=Website%20correction">{en ? 'Report a factual error' : 'แจ้งข้อมูลที่ควรแก้ไข'}</a>
         </div>
       </div>
@@ -283,7 +284,6 @@ const collectionJson = JSON.stringify({
   .publication-kind { color: var(--teal); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
   .featured-copy h2 { margin: 18px 0 16px; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.08; letter-spacing: -.045em; overflow-wrap: anywhere; text-wrap: balance; }
   .featured-copy > p { color: var(--muted); }
-  .verified-line { margin: 18px 0 0; font-size: .78rem; }
 
   .publication-section { padding: 78px 0 92px; background-color: #eef3f1; background-image: linear-gradient(rgba(16, 47, 54, .028) 1px, transparent 1px); background-size: 100% 72px; }
   .publication-list { display: grid; gap: 16px; }

@@ -55,19 +55,19 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
           {relatedSiriraj.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
               <div class="logo-frame"><Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /></div>
-              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3><p>{organization.relationship[locale]}</p></div>
+              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
             </li>
           ))}
         </ul>
       </section>
 
       <div class="other-medical">
-        <div class="subheading"><strong>{en ? 'Other medical institutions in the HealthTAG network' : 'สถาบันการแพทย์อื่นในเครือข่าย HealthTAG'}</strong><p>{en ? 'A network relationship does not by itself indicate a deployment or current contract.' : 'สถานะเครือข่ายไม่ได้หมายถึงการติดตั้งใช้งานหรือสัญญาปัจจุบัน'}</p></div>
+        <div class="subheading"><strong>{en ? 'Other medical institutions in the HealthTAG network' : 'สถาบันการแพทย์อื่นในเครือข่าย HealthTAG'}</strong></div>
         <ul class="logo-grid medical-grid" role="list">
           {otherMedical.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
               <div class="logo-frame"><Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /></div>
-              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3><p>{organization.relationship[locale]}</p></div>
+              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
             </li>
           ))}
         </ul>
@@ -91,7 +91,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
               <div class="organization-copy">
                 <span class="relationship-badge">{organization.badge[locale]}</span>
                 <h3>{organization.name[locale]}</h3>
-                <p>{organization.relationship[locale]}</p>
+                {organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}
                 {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'View evidence for' : 'ดูหลักฐานของ'} ${organization.name[locale]}`}>{en ? 'View evidence' : 'ดูหลักฐาน'} <span aria-hidden="true">→</span></a>}
               </div>
             </li>

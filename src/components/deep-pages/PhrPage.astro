@@ -34,7 +34,7 @@ const capabilities = en ? [
   {
     index: '04',
     title: 'More than a record list',
-    body: 'The current interface also includes biological-age analytics, an AI assistant area, referral, emergency information, and profile settings. Availability and content depend on the account, connected services, and the data supplied to the PHR.',
+    body: 'The PHR also includes biological-age analytics, an AI assistant area, referral, emergency information, and profile settings. Availability and content depend on the account, connected services, and the data supplied to the PHR.',
     labels: ['BioAge analytics', 'AI assistant', 'Referral', 'Emergency'],
   },
   {
@@ -65,7 +65,7 @@ const capabilities = en ? [
   {
     index: '04',
     title: 'มีเครื่องมือมากกว่าการเปิดดูเวชระเบียน',
-    body: 'หน้าจอปัจจุบันมีการวิเคราะห์อายุชีวภาพ พื้นที่ผู้ช่วย AI การส่งต่อ ข้อมูลฉุกเฉิน และการตั้งค่าโปรไฟล์ เนื้อหาที่เห็นขึ้นกับบัญชี บริการที่เชื่อมต่อ และข้อมูลที่ส่งเข้ามายัง PHR',
+    body: 'PHR มีการวิเคราะห์อายุชีวภาพ พื้นที่ผู้ช่วย AI การส่งต่อ ข้อมูลฉุกเฉิน และการตั้งค่าโปรไฟล์ เนื้อหาที่เห็นขึ้นกับบัญชี บริการที่เชื่อมต่อ และข้อมูลที่ส่งเข้ามายัง PHR',
     labels: ['BioAge analytics', 'ผู้ช่วย AI', 'การส่งต่อ', 'ข้อมูลฉุกเฉิน'],
   },
   {
@@ -77,17 +77,17 @@ const capabilities = en ? [
 ];
 
 const screenshots = en ? [
-  { src: overviewScreen, title: 'Health overview', body: 'The overview combines the available clinical summary, biological-age results, and continuous readings. A patient can start here before opening a specific category.', alt: 'HealthTAG PHR demonstration overview with synthetic health scores and continuous readings; identifying account details are covered', featured: true },
-  { src: medicationsScreen, title: 'Medicine calendar', body: 'The medicine view marks dates on a calendar and reserves the adjacent panel for the medicine details available on the selected date.', alt: 'HealthTAG PHR demonstration medicine calendar with an empty medicine-detail panel; identifying account details are covered' },
-  { src: reportsScreen, title: 'Special reports', body: 'Special reports group health information by clinical context. The demonstration account includes NCD and kidney-clinic report categories.', alt: 'HealthTAG PHR demonstration special-report list with NCD and kidney-clinic categories; identifying account details are covered' },
-  { src: connectionsScreen, title: 'Hospital connections', body: 'The connection view summarizes available visits, medicines, documents, and medical images, then lists the data sources a patient can connect.', alt: 'HealthTAG PHR demonstration hospital-connection view with record counts and a redacted demo wallet address; identifying account details are covered' },
-  { src: bioAgeScreen, title: 'Biological-age trends', body: 'BioAge Analytics compares results across testing rounds and presents the available biological-age, age-acceleration, and telomere measures.', alt: 'HealthTAG PHR demonstration BioAge Analytics screen with synthetic trend data; account and patient identifiers are covered' },
+  { src: overviewScreen, title: 'Health overview', body: 'The overview combines the available clinical summary, biological-age results, and continuous readings. A patient can start here before opening a specific category.', alt: 'HealthTAG PHR health overview with a health score, clinical and biological summaries, and continuous readings', featured: true },
+  { src: medicationsScreen, title: 'Medicine calendar', body: 'The medicine view marks dates on a calendar and reserves the adjacent panel for the medicine details available on the selected date.', alt: 'HealthTAG PHR medicine calendar with a panel for medicine details' },
+  { src: reportsScreen, title: 'Special reports', body: 'Special reports group health information by clinical context, including NCD and kidney-clinic categories.', alt: 'HealthTAG PHR special-report list with NCD and kidney-clinic categories' },
+  { src: connectionsScreen, title: 'Hospital connections', body: 'The connection view summarizes available visits, medicines, documents, and medical images, then lists the data sources a patient can connect.', alt: 'HealthTAG PHR hospital-connection view with record counts and connection controls' },
+  { src: bioAgeScreen, title: 'Biological-age trends', body: 'BioAge Analytics compares results across testing rounds and presents the available biological-age, age-acceleration, and telomere measures.', alt: 'HealthTAG PHR BioAge Analytics screen with biological-age trends and test results' },
 ] : [
-  { src: overviewScreen, title: 'ภาพรวมสุขภาพ', body: 'หน้า Overview รวมสรุปข้อมูลทางคลินิก ผลอายุชีวภาพ และข้อมูลต่อเนื่องที่มีอยู่ ผู้ป่วยเริ่มจากจุดนี้แล้วจึงเปิดดูหมวดที่ต้องการได้', alt: 'หน้าภาพรวมของบัญชีสาธิต HealthTAG PHR แสดงคะแนนสุขภาพและข้อมูลต่อเนื่อง โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว', featured: true },
-  { src: medicationsScreen, title: 'ปฏิทินยา', body: 'หน้ายาใช้ปฏิทินระบุวันที่รับยา และเตรียมพื้นที่ด้านข้างสำหรับรายละเอียดของยาที่มีในวันที่เลือก', alt: 'หน้าปฏิทินยาของบัญชีสาธิต HealthTAG PHR พร้อมพื้นที่รายละเอียดที่ยังไม่มีข้อมูล โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว' },
-  { src: reportsScreen, title: 'รายงานสุขภาพ', body: 'รายงานสุขภาพแยกข้อมูลตามบริบทของคลินิก บัญชีสาธิตมีหมวดคลินิก NCD และคลินิกโรคไต', alt: 'หน้ารายงานสุขภาพของบัญชีสาธิต HealthTAG PHR มีหมวดคลินิก NCD และคลินิกโรคไต โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว' },
-  { src: connectionsScreen, title: 'การเชื่อมต่อโรงพยาบาล', body: 'หน้าการเชื่อมต่อสรุปจำนวนข้อมูลการรับบริการ ยา เอกสาร และภาพทางการแพทย์ ก่อนแสดงแหล่งข้อมูลที่ผู้ป่วยเชื่อมต่อได้', alt: 'หน้าการเชื่อมต่อโรงพยาบาลของบัญชีสาธิต HealthTAG PHR แสดงจำนวนข้อมูลและ wallet address ที่ปกปิดแล้ว' },
-  { src: bioAgeScreen, title: 'แนวโน้มอายุชีวภาพ', body: 'BioAge Analytics เปรียบเทียบผลจากหลายรอบการตรวจ พร้อมค่าอายุชีวภาพ การเร่งอายุ และความยาวเทโลเมียร์ที่มีอยู่', alt: 'หน้า BioAge Analytics ของบัญชีสาธิต HealthTAG PHR แสดงข้อมูลแนวโน้มจำลอง โดยปกปิดรหัสบัญชีและรหัสผู้ป่วยแล้ว' },
+  { src: overviewScreen, title: 'ภาพรวมสุขภาพ', body: 'หน้า Overview รวมสรุปข้อมูลทางคลินิก ผลอายุชีวภาพ และข้อมูลต่อเนื่องที่มีอยู่ ผู้ป่วยเริ่มจากจุดนี้แล้วจึงเปิดดูหมวดที่ต้องการได้', alt: 'หน้าภาพรวม HealthTAG PHR แสดงคะแนนสุขภาพ สรุปข้อมูลทางคลินิกและชีวภาพ และข้อมูลต่อเนื่อง', featured: true },
+  { src: medicationsScreen, title: 'ปฏิทินยา', body: 'หน้ายาใช้ปฏิทินระบุวันที่รับยา และเตรียมพื้นที่ด้านข้างสำหรับรายละเอียดของยาที่มีในวันที่เลือก', alt: 'หน้าปฏิทินยา HealthTAG PHR พร้อมพื้นที่แสดงรายละเอียดยา' },
+  { src: reportsScreen, title: 'รายงานสุขภาพ', body: 'รายงานสุขภาพแยกข้อมูลตามบริบทของคลินิก เช่น คลินิก NCD และคลินิกโรคไต', alt: 'หน้ารายงานสุขภาพ HealthTAG PHR มีหมวดคลินิก NCD และคลินิกโรคไต' },
+  { src: connectionsScreen, title: 'การเชื่อมต่อโรงพยาบาล', body: 'หน้าการเชื่อมต่อสรุปจำนวนข้อมูลการรับบริการ ยา เอกสาร และภาพทางการแพทย์ ก่อนแสดงแหล่งข้อมูลที่ผู้ป่วยเชื่อมต่อได้', alt: 'หน้าการเชื่อมต่อโรงพยาบาล HealthTAG PHR แสดงจำนวนข้อมูลและตัวควบคุมการเชื่อมต่อ' },
+  { src: bioAgeScreen, title: 'แนวโน้มอายุชีวภาพ', body: 'BioAge Analytics เปรียบเทียบผลจากหลายรอบการตรวจ พร้อมค่าอายุชีวภาพ การเร่งอายุ และความยาวเทโลเมียร์ที่มีอยู่', alt: 'หน้า BioAge Analytics ของ HealthTAG PHR แสดงแนวโน้มอายุชีวภาพและผลการตรวจ' },
 ];
 ---
 
@@ -131,7 +131,7 @@ const screenshots = en ? [
     <section class="section phr-capabilities">
       <div class="container">
         <div class="section-head phr-section-head">
-          <span class="mono">{en ? 'CURRENT PRODUCT SCOPE' : 'ขอบเขตผลิตภัณฑ์ปัจจุบัน'}</span>
+          <span class="mono">{en ? 'PHR FEATURES' : 'การใช้งาน PHR'}</span>
           <h2>{en ? 'What patients can do in the PHR' : 'ผู้ป่วยใช้ PHR ทำอะไรได้บ้าง'}</h2>
         </div>
         <div class="capability-list">
@@ -151,9 +151,9 @@ const screenshots = en ? [
         <div class="screen-intro">
           <div>
             <span class="mono">{en ? 'PRODUCT SCREENS' : 'หน้าจอผลิตภัณฑ์'}</span>
-            <h2>{en ? 'A closer look at the PHR' : 'ดูการใช้งาน PHR จากหน้าจอจริง'}</h2>
+            <h2>{en ? 'Explore the PHR' : 'ดูหน้าจอ PHR'}</h2>
           </div>
-          <p>{en ? 'These screens use an authorized demonstration account with synthetic data. Names, account identifiers, contact details, patient identifiers, and the demo wallet address are covered.' : 'ภาพทั้งหมดใช้บัญชีสาธิตที่ได้รับอนุญาตและข้อมูลจำลอง โดยปกปิดชื่อ รหัสบัญชี ข้อมูลติดต่อ รหัสผู้ป่วย และ wallet address ของบัญชีสาธิตแล้ว'}</p>
+          <p>{en ? 'HealthTAG PHR organizes information into a health overview, medicines, special reports, hospital connections, and BioAge Analytics.' : 'HealthTAG PHR จัดข้อมูลเป็นภาพรวมสุขภาพ ยา รายงานสุขภาพ การเชื่อมต่อโรงพยาบาล และ BioAge Analytics'}</p>
         </div>
         <div class="screen-gallery">
           {screenshots.map((screen, index) => (
@@ -182,12 +182,11 @@ const screenshots = en ? [
     <section class="section phr-boundary">
       <div class="container boundary-grid">
         <div>
-          <span class="mono">{en ? 'ACCESS AND DATA BOUNDARY' : 'ขอบเขตสิทธิ์และข้อมูล'}</span>
+          <span class="mono">{en ? 'AVAILABLE INFORMATION' : 'ข้อมูลที่แสดงใน PHR'}</span>
           <h2>{en ? 'The PHR presents what is available and authorized' : 'PHR แสดงเฉพาะข้อมูลที่มีและได้รับอนุญาต'}</h2>
         </div>
         <div>
           <p>{en ? 'A category may be empty when no matching record is available. The information shown varies with the patient account, connected hospital or provider, authorization, and the data supplied by those systems.' : 'บางหมวดอาจไม่มีรายการเมื่อระบบต้นทางไม่มีข้อมูลที่ตรงกัน ข้อมูลที่แสดงจึงแตกต่างตามบัญชีผู้ป่วย โรงพยาบาลหรือผู้ให้บริการที่เชื่อมต่อ สิทธิ์การเข้าถึง และข้อมูลที่ระบบเหล่านั้นส่งมา'}</p>
-          <p class="demo-note">{en ? 'Product behavior was checked with an authorized demonstration account containing synthetic data. This does not establish a live deployment or data exchange with any named hospital.' : 'การทำงานของผลิตภัณฑ์ตรวจสอบจากบัญชีสาธิตที่ได้รับอนุญาตและใช้ข้อมูลจำลอง จึงไม่ใช่หลักฐานว่ามีการติดตั้งใช้งานหรือแลกเปลี่ยนข้อมูลจริงกับโรงพยาบาลที่ระบุชื่อ'}</p>
           <a href={`${prefix}/trust/`}>{en ? 'Read about authorization and audit' : 'อ่านเรื่องการอนุญาตและการตรวจสอบย้อนหลัง'} →</a>
         </div>
       </div>
@@ -244,7 +243,6 @@ const screenshots = en ? [
   .boundary-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); }
   .boundary-grid h2 { max-width: 16ch; margin-bottom: 0; }
   .boundary-grid p { color: color-mix(in srgb, var(--white) 78%, transparent); }
-  .boundary-grid .demo-note { padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--white) 18%, transparent); font-size: .92rem; }
   .boundary-grid a { color: var(--white); }
   @media (max-width: 850px) {
     .phr-hero-grid, .ownership-grid, .boundary-grid, .screen-intro { grid-template-columns: 1fr; }
