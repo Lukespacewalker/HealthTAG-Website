@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
-    "build": "astro build",
+    "build": "node scripts/generate-sitemap.mjs && astro build",
     "preview": "astro preview",
     "check:site": "node scripts/check-built-site.mjs",
     "check:redirects": "node scripts/check-redirects.mjs",
     "test:smoke": "playwright test",
     "preview:screenshots": "node scripts/capture-preview.mjs",
-    "validate": "npm run check && npm run build && npm run check:site && npm run check:redirects"
+    "check:publication-assets": "node scripts/verify-publication-assets.mjs",
+    "check:publication-content": "node scripts/check-publication-content.mjs",
+    "validate": "npm run check:publication-content && npm run check:publication-assets && npm run check && npm run build && npm run check:site && npm run check:redirects"
   },
   "dependencies": {
     "@ibm/plex": "6.4.1",

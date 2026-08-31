@@ -12,6 +12,10 @@ const captures = [
   ['network-desktop.jpg', '/network/', 1440, 1000],
   ['home-mobile.jpg', '/', 390, 844],
   ['contact-mobile.jpg', '/contact/', 390, 844],
+  ['publications-desktop.jpg', '/posts/', 1440, 1000],
+  ['publication-article-en-desktop.jpg', '/en/articles/blockchain-digital-decentralized-system/', 1440, 1000],
+  ['publication-article-th-mobile.jpg', '/articles/why-ncds-are-thailands-hidden-crisis/', 390, 844],
+  ['publication-award-th-mobile.jpg', '/awards/apicta-2022/', 320, 844],
 ];
 
 await fs.mkdir(outputDir, { recursive: true });

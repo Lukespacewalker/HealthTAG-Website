@@ -1,0 +1,21 @@
+[
+  { "path": "src/assets/news/digital-health-forum-2026.jpg", "width": 1477, "height": 1108, "sha256": "0EF05D2BB9B27361163A84FDE0C85844299B00C9AB07833D1DC15E26B99BB303" },
+  { "path": "src/assets/news/orbix-healthtag-2026.jpg", "width": 960, "height": 540, "sha256": "2EAAE4C97E5FD41CE6064E6DECDEF34FEB9C5ECA2001270F3EA2DAFA23FB9B72" },
+  { "path": "src/assets/news/nia-corporate-spark-2025.jpg", "width": 1440, "height": 1080, "sha256": "374EDB7F7767120EAB9447AF8F783D50ADF21DDA8F3BA1BA72FFE5AA572FFA6B" },
+  { "path": "src/assets/news/thailand-insurance-symposium-2024.jpg", "width": 592, "height": 395, "sha256": "FD85739395F3F312914A86BE580E93A2B372693EB5DD1D78753AD92471BD8FA0" },
+  { "path": "src/assets/news/bitkub-summit-2024.jpg", "width": 450, "height": 600, "sha256": "EB66FBED5A9AF1F1D861A6699412AA222E88971217819FF6B83EB9A51CD4DFB3" },
+  { "path": "src/assets/news/odess-visit-2024.jpg", "width": 2048, "height": 1536, "sha256": "B6859EE85C2367C188261C1A04B565A72A107BB58F6E29DD0DD1744F2D1C41F9" },
+  { "path": "src/assets/news/etda-dgt-2023.jpg", "width": 2048, "height": 1536, "sha256": "66594AC719C5E39F88818E817BD28E667EF9305045DB14BAFEA3A7F0173435F4" },
+  { "path": "src/assets/news/depa-healthtag-2023.jpg", "width": 1440, "height": 960, "sha256": "81D4795C3A44E6DDB82AD2BF89147FEE62D2DF0D768E44B8D3CBBD7FA99B0AEF" },
+  { "path": "src/assets/news/apicta-2022.jpg", "width": 1440, "height": 1080, "sha256": "E6036D8A5669E9CA5FBA5D6DED51A4505120A104012D5A7A026F220360D6C39D" },
+  { "path": "src/assets/news/siriraj-5g-smart-hospital-2021.jpg", "width": 1000, "height": 515, "sha256": "8EF15E8CA342AA9511B042B032AE5A8128C3CFB6C26015785D83C6CB94932C7B" },
+  { "path": "src/assets/news/early-nfc-access-2020.jpg", "width": 526, "height": 276, "sha256": "786065DD3347A452946014AF046BF5FD26A4FAA4F1B834534DF24867A7440858" },
+  { "path": "src/assets/publications/articles/data-is-the-new-medicine.png", "width": 624, "height": 416, "sha256": "2FF60CFECDE27D85F08658B3DF72A2D050F209DE08BC6CCC1903D4D836EA7AF9" },
+  { "path": "src/assets/publications/articles/decentralized-healthcare.jpg", "width": 1024, "height": 906, "sha256": "00226B862756701DA91CFCD8F9D76BDC9512F6B9FFCEB1C67A6C434BDAC3FDF3" },
+  { "path": "src/assets/publications/articles/blockchain-healthcare-decentralized.jpg", "width": 1024, "height": 472, "sha256": "9ECADB63D73C5882402DEADE75FC4F4E241371613535FC7FC9636C4F58DBF1F9" },
+  { "path": "src/assets/publications/articles/blockchain-digital-decentralized-system.jpg", "width": 1024, "height": 877, "sha256": "8D411773CB784560C1D3E5BE8FD03B792CA21AE0E3CED150A01959232C47C815" },
+  { "path": "src/assets/publications/articles/why-ncds-are-thailands-hidden-crisis.jpg", "width": 2048, "height": 2048, "sha256": "1739C831978807906F70EB8DF60735BCAFC77EA6EA4D2AEE1E3DD76D4D9F82B5" },
+  { "path": "src/assets/publications/articles/smart-contract-healthcare-system.png", "width": 574, "height": 374, "sha256": "DB8F65B96F022E837718CCC1CAF1C8997386A88DA35FB7342C0EC89CB181FAD3" },
+  { "path": "src/assets/publications/awards/apicta-2022.jpg", "width": 1440, "height": 1080, "sha256": "E6036D8A5669E9CA5FBA5D6DED51A4505120A104012D5A7A026F220360D6C39D" },
+  { "path": "src/assets/publications/awards/odess-laureate-2024.jpg", "width": 600, "height": 503, "sha256": "64E968A330AACC5C8163A37F65B58133192BFF2148BC755244FF2208ABDCC403" }
+]

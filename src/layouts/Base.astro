@@ -4,6 +4,7 @@ import '../styles/fonts.css';
 import '../styles/global.css';
 import '../styles/brand-refresh.css';
 import '../styles/publications-nav.css';
+import '../styles/publications.css';
 import '../styles/thai.css';
 import BrandLogo from '../components/BrandLogo.astro';
 import plexSansRegular from '@ibm/plex/IBM-Plex-Sans/fonts/complete/woff2/IBMPlexSans-Regular.woff2?url';
@@ -14,6 +15,13 @@ interface Props {
   description?: string;
   locale?: 'th' | 'en';
   path?: string;
+  canonicalPath?: string;
+  alternatePath?: string;
+  socialImagePath?: string;
+  socialImageAlt?: string;
+  socialImageWidth?: number;
+  socialImageHeight?: number;
+  socialType?: 'website' | 'article';
   noindex?: boolean;
 }
 
@@ -22,6 +30,13 @@ const {
   description = 'Healthcare interoperability infrastructure',
   locale = 'th',
   path = '',
+  canonicalPath: canonicalPathOverride,
+  alternatePath: alternatePathOverride,
+  socialImagePath = '/og-healthtag.png',
+  socialImageAlt,
+  socialImageWidth = 1200,
+  socialImageHeight = 630,
+  socialType = 'website',
   noindex = false,
 } = Astro.props;
 
@@ -29,15 +44,16 @@ const isEn = locale === 'en';
 const prefix = isEn ? '/en' : '';
 const home = isEn ? '/en/' : '/';
 const normalizedPath = path.replace(/^\/+|\/+$/g, '');
-const localizedPath = normalizedPath ? `${prefix}/${normalizedPath}/` : `${prefix}/`;
-const alternatePath = normalizedPath
+const localizedPath = canonicalPathOverride ?? (normalizedPath ? `${prefix}/${normalizedPath}/` : `${prefix}/`);
+const alternatePath = alternatePathOverride ?? (normalizedPath
   ? `${isEn ? '' : '/en'}/${normalizedPath}/`
-  : isEn ? '/' : '/en/';
-const defaultPath = normalizedPath ? `/${normalizedPath}/` : '/';
+  : isEn ? '/' : '/en/');
+const defaultPath = isEn ? alternatePath : localizedPath;
 const canonical = new URL(localizedPath, Astro.site ?? 'https://healthtag.io');
 const alternate = new URL(alternatePath, Astro.site ?? 'https://healthtag.io');
 const defaultCanonical = new URL(defaultPath, Astro.site ?? 'https://healthtag.io');
-const socialImage = new URL('/og-healthtag.png', Astro.site ?? 'https://healthtag.io');
+const socialImage = new URL(socialImagePath, Astro.site ?? 'https://healthtag.io');
+const resolvedSocialAlt = socialImageAlt ?? (isEn ? 'HealthTAG: healthcare interoperability with hospitals in control' : 'HealthTAG: เชื่อมข้อมูลสุขภาพโดยโรงพยาบาลยังเป็นผู้ควบคุม');
 
 const nav = [
   ['interoperability', isEn ? 'Platform' : 'แพลตฟอร์ม'],
@@ -45,6 +61,7 @@ const nav = [
   ['deployments', isEn ? 'Deployments' : 'การใช้งานจริง'],
   ['network', isEn ? 'Network' : 'เครือข่าย'],
   ['posts', isEn ? 'News' : 'ข่าวสาร'],
+  ['awards', isEn ? 'Awards' : 'รางวัล'],
   ['company', isEn ? 'Company' : 'บริษัท'],
 ];
 
@@ -73,20 +90,20 @@ const orgJson = JSON.stringify({
     <link rel="alternate" hreflang={locale} href={canonical} />
     <link rel="alternate" hreflang={isEn ? 'th' : 'en'} href={alternate} />
     <link rel="alternate" hreflang="x-default" href={defaultCanonical} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={socialType} />
     <meta property="og:site_name" content="HealthTAG" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={isEn ? 'HealthTAG: healthcare interoperability with hospitals in control' : 'HealthTAG: เชื่อมข้อมูลสุขภาพโดยโรงพยาบาลยังเป็นผู้ควบคุม'} />
+    <meta property="og:image:width" content={String(socialImageWidth)} />
+    <meta property="og:image:height" content={String(socialImageHeight)} />
+    <meta property="og:image:alt" content={resolvedSocialAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    <meta name="twitter:image:alt" content={isEn ? 'HealthTAG: healthcare interoperability with hospitals in control' : 'HealthTAG: เชื่อมข้อมูลสุขภาพโดยโรงพยาบาลยังเป็นผู้ควบคุม'} />
+    <meta name="twitter:image:alt" content={resolvedSocialAlt} />
     <script type="application/ld+json" set:html={orgJson} is:inline></script>
   </head>
   <body>
@@ -108,6 +125,7 @@ const orgJson = JSON.stringify({
               <a href={`${prefix}/how-it-works/`}>{isEn ? 'How it works' : 'ระบบทำงานอย่างไร'}</a>
               <a href={`${prefix}/trust/`}>{isEn ? 'Trust & access' : 'ความไว้วางใจและสิทธิ์เข้าถึง'}</a>
               <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
+              <a href={`${prefix}/awards/`}>{isEn ? 'Awards' : 'รางวัล'}</a>
               <a href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
               <a href={`${prefix}/privacy/`}>{isEn ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</a>
               <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
@@ -138,6 +156,7 @@ const orgJson = JSON.stringify({
           <a href={`${prefix}/network/`}>{isEn ? 'Network' : 'เครือข่าย'}</a>
           <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
           <a href={`${prefix}/posts/`}>{isEn ? 'News & articles' : 'ข่าวและบทความ'}</a>
+          <a href={`${prefix}/awards/`}>{isEn ? 'Awards' : 'รางวัล'}</a>
           <a href={`${prefix}/company/`}>{isEn ? 'Company & founder' : 'บริษัทและผู้ก่อตั้ง'}</a>
         </nav>
         <nav aria-label={isEn ? 'Contact and policy links' : 'ลิงก์ติดต่อและนโยบาย'}>
