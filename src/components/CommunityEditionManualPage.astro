@@ -23,7 +23,7 @@ const tocHeadings = getHeadings().filter((heading) => heading.depth === 2 || hea
           <nav class="breadcrumbs" aria-label={en ? 'Breadcrumb' : 'เส้นทางหน้าเว็บ'}>
             <a href={`${prefix}/support/`}>{en ? 'Support' : 'ศูนย์ช่วยเหลือ'}</a>
             <span aria-hidden="true">/</span>
-            <span>Community Edition</span>
+            <span>{en ? 'Community Edition manual' : 'คู่มือ Community Edition'}</span>
           </nav>
           <span class="manual-kicker">Open source / Community Edition</span>
           <h1>{en ? 'Community Edition manual' : 'คู่มือ Community Edition'}</h1>

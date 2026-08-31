@@ -46,9 +46,10 @@ export const navigationGroups: NavigationGroup[] = [
     id: 'publications',
     label: { th: 'ข่าวและบทความ', en: 'News & articles' },
     items: [
-      item('posts', 'posts', 'ทั้งหมด', 'All publications'),
+      item('posts', 'posts', 'ข่าวและบทความทั้งหมด', 'All news & articles'),
       item('news', 'news', 'ข่าว', 'News'),
       item('articles', 'articles', 'บทความ', 'Articles'),
+      item('awards', 'awards', 'รางวัล', 'Awards'),
     ],
   },
   {
@@ -66,7 +67,7 @@ export const navigationGroups: NavigationGroup[] = [
 
 export const navigationUtilities = {
   home: item('home', '', 'หน้าแรก', 'Home'),
-  support: item('support', 'support', 'ช่วยเหลือ', 'Support'),
+  support: item('support', 'support', 'ศูนย์ช่วยเหลือ', 'Support'),
   contact: item('contact', 'contact', 'ติดต่อ HealthTAG', 'Contact HealthTAG'),
   privacy: item('privacy', 'privacy', 'ความเป็นส่วนตัวของเว็บไซต์', 'Website privacy'),
 } as const;

@@ -17,8 +17,14 @@ const copy = {
   articles: { title: en ? 'HealthTAG articles' : 'บทความจาก HealthTAG', description: en ? 'HealthTAG articles about healthcare data and the systems that connect it.' : 'บทความจาก HealthTAG เรื่องข้อมูลสุขภาพและระบบที่ใช้เชื่อมโยงข้อมูล' },
   awards: { title: en ? 'Awards' : 'รางวัล', description: en ? 'Awards and competition results involving HealthTAG.' : 'รางวัลและผลการแข่งขันที่เกี่ยวข้องกับ HealthTAG' },
 }[view];
+const eyebrow = {
+  all: en ? 'All news & articles' : 'ข่าวและบทความทั้งหมด',
+  news: en ? 'News' : 'ข่าว',
+  articles: en ? 'Articles' : 'บทความ',
+  awards: en ? 'Awards' : 'รางวัล',
+}[view];
 const tabs = [
-  ['posts', en ? 'News and articles' : 'ข่าวและบทความ', view === 'all'],
+  ['posts', en ? 'All news & articles' : 'ข่าวและบทความทั้งหมด', view === 'all'],
   ['news', en ? 'News' : 'ข่าว', view === 'news'],
   ['articles', en ? 'Articles' : 'บทความ', view === 'articles'],
   ['awards', en ? 'Awards' : 'รางวัล', view === 'awards'],
@@ -30,7 +36,7 @@ const collectionJson = JSON.stringify({ '@context': 'https://schema.org', '@type
   <main>
     <header class="publication-index-hero">
       <div class="container publication-index-heading">
-        <div><p class="eyebrow">HealthTAG / {en ? 'Publications' : 'เนื้อหาเผยแพร่'}</p><h1>{copy.title}</h1><p>{copy.description}</p></div>
+        <div><p class="eyebrow">HealthTAG / {eyebrow}</p><h1>{copy.title}</h1><p>{copy.description}</p></div>
       </div>
       <nav class="container publication-tabs" aria-label={en ? 'Publication sections' : 'หมวดเนื้อหาเผยแพร่'}>
         {tabs.map(([href, label, active]) => <a href={`${prefix}/${href}/`} aria-current={active ? 'page' : undefined}>{label}</a>)}

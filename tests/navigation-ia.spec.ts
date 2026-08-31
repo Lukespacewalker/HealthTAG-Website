@@ -26,9 +26,11 @@ test.describe('grouped desktop navigation', () => {
     ['/posts/', '/posts/', 'ข่าวและบทความ'],
     ['/news/', '/news/', 'ข่าวและบทความ'],
     ['/articles/', '/articles/', 'ข่าวและบทความ'],
+    ['/awards/', '/awards/', 'ข่าวและบทความ'],
     ['/en/posts/', '/en/posts/', 'News & articles'],
     ['/en/news/', '/en/news/', 'News & articles'],
     ['/en/articles/', '/en/articles/', 'News & articles'],
+    ['/en/awards/', '/en/awards/', 'News & articles'],
   ]) {
     test(`${route} has one exact current publication link`, async ({ page }) => {
       await page.goto(route);
@@ -66,7 +68,7 @@ test.describe('grouped mobile navigation', () => {
     await expect(currentGroup.locator(':scope > summary')).toHaveAttribute('aria-current', 'true');
     await expect(currentGroup.locator('a[aria-current="page"]')).toHaveAttribute('href', '/news/');
 
-    await expect(nav.getByRole('link', { name: 'ช่วยเหลือ', exact: true })).toHaveAttribute('href', '/support/');
+    await expect(nav.getByRole('link', { name: 'ศูนย์ช่วยเหลือ', exact: true })).toHaveAttribute('href', '/support/');
     await expect(nav.getByRole('link', { name: 'ความเป็นส่วนตัวของเว็บไซต์', exact: true })).toHaveAttribute('href', '/privacy/');
     await expect(nav.getByRole('link', { name: 'English', exact: true })).toHaveAttribute('href', '/en/news/');
     await expect(nav.getByRole('link', { name: 'คุยกับ HealthTAG', exact: true })).toHaveAttribute('href', '/contact/');
