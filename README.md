@@ -12,6 +12,7 @@ The site explains HealthTAG as healthcare interoperability infrastructure: hospi
 | [`DESIGN.md`](./DESIGN.md) | Durable brand, UX, content, and visual direction |
 | [`CONTENT_OWNERSHIP.md`](./CONTENT_OWNERSHIP.md) | Canonical page for each recurring concept, used to prevent copy duplication |
 | [`docs/LEGACY_ASSETS.md`](./docs/LEGACY_ASSETS.md) | Provenance and identity mapping for migrated logos and team photography |
+| [`docs/COMMUNITY_EDITION_SUPPORT.md`](./docs/COMMUNITY_EDITION_SUPPORT.md) | Product boundary, source provenance, design, and checks for the Community Edition manual |
 | [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 | [`docs/PUBLICATION_ASSETS.md`](./docs/PUBLICATION_ASSETS.md) | Provenance and checksums for migrated article and award images |
 

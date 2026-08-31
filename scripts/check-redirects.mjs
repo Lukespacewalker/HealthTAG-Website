@@ -16,6 +16,8 @@ const required = new Map([
   ['/en/awards', '/en/awards/'],
   ['/support', '/support/'],
   ['/en/support', '/en/support/'],
+  ['/support/community-edition/user-manual', '/support/community-edition/user-manual/'],
+  ['/en/support/community-edition/user-manual', '/en/support/community-edition/user-manual/'],
   ['/posts', '/posts/'],
   ['/news', '/news/'],
   ['/articles', '/articles/'],
@@ -41,7 +43,8 @@ for (const rule of rules) {
   if (!rule.source || !rule.destination || rule.status !== '301') errors.push(`Malformed/non-permanent rule: ${JSON.stringify(rule)}`);
   if (rule.source.includes('*')) errors.push(`Wildcard redirect requires explicit content review: ${rule.source}`);
   if (rule.destination === '/') errors.push(`Unrelated redirect to Home is not allowed: ${rule.source}`);
-  const target = path.join(dist, rule.destination.replace(/^\/+|\/+$/g, ''), 'index.html');
+  const destinationPath = rule.destination.split(/[?#]/, 1)[0];
+  const target = path.join(dist, destinationPath.replace(/^\/+|\/+$/g, ''), 'index.html');
   try { await fs.access(rule.destination === '/' ? path.join(dist, 'index.html') : target); }
   catch { errors.push(`Redirect destination is not built: ${rule.source} → ${rule.destination}`); }
 }
