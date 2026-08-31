@@ -11,10 +11,16 @@ const routes = [
   '/phr/',
   '/company/',
   '/evidence/',
+  '/posts/',
+  '/news/',
+  '/articles/',
   '/contact/',
   '/support/',
   '/privacy/',
   '/en/support/',
+  '/en/posts/',
+  '/en/news/',
+  '/en/articles/',
 ];
 
 for (const width of [320, 390, 768, 1440]) {
@@ -34,7 +40,7 @@ for (const width of [320, 390, 768, 1440]) {
 
 test('lazy and responsive images decode on image-heavy pages', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  for (const route of ['/', '/network/', '/company/', '/support/', '/en/support/']) {
+  for (const route of ['/', '/network/', '/company/', '/posts/', '/support/', '/en/posts/', '/en/support/']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' });
     await page.locator('img').evaluateAll((images) => images.forEach((image) => ((image as HTMLImageElement).loading = 'eager')));
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
@@ -49,7 +55,7 @@ test('lazy and responsive images decode on image-heavy pages', async ({ page }) 
 
 test('Thai headings preserve safe line boxes for tone marks', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 900 });
-  for (const route of ['/', '/interoperability/', '/trust/', '/network/', '/contact/', '/support/']) {
+  for (const route of ['/', '/interoperability/', '/trust/', '/network/', '/posts/', '/contact/', '/support/']) {
     await page.goto(route, { waitUntil: 'domcontentloaded' });
     await page.evaluate(() => document.fonts.ready);
     const metrics = await page.locator('h1, h2, h3').evaluateAll((headings) => headings.map((heading) => {
@@ -68,6 +74,7 @@ test('mobile navigation works with keyboard and exposes launch routes', async ({
   await page.keyboard.press('Enter');
   await expect(page.locator('.mobile-nav')).toHaveAttribute('open', '');
   await expect(page.locator('.mobile-panel a[href="/evidence/"]')).toBeVisible();
+  await expect(page.locator('.mobile-panel a[href="/posts/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/contact/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/support/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/privacy/"]')).toBeVisible();
@@ -121,7 +128,47 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
 });
 
-for (const route of ['/interoperability/', '/network/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
+test('news and articles use verified dates, bilingual copy, and traceable sources', async ({ page }) => {
+  await page.goto('/posts/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('ข่าวและบทความจาก HealthTAG');
+  await expect(page.locator('.featured-media img')).toHaveAttribute('alt', /Digital Health Forum 2026/);
+  await expect(page.locator('time[datetime="2026-08-25"]')).toBeVisible();
+  await expect(page.locator('a[href*="facebook.com/mihealthtag/posts/"]').first()).toBeVisible();
+  await expect(page.locator('a[href="https://pr.moph.go.th/online/index/news/346999"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2020-04-14"]')).toBeVisible();
+  await expect(page.getByText(/10 พฤษภาคม 2564/).first()).toBeVisible();
+  await expect(page.getByText(/Self-Isolation Tracking Wristband/).first()).toBeVisible();
+  await expect(page.getByText(/NFC sticker ซึ่งเป็นหนึ่งในทางเข้า PHR/)).toBeVisible();
+  await expect(page.locator('body')).not.toContainText('26 พฤษภาคม 2569');
+  await expect(page.locator('body')).not.toContainText('1อ่าน');
+
+  await page.goto('/en/posts/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('News and articles from HealthTAG');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('a.lang')).toHaveAttribute('href', '/posts/');
+  await expect(page.getByText('Thai', { exact: true }).first()).toBeVisible();
+  await expect(page.locator('body')).not.toContainText('1read');
+
+  await page.goto('/news/');
+  const newsEntries = page.locator('.publication-entry');
+  for (let index = 0; index < await newsEntries.count(); index += 1) {
+    const imageCount = await newsEntries.nth(index).locator('.publication-media img').count();
+    expect(imageCount, `news item ${index + 1} should have 1 to 3 images`).toBeGreaterThanOrEqual(1);
+    expect(imageCount).toBeLessThanOrEqual(3);
+  }
+});
+
+test('PHR page explains the NFC sticker boundary in both languages', async ({ page }) => {
+  await page.goto('/phr/');
+  await expect(page.getByRole('heading', { name: /NFC เป็นทางเข้า PHR/ })).toBeVisible();
+  await expect(page.getByText(/เวชระเบียนไม่ได้เก็บไว้บน sticker/)).toBeVisible();
+
+  await page.goto('/en/phr/');
+  await expect(page.getByText(/An NFC sticker can open the user’s PHR/)).toBeVisible();
+  await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
+});
+
+for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });

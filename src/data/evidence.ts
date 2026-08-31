@@ -3,6 +3,7 @@ import type { Locale } from './site-content';
 type Localized = Record<Locale, string>;
 
 export interface EvidenceEntry {
+  id: string;
   eventDate: string;
   displayDate: Localized;
   sourceOrganization: Localized;
@@ -17,6 +18,7 @@ export interface EvidenceEntry {
 
 export const evidence: EvidenceEntry[] = [
   {
+    id: 'siriraj-5g-smart-hospital',
     eventDate: '2021-12-16',
     displayDate: { th: '16 ธ.ค. 2564', en: '16 Dec 2021' },
     sourceOrganization: { th: 'คณะแพทยศาสตร์ศิริราชพยาบาล', en: 'Faculty of Medicine Siriraj Hospital' },
@@ -38,6 +40,7 @@ export const evidence: EvidenceEntry[] = [
     },
   },
   {
+    id: 'apicta-2022',
     eventDate: '2022',
     displayDate: { th: '2565', en: '2022' },
     sourceOrganization: { th: 'APICTA', en: 'APICTA' },
@@ -56,6 +59,7 @@ export const evidence: EvidenceEntry[] = [
     href: { th: 'https://apicta.org/files/apicta_wl_2022.html', en: 'https://apicta.org/files/apicta_wl_2022.html' },
   },
   {
+    id: 'etda-digital-service-sandbox',
     eventDate: '2024-06-30',
     displayDate: { th: '1 ก.ค. 2566 ถึง 30 มิ.ย. 2567', en: '1 Jul 2023 to 30 Jun 2024' },
     sourceOrganization: { th: 'ETDA', en: 'ETDA' },
@@ -74,6 +78,7 @@ export const evidence: EvidenceEntry[] = [
     href: { th: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx', en: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx' },
   },
   {
+    id: 'depa-healthtag',
     eventDate: '2023-01-12',
     displayDate: { th: '12 ม.ค. 2566', en: '12 Jan 2023' },
     sourceOrganization: { th: 'depa', en: 'depa' },
@@ -92,6 +97,7 @@ export const evidence: EvidenceEntry[] = [
     href: { th: 'https://www.depa.or.th/th/article-view/20230112_03', en: 'https://www.depa.or.th/th/article-view/20230112_03' },
   },
   {
+    id: 'nia-corporate-spark-china',
     eventDate: '2025-08-13',
     displayDate: { th: '13 ส.ค. 2568', en: '13 Aug 2025' },
     sourceOrganization: { th: 'สำนักงานนวัตกรรมแห่งชาติ', en: 'National Innovation Agency' },
@@ -110,6 +116,7 @@ export const evidence: EvidenceEntry[] = [
     href: { th: 'https://www.nia.or.th/Shanghai-CorporateSPARK2025', en: 'https://www.nia.or.th/Shanghai-CorporateSPARK2025' },
   },
   {
+    id: 'odess-field-profile',
     eventDate: '2021-09-01',
     displayDate: { th: 'เริ่มโครงการ 1 ก.ย. 2564', en: 'Project start · 1 Sep 2021' },
     sourceOrganization: { th: 'ODESS / Fondation Pierre Fabre', en: 'ODESS / Fondation Pierre Fabre' },
@@ -128,6 +135,7 @@ export const evidence: EvidenceEntry[] = [
     href: { th: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/', en: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/' },
   },
   {
+    id: 'orbix-healthtag',
     eventDate: '2026-03-13',
     displayDate: { th: '13 มี.ค. 2569', en: '13 Mar 2026' },
     sourceOrganization: { th: 'ธนาคารกสิกรไทย', en: 'KASIKORNBANK' },

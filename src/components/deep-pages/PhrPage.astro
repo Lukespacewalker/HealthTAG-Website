@@ -37,6 +37,12 @@ const capabilities = en ? [
     body: 'The current interface also includes biological-age analytics, an AI assistant area, referral, emergency information, and profile settings. Availability and content depend on the account, connected services, and the data supplied to the PHR.',
     labels: ['BioAge analytics', 'AI assistant', 'Referral', 'Emergency'],
   },
+  {
+    index: '05',
+    title: 'NFC is an entry point, not the record store',
+    body: 'An NFC sticker can open the user’s PHR on a compatible device. Normal identity and authorization checks still apply, and the sticker does not store the user’s clinical record.',
+    labels: ['NFC sticker', 'PHR entry point', 'No clinical records on sticker'],
+  },
 ] : [
   {
     index: '01',
@@ -61,6 +67,12 @@ const capabilities = en ? [
     title: 'มีเครื่องมือมากกว่าการเปิดดูเวชระเบียน',
     body: 'หน้าจอปัจจุบันมีการวิเคราะห์อายุชีวภาพ พื้นที่ผู้ช่วย AI การส่งต่อ ข้อมูลฉุกเฉิน และการตั้งค่าโปรไฟล์ เนื้อหาที่เห็นขึ้นกับบัญชี บริการที่เชื่อมต่อ และข้อมูลที่ส่งเข้ามายัง PHR',
     labels: ['BioAge analytics', 'ผู้ช่วย AI', 'การส่งต่อ', 'ข้อมูลฉุกเฉิน'],
+  },
+  {
+    index: '05',
+    title: 'NFC เป็นทางเข้า PHR ไม่ใช่ที่เก็บเวชระเบียน',
+    body: 'NFC sticker ใช้เปิด PHR ของผู้ใช้บนอุปกรณ์ที่รองรับ โดยระบบยังตรวจตัวตนและสิทธิ์ตามปกติ ส่วนเวชระเบียนไม่ได้เก็บไว้บน sticker',
+    labels: ['NFC sticker', 'ทางเข้า PHR', 'ไม่เก็บเวชระเบียนบน sticker'],
   },
 ];
 
