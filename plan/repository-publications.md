@@ -70,4 +70,4 @@ Move HealthTAG news, articles, and verified awards into schema-validated reposit
 - [x] Confirm summaries remain independent and search indexes title, summary, category, and author only
 - [x] Update automated full-body checks, tests, preview evidence, and PR #18 description
 - [x] Run `npm run validate`, `npm run test:smoke`, `git diff --check`, and GitHub Actions
-- [ ] Push the completed follow-up into PR #18 without merging
+- [x] Push the completed follow-up into PR #18 without merging
