@@ -16,6 +16,8 @@ const captures = [
   ['publication-article-en-desktop.jpg', '/en/articles/blockchain-digital-decentralized-system/', 1440, 1000],
   ['publication-article-th-mobile.jpg', '/articles/why-ncds-are-thailands-hidden-crisis/', 390, 844],
   ['publication-award-th-mobile.jpg', '/awards/apicta-2022/', 320, 844],
+  ['awards-desktop.jpg', '/awards/', 1440, 1000],
+  ['news-registration-th-mobile.jpg', '/news/siriraj-registration-site-visit-2024/', 390, 844],
 ];
 
 await fs.mkdir(outputDir, { recursive: true });

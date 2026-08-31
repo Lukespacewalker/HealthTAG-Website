@@ -15,6 +15,9 @@ const routes = [
   '/news/',
   '/articles/',
   '/awards/',
+  '/news/siriraj-registration-site-visit-2024/',
+  '/awards/mobile-id-innovation-awards-top-10/',
+  '/en/articles/why-ncds-are-thailands-hidden-crisis/',
   '/contact/',
   '/support/',
   '/privacy/',
@@ -170,7 +173,10 @@ test('repository publications support search, pagination, local details, and bil
 
   await page.goto('/awards/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('รางวัล');
-  await expect(page.locator('.publication-card').first()).toBeVisible();
+  await expect(page.locator('.publication-card:visible')).toHaveCount(8);
+  await page.locator('.publication-pagination a', { hasText: '2' }).click();
+  await expect(page).toHaveURL(/\/awards\/\?page=2$/);
+  await expect(page.locator('.publication-card:visible')).toHaveCount(2);
 
   await page.goto('/articles/blockchain-digital-decentralized-system/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('เบื้องหลังเทคโนโลยี Blockchain');
@@ -186,9 +192,16 @@ test('repository publications support search, pagination, local details, and bil
   expect(articleJson.inLanguage).toBe('th');
 
   await page.goto('/awards/apicta-2022/');
-  await expect(page.getByRole('heading', { name: 'รางวัลนี้ยืนยันอะไร' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'รางวัลนี้ไม่ได้ยืนยันอะไร' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน' })).toBeVisible();
+  await expect(page.locator('.award-status')).toHaveText('Winner');
+  await expect(page.locator('.award-boundary')).not.toContainText(/ไม่ได้ยืนยัน|ไม่ใช่การรับรอง/);
   await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/awards/apicta-2022/');
+
+  await page.goto('/news/siriraj-registration-site-visit-2024/');
+  await expect(page.locator('time[datetime="2024-11-25"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2024-11-26"]')).toBeVisible();
+  await expect(page.locator('.publication-gallery img')).toHaveCount(2);
+  await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://healthtag.io/en/news/siriraj-registration-site-visit-2024/');
 });
 
 test('PHR page explains the NFC sticker boundary in both languages', async ({ page }) => {
@@ -201,7 +214,7 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/articles/blockchain-digital-decentralized-system/', '/en/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/en/awards/apicta-2022/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
+for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/news/siriraj-registration-site-visit-2024/', '/en/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/en/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/en/awards/mobile-id-innovation-awards-top-10/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });
