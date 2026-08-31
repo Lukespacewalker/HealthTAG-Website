@@ -10,6 +10,7 @@ To avoid repetition, each recurring concept has one canonical page:
 - **Deployments:** Siriraj and Khian Sa implementation-specific facts.
 - **Network:** relationship context only; not deployment claims.
 - **Evidence:** externally sourced validation and milestone links.
+- **News & Articles:** dated company activity, source links, publication dates, and long-form HealthTAG explainers. Evidence remains the canonical page for what external sources confirm.
 - **Company:** vision, values, founder, and team context.
 - **Contact:** corporate enquiry routing, sensitive-data warning, and the honest email fallback.
 - **Support:** reader selection, drivers and installers, setup steps, legacy downloads, troubleshooting, and support escalation.

@@ -1,0 +1,13 @@
+@media (max-width: 1100px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+}
+
+.mobile-panel a[aria-current='page'] {
+  color: var(--teal);
+}

@@ -1,0 +1,351 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { publications } from '../data/publications';
+
+interface Props {
+  locale: 'th' | 'en';
+  view: 'all' | 'news' | 'articles';
+}
+
+const { locale, view } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const path = view === 'all' ? 'posts' : view === 'news' ? 'news' : 'articles';
+const localeCode = en ? 'en-GB' : 'th-TH';
+
+const pageCopy = {
+  all: {
+    title: en ? 'News and articles from HealthTAG' : 'ข่าวและบทความจาก HealthTAG',
+    description: en
+      ? 'Company activity, source-backed milestones, and archived explainers from HealthTAG.'
+      : 'ความเคลื่อนไหวของบริษัท เหตุการณ์ที่ตรวจสอบที่มาได้ และบทความจากคลัง HealthTAG',
+  },
+  news: {
+    title: en ? 'Company news from HealthTAG' : 'ข่าวและความเคลื่อนไหวจาก HealthTAG',
+    description: en
+      ? 'HealthTAG activity with event dates and links to the company post or an official external source.'
+      : 'ความเคลื่อนไหวของ HealthTAG พร้อมวันที่เกิดเหตุการณ์และลิงก์ไปยังโพสต์ของบริษัทหรือประกาศทางการ',
+  },
+  article: {
+    title: en ? 'Articles from the HealthTAG archive' : 'บทความจากคลัง HealthTAG',
+    description: en
+      ? 'Thai-language articles from the HealthTAG archive, with English summaries and links to current platform explanations.'
+      : 'บทความภาษาไทยจากคลัง HealthTAG พร้อมคำอธิบายสั้นและลิงก์ไปยังข้อมูลแพลตฟอร์มปัจจุบัน',
+  },
+};
+
+const currentCopy = view === 'all' ? pageCopy.all : view === 'news' ? pageCopy.news : pageCopy.article;
+const selectedKind = view === 'articles' ? 'article' : view === 'news' ? 'news' : undefined;
+const items = publications.filter((item) => !selectedKind || item.kind === selectedKind);
+const featured = view !== 'articles' ? items.find((item) => item.images?.length) : undefined;
+const featuredImage = featured?.images?.[0];
+const listItems = featured ? items.filter((item) => item.id !== featured.id) : items;
+
+const tabs = [
+  { path: 'posts', label: en ? 'All news and articles' : 'ข่าวและบทความทั้งหมด', active: view === 'all' },
+  { path: 'news', label: en ? 'Company news' : 'ข่าวบริษัท', active: view === 'news' },
+  { path: 'articles', label: en ? 'Articles' : 'บทความ', active: view === 'articles' },
+];
+
+function utcDate(value: string) {
+  const parts = value.split('-').map(Number);
+  const year = parts[0];
+  const month = parts[1] ?? 1;
+  const day = parts[2] ?? 1;
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function formatDate(value: string, precision: 'day' | 'year' = 'day') {
+  return new Intl.DateTimeFormat(localeCode, precision === 'year'
+    ? { year: 'numeric', timeZone: 'UTC' }
+    : { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })
+    .format(utcDate(value));
+}
+
+function displayDate(start: string, end: string | undefined, precision: 'day' | 'year') {
+  if (!end) return formatDate(start, precision);
+  return `${formatDate(start, precision)} ${en ? 'to' : 'ถึง'} ${formatDate(end, precision)}`;
+}
+
+const collectionJson = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: currentCopy.title,
+  description: currentCopy.description,
+  inLanguage: locale,
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => {
+      const sourceHref = item.sources.find((source) => source.href)?.href?.[locale];
+      const itemUrl = sourceHref ?? new URL(`${prefix}/${path}/#publication-${item.id}`, Astro.site ?? 'https://healthtag.io').href;
+      return {
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': item.kind === 'news' ? 'NewsArticle' : 'Article',
+          headline: item.title[locale],
+          description: item.summary[locale],
+          ...(item.publishedAt ? { datePublished: item.publishedAt } : {}),
+          temporalCoverage: item.eventEnd ? `${item.eventStart}/${item.eventEnd}` : item.eventStart,
+          inLanguage: item.originalLanguage ?? locale,
+          url: itemUrl,
+          ...(item.images?.length ? { image: item.images.map((image) => new URL(image.src.src, Astro.site ?? 'https://healthtag.io').href) } : {}),
+          publisher: { '@type': 'Organization', name: 'HealthTAG Co., Ltd.' },
+        },
+      };
+    }),
+  },
+});
+---
+
+<Base
+  locale={locale}
+  path={path}
+  title={`${currentCopy.title} | HealthTAG`}
+  description={currentCopy.description}
+>
+  <script type="application/ld+json" set:html={collectionJson} is:inline></script>
+  <main>
+    <section class="publication-hero">
+      <div class="container publication-hero-grid">
+        <div>
+          <div class="eyebrow">HealthTAG / {en ? 'Publications' : 'ข่าวและบทความ'}</div>
+          <h1>{currentCopy.title}</h1>
+          <p>{currentCopy.description}</p>
+        </div>
+        <aside class="publication-note" aria-label={en ? 'Publication policy' : 'หลักการเผยแพร่'}>
+          <strong>{en ? 'How dates are recorded' : 'การระบุวันที่'}</strong>
+          <p>{en
+            ? 'News dates refer to the event or the original source. The date assigned when older content was moved is not used as its original publication date.'
+            : 'วันที่ข่าวหมายถึงวันที่เกิดเหตุการณ์หรือวันที่หน่วยงานที่เกี่ยวข้องเผยแพร่ โดยไม่นำวันที่ย้ายเนื้อหาเก่ามาใช้แทนวันที่เผยแพร่เดิม'}</p>
+        </aside>
+      </div>
+      <div class="container">
+        <nav class="publication-nav" aria-label={en ? 'News and article sections' : 'หมวดข่าวและบทความ'}>
+          {tabs.map((tab) => (
+            <a href={`${prefix}/${tab.path}/`} aria-current={tab.active ? 'page' : undefined}>{tab.label}</a>
+          ))}
+        </nav>
+      </div>
+    </section>
+
+    {featured && featuredImage && (
+      <section class="featured-publication" aria-labelledby={`publication-${featured.id}`}>
+        <div class="container featured-grid">
+          <figure class="featured-media">
+            <Image
+              src={featuredImage.src}
+              alt={featuredImage.alt[locale]}
+              widths={[480, 768, 1108, 1477]}
+              sizes="(max-width: 900px) calc(100vw - 28px), 58vw"
+              format="webp"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <figcaption>{featuredImage.credit[locale]}</figcaption>
+          </figure>
+          <article class="featured-copy">
+            <div class="publication-meta">
+              <span class="publication-kind">{en ? 'Latest news' : 'ข่าวล่าสุด'}</span>
+              <time datetime={featured.eventStart}>{displayDate(featured.eventStart, featured.eventEnd, featured.datePrecision)}</time>
+            </div>
+            <h2 id={`publication-${featured.id}`}>{featured.title[locale]}</h2>
+            <p>{featured.summary[locale]}</p>
+            <div class="source-list">
+              {featured.sources.map((source) => (
+                source.href && (
+                  <a
+                    class:list={['source-action', { secondary: source.kind !== 'first-party' }]}
+                    href={source.href[locale]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${source.label[locale]} ${en ? 'in a new tab' : 'ในแท็บใหม่'}`}
+                  >{source.label[locale]} <span aria-hidden="true">↗</span></a>
+                )
+              ))}
+            </div>
+            <p class="verified-line">{en ? 'Sources checked' : 'ตรวจสอบล่าสุด'} <time datetime={featured.verifiedAt}>{formatDate(featured.verifiedAt)}</time></p>
+          </article>
+        </div>
+      </section>
+    )}
+
+    <section class="publication-section">
+      <div class="container publication-list">
+        {listItems.map((item, index) => (
+          <article class="publication-entry" id={`publication-${item.id}`}>
+            <header class="date-rail">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <time datetime={item.eventStart}>{displayDate(item.eventStart, item.eventEnd, item.datePrecision)}</time>
+              <strong>{item.kind === 'news' ? (en ? 'News' : 'ข่าวบริษัท') : (en ? 'Article' : 'บทความ')}</strong>
+            </header>
+            <div class="publication-body">
+              <h2>{item.title[locale]}</h2>
+              <p class="publication-summary">{item.summary[locale]}</p>
+              {item.images && item.images.length > 0 && (
+                <div class:list={['publication-media', `images-${item.images.length}`]}>
+                  {item.images.map((image) => (
+                    <figure>
+                      <Image src={image.src} alt={image.alt[locale]} loading="lazy" format="webp" />
+                      <figcaption>{image.credit[locale]}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
+              <dl class="publication-facts">
+                <div>
+                  <dt>{en ? 'Source' : 'ที่มาของข่าว'}</dt>
+                  <dd>{item.sources[0].organization[locale]}</dd>
+                </div>
+                <div>
+                  <dt>{en ? 'Sources checked' : 'ตรวจสอบล่าสุด'}</dt>
+                  <dd><time datetime={item.verifiedAt}>{formatDate(item.verifiedAt)}</time></dd>
+                </div>
+                {item.publishedAt && item.publishedAt !== item.eventStart && (
+                  <div>
+                    <dt>{en ? 'Company post date' : 'วันที่โพสต์ของบริษัท'}</dt>
+                    <dd><time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time></dd>
+                  </div>
+                )}
+                {item.originalLanguage && (
+                  <div>
+                    <dt>{en ? 'Full article' : 'บทความฉบับเต็ม'}</dt>
+                    <dd>{en ? 'Thai' : 'ภาษาไทย'}</dd>
+                  </div>
+                )}
+              </dl>
+              <div class="source-list">
+                {item.sources.map((source) => {
+                  if (!source.href) return <span class="source-note">{source.label[locale]}</span>;
+                  const external = source.href[locale].startsWith('http');
+                  return (
+                    <a
+                      class:list={['source-action', { secondary: source.kind !== 'first-party' }]}
+                      href={source.href[locale]}
+                      target={external ? '_blank' : undefined}
+                      rel={external ? 'noopener noreferrer' : undefined}
+                      aria-label={external ? `${source.label[locale]} ${en ? 'in a new tab' : 'ในแท็บใหม่'}` : undefined}
+                    >{source.label[locale]} {external && <span aria-hidden="true">↗</span>}</a>
+                  );
+                })}
+                {item.companionPath && (
+                  <a class="source-action secondary" href={`${prefix}/${item.companionPath}/`}>
+                    {en ? 'Read the current platform explanation' : 'อ่านคำอธิบายแพลตฟอร์มปัจจุบัน'}
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="correction-band">
+      <div class="container correction-grid">
+        <div>
+          <span>{en ? 'PUBLICATION AND CORRECTIONS' : 'การเผยแพร่และการแก้ไขข้อมูล'}</span>
+          <h2>{en ? 'Source and correction policy' : 'ที่มาของข่าวและการแก้ไขข้อมูล'}</h2>
+        </div>
+        <div>
+          <p>{en
+            ? 'Company posts describe HealthTAG activity. External sources confirm the event, programme, award, or collaboration within the scope stated on the Evidence page. Archived articles keep their original language and link to the current platform pages where the technical scope has changed.'
+            : 'โพสต์ของบริษัทใช้บันทึกกิจกรรมของ HealthTAG ส่วนประกาศจากหน่วยงานที่เกี่ยวข้องใช้ยืนยันเหตุการณ์ โครงการ รางวัล หรือความร่วมมือตามขอบเขตที่ระบุในหน้าหลักฐาน บทความจากคลังเดิมคงภาษาต้นฉบับและเชื่อมไปยังหน้าแพลตฟอร์มปัจจุบันเมื่อขอบเขตทางเทคนิคเปลี่ยนไป'}</p>
+          <a href="mailto:contact@healthtag.io?subject=Website%20correction">{en ? 'Report a factual error' : 'แจ้งข้อมูลที่ควรแก้ไข'}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .publication-hero { padding: 92px 0 0; background: linear-gradient(135deg, #f6f8f7 0%, #eef7f3 58%, #fbefdd 140%); border-bottom: 1px solid var(--line); }
+  .publication-hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: clamp(36px, 7vw, 92px); align-items: end; padding-bottom: 58px; }
+  .publication-hero h1 { margin: 0; max-width: 900px; font-size: clamp(3rem, 6vw, 5.4rem); line-height: 1.04; letter-spacing: -.055em; text-wrap: balance; }
+  .publication-hero p { color: var(--muted); }
+  .publication-hero-grid > div > p { max-width: 700px; margin: 24px 0 0; font-size: 1.1rem; }
+  .publication-note { border-top: 2px solid var(--amber); padding: 18px 0 0; }
+  .publication-note strong { display: block; font-size: 1.05rem; }
+  .publication-note p { margin: 8px 0 0; font-size: .9rem; }
+  .publication-nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: thin; }
+  .publication-nav a { min-height: 52px; display: inline-flex; align-items: center; padding: 0 18px; border: 1px solid transparent; border-bottom: 0; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .publication-nav a:hover { color: var(--teal); }
+  .publication-nav a[aria-current='page'] { color: var(--ink); background: var(--white); border-color: var(--line); border-radius: 12px 12px 0 0; }
+
+  .featured-publication { padding: 34px 0 78px; background: var(--white); border-bottom: 1px solid var(--line); }
+  .featured-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: var(--paper); }
+  .featured-media { position: relative; min-width: 0; margin: 0; background: var(--ink); }
+  .featured-media :global(img) { width: 100%; height: 100%; min-height: 480px; object-fit: cover; display: block; }
+  .featured-media figcaption { position: absolute; transform: translateY(-100%); padding: 8px 12px; color: white; background: rgba(16, 47, 54, .78); font-size: .75rem; }
+  .featured-copy { min-width: 0; padding: clamp(30px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; }
+  .publication-meta { display: flex; gap: 10px 16px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: .82rem; }
+  .publication-kind { color: var(--teal); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; }
+  .featured-copy h2 { margin: 18px 0 16px; font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1.08; letter-spacing: -.045em; overflow-wrap: anywhere; text-wrap: balance; }
+  .featured-copy > p { color: var(--muted); }
+  .verified-line { margin: 18px 0 0; font-size: .78rem; }
+
+  .publication-section { padding: 78px 0 92px; background-color: #eef3f1; background-image: linear-gradient(rgba(16, 47, 54, .028) 1px, transparent 1px); background-size: 100% 72px; }
+  .publication-list { display: grid; gap: 16px; }
+  .publication-entry { display: grid; grid-template-columns: minmax(160px, .34fr) minmax(0, 1.66fr); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--white); scroll-margin-top: 92px; }
+  .date-rail { padding: 28px; display: flex; flex-direction: column; align-items: flex-start; gap: 9px; border-right: 1px solid var(--line); background: var(--paper); }
+  .date-rail > span { color: var(--teal); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 1.65rem; line-height: 1; }
+  .date-rail time { color: var(--muted); font-size: .82rem; }
+  .date-rail strong { margin-top: auto; padding: 4px 9px; border: 1px solid #8fbab3; border-radius: 999px; color: var(--ink); background: #f6fbf9; font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+  .publication-body { min-width: 0; padding: clamp(28px, 4vw, 48px); }
+  .publication-body h2 { max-width: 920px; margin: 0 0 14px; font-size: clamp(1.65rem, 3.4vw, 3rem); line-height: 1.13; letter-spacing: -.04em; overflow-wrap: anywhere; text-wrap: balance; }
+  .publication-summary { max-width: 860px; margin: 0; color: var(--muted); }
+  .publication-media { display: grid; gap: 10px; margin-top: 28px; }
+  .publication-media.images-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .publication-media.images-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .publication-media figure { position: relative; min-width: 0; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--ink); }
+  .publication-media :global(img) { width: 100%; height: clamp(180px, 26vw, 320px); display: block; object-fit: contain; }
+  .publication-media figcaption { position: absolute; right: 0; bottom: 0; padding: 6px 9px; color: white; background: rgba(16, 47, 54, .82); font-size: .68rem; }
+  .publication-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin: 28px 0 0; }
+  .publication-facts div { min-width: 0; border-top: 1px solid var(--line); padding-top: 9px; }
+  .publication-facts dt { color: var(--muted); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+  .publication-facts dd { margin: 4px 0 0; font-size: .86rem; font-weight: 600; overflow-wrap: anywhere; }
+  .source-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+  .source-note { min-height: 44px; display: inline-flex; align-items: center; padding: 8px 14px; border: 1px solid #d9a15f; border-radius: 999px; color: var(--amber-ink); background: var(--amber-soft); font-size: .84rem; font-weight: 600; }
+  .source-action { min-height: 44px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border: 1px solid var(--teal); border-radius: 999px; color: white; background: var(--teal); font-size: .84rem; font-weight: 600; }
+  .source-action:hover { background: #005e58; border-color: #005e58; }
+  .source-action.secondary { color: var(--ink); background: transparent; border-color: var(--line); }
+  .source-action.secondary:hover { color: var(--teal); background: var(--mint); border-color: var(--teal); }
+
+  .correction-band { padding: 76px 0; background: var(--ink); color: var(--paper); }
+  .correction-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(38px, 7vw, 92px); align-items: start; }
+  .correction-grid span { color: #8bd9d1; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .7rem; letter-spacing: .1em; }
+  .correction-grid h2 { margin: 12px 0 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.1; letter-spacing: -.04em; text-wrap: balance; }
+  .correction-grid p { margin: 0 0 20px; color: #c8d7d7; }
+  .correction-grid a { color: #8bd9d1; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+  @media (max-width: 900px) {
+    .publication-hero { padding-top: 64px; }
+    .publication-hero-grid, .featured-grid, .correction-grid { grid-template-columns: 1fr; }
+    .featured-media :global(img) { min-height: 0; aspect-ratio: 4 / 3; }
+    .publication-entry { grid-template-columns: 1fr; }
+    .date-rail { min-height: 0; flex-direction: row; align-items: center; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); }
+    .date-rail strong { margin: 0 0 0 auto; }
+  }
+
+  @media (max-width: 600px) {
+    .publication-hero-grid { padding-bottom: 36px; }
+    .publication-hero h1 { font-size: clamp(2.55rem, 13vw, 3.8rem); }
+    .publication-nav { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 0 16px; overflow: visible; }
+    .publication-nav a { justify-content: center; min-height: 48px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255, 255, 255, .55); text-align: center; white-space: normal; }
+    .publication-nav a:first-child { grid-column: 1 / -1; }
+    .publication-nav a[aria-current='page'] { border-radius: 10px; }
+    .featured-publication { padding: 22px 0 58px; }
+    .featured-grid { border-radius: 18px; }
+    .featured-copy { padding: 26px 22px 30px; }
+    .publication-section { padding: 58px 0; }
+    .date-rail, .publication-body { padding: 22px; }
+    .date-rail strong { margin-left: 0; }
+    .publication-facts { grid-template-columns: 1fr; gap: 12px; }
+    .publication-media.images-2, .publication-media.images-3 { grid-template-columns: 1fr; }
+    .publication-media :global(img) { height: auto; max-height: 420px; }
+    .source-list { align-items: stretch; flex-direction: column; }
+    .source-action, .source-note { width: 100%; justify-content: center; text-align: center; }
+    .correction-band { padding: 58px 0; }
+  }
+</style>

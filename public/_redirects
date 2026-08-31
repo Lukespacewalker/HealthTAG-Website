@@ -38,5 +38,13 @@
 /support                /support/            301
 /en/support             /en/support/         301
 
-# News, articles, personal cards, and downloads intentionally have no blanket
-# redirect until their content or continued operational need is verified.
+# Canonical news and article index routes
+/posts                  /posts/              301
+/news                   /news/               301
+/articles               /articles/           301
+/en/posts               /en/posts/           301
+/en/news                /en/news/            301
+/en/articles            /en/articles/        301
+
+# News and article detail routes, personal cards, and downloads intentionally
+# have no blanket redirect until each destination is reviewed.

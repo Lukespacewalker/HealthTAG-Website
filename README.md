@@ -12,6 +12,7 @@ The site explains HealthTAG as healthcare interoperability infrastructure: hospi
 | [`DESIGN.md`](./DESIGN.md) | Durable brand, UX, content, and visual direction |
 | [`CONTENT_OWNERSHIP.md`](./CONTENT_OWNERSHIP.md) | Canonical page for each recurring concept, used to prevent copy duplication |
 | [`docs/LEGACY_ASSETS.md`](./docs/LEGACY_ASSETS.md) | Provenance and identity mapping for migrated logos and team photography |
+| [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 
 The official Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy:
 

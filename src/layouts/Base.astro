@@ -3,6 +3,7 @@ import '../styles/reset.css';
 import '../styles/fonts.css';
 import '../styles/global.css';
 import '../styles/brand-refresh.css';
+import '../styles/publications-nav.css';
 import '../styles/thai.css';
 import BrandLogo from '../components/BrandLogo.astro';
 import plexSansRegular from '@ibm/plex/IBM-Plex-Sans/fonts/complete/woff2/IBMPlexSans-Regular.woff2?url';
@@ -32,8 +33,10 @@ const localizedPath = normalizedPath ? `${prefix}/${normalizedPath}/` : `${prefi
 const alternatePath = normalizedPath
   ? `${isEn ? '' : '/en'}/${normalizedPath}/`
   : isEn ? '/' : '/en/';
+const defaultPath = normalizedPath ? `/${normalizedPath}/` : '/';
 const canonical = new URL(localizedPath, Astro.site ?? 'https://healthtag.io');
 const alternate = new URL(alternatePath, Astro.site ?? 'https://healthtag.io');
+const defaultCanonical = new URL(defaultPath, Astro.site ?? 'https://healthtag.io');
 const socialImage = new URL('/og-healthtag.png', Astro.site ?? 'https://healthtag.io');
 
 const nav = [
@@ -41,6 +44,7 @@ const nav = [
   ['phr', 'PHR'],
   ['deployments', isEn ? 'Deployments' : 'การใช้งานจริง'],
   ['network', isEn ? 'Network' : 'เครือข่าย'],
+  ['posts', isEn ? 'News' : 'ข่าวสาร'],
   ['company', isEn ? 'Company' : 'บริษัท'],
 ];
 
@@ -68,7 +72,7 @@ const orgJson = JSON.stringify({
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale} href={canonical} />
     <link rel="alternate" hreflang={isEn ? 'th' : 'en'} href={alternate} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site ?? 'https://healthtag.io')} />
+    <link rel="alternate" hreflang="x-default" href={defaultCanonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="HealthTAG" />
     <meta property="og:title" content={title} />
@@ -91,7 +95,7 @@ const orgJson = JSON.stringify({
       <div class="container nav">
         <a class="brand" href={home} aria-label={isEn ? 'HealthTAG home' : 'หน้าแรก HealthTAG'}><BrandLogo priority /></a>
         <nav class="nav-links" aria-label={isEn ? 'Main navigation' : 'เมนูหลัก'}>
-          {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`}>{label}</a>)}
+          {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`} aria-current={normalizedPath === slug ? 'page' : undefined}>{label}</a>)}
           <a class="support-link" href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
           <a class="lang" href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'TH' : 'EN'}</a>
           <a class="nav-cta" href={`${prefix}/contact/`}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
@@ -100,7 +104,7 @@ const orgJson = JSON.stringify({
           <summary aria-label={isEn ? 'Open navigation' : 'เปิดเมนู'}><span></span><span></span><span></span></summary>
           <div class="mobile-panel">
             <nav aria-label={isEn ? 'Mobile navigation' : 'เมนูสำหรับอุปกรณ์พกพา'}>
-              {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`}>{label}</a>)}
+              {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`} aria-current={normalizedPath === slug ? 'page' : undefined}>{label}</a>)}
               <a href={`${prefix}/how-it-works/`}>{isEn ? 'How it works' : 'ระบบทำงานอย่างไร'}</a>
               <a href={`${prefix}/trust/`}>{isEn ? 'Trust & access' : 'ความไว้วางใจและสิทธิ์เข้าถึง'}</a>
               <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
@@ -133,6 +137,7 @@ const orgJson = JSON.stringify({
           <a href={`${prefix}/deployments/`}>{isEn ? 'Deployments' : 'การติดตั้งใช้งาน'}</a>
           <a href={`${prefix}/network/`}>{isEn ? 'Network' : 'เครือข่าย'}</a>
           <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
+          <a href={`${prefix}/posts/`}>{isEn ? 'News & articles' : 'ข่าวและบทความ'}</a>
           <a href={`${prefix}/company/`}>{isEn ? 'Company & founder' : 'บริษัทและผู้ก่อตั้ง'}</a>
         </nav>
         <nav aria-label={isEn ? 'Contact and policy links' : 'ลิงก์ติดต่อและนโยบาย'}>
