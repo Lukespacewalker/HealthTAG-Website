@@ -8,10 +8,12 @@ test('Thai home leads with the founder-confirmed vision and role boundary', asyn
     name: 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ',
   })).toBeVisible();
   await expect(page.getByText(/ข้อมูลสุขภาพเป็นของผู้ป่วย/).first()).toBeVisible();
-  await expect(page.getByText(/โรงพยาบาลเก็บรักษาและดูแลเวชระเบียนในระบบต้นทาง/).first()).toBeVisible();
-  await expect(page.getByText(/HealthTAG เชื่อมระบบเหล่านั้น/).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'ดูว่าระบบทำงานอย่างไร' })).toHaveAttribute('href', '/how-it-works/');
-  await expect(page.getByRole('link', { name: 'ดูหลักฐานปัจจุบัน' })).toHaveAttribute('href', '/evidence/');
+  await expect(page.getByText(/HealthTAG PHR แสดงข้อมูลสุขภาพที่มีอยู่และได้รับอนุญาต/).first()).toBeVisible();
+  await expect(page.getByText(/โรงพยาบาลยังจัดเก็บและดูแลเวชระเบียนต้นฉบับในระบบต้นทาง/).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'ดู PHR จากหน้าจอจริง' })).toHaveAttribute('href', '/phr/');
+  await expect(page.getByRole('link', { name: 'ดูเส้นทางข้อมูลมายัง PHR' })).toHaveAttribute('href', '/how-it-works/');
+  await expect(page.getByText(/หน้าจอผลิตภัณฑ์จริงจากบัญชีสาธิตที่ได้รับอนุญาต/)).toBeVisible();
+  await expect(page.getByRole('link', { name: /MU Health Wallet ร่วมจัดแสดงในงาน Digital Health Forum 2026/ })).toHaveAttribute('href', '/news/#publication-digital-health-forum-2026');
   await expect(page).toHaveTitle('HealthTAG | ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ');
 });
 
@@ -23,10 +25,12 @@ test('English home leads with the founder-confirmed vision and role boundary', a
     name: 'Your data. Your consent. One connected Thailand.',
   })).toBeVisible();
   await expect(page.getByText(/Health data belongs to the patient/).first()).toBeVisible();
-  await expect(page.getByText(/Hospitals keep and steward clinical records in their source systems/).first()).toBeVisible();
-  await expect(page.getByText(/HealthTAG connects those systems/).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'See how it works' })).toHaveAttribute('href', '/en/how-it-works/');
-  await expect(page.getByRole('link', { name: 'Review current evidence' })).toHaveAttribute('href', '/en/evidence/');
+  await expect(page.getByText(/HealthTAG PHR presents the health information available and permitted/).first()).toBeVisible();
+  await expect(page.getByText(/Hospitals continue to store and steward the original clinical records/).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'See the real PHR screens' })).toHaveAttribute('href', '/en/phr/');
+  await expect(page.getByRole('link', { name: 'See how data reaches the PHR' })).toHaveAttribute('href', '/en/how-it-works/');
+  await expect(page.getByText(/Real product screen from an authorized demonstration account/)).toBeVisible();
+  await expect(page.getByRole('link', { name: /MU Health Wallet exhibited at Digital Health Forum 2026/ })).toHaveAttribute('href', '/en/news/#publication-digital-health-forum-2026');
   await expect(page).toHaveTitle('HealthTAG | Your data. Your consent. One connected Thailand.');
 });
 

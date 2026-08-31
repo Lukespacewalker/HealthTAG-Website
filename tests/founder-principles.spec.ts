@@ -29,11 +29,15 @@ test('Trust Before Intelligence is a governance principle rather than a deployed
 
 test('How It Works shows consent, authorization, permitted response, and audit in order', async ({ page }) => {
   await page.goto('/en/how-it-works/');
+  await expect(page.locator('.system-overview')).toContainText('Clinical records stay with the hospital');
+  await expect(page.getByRole('img', { name: /Conceptual architecture/ })).toBeVisible();
   await expect(page.locator('.decision-path b')).toHaveText(['Consent', 'Authorization', 'Permitted response', 'Audit']);
   await expect(page.locator('.flow li').nth(4)).toContainText('Return a permitted response');
   await expect(page.locator('.flow li').nth(4)).toContainText('hospital source system');
 
   await page.goto('/how-it-works/');
+  await expect(page.locator('.system-overview')).toContainText('เวชระเบียนยังอยู่กับโรงพยาบาล');
+  await expect(page.getByRole('img', { name: /สถาปัตยกรรมเชิงแนวคิด/ })).toBeVisible();
   await expect(page.locator('.decision-path b')).toHaveText(['ความยินยอม', 'การอนุญาตสิทธิ์', 'คำตอบตามสิทธิ์', 'ตรวจสอบย้อนหลัง']);
 });
 
