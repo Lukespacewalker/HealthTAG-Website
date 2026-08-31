@@ -1,5 +1,11 @@
 ---
 import Base from '../../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import overviewScreen from '../../assets/phr/phr-overview-redacted.png';
+import medicationsScreen from '../../assets/phr/phr-medications-redacted.png';
+import reportsScreen from '../../assets/phr/phr-special-reports-redacted.png';
+import connectionsScreen from '../../assets/phr/phr-hospital-connections-redacted.png';
+import bioAgeScreen from '../../assets/phr/phr-biological-age-redacted.png';
 
 interface Props { locale: 'th' | 'en' }
 const { locale } = Astro.props;
@@ -57,6 +63,20 @@ const capabilities = en ? [
     labels: ['BioAge analytics', 'ผู้ช่วย AI', 'การส่งต่อ', 'ข้อมูลฉุกเฉิน'],
   },
 ];
+
+const screenshots = en ? [
+  { src: overviewScreen, title: 'Health overview', body: 'The overview combines the available clinical summary, biological-age results, and continuous readings. A patient can start here before opening a specific category.', alt: 'HealthTAG PHR demonstration overview with synthetic health scores and continuous readings; identifying account details are covered', featured: true },
+  { src: medicationsScreen, title: 'Medicine calendar', body: 'The medicine view marks dates on a calendar and reserves the adjacent panel for the medicine details available on the selected date.', alt: 'HealthTAG PHR demonstration medicine calendar with an empty medicine-detail panel; identifying account details are covered' },
+  { src: reportsScreen, title: 'Special reports', body: 'Special reports group health information by clinical context. The demonstration account includes NCD and kidney-clinic report categories.', alt: 'HealthTAG PHR demonstration special-report list with NCD and kidney-clinic categories; identifying account details are covered' },
+  { src: connectionsScreen, title: 'Hospital connections', body: 'The connection view summarizes available visits, medicines, documents, and medical images, then lists the data sources a patient can connect.', alt: 'HealthTAG PHR demonstration hospital-connection view with record counts and a redacted demo wallet address; identifying account details are covered' },
+  { src: bioAgeScreen, title: 'Biological-age trends', body: 'BioAge Analytics compares results across testing rounds and presents the available biological-age, age-acceleration, and telomere measures.', alt: 'HealthTAG PHR demonstration BioAge Analytics screen with synthetic trend data; account and patient identifiers are covered' },
+] : [
+  { src: overviewScreen, title: 'ภาพรวมสุขภาพ', body: 'หน้า Overview รวมสรุปข้อมูลทางคลินิก ผลอายุชีวภาพ และข้อมูลต่อเนื่องที่มีอยู่ ผู้ป่วยเริ่มจากจุดนี้แล้วจึงเปิดดูหมวดที่ต้องการได้', alt: 'หน้าภาพรวมของบัญชีสาธิต HealthTAG PHR แสดงคะแนนสุขภาพและข้อมูลต่อเนื่อง โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว', featured: true },
+  { src: medicationsScreen, title: 'ปฏิทินยา', body: 'หน้ายาใช้ปฏิทินระบุวันที่รับยา และเตรียมพื้นที่ด้านข้างสำหรับรายละเอียดของยาที่มีในวันที่เลือก', alt: 'หน้าปฏิทินยาของบัญชีสาธิต HealthTAG PHR พร้อมพื้นที่รายละเอียดที่ยังไม่มีข้อมูล โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว' },
+  { src: reportsScreen, title: 'รายงานสุขภาพ', body: 'รายงานสุขภาพแยกข้อมูลตามบริบทของคลินิก บัญชีสาธิตมีหมวดคลินิก NCD และคลินิกโรคไต', alt: 'หน้ารายงานสุขภาพของบัญชีสาธิต HealthTAG PHR มีหมวดคลินิก NCD และคลินิกโรคไต โดยปกปิดข้อมูลระบุตัวบัญชีแล้ว' },
+  { src: connectionsScreen, title: 'การเชื่อมต่อโรงพยาบาล', body: 'หน้าการเชื่อมต่อสรุปจำนวนข้อมูลการรับบริการ ยา เอกสาร และภาพทางการแพทย์ ก่อนแสดงแหล่งข้อมูลที่ผู้ป่วยเชื่อมต่อได้', alt: 'หน้าการเชื่อมต่อโรงพยาบาลของบัญชีสาธิต HealthTAG PHR แสดงจำนวนข้อมูลและ wallet address ที่ปกปิดแล้ว' },
+  { src: bioAgeScreen, title: 'แนวโน้มอายุชีวภาพ', body: 'BioAge Analytics เปรียบเทียบผลจากหลายรอบการตรวจ พร้อมค่าอายุชีวภาพ การเร่งอายุ และความยาวเทโลเมียร์ที่มีอยู่', alt: 'หน้า BioAge Analytics ของบัญชีสาธิต HealthTAG PHR แสดงข้อมูลแนวโน้มจำลอง โดยปกปิดรหัสบัญชีและรหัสผู้ป่วยแล้ว' },
+];
 ---
 
 <Base
@@ -107,6 +127,39 @@ const capabilities = en ? [
       </div>
     </section>
 
+    <section class="section phr-screens">
+      <div class="container">
+        <div class="screen-intro">
+          <div>
+            <span class="mono">{en ? 'PRODUCT SCREENS' : 'หน้าจอผลิตภัณฑ์'}</span>
+            <h2>{en ? 'A closer look at the PHR' : 'ดูการใช้งาน PHR จากหน้าจอจริง'}</h2>
+          </div>
+          <p>{en ? 'These screens use an authorized demonstration account with synthetic data. Names, account identifiers, contact details, patient identifiers, and the demo wallet address are covered.' : 'ภาพทั้งหมดใช้บัญชีสาธิตที่ได้รับอนุญาตและข้อมูลจำลอง โดยปกปิดชื่อ รหัสบัญชี ข้อมูลติดต่อ รหัสผู้ป่วย และ wallet address ของบัญชีสาธิตแล้ว'}</p>
+        </div>
+        <div class="screen-gallery">
+          {screenshots.map((screen, index) => (
+            <figure class:list={{ featured: screen.featured }}>
+              <div class="screen-frame">
+                <Image
+                  src={screen.src}
+                  alt={screen.alt}
+                  width={screen.src.width}
+                  height={screen.src.height}
+                  widths={[640, 960, 1440]}
+                  sizes={screen.featured ? '(max-width: 850px) 100vw, 1240px' : '(max-width: 850px) 100vw, 610px'}
+                  format="webp"
+                  quality={84}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <figcaption><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{screen.title}</h3><p>{screen.body}</p></div></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section class="section phr-boundary">
       <div class="container boundary-grid">
         <div>
@@ -149,6 +202,19 @@ const capabilities = en ? [
   .capability-list p { margin: 0; color: var(--muted); max-width: 68ch; }
   .capability-labels { display: flex; flex-wrap: wrap; gap: .5rem; }
   .capability-labels span { padding: .45rem .65rem; border: 1px solid var(--line); color: var(--ink); font: 500 .75rem/1.2 'IBM Plex Mono', monospace; }
+  .phr-screens { background: var(--paper); }
+  .screen-intro { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(18rem, .9fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
+  .screen-intro .mono { display: block; margin-bottom: 1rem; color: var(--teal); }
+  .screen-intro p { margin: 0 0 .35rem; color: var(--muted); max-width: 62ch; }
+  .screen-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 4rem) clamp(1.25rem, 3vw, 2.5rem); }
+  .screen-gallery figure { min-width: 0; margin: 0; }
+  .screen-gallery figure.featured { grid-column: 1 / -1; }
+  .screen-frame { overflow: hidden; border: 1px solid var(--line); background: var(--white); box-shadow: 0 22px 55px rgba(16, 47, 54, .09); }
+  .screen-frame :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; }
+  .screen-gallery figcaption { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 1rem; padding-top: 1.15rem; }
+  .screen-gallery figcaption > span { color: var(--teal); font: 600 .78rem/1.4 'IBM Plex Mono', monospace; }
+  .screen-gallery h3 { margin: 0 0 .4rem; font-size: clamp(1.15rem, 2vw, 1.45rem); }
+  .screen-gallery figcaption p { margin: 0; color: var(--muted); }
   .phr-boundary { background: var(--ink); color: var(--white); }
   .boundary-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); }
   .boundary-grid h2 { max-width: 16ch; margin-bottom: 0; }
@@ -156,10 +222,12 @@ const capabilities = en ? [
   .boundary-grid .demo-note { padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--white) 18%, transparent); font-size: .92rem; }
   .boundary-grid a { color: var(--white); }
   @media (max-width: 850px) {
-    .phr-hero-grid, .boundary-grid { grid-template-columns: 1fr; }
+    .phr-hero-grid, .boundary-grid, .screen-intro { grid-template-columns: 1fr; }
     .phr-map { margin: .75rem .75rem 0 0; }
     .capability-list article { grid-template-columns: 3rem 1fr; }
     .capability-labels { grid-column: 2; }
+    .screen-gallery { grid-template-columns: 1fr; }
+    .screen-gallery figure.featured { grid-column: auto; }
   }
   @media (max-width: 520px) {
     .map-grid { grid-template-columns: 1fr; }
