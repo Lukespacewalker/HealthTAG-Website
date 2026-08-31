@@ -6,6 +6,13 @@ import '../styles/brand-refresh.css';
 import '../styles/publications-nav.css';
 import '../styles/thai.css';
 import BrandLogo from '../components/BrandLogo.astro';
+import {
+  isNavigationGroupCurrent,
+  isNavigationItemCurrent,
+  navigationGroups,
+  navigationHref,
+  navigationUtilities,
+} from '../data/navigation';
 import plexSansRegular from '@ibm/plex/IBM-Plex-Sans/fonts/complete/woff2/IBMPlexSans-Regular.woff2?url';
 import plexThaiRegular from '@ibm/plex/IBM-Plex-Sans-Thai-Looped/fonts/complete/woff2/IBMPlexSansThaiLooped-Regular.woff2?url';
 
@@ -19,13 +26,16 @@ interface Props {
 
 const {
   title = 'HealthTAG',
-  description = 'Healthcare interoperability infrastructure',
+  description,
   locale = 'th',
   path = '',
   noindex = false,
 } = Astro.props;
 
 const isEn = locale === 'en';
+const metaDescription = description ?? (isEn
+  ? 'HealthTAG works toward a connected Thailand where health data belongs to patients, patients control consent and use, and hospitals steward records in their source systems.'
+  : 'HealthTAG มุ่งสู่ประเทศไทยที่เชื่อมถึงกัน โดยข้อมูลสุขภาพเป็นของผู้ป่วย ผู้ป่วยควบคุมความยินยอมและการใช้ข้อมูล และโรงพยาบาลดูแลเวชระเบียนในระบบต้นทาง');
 const prefix = isEn ? '/en' : '';
 const home = isEn ? '/en/' : '/';
 const normalizedPath = path.replace(/^\/+|\/+$/g, '');
@@ -39,14 +49,14 @@ const alternate = new URL(alternatePath, Astro.site ?? 'https://healthtag.io');
 const defaultCanonical = new URL(defaultPath, Astro.site ?? 'https://healthtag.io');
 const socialImage = new URL('/og-healthtag.png', Astro.site ?? 'https://healthtag.io');
 
-const nav = [
-  ['interoperability', isEn ? 'Platform' : 'แพลตฟอร์ม'],
-  ['phr', 'PHR'],
-  ['deployments', isEn ? 'Deployments' : 'การใช้งานจริง'],
-  ['network', isEn ? 'Network' : 'เครือข่าย'],
-  ['posts', isEn ? 'News' : 'ข่าวสาร'],
-  ['company', isEn ? 'Company' : 'บริษัท'],
-];
+const visionLabel = isEn ? 'Our vision' : 'วิสัยทัศน์ของเรา';
+const tagline = isEn
+  ? 'Your data. Your consent. One connected Thailand.'
+  : 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ';
+const stewardshipStatement = isEn
+  ? 'Health data belongs to the patient. Patients control consent and how their data is used, while hospitals retain custody and stewardship of clinical records in their source systems.'
+  : 'ข้อมูลสุขภาพเป็นของผู้ป่วย ผู้ป่วยมีอำนาจเหนือความยินยอมและการใช้ข้อมูล ขณะที่โรงพยาบาลเก็บรักษาและดูแลเวชระเบียนในระบบต้นทาง';
+const socialImageAlt = `${visionLabel}: ${tagline}`;
 
 const orgJson = JSON.stringify({
   '@context': 'https://schema.org',
@@ -63,9 +73,9 @@ const orgJson = JSON.stringify({
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <meta name="theme-color" content="#102f36" />
+    <meta name="theme-color" content="#F6F8F7" />
     <link rel="preload" href={isEn ? plexSansRegular : plexThaiRegular} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.png" type="image/png" sizes="128x128" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -76,17 +86,17 @@ const orgJson = JSON.stringify({
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="HealthTAG" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={isEn ? 'HealthTAG: healthcare interoperability with hospitals in control' : 'HealthTAG: เชื่อมข้อมูลสุขภาพโดยโรงพยาบาลยังเป็นผู้ควบคุม'} />
+    <meta property="og:image:alt" content={socialImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={socialImage} />
-    <meta name="twitter:image:alt" content={isEn ? 'HealthTAG: healthcare interoperability with hospitals in control' : 'HealthTAG: เชื่อมข้อมูลสุขภาพโดยโรงพยาบาลยังเป็นผู้ควบคุม'} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <script type="application/ld+json" set:html={orgJson} is:inline></script>
   </head>
   <body>
@@ -94,24 +104,56 @@ const orgJson = JSON.stringify({
     <header class="site-header">
       <div class="container nav">
         <a class="brand" href={home} aria-label={isEn ? 'HealthTAG home' : 'หน้าแรก HealthTAG'}><BrandLogo priority /></a>
-        <nav class="nav-links" aria-label={isEn ? 'Main navigation' : 'เมนูหลัก'}>
-          {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`} aria-current={normalizedPath === slug ? 'page' : undefined}>{label}</a>)}
-          <a class="support-link" href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
-          <a class="lang" href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'TH' : 'EN'}</a>
-          <a class="nav-cta" href={`${prefix}/contact/`}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
+        <nav class="desktop-nav" aria-label={isEn ? 'Main navigation' : 'เมนูหลัก'}>
+          <div class="desktop-nav-groups">
+            {navigationGroups.map((group) => (
+              <details class="desktop-nav-group" name="primary-navigation" data-current={isNavigationGroupCurrent(group, normalizedPath) ? 'true' : undefined}>
+                <summary aria-current={isNavigationGroupCurrent(group, normalizedPath) ? 'true' : undefined}>{group.label[locale]}</summary>
+                <div class="desktop-nav-menu">
+                  <ul>
+                    {group.items.map((entry) => (
+                      <li>
+                        <a href={navigationHref(entry, locale)} aria-current={isNavigationItemCurrent(entry, normalizedPath) ? 'page' : undefined}>
+                          {entry.label[locale]}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+            ))}
+          </div>
+          <div class="desktop-nav-utilities">
+            <a href={navigationHref(navigationUtilities.support, locale)} aria-current={normalizedPath === 'support' ? 'page' : undefined}>{navigationUtilities.support.label[locale]}</a>
+            <a class="lang" href={alternatePath} lang={isEn ? 'th' : 'en'} aria-label={isEn ? 'อ่านภาษาไทย' : 'Read in English'}>{isEn ? 'TH' : 'EN'}</a>
+            <a class="nav-cta" href={navigationHref(navigationUtilities.contact, locale)} aria-current={normalizedPath === 'contact' ? 'page' : undefined}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
+          </div>
         </nav>
         <details class="mobile-nav">
           <summary aria-label={isEn ? 'Open navigation' : 'เปิดเมนู'}><span></span><span></span><span></span></summary>
           <div class="mobile-panel">
             <nav aria-label={isEn ? 'Mobile navigation' : 'เมนูสำหรับอุปกรณ์พกพา'}>
-              {nav.map(([slug, label]) => <a href={`${prefix}/${slug}/`} aria-current={normalizedPath === slug ? 'page' : undefined}>{label}</a>)}
-              <a href={`${prefix}/how-it-works/`}>{isEn ? 'How it works' : 'ระบบทำงานอย่างไร'}</a>
-              <a href={`${prefix}/trust/`}>{isEn ? 'Trust & access' : 'ความไว้วางใจและสิทธิ์เข้าถึง'}</a>
-              <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
-              <a href={`${prefix}/support/`}>{isEn ? 'Support' : 'ช่วยเหลือ'}</a>
-              <a href={`${prefix}/privacy/`}>{isEn ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</a>
-              <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
-              <a class="btn primary" href={`${prefix}/contact/`}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
+              <a class="mobile-home" href={navigationHref(navigationUtilities.home, locale)} aria-current={normalizedPath === '' ? 'page' : undefined}>{navigationUtilities.home.label[locale]}</a>
+              {navigationGroups.map((group) => (
+                <details class="mobile-nav-group" data-current={isNavigationGroupCurrent(group, normalizedPath) ? 'true' : undefined} open={isNavigationGroupCurrent(group, normalizedPath)}>
+                  <summary aria-current={isNavigationGroupCurrent(group, normalizedPath) ? 'true' : undefined}>{group.label[locale]}</summary>
+                  <ul>
+                    {group.items.map((entry) => (
+                      <li>
+                        <a href={navigationHref(entry, locale)} aria-current={isNavigationItemCurrent(entry, normalizedPath) ? 'page' : undefined}>
+                          {entry.label[locale]}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ))}
+              <div class="mobile-utilities">
+                <a href={navigationHref(navigationUtilities.support, locale)} aria-current={normalizedPath === 'support' ? 'page' : undefined}>{navigationUtilities.support.label[locale]}</a>
+                <a href={navigationHref(navigationUtilities.privacy, locale)} aria-current={normalizedPath === 'privacy' ? 'page' : undefined}>{navigationUtilities.privacy.label[locale]}</a>
+                <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
+              </div>
+              <a class="btn primary" href={navigationHref(navigationUtilities.contact, locale)} aria-current={normalizedPath === 'contact' ? 'page' : undefined}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
             </nav>
           </div>
         </details>
@@ -122,33 +164,28 @@ const orgJson = JSON.stringify({
       <div class="container footer-main">
         <div class="footer-brand">
           <BrandLogo />
-          <p>{isEn ? 'Healthcare interoperability infrastructure that keeps clinical data under hospital control.' : 'โครงสร้างพื้นฐานเพื่อเชื่อมโยงข้อมูลสุขภาพ โดยข้อมูลทางคลินิกยังอยู่ภายใต้การควบคุมของโรงพยาบาล'}</p>
+          <p class="footer-vision"><span>{visionLabel}</span><strong>{tagline}</strong></p>
+          <p class="footer-stewardship">{stewardshipStatement}</p>
           <a href="mailto:contact@healthtag.io">contact@healthtag.io</a>
         </div>
-        <nav aria-label={isEn ? 'Platform links' : 'ลิงก์แพลตฟอร์ม'}>
-          <strong>{isEn ? 'Platform' : 'แพลตฟอร์ม'}</strong>
-          <a href={`${prefix}/interoperability/`}>{isEn ? 'Interoperability' : 'การเชื่อมโยงข้อมูลระหว่างระบบ'}</a>
-          <a href={`${prefix}/how-it-works/`}>{isEn ? 'How it works' : 'ระบบทำงานอย่างไร'}</a>
-          <a href={`${prefix}/trust/`}>{isEn ? 'Trust & access' : 'ความไว้วางใจและสิทธิ์เข้าถึง'}</a>
-          <a href={`${prefix}/phr/`}>PHR</a>
-        </nav>
-        <nav aria-label={isEn ? 'Company links' : 'ลิงก์บริษัท'}>
-          <strong>{isEn ? 'Company' : 'บริษัท'}</strong>
-          <a href={`${prefix}/deployments/`}>{isEn ? 'Deployments' : 'การติดตั้งใช้งาน'}</a>
-          <a href={`${prefix}/network/`}>{isEn ? 'Network' : 'เครือข่าย'}</a>
-          <a href={`${prefix}/evidence/`}>{isEn ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a>
-          <a href={`${prefix}/posts/`}>{isEn ? 'News & articles' : 'ข่าวและบทความ'}</a>
-          <a href={`${prefix}/company/`}>{isEn ? 'Company & founder' : 'บริษัทและผู้ก่อตั้ง'}</a>
-        </nav>
-        <nav aria-label={isEn ? 'Contact and policy links' : 'ลิงก์ติดต่อและนโยบาย'}>
-          <strong>{isEn ? 'Contact' : 'ติดต่อ'}</strong>
-          <a href={`${prefix}/support/`}>{isEn ? 'Reader setup and downloads' : 'ติดตั้งเครื่องอ่านและดาวน์โหลด'}</a>
-          <a href={`${prefix}/contact/`}>{isEn ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a>
-          <a href={`${prefix}/privacy/`}>{isEn ? 'Website privacy notice' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์'}</a>
+        {navigationGroups.map((group) => (
+          <nav aria-label={group.label[locale]}>
+            <strong>{group.label[locale]}</strong>
+            {group.items.map((entry) => (
+              <a href={navigationHref(entry, locale)} aria-current={isNavigationItemCurrent(entry, normalizedPath) ? 'page' : undefined}>{entry.label[locale]}</a>
+            ))}
+          </nav>
+        ))}
+      </div>
+      <div class="container footer-legal">
+        <span>© {new Date().getFullYear()} HealthTAG Co., Ltd.</span>
+        <nav aria-label={isEn ? 'Support, contact, and language' : 'ช่วยเหลือ ติดต่อ และภาษา'}>
+          <a href={navigationHref(navigationUtilities.support, locale)} aria-current={normalizedPath === 'support' ? 'page' : undefined}>{navigationUtilities.support.label[locale]}</a>
+          <a href={navigationHref(navigationUtilities.contact, locale)} aria-current={normalizedPath === 'contact' ? 'page' : undefined}>{navigationUtilities.contact.label[locale]}</a>
+          <a href={navigationHref(navigationUtilities.privacy, locale)} aria-current={normalizedPath === 'privacy' ? 'page' : undefined}>{navigationUtilities.privacy.label[locale]}</a>
           <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
         </nav>
       </div>
-      <div class="container footer-legal"><span>© {new Date().getFullYear()} HealthTAG Co., Ltd.</span></div>
     </footer>
   </body>
 </html>

@@ -5,15 +5,40 @@ This document defines the rails. A task prompt defines the next destination.
 
 ## Brand thesis
 
-**Connect health information. Keep hospitals in control.**
+The selected tagline is the company vision, not a claim of current nationwide coverage:
 
-HealthTAG should be presented as healthcare interoperability infrastructure that connects hospital-controlled FHIR data, patient identity, authorization, trusted exchange, and patient-facing access.
+**Your data. Your consent. One connected Thailand.**<br>
+**ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ**
 
-The website must make three ideas easy to understand:
+HealthTAG should be presented as trust and interoperability infrastructure for health data. The durable ownership model is:
 
-1. Existing hospital systems can participate without being replaced.
-2. Hospitals retain custody of clinical records.
-3. Identity, authorization, and audit are separate responsibilities around data exchange.
+- Patients own their health data and control consent and use.
+- Hospitals store and steward clinical records in their source systems.
+- HealthTAG provides infrastructure for identity linkage, authorization, trusted exchange, audit, and patient-facing access.
+
+The website must make four ideas easy to understand:
+
+1. Health data belongs to the patient, not to a system or vendor.
+2. Patient control of consent and use is distinct from hospital custody and stewardship of the clinical record.
+3. Existing hospital systems can participate without being replaced.
+4. Identity, authorization, exchange, and audit are separate responsibilities.
+
+Do not use "Keep hospitals in control" as a standalone promise. Without the ownership model above, it can imply that hospitals own patient health data. Product copy may state that hospitals keep custody of records or control their source systems when that distinction is clear.
+
+## Mission, vision, and values
+
+The Company page is the canonical source for the founder framework.
+
+- **Vision:** a Thailand where each person can control consent and use of their health data, records can connect across the country, and data can support better care safely, transparently, and accountably. Nationwide connection is a direction, not a statement of current deployment coverage.
+- **Mission:** build trusted health data infrastructure for Thailand. Clinical records stay in hospital source systems, use follows the data owner's consent, and open standards connect healthcare and ecosystem participants. The mission may describe a trusted foundation for future medical AI, but must not imply that HealthTAG currently trains AI on health records.
+- **Patient Sovereignty:** patients own their health data and control consent and use. Hospitals store and steward the clinical record.
+- **Trust Before Intelligence:** provenance, access rights, timing, and accountability must be clear before health data supports AI.
+- **Data Stays at Source:** do not centralize the country's clinical records under HealthTAG.
+- **Open Standards, Real Interoperability:** use open standards such as HL7 FHIR so systems from different vendors can connect without replacing the core HIS.
+- **Clinically Grounded:** start product decisions with their effect on patient care, not with what technology can demonstrate.
+- **Ecosystem, Not Ego:** national infrastructure requires accountable work with hospitals, universities, the public sector, and technology partners.
+
+These are company principles. Describe a value as a deployed product behavior only when maintained code, official technical documentation, or deployment evidence confirms it. Do not infer decentralized identity implementation, consent-interface behavior, AI training, or nationwide deployment from the founder framework.
 
 Blockchain is a trust and audit layer, not the visual or verbal identity of the entire company.
 
@@ -50,7 +75,7 @@ The current palette is intentional and should remain recognizable:
 | White | `#FFFFFF` | Product surfaces and raised content |
 | Deep Petrol | `#102F36` | Primary text and dark technical sections |
 | Clinical Teal | `#00766F` | Primary actions, links, and data paths |
-| Pale Mint | `#DDF3EB` | Patient-facing and hospital-controlled surfaces |
+| Pale Mint | `#DDF3EB` | Patient-facing and hospital source-system surfaces |
 | Muted Slate | `#53676C` | Supporting text |
 | Soft Border | `#D5E0DC` | Dividers and component boundaries |
 | Signal Amber | `#B66A16` | Permission, time limits, consent, and audit accents |
@@ -84,7 +109,7 @@ Diagrams must communicate responsibility and boundaries before decoration.
 
 Show, where relevant:
 
-- The hospital-controlled environment
+- The hospital-stewarded source environment
 - Existing HIS
 - Hospital-owned IT script and HealthTAG FHIR Transformer as two ingestion options
 - HAPI FHIR Server using HL7 FHIR R4

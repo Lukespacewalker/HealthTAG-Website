@@ -15,6 +15,16 @@ const otherMedical = healthcare.organizations.filter((organization) => !organiza
 const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 ---
 
+<section class="ecosystem-principle" data-founder-copy aria-labelledby="ecosystem-principle-heading">
+  <div class="container principle-inner">
+    <div>
+      <span>{en ? 'FOUNDER PRINCIPLE' : 'หลักการของผู้ก่อตั้ง'}</span>
+      <h2 id="ecosystem-principle-heading">{en ? 'Ecosystem, not ego' : 'ระบบนิเวศสำคัญกว่าการยึดตัวเองเป็นศูนย์กลาง'}</h2>
+    </div>
+    <p>{en ? 'Connected care depends on organizations with different responsibilities working through open standards and clear boundaries. A relationship with HealthTAG does not indicate a deployment unless that status is stated directly.' : 'การดูแลสุขภาพที่เชื่อมถึงกันต้องอาศัยหลายองค์กรซึ่งรับผิดชอบคนละส่วน ทำงานร่วมกันผ่านมาตรฐานเปิดและขอบเขตบทบาทที่ชัดเจน ความสัมพันธ์กับ HealthTAG ไม่ได้หมายถึงการติดตั้งใช้งาน เว้นแต่จะระบุสถานะนั้นโดยตรง'}</p>
+  </div>
+</section>
+
 <div class="network-groups">
   <section class="network-group healthcare-group" aria-labelledby="network-healthcare">
     <div class="container">
@@ -103,6 +113,11 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 </section>
 
 <style>
+  .ecosystem-principle { padding: clamp(42px, 7vw, 72px) 0; border-top: 1px solid var(--line); background: var(--mint); }
+  .principle-inner { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 7vw, 84px); align-items: start; }
+  .principle-inner span { color: var(--teal); font: 600 .72rem/1.2 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; }
+  .principle-inner h2 { max-width: 15ch; margin: 12px 0 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.16; letter-spacing: -.04em; }
+  .principle-inner p { margin: 0; color: var(--ink); font-size: clamp(1rem, 1.4vw, 1.15rem); }
   .network-group { padding: 66px 0 76px; border-top: 1px solid var(--line); }
   .network-group:nth-child(odd) { background: #eef3f1; }
   .healthcare-group { background: var(--paper) !important; }
@@ -141,7 +156,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
   .network-note .btn { color: var(--paper); border-color: rgba(221, 243, 235, .55); }
   @media (max-width: 1050px) { .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ecosystem-grid, .medical-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 760px) {
-    .group-heading, .featured-network-card, .ecosystem-cluster, .subheading, .note-inner { grid-template-columns: 1fr; gap: 18px; }
+    .principle-inner, .group-heading, .featured-network-card, .ecosystem-cluster, .subheading, .note-inner { grid-template-columns: 1fr; gap: 18px; }
     .featured-logo { min-height: 190px; border-right: 0; border-bottom: 1px solid var(--line); }
     .logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .ecosystem-cluster { padding: 20px; }

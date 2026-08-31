@@ -6,14 +6,145 @@ const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
 ---
-<Base locale={locale} path="trust" title={en ? 'Trust & Access | HealthTAG' : 'ความน่าเชื่อถือและการเข้าถึง | HealthTAG'} description={en ? 'Where clinical records stay, how Hospital API checks access, and what blockchain records.' : 'เวชระเบียนอยู่ที่ใด Hospital API ตรวจสิทธิ์อย่างไร และ blockchain บันทึกข้อมูลใด'}>
+<Base
+  locale={locale}
+  path="trust"
+  title={en ? 'Consent, Trust & Access | HealthTAG' : 'ความยินยอม ความน่าเชื่อถือ และการเข้าถึง | HealthTAG'}
+  description={en ? 'How patient consent, hospital stewardship, authorization, and audit have distinct roles in trusted health-data exchange.' : 'บทบาทที่แตกต่างกันของความยินยอม การดูแลเวชระเบียนโดยโรงพยาบาล การอนุญาตสิทธิ์ และการตรวจสอบย้อนหลัง'}
+>
   <main>
-    <section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en ? 'Trust & access' : 'ความน่าเชื่อถือและการเข้าถึง'}</div><h1>{en ? 'Who holds the records and how access is checked' : 'ใครดูแลเวชระเบียน และระบบตรวจสิทธิ์อย่างไร'}</h1><p>{en ? 'Hospitals keep clinical records in their own FHIR systems. HealthTAG links identity, checks permission, protects the API, and records access events.' : 'โรงพยาบาลเก็บเวชระเบียนไว้ในระบบ FHIR ของตน ส่วน HealthTAG เชื่อมตัวตน ตรวจสิทธิ์ ปกป้อง API และบันทึกเหตุการณ์เข้าถึง'}</p></div></section>
-    <section class="section"><div class="container responsibility"><article class="custody"><span class="mono">01 / {en ? 'RECORDS' : 'เวชระเบียน'}</span><h2>{en ? 'Clinical records stay in hospital systems' : 'เวชระเบียนอยู่ในระบบของโรงพยาบาล'}</h2><p>{en ? 'The hospital FHIR system stores clinical records. HealthTAG reads data through an authorized request.' : 'ระบบ FHIR ของโรงพยาบาลจัดเก็บเวชระเบียน ส่วน HealthTAG อ่านข้อมูลผ่านคำขอที่ได้รับอนุญาต'}</p></article><article class="identity-card"><span class="mono">02 / {en ? 'IDENTITY' : 'ตัวตน'}</span><h2>{en ? 'Amazon DynamoDB stores PromptCare ID linkage' : 'Amazon DynamoDB จัดเก็บการเชื่อมโยง PromptCare ID'}</h2><p>{en ? 'PromptCare ID links the patient ID used by each hospital to the same person.' : 'PromptCare ID เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้เข้ากับคนเดียวกัน'}</p></article><article class="authorization"><span class="mono">03 / {en ? 'ACCESS' : 'สิทธิ์'}</span><div class="window">15<span>min</span></div><h2>{en ? 'Hospital API checks the access window' : 'Hospital API ตรวจช่วงเวลาการเข้าถึง'}</h2><p>{en ? 'Hospital API checks the 15-minute window defined from blockchain state before it returns data.' : 'Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนส่งข้อมูล'}</p></article><article class="api-card"><span class="mono">04 / API</span><h2>{en ? 'Kong protects the HAPI FHIR API' : 'Kong ปกป้อง HAPI FHIR API'}</h2><p>{en ? 'Kong provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide other safeguards.' : 'Kong ทำหน้าที่เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลเป็นมาตรการป้องกันส่วนอื่น'}</p></article><article class="ledger"><span class="mono">05 / {en ? 'AUDIT' : 'ตรวจสอบ'}</span><h2>{en ? 'Blockchain keeps the access history' : 'Blockchain เก็บประวัติการเข้าถึง'}</h2><p>{en ? 'Blockchain records consent and access events in a history that is difficult to alter. Clinical records stay in hospital systems.' : 'Blockchain บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงเป็นประวัติที่แก้ไขย้อนหลังได้ยาก ส่วนเวชระเบียนยังอยู่ในระบบโรงพยาบาล'}</p></article></div></section>
-    <section class="section does-section"><div class="container"><div class="section-head"><h2>{en ? 'What blockchain records' : 'ข้อมูลที่บันทึกบน blockchain'}</h2><p>{en ? 'Blockchain stores the history of consent and access. Other security and data-storage responsibilities stay with the systems designed for them.' : 'Blockchain เก็บประวัติการให้ความยินยอมและการเข้าถึง ส่วนการจัดเก็บเวชระเบียนและมาตรการความปลอดภัยอื่นอยู่ในระบบที่รับผิดชอบโดยตรง'}</p></div><div class="does-grid"><div><h3>{en ? 'Recorded on blockchain' : 'บันทึกบน blockchain'}</h3><ul><li>{en ? 'Consent events' : 'เหตุการณ์การให้ความยินยอม'}</li><li>{en ? 'Access events for later review' : 'เหตุการณ์การเข้าถึงสำหรับตรวจสอบภายหลัง'}</li></ul></div><div><h3>{en ? 'Handled by other systems' : 'จัดการโดยระบบอื่น'}</h3><ul><li>{en ? 'Clinical records in hospital FHIR systems' : 'เวชระเบียนในระบบ FHIR ของโรงพยาบาล'}</li><li>{en ? 'Authentication, encryption, API configuration, and hospital operations' : 'การยืนยันตัวตน การเข้ารหัส การตั้งค่า API และการปฏิบัติการของโรงพยาบาล'}</li></ul></div></div></div></section>
+    <section class="page-hero" data-founder-copy>
+      <div class="container">
+        <div class="eyebrow">HealthTAG / {en ? 'Consent, trust & access' : 'ความยินยอม ความน่าเชื่อถือ และการเข้าถึง'}</div>
+        <h1>{en ? 'Patients own their health data. Hospitals steward the records.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย โรงพยาบาลดูแลเวชระเบียน'}</h1>
+        <p>{en ? 'Patients control consent and how their health data may be used. Hospitals store and safeguard clinical records in source systems. HealthTAG provides identity, authorization, trusted exchange, and auditable access infrastructure.' : 'ผู้ป่วยมีอำนาจเหนือความยินยอมและการใช้ข้อมูลสุขภาพ โรงพยาบาลจัดเก็บและดูแลเวชระเบียนในระบบต้นทาง ส่วน HealthTAG จัดเตรียมโครงสร้างพื้นฐานด้านตัวตน การอนุญาตสิทธิ์ การแลกเปลี่ยนที่เชื่อถือได้ และการเข้าถึงที่ตรวจสอบย้อนหลังได้'}</p>
+      </div>
+    </section>
+
+    <section class="section" data-founder-copy>
+      <div class="container responsibility">
+        <article class="custody">
+          <span class="mono">01 / {en ? 'OWNERSHIP & CUSTODY' : 'เจ้าของและผู้ดูแล'}</span>
+          <h2>{en ? 'Ownership and custody are different responsibilities' : 'ความเป็นเจ้าของและการดูแลเป็นคนละหน้าที่'}</h2>
+          <p>{en ? 'Health data belongs to the patient. The hospital stores and stewards the clinical record in its source FHIR system. After authorization is checked, that source system can return the permitted response.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย โรงพยาบาลจัดเก็บและดูแลเวชระเบียนในระบบ FHIR ต้นทาง เมื่อระบบตรวจสิทธิ์แล้ว ระบบต้นทางจึงส่งคำตอบตามขอบเขตที่อนุญาตได้'}</p>
+        </article>
+        <article class="identity-card">
+          <span class="mono">02 / {en ? 'IDENTITY' : 'ตัวตน'}</span>
+          <h2>{en ? 'Amazon DynamoDB stores PromptCare ID linkage' : 'Amazon DynamoDB จัดเก็บการเชื่อมโยง PromptCare ID'}</h2>
+          <p>{en ? 'PromptCare ID links the patient ID used by each hospital to the same person.' : 'PromptCare ID เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้เข้ากับคนเดียวกัน'}</p>
+        </article>
+        <article class="authorization">
+          <span class="mono">03 / {en ? 'CURRENT ACCESS CHECK' : 'การตรวจสิทธิ์ปัจจุบัน'}</span>
+          <div class="window">15<span>min</span></div>
+          <h2>{en ? 'Hospital API checks the access window' : 'Hospital API ตรวจช่วงเวลาการเข้าถึง'}</h2>
+          <p>{en ? 'In the current implementation, Hospital API checks the 15-minute window defined from blockchain state before the source system returns a permitted response.' : 'ในการทำงานปัจจุบัน Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนระบบต้นทางส่งคำตอบตามขอบเขตที่อนุญาต'}</p>
+        </article>
+        <article class="api-card">
+          <span class="mono">04 / API</span>
+          <h2>{en ? 'Kong protects the HAPI FHIR API' : 'Kong ปกป้อง HAPI FHIR API'}</h2>
+          <p>{en ? 'Kong provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide other safeguards.' : 'Kong ทำหน้าที่เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลเป็นมาตรการป้องกันส่วนอื่น'}</p>
+        </article>
+        <article class="ledger">
+          <span class="mono">05 / {en ? 'AUDIT' : 'ตรวจสอบ'}</span>
+          <h2>{en ? 'Blockchain keeps the access history' : 'Blockchain เก็บประวัติการเข้าถึง'}</h2>
+          <p>{en ? 'Blockchain records consent and access events in a history that is difficult to alter. Clinical records stay in hospital systems.' : 'Blockchain บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงเป็นประวัติที่แก้ไขย้อนหลังได้ยาก ส่วนเวชระเบียนยังอยู่ในระบบโรงพยาบาล'}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section consent-section" data-founder-copy>
+      <div class="container">
+        <div class="section-head">
+          <span class="mono">{en ? 'FOUNDER PRINCIPLE' : 'หลักการของผู้ก่อตั้ง'}</span>
+          <h2>{en ? 'Consent and authorization answer different questions' : 'ความยินยอมและการอนุญาตสิทธิ์ตอบคนละคำถาม'}</h2>
+        </div>
+        <div class="consent-grid">
+          <article>
+            <span class="decision-index">01</span>
+            <h3>{en ? 'Consent expresses the patient’s choice' : 'ความยินยอมแสดงเจตนาของผู้ป่วย'}</h3>
+            <p>{en ? 'Consent defines whether and how the patient permits health data to be used. HealthTAG’s principle is that consent should have a clear scope and time limit, remain auditable, and be revocable.' : 'ความยินยอมกำหนดว่าผู้ป่วยอนุญาตให้นำข้อมูลสุขภาพไปใช้หรือไม่และอย่างไร หลักการของ HealthTAG คือความยินยอมต้องมีขอบเขตและระยะเวลาชัดเจน ตรวจสอบย้อนหลังได้ และเพิกถอนได้'}</p>
+          </article>
+          <article>
+            <span class="decision-index">02</span>
+            <h3>{en ? 'Authorization evaluates a request' : 'การอนุญาตสิทธิ์ประเมินคำขอ'}</h3>
+            <p>{en ? 'Authorization is the system decision made when an application requests access. The current 15-minute check is an implementation fact, not a description of the complete consent lifecycle.' : 'การอนุญาตสิทธิ์คือการตัดสินใจของระบบเมื่อแอปพลิเคชันขอเข้าถึง การตรวจช่วงเวลา 15 นาทีเป็นข้อเท็จจริงของระบบปัจจุบัน ไม่ใช่คำอธิบายวงจรความยินยอมทั้งหมด'}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intelligence-section" data-founder-copy>
+      <div class="container intelligence-grid">
+        <div>
+          <span class="mono">TRUST BEFORE INTELLIGENCE</span>
+          <h2>{en ? 'Establish trust before health data reaches AI' : 'สร้างความน่าเชื่อถือก่อนส่งข้อมูลสุขภาพให้ AI'}</h2>
+        </div>
+        <div>
+          <p>{en ? 'HealthTAG’s principle is that any use of health data by medical AI should begin with provenance, patient consent, authorization, and an auditable record of access. This principle guides future development. The systems described on this website do not include AI training or a clinical AI pipeline.' : 'HealthTAG เชื่อว่าการนำข้อมูลสุขภาพไปใช้กับ AI ทางการแพทย์ต้องเริ่มจากการตรวจสอบที่มาของข้อมูล ความยินยอมของผู้ป่วย การอนุญาตสิทธิ์ และประวัติการเข้าถึงที่ตรวจสอบได้ หลักการนี้ใช้กำกับการพัฒนาในอนาคต ระบบที่อธิบายในเว็บไซต์นี้ยังไม่รวมการฝึก AI หรือกระบวนการ AI ทางคลินิก'}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section does-section">
+      <div class="container">
+        <div class="section-head">
+          <h2>{en ? 'What blockchain records' : 'ข้อมูลที่บันทึกบน blockchain'}</h2>
+          <p>{en ? 'Blockchain stores the history of consent and access. Other security and data-storage responsibilities stay with the systems designed for them.' : 'Blockchain เก็บประวัติการให้ความยินยอมและการเข้าถึง ส่วนการจัดเก็บเวชระเบียนและมาตรการความปลอดภัยอื่นอยู่ในระบบที่รับผิดชอบโดยตรง'}</p>
+        </div>
+        <div class="does-grid">
+          <div><h3>{en ? 'Recorded on blockchain' : 'บันทึกบน blockchain'}</h3><ul><li>{en ? 'Consent events' : 'เหตุการณ์การให้ความยินยอม'}</li><li>{en ? 'Access events for later review' : 'เหตุการณ์การเข้าถึงสำหรับตรวจสอบภายหลัง'}</li></ul></div>
+          <div><h3>{en ? 'Handled by other systems' : 'จัดการโดยระบบอื่น'}</h3><ul><li>{en ? 'Clinical records in hospital FHIR systems' : 'เวชระเบียนในระบบ FHIR ของโรงพยาบาล'}</li><li>{en ? 'Authentication, encryption, API configuration, and hospital operations' : 'การยืนยันตัวตน การเข้ารหัส การตั้งค่า API และการปฏิบัติการของโรงพยาบาล'}</li></ul></div>
+        </div>
+      </div>
+    </section>
     <section class="section next"><div class="container"><p>{en ? 'See how these systems work together on' : 'ดูขั้นตอนการทำงานของระบบเหล่านี้ได้ที่'} <a href={`${prefix}/how-it-works/`}>{en ? 'How it works' : 'ระบบทำงานอย่างไร'} →</a></p></div></section>
   </main>
 </Base>
 <style>
-  .responsibility { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 14px; } .responsibility article { grid-column:span 2; min-height: 300px; padding: 28px; border: 1px solid var(--line); border-radius: 14px; } .responsibility .custody,.responsibility .identity-card{grid-column:span 3}.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .69rem; letter-spacing: .07em; color: var(--teal); } .responsibility h2 { margin: 18px 0 12px; font-size: clamp(1.55rem,2.2vw,2.2rem); line-height: 1.15; letter-spacing: -.04em; } .responsibility p { margin: 0; color: var(--muted); } .custody { background: var(--mint); }.identity-card{background:var(--white)} .authorization { background: var(--ink); color: var(--paper); } .authorization .mono { color: #9ae3da; } .authorization p { color: #bdd0d0; } .window { margin-top: 20px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 4.1rem; line-height: 1; color: #f1c28d; letter-spacing: -.08em; } .window span { margin-left: 7px; font-size: .9rem; letter-spacing: 0; }.api-card{background:#eef3f1} .ledger { background: var(--amber-soft); border-color: #dfc7a9 !important; } .ledger .mono { color: var(--amber-ink); } .does-section { background: var(--white); } .does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; } .does-grid > div { padding: 25px 0 0; border-top: 3px solid var(--teal); } .does-grid > div + div { border-color: var(--amber); } .does-grid h3 { margin: 0; font-size: 1.3rem; } ul { margin: 14px 0 0; padding-left: 19px; color: var(--muted); } li + li { margin-top: 8px; } .next { padding: 42px 0; } .next p { margin: 0; color: var(--muted); } .next a { color: var(--teal); font-weight: 600; } @media (max-width: 900px){.responsibility article,.responsibility .custody,.responsibility .identity-card{grid-column:span 3}} @media (max-width: 620px) { .responsibility, .does-grid { grid-template-columns: 1fr; } .responsibility article,.responsibility .custody,.responsibility .identity-card { grid-column:1; min-height: auto; } }
+  .responsibility { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 14px; }
+  .responsibility article { grid-column:span 2; min-height: 300px; padding: 28px; border: 1px solid var(--line); border-radius: 14px; }
+  .responsibility .custody,.responsibility .identity-card{grid-column:span 3}
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .69rem; letter-spacing: .07em; color: var(--teal); }
+  .responsibility h2 { margin: 18px 0 12px; font-size: clamp(1.55rem,2.2vw,2.2rem); line-height: 1.2; letter-spacing: -.04em; }
+  .responsibility p { margin: 0; color: var(--muted); }
+  .custody { background: var(--mint); }
+  .identity-card{background:var(--white)}
+  .authorization { background: var(--ink); color: var(--paper); }
+  .authorization .mono { color: #9ae3da; }
+  .authorization p { color: #bdd0d0; }
+  .window { margin-top: 20px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 4.1rem; line-height: 1; color: #f1c28d; letter-spacing: -.08em; }
+  .window span { margin-left: 7px; font-size: .9rem; letter-spacing: 0; }
+  .api-card{background:#eef3f1}
+  .ledger { background: var(--amber-soft); border-color: #dfc7a9 !important; }
+  .ledger .mono { color: var(--amber-ink); }
+  .consent-section { background: var(--white); }
+  .consent-section .section-head .mono { display: block; margin-bottom: 1rem; }
+  .consent-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+  .consent-grid article { padding: 28px 28px 8px 0; }
+  .consent-grid article + article { padding-left: 28px; border-left: 1px solid var(--line); }
+  .decision-index { color: var(--amber-ink); font: 600 .78rem/1 'IBM Plex Mono', ui-monospace, monospace; }
+  .consent-grid h3 { margin: 14px 0 10px; font-size: clamp(1.35rem, 2.2vw, 1.8rem); }
+  .consent-grid p { margin: 0; color: var(--muted); }
+  .intelligence-section { background: var(--ink); color: var(--white); }
+  .intelligence-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+  .intelligence-grid .mono { color: #9ae3da; }
+  .intelligence-grid h2 { max-width: 16ch; margin: 16px 0 0; }
+  .intelligence-grid p { margin: 0; color: #bdd0d0; font-size: clamp(1rem, 1.4vw, 1.15rem); }
+  .does-section { background: var(--paper); }
+  .does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .does-grid > div { padding: 25px 0 0; border-top: 3px solid var(--teal); }
+  .does-grid > div + div { border-color: var(--amber); }
+  .does-grid h3 { margin: 0; font-size: 1.3rem; }
+  ul { margin: 14px 0 0; padding-left: 19px; color: var(--muted); }
+  li + li { margin-top: 8px; }
+  .next { padding: 42px 0; }
+  .next p { margin: 0; color: var(--muted); }
+  .next a { color: var(--teal); font-weight: 600; }
+  @media (max-width: 900px){.responsibility article,.responsibility .custody,.responsibility .identity-card{grid-column:span 3}}
+  @media (max-width: 620px) {
+    .responsibility, .does-grid, .consent-grid, .intelligence-grid { grid-template-columns: 1fr; }
+    .responsibility article,.responsibility .custody,.responsibility .identity-card { grid-column:1; min-height: auto; }
+    .consent-grid article { padding: 24px 0; }
+    .consent-grid article + article { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+  }
 </style>

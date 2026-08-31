@@ -3,18 +3,212 @@ import Base from '../../layouts/Base.astro';
 import FounderCard from '../FounderCard.astro';
 import TeamGallery from '../TeamGallery.astro';
 import type { Locale } from '../../data/site-content';
+
 interface Props { locale: Locale }
+
 const { locale } = Astro.props;
 const en = locale === 'en';
+
+const sectionLinks = en
+  ? [
+      ['#mission-vision', 'Mission & vision'],
+      ['#values', 'Core values'],
+      ['#founder', 'Founder'],
+      ['#team', 'Team'],
+    ]
+  : [
+      ['#mission-vision', 'พันธกิจและวิสัยทัศน์'],
+      ['#values', 'คุณค่าองค์กร'],
+      ['#founder', 'ผู้ก่อตั้ง'],
+      ['#team', 'ทีมงาน'],
+    ];
+
+const operatingModel = en
+  ? [
+      ['Patient', 'Owns their health data and controls consent and use.'],
+      ['Hospital', 'Stores and stewards the clinical record in its source systems.'],
+      ['HealthTAG', 'Provides trust and interoperability infrastructure for authorized exchange.'],
+    ]
+  : [
+      ['ผู้ป่วย', 'เป็นเจ้าของข้อมูลสุขภาพและกำหนดความยินยอมในการใช้ข้อมูล'],
+      ['โรงพยาบาล', 'เก็บรักษาและดูแลเวชระเบียนในระบบต้นทาง'],
+      ['HealthTAG', 'สร้างโครงสร้างพื้นฐานด้านความไว้วางใจและการเชื่อมโยงข้อมูลสำหรับการแลกเปลี่ยนที่ได้รับอนุญาต'],
+    ];
+
+const values = en
+  ? [
+      ['Patient Sovereignty', 'Health data belongs to the patient, not to a system. Consent must be explicit, limited in scope and time, auditable, and revocable. Hospitals store and steward clinical records in their source systems.'],
+      ['Trust Before Intelligence', 'Before health data supports AI, it must be possible to verify where the data came from, who used it, when it was used, and under what right.'],
+      ['Data Stays at Source', 'HealthTAG does not centralize the country\'s clinical records. Hospitals continue to store and steward their records while the infrastructure connects authorized access.'],
+      ['Open Standards, Real Interoperability', 'We use open standards such as HL7 FHIR so systems from different vendors can connect without replacing the core HIS or creating unnecessary lock-in.'],
+      ['Clinically Grounded', 'Founded and led by physicians, HealthTAG starts with a practical question: will this improve care for the patient? We choose technology only after the clinical need is clear.'],
+      ['Ecosystem, Not Ego', 'National health data infrastructure requires accountable work with hospitals, universities, the public sector, industry, and technology partners. No organization can build it alone.'],
+    ]
+  : [
+      ['เจ้าของข้อมูลคือประชาชน', 'ข้อมูลสุขภาพเป็นของผู้ป่วย ไม่ใช่ของระบบ ความยินยอมต้องชัดเจน จำกัดขอบเขต จำกัดเวลา ตรวจสอบได้ และเพิกถอนได้ ขณะที่โรงพยาบาลเก็บรักษาและดูแลเวชระเบียนในระบบต้นทาง'],
+      ['ความไว้วางใจต้องมาก่อนปัญญา', 'ก่อนนำข้อมูลสุขภาพไปใช้กับ AI ต้องตรวจสอบได้ว่าข้อมูลมาจากไหน ใครใช้ ใช้เมื่อไร และใช้ด้วยสิทธิ์อะไร'],
+      ['ข้อมูลอยู่ที่ต้นทาง', 'HealthTAG ไม่รวมเวชระเบียนของทั้งประเทศไว้ที่ส่วนกลาง โรงพยาบาลยังเก็บรักษาและดูแลเวชระเบียนของตน ส่วนโครงสร้างพื้นฐานช่วยเชื่อมการเข้าถึงที่ได้รับอนุญาต'],
+      ['มาตรฐานเปิด เชื่อมได้จริง', 'เราใช้มาตรฐานเปิดอย่าง HL7 FHIR เพื่อให้ระบบจากผู้พัฒนาต่างรายเชื่อมต่อกันได้ โดยไม่ต้องเปลี่ยน HIS หลักหรือผูกติดกับผู้ให้บริการรายเดียวโดยไม่จำเป็น'],
+      ['เกิดจากหน้างานจริง', 'HealthTAG ก่อตั้งและนำโดยแพทย์ เราเริ่มจากคำถามว่าสิ่งที่ออกแบบจะช่วยให้การดูแลผู้ป่วยดีขึ้นหรือไม่ แล้วจึงเลือกเทคโนโลยีให้เหมาะกับความต้องการนั้น'],
+      ['ทำงานร่วมกัน ไม่ทำคนเดียว', 'โครงสร้างพื้นฐานข้อมูลสุขภาพระดับประเทศต้องอาศัยการทำงานที่รับผิดชอบร่วมกับโรงพยาบาล มหาวิทยาลัย ภาครัฐ ภาคเอกชน และพันธมิตรเทคโนโลยี ไม่มีองค์กรใดสร้างได้โดยลำพัง'],
+    ];
 ---
-<Base locale={locale} path="company" title={en ? 'Company | HealthTAG' : 'บริษัท | HealthTAG'} description={en ? 'Why HealthTAG helps move health information between existing clinical systems while hospitals retain control.' : 'เหตุผลที่ HealthTAG ช่วยเชื่อมข้อมูลระหว่างระบบเดิม โดยโรงพยาบาลยังควบคุมระบบและเวชระเบียนของตน'}>
-  <main>
-    <section class="page-hero"><div class="container"><div class="eyebrow">HealthTAG / {en ? 'Company' : 'บริษัท'}</div><h1>{en ? 'HealthTAG began with a problem seen in patient care' : 'HealthTAG เริ่มจากปัญหาที่พบในการดูแลผู้ป่วย'}</h1><p>{en ? 'Health records may exist in several systems but still be difficult to use when a patient needs care.' : 'เวชระเบียนอาจอยู่ในหลายระบบ แต่ยังนำมาใช้ได้ยากเมื่อผู้ป่วยต้องรับการดูแล'}</p></div></section>
-    <section class="section founder-story"><div class="container"><div class="founder-copy"><span class="mono">{en ? 'CLINICAL EXPERIENCE' : 'ประสบการณ์ทางคลินิก'}</span><h2>{en ? 'Health records need a reliable way to move between systems' : 'ข้อมูลสุขภาพต้องเชื่อมต่อระหว่างระบบได้'}</h2><p>{en ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems.' : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก'}</p><p>{en ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit while hospitals retain control of clinical records.' : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง โดยโรงพยาบาลยังควบคุมเวชระเบียนของตน'}</p></div><FounderCard locale={locale} /></div></section>
-    <section class="section principles"><div class="container"><div class="section-head"><h2>{en ? 'How HealthTAG approaches the problem' : 'แนวทางของ HealthTAG'}</h2><p>{en ? 'The product is designed around existing hospital systems and clearly separated responsibilities.' : 'ผลิตภัณฑ์ออกแบบให้ทำงานกับระบบโรงพยาบาลเดิม และแยกหน้าที่ของแต่ละส่วนให้ชัดเจน'}</p></div><ol><li><span>01</span><div><h3>{en ? 'Connect the existing HIS' : 'เชื่อม HIS เดิม'}</h3><p>{en ? 'Hospitals can connect data without replacing their core HIS.' : 'โรงพยาบาลเชื่อมข้อมูลได้โดยยังใช้ HIS หลักของตน'}</p></div></li><li><span>02</span><div><h3>{en ? 'Keep records under hospital control' : 'โรงพยาบาลยังควบคุมเวชระเบียน'}</h3><p>{en ? 'Clinical records stay in hospital-controlled systems.' : 'เวชระเบียนอยู่ในระบบที่โรงพยาบาลควบคุม'}</p></div></li><li><span>03</span><div><h3>{en ? 'Separate each responsibility' : 'แยกหน้าที่ของระบบ'}</h3><p>{en ? 'Identity, authorization, exchange, and audit are handled as separate functions.' : 'การเชื่อมตัวตน การตรวจสิทธิ์ การแลกเปลี่ยน และการตรวจสอบย้อนหลังทำหน้าที่แยกจากกัน'}</p></div></li></ol></div></section>
-    <TeamGallery locale={locale} />
+
+<Base
+  locale={locale}
+  path="company"
+  title={en ? 'Company | HealthTAG' : 'บริษัท | HealthTAG'}
+  description={en
+    ? 'HealthTAG mission, vision, values, founder, and the roles of patients, hospitals, and trust infrastructure.'
+    : 'พันธกิจ วิสัยทัศน์ คุณค่า ผู้ก่อตั้ง และบทบาทของผู้ป่วย โรงพยาบาล และโครงสร้างพื้นฐานด้านความไว้วางใจของ HealthTAG'}
+>
+  <main data-founder-copy>
+    <section class="page-hero company-hero">
+      <div class="container">
+        <div class="eyebrow">HealthTAG / {en ? 'Company' : 'บริษัท'}</div>
+        <h1>{en ? 'Health data belongs to the patient' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย'}</h1>
+        <p>{en
+          ? 'Patients control consent and use. Hospitals store and steward clinical records in their source systems. HealthTAG provides trust and interoperability infrastructure for authorized exchange.'
+          : 'ผู้ป่วยเป็นผู้กำหนดความยินยอมและการใช้ข้อมูล โรงพยาบาลเก็บรักษาและดูแลเวชระเบียนในระบบต้นทาง ส่วน HealthTAG สร้างโครงสร้างพื้นฐานด้านความไว้วางใจและการเชื่อมโยงข้อมูล'}</p>
+      </div>
+    </section>
+
+    <nav class="company-index" aria-label={en ? 'On this page' : 'สารบัญ'}>
+      <div class="container">
+        <span class="mono">{en ? 'ON THIS PAGE' : 'สารบัญ'}</span>
+        <ul role="list">
+          {sectionLinks.map(([href, label], index) => (
+            <li><a href={href}><span>0{index + 1}</span>{label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+
+    <section id="mission-vision" class="section mission-vision" aria-labelledby="vision-heading">
+      <div class="container">
+        <div class="vision-grid">
+          <div class="vision-panel">
+            <span class="mono">{en ? 'OUR VISION' : 'วิสัยทัศน์'}</span>
+            <h2 id="vision-heading">{en
+              ? 'Your data. Your consent. One connected Thailand.'
+              : 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ'}</h2>
+            <p>{en
+              ? 'We are working toward a Thailand where every person can control consent and use of their health data, records can connect across the country, and data can support better care safely, transparently, and verifiably.'
+              : 'HealthTAG มุ่งสู่ประเทศไทยที่ทุกคนกำหนดความยินยอมและการใช้ข้อมูลสุขภาพของตนได้ เวชระเบียนเชื่อมต่อกันได้ทั่วประเทศ และข้อมูลช่วยให้การดูแลดีขึ้นอย่างปลอดภัย โปร่งใส และตรวจสอบได้'}</p>
+          </div>
+
+          <div class="mission-panel">
+            <span class="mono">{en ? 'OUR MISSION' : 'พันธกิจ'}</span>
+            <h2>{en ? 'Build trusted health data infrastructure for Thailand' : 'สร้างโครงสร้างพื้นฐานข้อมูลสุขภาพที่วางใจได้สำหรับประเทศไทย'}</h2>
+            <p>{en
+              ? 'Our mission is to keep clinical records in hospital source systems and make their authorized use depend on the data owner\'s consent. Open standards help hospitals, universities, public agencies, and industry work together. This creates a trusted basis for better care and future medical AI.'
+              : 'พันธกิจของเราคือให้เวชระเบียนอยู่ในระบบต้นทางของโรงพยาบาล และให้การใช้ข้อมูลที่ได้รับอนุญาตเป็นไปตามความยินยอมของเจ้าของข้อมูล มาตรฐานเปิดช่วยเชื่อมโรงพยาบาล มหาวิทยาลัย หน่วยงานภาครัฐ และภาคเอกชนเข้าด้วยกัน เพื่อวางฐานความไว้วางใจสำหรับการดูแลที่ดีขึ้นและ AI ทางการแพทย์ในอนาคต'}</p>
+
+            <dl class="operating-model">
+              {operatingModel.map(([term, detail]) => (
+                <div><dt>{term}</dt><dd>{detail}</dd></div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="values" class="section values" aria-labelledby="values-heading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="values-heading">{en ? 'Six values that guide our work' : 'คุณค่า 6 ข้อที่กำกับการทำงานของเรา'}</h2>
+          <p>{en
+            ? 'HealthTAG uses these values to decide what to build, where to set technical boundaries, and how to work with partners.'
+            : 'HealthTAG ใช้คุณค่าเหล่านี้ตัดสินใจว่าจะสร้างอะไร กำหนดขอบเขตทางเทคนิคอย่างไร และทำงานร่วมกับพันธมิตรแบบไหน'}</p>
+        </div>
+        <ol class="values-list">
+          {values.map(([title, body], index) => (
+            <li>
+              <span class="value-number">0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section id="founder" class="section founder-story" aria-labelledby="founder-heading">
+      <div class="container founder-layout">
+        <div class="founder-copy">
+          <span class="mono">{en ? 'CLINICALLY GROUNDED' : 'เริ่มจากการดูแลผู้ป่วย'}</span>
+          <h2 id="founder-heading">{en ? 'The company began with a problem seen in patient care' : 'บริษัทเริ่มจากปัญหาที่พบในการดูแลผู้ป่วย'}</h2>
+          <p>{en
+            ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems.'
+            : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก'}</p>
+          <p>{en
+            ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit. This work keeps the patient\'s ownership and consent distinct from the hospital\'s responsibility to store and steward the clinical record.'
+            : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง โดยแยกสิทธิความเป็นเจ้าของและความยินยอมของผู้ป่วยออกจากหน้าที่ของโรงพยาบาลในการเก็บรักษาและดูแลเวชระเบียนให้ชัดเจน'}</p>
+        </div>
+        <FounderCard locale={locale} />
+      </div>
+    </section>
+
+    <div id="team" class="team-anchor"><TeamGallery locale={locale} /></div>
   </main>
 </Base>
+
 <style>
-  .founder-story { background: var(--mint); } .founder-story .container { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(35px,8vw,110px); align-items: center; } .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .7rem; letter-spacing: .07em; color: var(--teal); } .founder-copy h2 { margin: 16px 0; font-size: clamp(2.2rem,4vw,4rem); line-height: 1.08; letter-spacing: -.05em; } .founder-copy p { color: var(--muted); } .principles { background: var(--white); } ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); } li { display: grid; grid-template-columns: 70px 1fr 1.3fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid var(--line); } li > span { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .75rem; color: var(--teal); } li h3 { margin: 0; font-size: 1.22rem; line-height: 1.35; } li p { margin: 0; color: var(--muted); } @media (max-width: 760px) { .founder-story .container { grid-template-columns: 1fr; } li { grid-template-columns: 42px 1fr; gap: 12px; } li p { grid-column: 2; } }
+  .company-hero { padding-bottom: 78px; }
+  .company-hero h1 { max-width: 1020px; }
+
+  .company-index { border-block: 1px solid var(--line); background: var(--white); }
+  .company-index .container { display: grid; grid-template-columns: minmax(130px, .32fr) 1fr; gap: 34px; align-items: center; padding-block: 20px; }
+  .company-index > .container > .mono { color: var(--muted); font-size: .68rem; letter-spacing: .08em; }
+  .company-index ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .company-index a { display: flex; gap: 9px; align-items: baseline; min-height: 44px; padding: 10px 12px; border-radius: 8px; font-weight: 600; line-height: 1.35; }
+  .company-index a:hover { background: var(--mint); }
+  .company-index a:focus-visible { outline: 3px solid var(--amber); }
+  .company-index a span { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: var(--teal); font-size: .68rem; }
+
+  .mission-vision { background: var(--white); }
+  .vision-grid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(34px, 6vw, 88px); align-items: start; }
+  .vision-panel { padding: clamp(28px, 5vw, 54px); border-radius: 16px; background: var(--ink); color: var(--paper); }
+  .vision-panel .mono { color: #75d3c8; }
+  .vision-panel h2 { margin: 20px 0 26px; color: var(--paper); font-size: clamp(2.45rem, 5vw, 4.8rem); }
+  .vision-panel p { margin: 0; color: #c7d8d8; font-size: 1.05rem; }
+  .mission-panel { padding-top: clamp(6px, 2vw, 20px); }
+  .mission-panel > .mono, .founder-copy > .mono { color: var(--teal); font-size: .7rem; letter-spacing: .08em; }
+  .mission-panel h2 { margin: 17px 0 22px; font-size: clamp(2.2rem, 4vw, 3.9rem); }
+  .mission-panel > p { margin: 0; color: var(--muted); font-size: 1.06rem; }
+
+  .operating-model { margin: 42px 0 0; }
+  .operating-model div { display: grid; grid-template-columns: minmax(105px, .32fr) 1fr; gap: 20px; padding: 17px 0; border-top: 1px solid var(--line); }
+  .operating-model div:last-child { border-bottom: 1px solid var(--line); }
+  .operating-model dt { font-weight: 700; }
+  .operating-model dd { margin: 0; color: var(--muted); }
+
+  .values { background: var(--paper); }
+  .values-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .values-list li { display: grid; grid-template-columns: 64px minmax(210px, .7fr) minmax(0, 1.3fr); gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .value-number { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: var(--teal); font-size: .72rem; }
+  .values-list h3 { margin: 0; font-size: 1.3rem; line-height: 1.35; }
+  .values-list p { margin: 0; color: var(--muted); }
+
+  .founder-story { background: var(--mint); }
+  .founder-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(35px, 8vw, 110px); align-items: center; }
+  .founder-copy h2 { margin: 16px 0 22px; font-size: clamp(2.2rem, 4vw, 4rem); }
+  .founder-copy p { color: var(--muted); }
+  .mission-vision, .values, .founder-story, .team-anchor { scroll-margin-top: 92px; }
+
+  @media (max-width: 900px) {
+    .company-index .container { grid-template-columns: 1fr; gap: 10px; }
+    .company-index ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .vision-grid, .founder-layout { grid-template-columns: 1fr; }
+    .values-list li { grid-template-columns: 46px 1fr; gap: 14px; }
+    .values-list p { grid-column: 2; }
+  }
+
+  @media (max-width: 560px) {
+    .company-index ul { grid-template-columns: 1fr; }
+    .company-index a { padding-inline: 6px; }
+    .vision-panel { padding-inline: 24px; }
+    .operating-model div { grid-template-columns: 1fr; gap: 4px; }
+  }
 </style>

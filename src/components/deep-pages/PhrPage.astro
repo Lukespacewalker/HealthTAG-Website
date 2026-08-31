@@ -95,15 +95,15 @@ const screenshots = en ? [
   locale={locale}
   path="phr"
   title={en ? 'Personal Health Record | HealthTAG' : 'Personal Health Record | HealthTAG'}
-  description={en ? 'HealthTAG PHR organizes authorized health information into an overview, medicines, allergies, vaccinations, visits, reports, and connected data sources.' : 'HealthTAG PHR จัดข้อมูลสุขภาพที่ได้รับอนุญาตเป็นภาพรวม ยา การแพ้ วัคซีน การรับบริการ รายงาน และแหล่งข้อมูลที่เชื่อมต่อ'}
+  description={en ? 'HealthTAG PHR presents permitted health information for the patient while hospitals steward clinical records in source systems.' : 'HealthTAG PHR แสดงข้อมูลสุขภาพตามสิทธิ์สำหรับผู้ป่วย โดยโรงพยาบาลยังดูแลเวชระเบียนในระบบต้นทาง'}
 >
   <main>
-    <section class="page-hero phr-hero">
+    <section class="page-hero phr-hero" data-founder-copy>
       <div class="container phr-hero-grid">
         <div>
           <div class="eyebrow">Personal Health Record</div>
-          <h1>{en ? 'Health information arranged for the person who needs to use it.' : 'จัดข้อมูลสุขภาพให้ผู้ป่วยเปิดดูและใช้งานได้'}</h1>
-          <p>{en ? 'HealthTAG PHR presents health information that the patient is authorized to access. It organizes available records by purpose, keeps data-source connections visible, and provides a route from the overview to each record category.' : 'HealthTAG PHR แสดงข้อมูลสุขภาพที่ผู้ป่วยได้รับสิทธิ์เข้าถึง จัดข้อมูลตามวัตถุประสงค์ของการใช้งาน แสดงแหล่งข้อมูลที่เชื่อมต่อ และพาผู้ป่วยจากภาพรวมไปยังข้อมูลแต่ละหมวด'}</p>
+          <h1>{en ? 'Your health data, arranged for your use.' : 'ข้อมูลสุขภาพของผู้ป่วย จัดไว้ให้ผู้ป่วยใช้งาน'}</h1>
+          <p>{en ? 'Health data belongs to the patient. HealthTAG PHR presents the information available and permitted for that patient, organized by purpose with each data source kept visible.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย HealthTAG PHR แสดงข้อมูลที่มีอยู่และได้รับอนุญาตสำหรับผู้ป่วยคนนั้น โดยจัดตามวัตถุประสงค์การใช้งานและแสดงแหล่งที่มาของข้อมูล'}</p>
           <div class="actions">
             <a class="btn primary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer" aria-label={en ? 'Open the HealthTAG PHR website in a new tab' : 'เปิดเว็บไซต์ HealthTAG PHR ในแท็บใหม่'}>{en ? 'Open PHR website' : 'เปิดเว็บไซต์ PHR'} ↗</a>
             <a class="btn secondary" href={`${prefix}/how-it-works/`}>{en ? 'See how data reaches the PHR' : 'ดูเส้นทางข้อมูลมายัง PHR'} →</a>
@@ -118,6 +118,13 @@ const screenshots = en ? [
             <div><b>{en ? 'Patient tools' : 'เครื่องมือผู้ป่วย'}</b><small>{en ? 'Reports · referral · emergency' : 'รายงาน · ส่งต่อ · ฉุกเฉิน'}</small></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="ownership-strip" data-founder-copy>
+      <div class="container ownership-grid">
+        <div><span class="mono">{en ? 'PATIENT OWNERSHIP' : 'ผู้ป่วยเป็นเจ้าของข้อมูล'}</span><h2>{en ? 'Ownership and record custody work together' : 'ความเป็นเจ้าของข้อมูลและการดูแลเวชระเบียนทำงานร่วมกัน'}</h2></div>
+        <p>{en ? 'Patients control consent and how their health data may be used. Hospitals store and steward the original clinical records in source systems. The PHR presents a permitted view without changing those responsibilities.' : 'ผู้ป่วยมีอำนาจเหนือความยินยอมและการใช้ข้อมูลสุขภาพ โรงพยาบาลจัดเก็บและดูแลเวชระเบียนต้นฉบับในระบบต้นทาง ส่วน PHR แสดงข้อมูลตามสิทธิ์โดยไม่เปลี่ยนหน้าที่เหล่านี้'}</p>
       </div>
     </section>
 
@@ -193,6 +200,11 @@ const screenshots = en ? [
   .phr-hero-grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(22rem, .98fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
   .phr-hero h1 { max-width: 16ch; overflow-wrap: anywhere; }
   .phr-hero p { max-width: 62ch; }
+  .ownership-strip { padding: clamp(2.5rem, 5vw, 4rem) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--mint); }
+  .ownership-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+  .ownership-grid .mono { display: block; margin-bottom: 1rem; color: var(--teal); }
+  .ownership-grid h2 { margin: 0; max-width: 18ch; font-size: clamp(1.65rem, 3vw, 2.6rem); }
+  .ownership-grid p { margin: 0; color: var(--ink); font-size: clamp(1rem, 1.4vw, 1.15rem); }
   .phr-map { position: relative; padding: 1rem; border: 1px solid var(--line); background: var(--white); }
   .phr-map::before { content: ''; position: absolute; inset: -12px 12px 12px -12px; z-index: -1; background: var(--mint); border: 1px solid color-mix(in srgb, var(--teal) 20%, transparent); }
   .map-title { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.1rem 1.2rem 1.3rem; border-bottom: 1px solid var(--line); }
@@ -228,13 +240,14 @@ const screenshots = en ? [
   .screen-gallery h3 { margin: 0 0 .4rem; font-size: clamp(1.15rem, 2vw, 1.45rem); }
   .screen-gallery figcaption p { margin: 0; color: var(--muted); }
   .phr-boundary { background: var(--ink); color: var(--white); }
+  .phr-boundary .mono { color: #9ae3da; }
   .boundary-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); }
   .boundary-grid h2 { max-width: 16ch; margin-bottom: 0; }
   .boundary-grid p { color: color-mix(in srgb, var(--white) 78%, transparent); }
   .boundary-grid .demo-note { padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--white) 18%, transparent); font-size: .92rem; }
   .boundary-grid a { color: var(--white); }
   @media (max-width: 850px) {
-    .phr-hero-grid, .boundary-grid, .screen-intro { grid-template-columns: 1fr; }
+    .phr-hero-grid, .ownership-grid, .boundary-grid, .screen-intro { grid-template-columns: 1fr; }
     .phr-map { margin: .75rem .75rem 0 0; }
     .capability-list article { grid-template-columns: 3rem 1fr; }
     .capability-labels { grid-column: 2; }

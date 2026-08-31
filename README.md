@@ -2,7 +2,7 @@
 
 Corporate website for HealthTAG, built with Astro and native CSS.
 
-The site explains HealthTAG as healthcare interoperability infrastructure: hospitals retain control of clinical records while HealthTAG connects FHIR data, patient identity, authorization, trusted exchange, audit, and Personal Health Record experiences.
+The site explains HealthTAG as healthcare interoperability infrastructure. Patients own their health data and control consent and use. Hospitals store and steward clinical records in their source systems. HealthTAG connects FHIR data, patient identity, authorization, trusted exchange, audit, and Personal Health Record experiences.
 
 ## Start here
 
@@ -20,7 +20,9 @@ The official Data Source Node architecture documentation is the primary technica
 
 ## Product architecture at a glance
 
-- Hospitals remain custodians and controllers of patient clinical data.
+- Patients own their health data and control consent and use.
+- Hospitals store and steward clinical records in their source systems.
+- HealthTAG provides the trust and interoperability infrastructure around authorized exchange.
 - Hospital data enters the FHIR layer through either a hospital-managed IT script or HealthTAG FHIR Transformer.
 - The current source-node stack uses HAPI FHIR Server, HL7 FHIR R4, PostgreSQL, and Kong API Gateway.
 - HealthTAG Module, also called Hospital API, runs inside the hospital network for identity linkage and authorization.

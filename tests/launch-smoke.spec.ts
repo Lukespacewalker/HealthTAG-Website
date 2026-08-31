@@ -69,15 +69,24 @@ test('Thai headings preserve safe line boxes for tone marks', async ({ page }) =
 test('mobile navigation works with keyboard and exposes launch routes', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  const summary = page.locator('.mobile-nav summary');
+  const summary = page.locator('.mobile-nav > summary');
   await summary.focus();
   await page.keyboard.press('Enter');
   await expect(page.locator('.mobile-nav')).toHaveAttribute('open', '');
+
+  const proofGroup = page.locator('.mobile-nav-group', { hasText: 'ผลงานและหลักฐาน' });
+  await proofGroup.locator(':scope > summary').focus();
+  await page.keyboard.press('Enter');
   await expect(page.locator('.mobile-panel a[href="/evidence/"]')).toBeVisible();
+
+  const publicationsGroup = page.locator('.mobile-nav-group', { hasText: 'ข่าวและบทความ' });
+  await publicationsGroup.locator(':scope > summary').focus();
+  await page.keyboard.press('Enter');
   await expect(page.locator('.mobile-panel a[href="/posts/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/contact/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/support/"]')).toBeVisible();
   await expect(page.locator('.mobile-panel a[href="/privacy/"]')).toBeVisible();
+  await summary.focus();
   await page.keyboard.press('Space');
   await expect(page.locator('.mobile-nav')).not.toHaveAttribute('open', '');
 });
@@ -168,7 +177,24 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of ['/interoperability/', '/network/', '/posts/', '/en/posts/', '/contact/', '/support/', '/en/support/', '/en/evidence/']) {
+for (const route of [
+  '/',
+  '/company/',
+  '/trust/',
+  '/phr/',
+  '/interoperability/',
+  '/network/',
+  '/posts/',
+  '/contact/',
+  '/support/',
+  '/en/',
+  '/en/company/',
+  '/en/trust/',
+  '/en/phr/',
+  '/en/posts/',
+  '/en/support/',
+  '/en/evidence/',
+]) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });
