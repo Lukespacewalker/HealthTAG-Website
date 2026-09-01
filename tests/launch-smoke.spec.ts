@@ -115,15 +115,13 @@ test('focus treatment and reduced-motion preference are respected', async ({ pag
   expect(scrollBehavior).toBe('auto');
 });
 
-test('contact form posts to the same-origin endpoint with an honest email fallback', async ({ page }) => {
+test('contact uses direct email links and does not collect a message on the website', async ({ page }) => {
   await page.goto('/contact/');
-  const form = page.locator('form[data-contact-form]');
-  await expect(form).toHaveAttribute('action', '/api/contact');
-  await expect(form).toHaveAttribute('method', 'post');
-  await expect(form.locator('select[name="topic"]')).toContainText('นักลงทุนสัมพันธ์');
+  await expect(page.locator('form')).toHaveCount(0);
   await expect(page.getByText(/โปรดอย่าส่งข้อมูลอ่อนไหว/).first()).toBeVisible();
-  await expect(page.locator('a[href="mailto:contact@healthtag.io"]').first()).toBeVisible();
-  await expect(page.locator('[data-contact-status]')).toBeEmpty();
+  await expect(page.locator('.email-primary')).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
+  await expect(page.locator('.topic-grid a')).toHaveCount(6);
+  await expect(page.locator('.topic-grid')).toContainText('นักลงทุนสัมพันธ์');
 });
 
 test('network relationships are presented as current network relationships', async ({ page }) => {

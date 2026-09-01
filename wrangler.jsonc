@@ -3,38 +3,5 @@
   "name": "healthtag-website",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-09-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "send_email": [
-    {
-      "name": "EMAIL",
-      "allowed_sender_addresses": ["contact@healthtag.io"]
-    }
-  ],
-  "ratelimits": [
-    {
-      "name": "CONTACT_RATE_LIMITER",
-      "namespace_id": "42107",
-      "simple": {
-        "limit": 5,
-        "period": 60
-      }
-    }
-  ],
-  "secrets": {
-    "required": [
-      "CONTACT_RECIPIENT_ROUTES",
-      "TURNSTILE_HOSTNAMES",
-      "TURNSTILE_SECRET"
-    ]
-  },
-  "observability": {
-    "enabled": true,
-    "logs": {
-      "head_sampling_rate": 1
-    },
-    "traces": {
-      "enabled": true,
-      "head_sampling_rate": 0.01
-    }
-  }
+  "compatibility_flags": ["nodejs_compat"]
 }

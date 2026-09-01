@@ -107,21 +107,15 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 
 ## Contact
 
-- [x] Contact posts to a same-origin endpoint and keeps the corporate email fallback visible.
-- [x] Current copy states that the team replies to the supplied email address within seven days.
-- [x] Sensitive-data warnings remain visible before the fields.
-- [x] Add a same-origin POST endpoint that sends email.
-- [x] Keep `contact@healthtag.io` as the visible fallback.
-- [x] Use only name, reply email, organization optional, topic, and message.
-- [x] Route provider, government and university, partnership, Investor Relations, press, and other topics.
-- [x] Do not store message content unless a later retention requirement is approved.
-- [x] Exclude field values and message text from analytics and routine logs.
-- [x] Preserve field values after server or network failure.
-- [x] Show success only after the email service accepts the request.
-- [x] Fail closed without a Turnstile token and show the email fallback when JavaScript is unavailable.
-- [x] Add rate limiting and spam controls.
-- [x] Update Privacy with purpose, fields, recipients, retention, deletion, and fallback handling.
-- [ ] Validate the production Turnstile widget, Email Service domain, Pages secrets, recipient delivery, replay rejection, and rate-limit namespace in the Cloudflare account.
+- [x] Use direct `mailto:` links to `contact@healthtag.io` on `main`.
+- [x] Current copy states that the team replies by email within seven days.
+- [x] Show the sensitive-data warning before the email links.
+- [x] Prepare subject links for provider integration, government and university, partnership, Investor Relations, press, and other topics.
+- [x] Explain that the website does not collect or submit the email message.
+- [x] Keep corporate email separate from clinical systems and PHR access.
+- [x] Update Privacy for email-provider and HealthTAG-mailbox retention boundaries.
+- [x] Preserve the proposed form/backend implementation on `codex/contact-form-backend`.
+- [ ] Before restoring a website form, create the delivery Worker and validate Turnstile, Email Service, service binding, secrets, delivery, replay rejection, and rate limiting.
 
 ## UX and accessibility
 
@@ -143,7 +137,7 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 - [x] Do not add analytics until a privacy-first provider, purpose, and retention policy are approved.
 - [x] Keep the current release independent of analytics and tracking scripts.
 - [x] Reserve the approved future event boundary to route, CTA position, evidence item ID, language switch, deployment case ID, and contact topic.
-- [x] Do not collect form values, message text, patient information, credentials, or cross-site identifiers.
+- [x] Do not collect email values, message text, patient information, credentials, or cross-site identifiers on the website.
 - [x] Confirm the site remains useful without analytics.
 
 ## SEO and bilingual quality
