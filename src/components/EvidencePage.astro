@@ -11,16 +11,16 @@ const en = locale === 'en';
   locale={locale}
   path="evidence"
   title={en ? 'Evidence and sources | HealthTAG' : 'หลักฐานและแหล่งข้อมูล | HealthTAG'}
-  description={en ? 'Official references for HealthTAG programmes, awards, collaborations, and deployments, with a clear description of what each reference confirms.' : 'หลักฐานสำหรับโครงการ รางวัล ความร่วมมือ และการติดตั้งของ HealthTAG พร้อมคำอธิบายว่าเอกสารแต่ละรายการยืนยันเรื่องใด'}
+  description={en ? 'Official records from Siriraj, ETDA, APICTA, NIA, ODESS, depa, and KASIKORNBANK related to HealthTAG.' : 'ข้อมูลที่เผยแพร่โดยศิริราช ETDA APICTA NIA ODESS depa และธนาคารกสิกรไทย ซึ่งเกี่ยวข้องกับ HealthTAG'}
 >
   <main>
     <section class="page-hero evidence-hero">
       <div class="container evidence-hero-grid">
         <div>
           <div class="eyebrow">HealthTAG / {en ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</div>
-          <h1>{en ? 'Evidence and what it confirms' : 'หลักฐานและสิ่งที่ยืนยัน'}</h1>
+          <h1>{en ? 'Records from external organizations' : 'ข้อมูลจากหน่วยงานภายนอก'}</h1>
         </div>
-        <p>{en ? 'External sources confirm programmes, awards, sandbox testing, collaborations, and published profiles. Some implementation details come directly from HealthTAG.' : 'แหล่งข้อมูลภายนอกยืนยันโครงการ รางวัล การทดสอบใน sandbox ความร่วมมือ และบทความแนะนำ ส่วนรายละเอียดการติดตั้งบางรายการมาจาก HealthTAG โดยตรง'}</p>
+        <p>{en ? 'Siriraj, ETDA, APICTA, NIA, ODESS, depa, and KASIKORNBANK have published records related to HealthTAG. Hospital implementation details come from HealthTAG.' : 'ศิริราช ETDA APICTA NIA ODESS depa และธนาคารกสิกรไทยเผยแพร่ข้อมูลที่เกี่ยวข้องกับ HealthTAG ส่วนรายละเอียดการติดตั้งโรงพยาบาลมาจาก HealthTAG'}</p>
       </div>
     </section>
 
@@ -54,12 +54,6 @@ const en = locale === 'en';
       </div>
     </section>
 
-    <section class="evidence-policy">
-      <div class="container policy-grid">
-        <div><span>{en ? 'RELATIONSHIPS' : 'ความสัมพันธ์'}</span><h2>{en ? 'What each relationship means' : 'ความหมายของความสัมพันธ์แต่ละประเภท'}</h2></div>
-        <p>{en ? 'Network identifies an ongoing relationship. Deployment describes an implementation. Award records a competition result. Sandbox records programme testing. Programme and collaboration record participation or public cooperation.' : 'เครือข่ายหมายถึงความสัมพันธ์ที่ยังดำเนินอยู่ การติดตั้งใช้งานหมายถึงการนำระบบไปใช้ รางวัลคือผลการประกวด sandbox คือการทดสอบในโครงการ ส่วนโครงการและความร่วมมือหมายถึงการเข้าร่วมหรือความร่วมมือสาธารณะ'}</p>
-      </div>
-    </section>
   </main>
 </Base>
 
@@ -84,13 +78,8 @@ const en = locale === 'en';
   .claim-block p { margin: 0; color: var(--muted); }
   .context-claim > span { color: var(--amber-ink); }
   .source-link { display: inline-flex; gap: 8px; margin-top: 22px; color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
-  .evidence-policy { padding: 68px 0; background: var(--ink); color: var(--paper); }
-  .policy-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: end; }
-  .policy-grid span { font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #8bd9d1; font-size: .7rem; letter-spacing: .1em; }
-  .policy-grid h2 { margin: 12px 0 0; font-size: clamp(2rem, 3.7vw, 3.4rem); line-height: 1.1; letter-spacing: -.045em; }
-  .policy-grid p { margin: 0; color: #bdd0d0; font-size: 1.03rem; }
   @media (max-width: 760px) {
-    .evidence-hero-grid, .evidence-entry, .policy-grid { grid-template-columns: 1fr; gap: 30px; }
+    .evidence-hero-grid, .evidence-entry { grid-template-columns: 1fr; gap: 30px; }
     .evidence-index { display: grid; grid-template-columns: auto 1fr auto; align-items: center; padding: 20px; border-right: 0; border-bottom: 1px solid var(--line); }
     .evidence-tag { margin: 0; }
     .source-meta { grid-template-columns: 1fr; gap: 10px; }

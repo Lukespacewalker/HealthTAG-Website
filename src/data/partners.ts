@@ -50,8 +50,8 @@ export const networkGroups: NetworkGroup[] = [
   },
   {
     id: 'thailand',
-    title: { th: 'องค์กรและโครงการในประเทศไทย', en: 'Thai organizations & programmes' },
-    introduction: { th: 'หน่วยงานไทยในเครือข่าย โครงการ และความร่วมมือของ HealthTAG', en: 'Thai organizations in the HealthTAG network, programmes, and public collaborations.' },
+    title: { th: 'องค์กรในประเทศไทย', en: 'Organizations in Thailand' },
+    introduction: { th: 'depa, ETDA, TICTA, NIA, SiData, Standards and Interoperability Lab–Thailand และ Kin Yoo Dee Platform เกี่ยวข้องกับงานของ HealthTAG', en: 'depa, ETDA, TICTA, NIA, SiData, Standards and Interoperability Lab–Thailand, and Kin Yoo Dee Platform are connected to HealthTAG\'s work.' },
     organizations: [
       { id: 'depa', name: { th: 'depa', en: 'depa' }, logo: depa, relationship: { th: 'บันทึกความเข้าใจด้านโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน', en: 'Public MoU on blockchain infrastructure for public services' }, badge: { th: 'ความร่วมมือสาธารณะ', en: 'Public Collaboration' }, detailPage: 'evidence' },
       { id: 'etda', name: { th: 'ETDA', en: 'ETDA' }, logo: etda, relationship: { th: 'ผลการทดสอบใน Digital Service Sandbox เป็นไปตามเป้าหมายที่ ETDA กำหนด', en: 'Testing in the Digital Service Sandbox met the goals set by ETDA' }, badge: { th: 'Sandbox', en: 'Sandbox' }, detailPage: 'evidence' },
@@ -64,8 +64,8 @@ export const networkGroups: NetworkGroup[] = [
   },
   {
     id: 'international',
-    title: { th: 'เครือข่ายและโครงการต่างประเทศ', en: 'International networks & programmes' },
-    introduction: { th: 'รางวัลและเครือข่ายต่างประเทศของ HealthTAG', en: 'HealthTAG awards and international networks.' },
+    title: { th: 'องค์กรต่างประเทศ', en: 'International organizations' },
+    introduction: { th: 'Department for International Trade (UK), APICTA, AeHIN และ Asia Open Data Partnership เกี่ยวข้องกับงานของ HealthTAG', en: 'The Department for International Trade (UK), APICTA, AeHIN, and Asia Open Data Partnership are connected to HealthTAG\'s work.' },
     organizations: [
       { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category: Start-Up', en: '2022 winner · Cross Category: Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },

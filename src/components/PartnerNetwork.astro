@@ -102,16 +102,6 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
   ))}
 </div>
 
-<section class="network-note">
-  <div class="container note-inner">
-    <div>
-      <strong>{en ? 'Relationships with HealthTAG' : 'ความสัมพันธ์กับ HealthTAG'}</strong>
-      <p>{en ? 'Network, deployment, award, sandbox, programme, and public collaboration describe different relationships. See Deployments and Evidence for the supporting details.' : 'เครือข่าย การติดตั้งใช้งาน รางวัล sandbox โครงการ และความร่วมมือสาธารณะ เป็นความสัมพันธ์คนละประเภท ดูรายละเอียดเพิ่มเติมได้ที่หน้าการติดตั้งใช้งานและหลักฐาน'}</p>
-    </div>
-    <div class="actions"><a class="btn secondary" href={`${prefix}/deployments/`}>{en ? 'Deployment details' : 'รายละเอียดการติดตั้งใช้งาน'}</a><a class="btn secondary" href={`${prefix}/evidence/`}>{en ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</a></div>
-  </div>
-</section>
-
 <style>
   .ecosystem-principle { padding: clamp(42px, 7vw, 72px) 0; border-top: 1px solid var(--line); background: var(--mint); }
   .principle-inner { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 7vw, 84px); align-items: start; }
@@ -148,21 +138,14 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
   .organization-copy h3 { margin: 13px 0 0; font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
   .organization-copy p { margin: 8px 0 0; font-size: .84rem; color: var(--muted); }
   .organization-copy a { display: inline-block; margin-top: 12px; font-size: .88rem; }
-  .network-note { padding: 48px 0 68px; border-top: 1px solid var(--line); background: var(--ink); color: var(--paper); }
-  .note-inner { display: grid; grid-template-columns: 1.3fr .7fr; gap: 52px; align-items: end; }
-  .note-inner > div > strong { font-size: 1.25rem; }
-  .note-inner p { max-width: 840px; margin: 10px 0 0; color: #bdd0d0; }
-  .network-note .actions { justify-content: flex-end; margin: 0; }
-  .network-note .btn { color: var(--paper); border-color: rgba(221, 243, 235, .55); }
   @media (max-width: 1050px) { .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ecosystem-grid, .medical-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 760px) {
-    .principle-inner, .group-heading, .featured-network-card, .ecosystem-cluster, .subheading, .note-inner { grid-template-columns: 1fr; gap: 18px; }
+    .principle-inner, .group-heading, .featured-network-card, .ecosystem-cluster, .subheading { grid-template-columns: 1fr; gap: 18px; }
     .featured-logo { min-height: 190px; border-right: 0; border-bottom: 1px solid var(--line); }
     .logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
     .ecosystem-cluster { padding: 20px; }
     .logo-frame { padding: 14px; height: 132px; }
     .organization-copy { padding-bottom: 20px; }
-    .network-note .actions { justify-content: flex-start; }
   }
   @media (max-width: 400px) { .logo-grid { grid-template-columns: 1fr; } .logo-frame { height: 145px; } }
 </style>
