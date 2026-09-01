@@ -8,7 +8,7 @@ Use this checklist with `content-spec-implementation-plan.md`.
 - [x] Public identity-linkage naming is `Identity Connect` in English and `ระบบเชื่อมตัวตนผู้ป่วย` in Thai.
 - [x] Public copy uses generic cloud-database wording and does not expose the specific vendor.
 - [x] Siriraj stays within the confirmed Siriraj 5G Smart Hospital boundary.
-- [x] Khian Sa is described as using HealthTAG FHIR Transformer without a start date.
+- [x] Khian Sa is described as using HealthTAG FHIR Transformer since 1 June 2025.
 - [x] The investor page and business-model categories are owner-confirmed.
 - [x] Contact commits to a reply by email within seven days.
 - [x] The confirmed public team role is `General Administration` / `ฝ่ายบริหารงานทั่วไป`.
@@ -91,7 +91,7 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 - [x] Keep the Siriraj external-source statement separate from HealthTAG's implementation statement.
 - [x] State that Khian Sa uses HealthTAG FHIR Transformer.
 - [x] Show the four confirmed Khian Sa FHIR resources.
-- [x] Omit the Khian Sa start date until supplied.
+- [x] Publish the owner-confirmed Khian Sa start date as 1 June 2025.
 - [x] Do not publish a future-case placeholder.
 - [x] Do not turn Network, Award, Sandbox, Programme, or Collaboration records into deployments.
 - [x] Make external-source destinations clear before the user clicks.

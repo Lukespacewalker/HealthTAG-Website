@@ -19,7 +19,7 @@ The site owner confirmed the following decisions for this plan:
 - The public Thai name is `ระบบเชื่อมตัวตนผู้ป่วย`.
 - Public copy may say that identity-linkage data is stored in a cloud database. It must not name the database vendor or the retired internal identity-system name.
 - Siriraj copy remains within the confirmed Siriraj 5G Smart Hospital boundary.
-- Khian Sa Hospital uses HealthTAG FHIR Transformer. Do not publish a start date until the owner supplies one.
+- Khian Sa Hospital has used HealthTAG FHIR Transformer since 1 June 2025.
 - The investor page and the owner-confirmed business-model description may be published without financial figures.
 - Contact copy will state that the team replies to the supplied email address within seven days.
 - The current public team title is `General Administration` in English and `ฝ่ายบริหารงานทั่วไป` in Thai.
@@ -170,7 +170,7 @@ Do not state that consent is the only lawful basis under PDPA. Do not compare un
 - Keep the current separation between external-source statements and HealthTAG-provided implementation context.
 - Describe Siriraj within the Siriraj 5G Smart Hospital programme boundary.
 - State that Khian Sa uses HealthTAG FHIR Transformer and the four confirmed FHIR resources.
-- Omit the Khian Sa start date until it is supplied.
+- Publish the owner-confirmed Khian Sa start date as 1 June 2025.
 - Do not show a placeholder for a future case study.
 - Keep Network relationships separate from deployments.
 
@@ -281,6 +281,6 @@ The work is complete when the approved IA, public naming policy, deployment boun
 - Turnstile widget creation, Email Service domain activation, Pages secrets, live recipient delivery, replay rejection, and the rate-limit namespace still require access to the HealthTAG Cloudflare account and explicit approval for the external widget.
 - The public contact form therefore stays disabled when `PUBLIC_TURNSTILE_SITEKEY` is absent; `contact@healthtag.io` remains available in every state.
 - The Investors page deliberately omits PDPA-specific and market-size claims. A legal or designated review is still required before adding PDPA interpretation.
-- Khian Sa's start date remains unpublished until the owner supplies it.
+- Khian Sa's owner-confirmed start date is published as 1 June 2025.
 - Git history, release archives, mirrors, and search-engine caches have not been rewritten or purged; that is a separate coordinated task.
 - No analytics provider or tracking script has been added. The site remains fully usable without analytics.

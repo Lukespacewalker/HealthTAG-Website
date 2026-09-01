@@ -36,7 +36,7 @@ The official Data Source Node architecture documentation is the primary technica
 ### Confirmed deployment examples
 
 - **Siriraj Hospital:** HealthTAG participated in the Permission-based Blockchain for Personal Health Record workstream under Siriraj 5G Smart Hospital. Siriraj IT uses its own HIS-to-FHIR script and does not use HealthTAG FHIR Transformer.
-- **Khian Sa Hospital:** uses HealthTAG FHIR Transformer for selected HIS-to-FHIR R4 transformation. The currently confirmed Transformer scope includes `Patient`, `AllergyIntolerance`, `Encounter`, and `MedicationDispense`.
+- **Khian Sa Hospital:** has used HealthTAG FHIR Transformer since 1 June 2025 for selected HIS-to-FHIR R4 transformation. The currently confirmed Transformer scope includes `Patient`, `AllergyIntolerance`, `Encounter`, and `MedicationDispense`.
 
 Network relationships, awards, sandbox participation, and collaborations are not automatically production deployments or current customer contracts. See the Network, Deployments, and Evidence pages for their separate roles.
 
