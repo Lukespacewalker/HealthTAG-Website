@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  deployments: write
 
 concurrency:
   group: website-${{ github.event_name }}-${{ github.ref }}
@@ -34,11 +33,45 @@ jobs:
           path: dist
           if-no-files-found: error
           retention-days: 7
-      - name: Deploy to Cloudflare Pages
+      - uses: actions/upload-artifact@v4
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=healthtag-website --branch=main
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          name: website-production-${{ github.sha }}
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy-production:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: website-production-${{ github.sha }}
+          path: dist
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          role-session-name: HealthTAGWebsite-${{ github.run_id }}
+          aws-region: ${{ vars.AWS_REGION }}
+      - name: Sync website to S3
+        run: >-
+          aws s3 sync dist "s3://${{ vars.AWS_S3_BUCKET }}"
+          --delete
+          --only-show-errors
+          --cache-control "public, max-age=0, must-revalidate"
+      - name: Invalidate CloudFront
+        run: |
+          healthtag_invalidation_id=$(aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths '/*' \
+            --query 'Invalidation.Id' \
+            --output text)
+          aws cloudfront wait invalidation-completed \
+            --distribution-id "${{ vars.AWS_CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --id "$healthtag_invalidation_id"
+          echo "CloudFront invalidation completed: $healthtag_invalidation_id"
