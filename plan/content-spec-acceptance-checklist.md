@@ -183,4 +183,5 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 - [x] Record owner-confirmed claims separately from externally sourced claims.
 - [x] Prepare test results and representative screenshots under `docs/qa/` for the PR.
 - [x] List remaining factual, legal, operational, and source limitations in this checklist and the implementation plan.
-- [ ] Do not merge or deploy without explicit approval.
+- [x] Open [PR #19](https://github.com/Lukespacewalker/HealthTAG-Website/pull/19) with the decisions, sources, tests, screenshots, and limitations.
+- [x] Do not merge or deploy without explicit approval.
