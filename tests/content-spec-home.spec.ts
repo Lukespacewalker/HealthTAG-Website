@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 const expectedSequence = [
   'hero',
   'proof',
+  'news',
   'responsibilities',
   'capabilities',
   'audiences',
@@ -24,6 +25,8 @@ for (const route of ['/', '/en/']) {
     await expect(page.locator('[data-home-section="hero"] .hero-actions a')).toHaveCount(2);
     await expect(page.locator('[data-home-section="proof"] .proof-item')).toHaveCount(4);
     await expect(page.locator('[data-home-section="proof"] .proof-tag')).toHaveCount(4);
+    await expect(page.locator('[data-home-section="news"] .featured-story')).toHaveCount(2);
+    await expect(page.locator('[data-home-section="news"] .latest-news-list > a')).toHaveCount(3);
     await expect(page.locator('[data-home-section="responsibilities"] article')).toHaveCount(3);
     await expect(page.locator('[data-home-section="capabilities"] article')).toHaveCount(4);
     await expect(page.locator('[data-home-section="audiences"] nav > a')).toHaveCount(4);
