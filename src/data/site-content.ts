@@ -6,14 +6,14 @@ export const pageContent: Record<string, Record<Locale, PageCopy>> = {
   network: {
     th: {
       label: 'เครือข่าย',
-      title: 'HealthTAG กับองค์กรในประเทศและต่างประเทศ',
-      intro: 'โรงพยาบาล สถาบันการแพทย์ หน่วยงานไทย และองค์กรต่างประเทศที่เกี่ยวข้องกับงานของ HealthTAG',
+      title: 'เครือข่าย HealthTAG ในประเทศไทยและต่างประเทศ',
+      intro: 'เครือข่ายของ HealthTAG ประกอบด้วยโรงพยาบาล สถาบันการแพทย์ หน่วยงานไทย และองค์กรต่างประเทศ',
       sections: [],
     },
     en: {
       label: 'Network',
-      title: 'HealthTAG and organizations in Thailand and abroad',
-      intro: 'Hospitals, medical institutions, Thai agencies, and international organizations connected to HealthTAG\'s work.',
+      title: 'The HealthTAG network in Thailand and abroad',
+      intro: 'The HealthTAG network includes hospitals, medical institutions, Thai agencies, and international organizations.',
       sections: [],
     },
   },

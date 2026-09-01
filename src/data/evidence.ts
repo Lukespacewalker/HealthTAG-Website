@@ -72,8 +72,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'ETDA lists the HealthTAG service in its Digital Service Sandbox, including the testing period and an exit status after meeting the defined goals and success indicators.',
     },
     healthTagContext: {
-      th: 'สถานะออกจาก Sandbox ยืนยันผลการทดสอบตามเป้าหมายของโครงการ ส่วนการรับรอง การอนุมัติด้านกฎระเบียบ และการใช้งานจริงต้องพิจารณาแยกกัน',
-      en: 'Sandbox exit records testing against the programme goals. Certification, regulatory approval, and deployment status must be assessed separately.',
+      th: 'ETDA ระบุว่าผลการทดสอบเป็นไปตามเป้าหมายและตัวชี้วัดของโครงการ สถานะนี้ไม่ได้ยืนยันการรับรอง การอนุมัติด้านกฎระเบียบ หรือการติดตั้งใช้งานจริง',
+      en: 'ETDA states that the testing met the programme\'s goals and success indicators. This status does not confirm certification, regulatory approval, or a production deployment.',
     },
     href: { th: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx', en: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx' },
   },
@@ -91,8 +91,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'depa announced an MoU with HealthTAG to develop blockchain infrastructure for public services.',
     },
     healthTagContext: {
-      th: 'ประกาศนี้บันทึกความร่วมมือสาธารณะ ส่วนการติดตั้งด้านสุขภาพและบริการที่เปิดใช้งานจริงต้องมีหลักฐานแยกต่างหาก',
-      en: 'The announcement records a public collaboration. A healthcare deployment or live service would require separate evidence.',
+      th: 'ประกาศระบุว่า depa และ HealthTAG ทำบันทึกความเข้าใจร่วมกัน แต่ไม่ได้ระบุว่ามีการติดตั้งระบบสุขภาพหรือเปิดให้บริการแล้ว',
+      en: 'The announcement confirms an MoU between depa and HealthTAG, but does not state that a healthcare system has been deployed or that a service is live.',
     },
     href: { th: 'https://www.depa.or.th/th/article-view/20230112_03', en: 'https://www.depa.or.th/th/article-view/20230112_03' },
   },
@@ -129,8 +129,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'ODESS profiles HealthTAG as a Thai digital-health initiative addressing fragmented health data, interoperability, patient access, and the use of HL7 FHIR.',
     },
     healthTagContext: {
-      th: 'บทความนี้เป็นข้อมูลแนะนำโครงการจากแหล่งภายนอก และไม่ได้ระบุรางวัล การรับรอง หรือการติดตั้งในสถานพยาบาลแห่งใด',
-      en: 'This external profile describes the project. It does not record an award, certification, or a specific hospital deployment.',
+      th: 'ODESS อธิบายเป้าหมายและแนวทางของ HealthTAG แต่ไม่ได้ระบุว่าโครงการได้รับรางวัล การรับรอง หรือมีการติดตั้งในโรงพยาบาลแห่งใด',
+      en: 'ODESS describes HealthTAG\'s goals and approach, but does not identify an award, certification, or deployment at a specific hospital.',
     },
     href: { th: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/', en: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/' },
   },

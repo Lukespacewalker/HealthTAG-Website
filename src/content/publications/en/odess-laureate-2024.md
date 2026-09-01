@@ -38,8 +38,4 @@ confirmedResult:
 
 ## Recognition from ODESS
 
-We are proud that HealthTAG was named a 2024 ODESS laureate. For our team, this recognition marks an important point in the work to improve access to health information and strengthen healthcare interoperability.
-
-We are especially pleased to bring this recognition to Thailand. It reflects the sustained work of the HealthTAG team, the valuable support of Siriraj Hospital, and the contributions of many people behind the scenes.
-
-Thank you to everyone who has shared this journey with us. Your support has encouraged the team to keep improving health technology that can make a practical difference for people.
+ODESS named HealthTAG a 2024 digital health laureate and identified it as an initiative from Thailand. The work focuses on improving patient access to health information and healthcare interoperability. The HealthTAG team thanks Siriraj Hospital and everyone who contributed to this work. Their support helps the team continue developing health technology.

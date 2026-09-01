@@ -47,12 +47,10 @@ The ODESS project profile places HealthTAG in the context of fragmented health i
 
 ## The partners who welcomed the representative
 
-HealthTAG named Siriraj Hospital, Golden Jubilee Medical Center and Standards and Interoperability Lab Thailand, or SIL-TH, as partners involved during the assessment visit. The visit allowed the Fondation Pierre Fabre representative to see both the healthcare-provider perspective and the health-data standards work associated with the initiative.
-
-Each organisation contributes to the shared task of making health information usable across systems while hospitals remain responsible for their clinical records.
+HealthTAG states that Siriraj Hospital, Golden Jubilee Medical Center, and Standards and Interoperability Lab Thailand, or SIL-TH, joined the assessment visit. The presentation covered healthcare-provider operations and health-data standards, while hospitals remained responsible for their clinical records.
 
 ## The system reviewed during the visit
 
 HealthTAG connects clinical data through FHIR and manages identity, authorisation and access auditing. Hospitals control the clinical records, while blockchain records consent and access events for later review.
 
-In this context, the word decentralised refers to helping patients access their own health information without consolidating every clinical record in one place. The two-day visit gave HealthTAG and its partners an opportunity to present that approach directly to the ODESS representative.
+The approach presented during the visit does not consolidate every clinical record in one place. Patients access their health information through a system that exchanges data under authorisation. HealthTAG and its partners presented this approach to the ODESS representative during the two-day visit.

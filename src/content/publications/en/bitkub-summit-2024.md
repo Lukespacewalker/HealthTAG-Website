@@ -42,7 +42,7 @@ KUB Chain announced the session two days before the event and invited attendees 
 
 After the summit, Bitkub Blockchain Technology published a summary of the Bitkub Chain roadmap. It described a Blockchain Layer 2 for Healthcare project with HealthTAG, focused on data privacy and still at an early stage of development.
 
-The announcement named Siriraj Hospital, Thammasat University Hospital and the Mor Prom application as initial use cases in that plan. These details come from Bitkub's post-event development announcement. HealthTAG presents its confirmed implementation records separately on the website's Deployments page.
+Bitkub's post-event plan named Siriraj Hospital, Thammasat University Hospital, and the Mor Prom application as initial use cases. The announcement does not confirm that all three are current HealthTAG deployments.
 
 ## Blockchain's role in the HealthTAG system
 
@@ -52,4 +52,4 @@ The session therefore gave blockchain a specific job in healthcare: managing per
 
 ## From the session to joint development
 
-The presentation brought HealthTAG's experience in health information exchange to Thailand's blockchain developer and user community. It also made the direction of the work with Bitkub public. Together, the KUB Chain session announcement and Bitkub Blockchain Technology's article published on 25 October connect the summit presentation with the healthcare Layer 2 plan.
+KUB Chain announced HealthTAG's session before the event. On 25 October, Bitkub Blockchain Technology published a healthcare Layer 2 plan that identified work with HealthTAG.

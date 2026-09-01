@@ -182,10 +182,7 @@ https), 8080(HAPI UI), 8888(Upload) ให้เข้าถึงได้เ�
 
 ### การสร้าง Service สำหรับทำ Proxy API สู่ FHIR API
 
-สามารถข้ามขั้นตอนนี้ไปยัง 2.4 การสร้าง Consumer เพื่อใช้งาน KONG Administration
-API เนื่องจากใน Docker Image ในขั้นตอน 1.2.3 มี Script
-ที่ตั้งค่าขั้นตอนนี้ให้อัตโนมัติแล้ว
-(ขั้นตอน 2.2 นี้ระบุไว้เพื่อให้เห็นการทำงานของ Script)
+ข้ามหัวข้อนี้ไปที่ 2.4 การสร้าง Consumer สำหรับ KONG Administration API ได้ เพราะ Docker image ในหัวข้อ 1.2.3 มี script ตั้งค่าให้อัตโนมัติแล้ว หัวข้อ 2.2 อธิบายขั้นตอนที่ script ดำเนินการ
 
 ภายใต้หัวข้อ Service เลือก Add New Service
 
@@ -257,9 +254,7 @@ Service
 
 **Cors**
 
-ภายใต้หมวด Security เลือก Cors จากนั้นกด Add Plugin ซึ่ง Plugin
-นี้จะใช้กำหนดการตั้งค่าของ Cross-Origin Resource Sharing เพื่อให้ Web browser
-อนุญาตให้เว็บแอพพลิเคชั่น (ซึ่งอาจจะอยู่คนละ Domain กับ API นี้) สามารถเรียกใช้ API นี้ได้
+ภายใต้หมวด Security เลือก CORS แล้วกด Add Plugin ปลั๊กอินนี้กำหนดให้เว็บแอปพลิเคชันจากโดเมนอื่นเรียก API นี้ได้
 
 ![การเพิ่ม Cors Plugin](../assets/legacy/community-edition/image25.png)
 
@@ -280,10 +275,7 @@ Add Plugin เพื่อยืนยัน
 
 ### การสร้าง Service สำหรับทำ Proxy API สำหรับ KONG Administration API
 
-สามารถข้ามขั้นตอนนี้ไปยัง 2.4 การสร้าง Consumer เพื่อใช้งาน KONG Administration
-API เนื่องจากใน Docker Image ในขั้นตอน 1.2.3 มี Script
-ที่ตั้งค่าขั้นตอนนี้ให้อัตโนมัติแล้ว
-(ขั้นตอน 2.3 นี้ระบุไว้เพื่อให้เห็นการทำงานของ Script)
+ข้ามหัวข้อนี้ไปที่ 2.4 การสร้าง Consumer สำหรับ KONG Administration API ได้ เพราะ Docker image ในหัวข้อ 1.2.3 มี script ตั้งค่าให้อัตโนมัติแล้ว หัวข้อ 2.3 อธิบายขั้นตอนที่ script ดำเนินการ
 
 ภายใต้หัวข้อ Service เลือก Add New Service
 
@@ -340,10 +332,7 @@ Service เพื่อเข้าไปจัดการเส้นทาง
 
 **Basic Auth**
 
-ภายใต้หมวด Authentication เลือก Basic Auth จากนั้นกด Add Plugin ซึ่ง Plugin
-นี้จะทำให้สามารถควบคุมการเข้าถึง Administration API ด้วย Username และ Password
-ที่กำหนดไว้ได้ ซึ่ง Username และ Password นี้ใช้การเข้าสู่ User Interface
-ของโรงพยาบาลที่ใช้เพิ่ม Username และ Password ให้กับผู้ป่วย
+ภายใต้หมวด Authentication เลือก Basic Auth แล้วกด Add Plugin ปลั๊กอินนี้จำกัดการเข้าถึง Administration API ด้วย Username และ Password ที่กำหนด ข้อมูลชุดเดียวกันใช้เข้าสู่หน้าจอสำหรับเจ้าหน้าที่โรงพยาบาลที่สร้าง Username และ Password ให้ผู้ป่วย
 
 ![เพิ่ม Basic Auth Plugin](../assets/legacy/community-edition/image23.png)
 
@@ -428,18 +417,15 @@ Service เพื่อเข้าไปจัดการเส้นทาง
     - ไฟล์ CSOP ตั้งชื่อว่า `BILLTRAN<YYYYMMDD>.txt` สำหรับ CSOP ประเภท Bill Trans
     - ไฟล์ CSOP ตั้งชื่อว่า `BILLTDISP<YYYYMMDD>.txt` สำหรับ CSOP ประเภท Bill Disp
 
-> **หมายเหตุ: การวางไฟล์ไม่สามารถใช้เป็น ZIP file ได้ จำเป็นจะต้องแตกไฟล์ .txt
-> ที่อยู่ภายในและต้องตั้งชื่อไฟล์ให้เป็นไปตามที่ระบุไว้ข้างต้นเท่านั้น**
+> **หมายเหตุ: ระบบไม่รองรับไฟล์ ZIP ให้แตกไฟล์ `.txt` ภายในก่อนอัปโหลด และตั้งชื่อไฟล์ตามรูปแบบข้างต้นเท่านั้น**
 
-![แสดงไฟล์ที่อับโหลดเรียบร้อยแล้ว](../assets/legacy/community-edition/image42.png)
+![แสดงไฟล์ที่อัปโหลดเรียบร้อยแล้ว](../assets/legacy/community-edition/image42.png)
 
-<small class="manual-caption">แสดงไฟล์ที่อับโหลดเรียบร้อยแล้ว</small>
+<small class="manual-caption">แสดงไฟล์ที่อัปโหลดเรียบร้อยแล้ว</small>
 
 ### การใช้งาน Script แปลงข้อมูล CSOP เป็น FHIR
 
-เจ้าหน้าที่ไอที จะต้องดำเนินการจัดเตรียม directory เพื่อให้รันสคริปต์ Python
-ในการแปลงข้อมูลไฟล์รูปแบบ CSOP เป็นข้อมูลมาตรฐานตาม HL7 FHIR
-เพื่อให้โปรแกรมอัพโหลดข้อมูลที่ได้เข้าระบบ HAPI FHIR Server ต่อไป
+เจ้าหน้าที่ไอทีต้องเตรียม directory สำหรับรัน Python script ที่แปลงไฟล์ CSOP เป็นข้อมูลตามมาตรฐาน HL7 FHIR แล้วอัปโหลดผลลัพธ์ไปยัง HAPI FHIR Server
 
 **สิ่งที่จำเป็นต้องมี**
 
@@ -490,8 +476,7 @@ base_fhir_url = "http://hapi-fhir-jpaserver-start:8080/fhir"
 python3 transform_fhir.py
 ```
 
-    โดยเจ้าหน้าที่ไอทีจะต้องมาดำเนินการรันไฟล์ดังกล่าวทุกวัน
-    ทั้งนี้สามารถตั้งค่าให้โปรแกรมรันโดยอัตโนมัติด้วยวิธี Cron job
+    เจ้าหน้าที่ไอทีต้องรัน script นี้ทุกวัน หรือกำหนด Cron job ให้ระบบรันโดยอัตโนมัติ
 
 6.  ตรวจสอบข้อมูลที่เข้าสู่ระบบหลังจาก script ทำงานเสร็จสิ้น
 

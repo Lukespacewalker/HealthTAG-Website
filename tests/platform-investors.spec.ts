@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 
 for (const [route, lang, alternate, heading] of [
-  ['/platform/', 'th', '/en/platform/', 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่แบ่งหน้าที่ชัดเจน'],
-  ['/en/platform/', 'en', '/platform/', 'Health data infrastructure with clear responsibilities'],
+  ['/platform/', 'th', '/en/platform/', 'เชื่อมข้อมูลสุขภาพ โดยเวชระเบียนยังอยู่กับโรงพยาบาล'],
+  ['/en/platform/', 'en', '/platform/', 'Connect health data while hospitals keep the clinical records'],
   ['/investors/', 'th', '/en/investors/', 'โครงสร้างพื้นฐานข้อมูลสุขภาพสำหรับการแลกเปลี่ยนตามสิทธิ์'],
   ['/en/investors/', 'en', '/investors/', 'Health data infrastructure for authorized exchange'],
 ]) {

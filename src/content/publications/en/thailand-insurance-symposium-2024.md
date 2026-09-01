@@ -40,16 +40,16 @@ Dr Dechowat Promda, CEO of HealthTAG, joined the tenth Thailand Insurance Sympos
 
 The Office of Insurance Commission organized the event under the theme "Redefining Insurance through Technology for Sustainable Life and Health Protection." Chuchat Pramulpol, Secretary-General of the Office of Insurance Commission, opened the event and delivered a special address.
 
-HealthTAG's topic brought healthcare, insurance, and AI into the event's wider discussion. The symposium was designed to exchange knowledge about insurance, risk management, and the effects of economic, social, and technological change on the insurance industry.
+The symposium focused on insurance, risk management, and the effects of economic, social, and technological change on the industry. Dr Promda's invited session covered healthcare, insurance, and AI.
 
 ## The digital insurance programme
 
 The programme also included a panel titled "Future Landscape in Digital Insurance," with representatives from the Office of Insurance Commission, the Fiscal Policy Research Institute, and Yip In Tsoi. Eugene Macey of PwC delivered another session, "Innovating for Tomorrow: The Future of CX & Digital Workbench in Insurance."
 
-Together, these sessions placed HealthTAG's talk within a discussion of digital insurance services, customer experience, and the practical use of technology in insurance. HealthTAG participated as an invited speaker for its scheduled session.
+HealthTAG took part as an invited speaker for its scheduled session.
 
 ## A forum for the insurance sector
 
 The Thai Life Assurance Association described the symposium as a forum for Thai and international specialists to share knowledge and experience. Its purpose included helping public agencies, private organizations, and the public apply insurance and risk management knowledge.
 
-HealthTAG published the session schedule on 19 November 2024, two days before the event. The Thai Life Assurance Association's record confirms that the symposium took place and that Dr Promda delivered the talk on 21 November 2024.
+HealthTAG announced the session schedule on 19 November 2024. The Thai Life Assurance Association records that Dr Promda delivered the talk on 21 November 2024.

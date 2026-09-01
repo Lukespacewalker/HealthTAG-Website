@@ -58,4 +58,4 @@ In the implemented architecture, clinical records remain in systems controlled b
 
 ## From infrastructure to clinical services
 
-The nine workstreams covered several layers of a smart hospital, including networks, cloud computing, emergency care, pathology, NCD support, logistics, and access to health information. Siriraj tested and developed each technology to work with hospital operations.
+The nine subprojects covered networks, cloud computing, emergency care, pathology, NCD support, logistics, and access to health information. Siriraj tested and developed each technology to work with hospital operations.

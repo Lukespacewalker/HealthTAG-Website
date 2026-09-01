@@ -62,7 +62,7 @@ A general example might begin when a hospital system sends diagnosis codes and b
 This design may reduce repeated document handling and rule checks. The actual time depends on the insurer, data quality, fraud controls, and applicable rules, so a system should not promise that every process will finish within minutes.
 
 
-## Supply chains and research need separate evidence
+## Smart contracts in supply chains and research
 
 Similar rules could check medicine-transport conditions or record the completion of steps in a research project. Sensors, certifiers, and external processes still create the underlying facts. A smart contract only evaluates the information it receives.
 
@@ -70,7 +70,7 @@ In a supply chain, a rule might check that transport temperature remained within
 
 In research, a rule might record that a participant completed a scheduled study step and initiate compensation under the study agreement. Trial results still belong in a system designed for research data. Ethics approval, consent withdrawal, and correction of inaccurate information remain part of the study process.
 
-These examples describe possible applications of the technology. Any HealthTAG product, deployment, or collaboration in those areas needs its own supporting source.
+The following are possible uses of smart contracts. They do not state that HealthTAG has a product, deployment, or collaboration in these areas.
 
 ## Code does not replace human judgement
 

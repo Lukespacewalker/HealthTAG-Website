@@ -37,7 +37,7 @@ Mahidol University and HealthTAG presented MU Health Wallet at the Ministry of P
 
 MU Health Wallet follows a federated, data at source architecture. Hospitals continue to control clinical records in their own source systems. When information is exchanged, HL7 FHIR R4 gives participating systems a common format for interpreting the data.
 
-The blockchain does not store clinical records. It records consent and data access events so they can be audited. Decentralized ID and Verifiable Credentials support identity verification alongside the permissions managed by the data owner.
+The exhibition stated that blockchain does not store clinical records. It records consent and data-access events for later audit. It also presented Decentralized ID and Verifiable Credentials for identity verification alongside permissions managed by the data owner.
 
 ## Consent during a referral
 
@@ -45,6 +45,6 @@ Part of the demonstration covered connections with MOPH Refer and Mor Prom. When
 
 ## Developing AI without pooling patient records
 
-The exhibition also introduced Federated Learning as a way for hospitals to help develop shared models. Computation is brought to data held inside participating organizations instead of moving all patient records into a central repository. Hospitals can therefore contribute to model development while retaining governance over their own data.
+The exhibition also introduced Federated Learning as a way for hospitals to help develop shared models. Computation is brought to data held inside participating organizations instead of moving all patient records into one central system. Hospitals can therefore contribute to model development while retaining governance over their own data.
 
 HealthTAG thanks everyone who visited the booth and discussed MU Health Wallet during the two-day event.

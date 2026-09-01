@@ -38,7 +38,7 @@ const articleJson = JSON.stringify({
       <article class="publication-prose" data-publication-prose>
         <Content />
         {data.kind === 'award' && <section class="award-boundary" aria-label={en ? 'Confirmed award result' : 'ผลรางวัลที่ยืนยันแล้ว'}>
-          <div><p class="award-status">{data.resultStatus}</p><h2>{en ? 'Confirmed result' : 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน'}</h2><ul>{data.confirmedResult?.map((item) => <li>{item}</li>)}</ul></div>
+          <div><p class="award-status">{data.resultStatus}</p><h2>{en ? 'Result confirmed by the source' : 'ผลลัพธ์ที่แหล่งข้อมูลยืนยัน'}</h2><ul>{data.confirmedResult?.map((item) => <li>{item}</li>)}</ul></div>
         </section>}
         <section class="publication-sources" aria-labelledby="publication-sources-heading"><h2 id="publication-sources-heading">{en ? 'Sources' : 'แหล่งข้อมูล'}</h2><ul>{data.sources.map((source) => <li>{source.url ? <a href={source.url} target={source.url.startsWith('http') ? '_blank' : undefined} rel={source.url.startsWith('http') ? 'noopener noreferrer' : undefined}>{source.label}</a> : source.label} ({source.organization})</li>)}</ul></section>
       </article>

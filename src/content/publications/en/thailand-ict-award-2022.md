@@ -41,4 +41,4 @@ The HealthTAG team received the runner-up award in the Technology Award: Blockch
 
 HealthTAG also received the runner-up award in the Cross Category: Startup and was invited to represent Thailand at the Asia Pacific ICT Awards 2022.
 
-The HealthTAG team thanks the judges for giving the team this opportunity and invites everyone to support us in the next competition round.
+The HealthTAG team thanked the judges and would next represent Thailand at APICTA 2022.

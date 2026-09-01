@@ -41,7 +41,7 @@ const values = en
       ['Trust Before Intelligence', 'Before health data supports AI, it must be possible to verify where the data came from, who used it, when it was used, and under what right.'],
       ['Data Stays at Source', 'HealthTAG does not centralize the country\'s clinical records. Hospitals continue to store and steward their records while the infrastructure connects authorized access.'],
       ['Open Standards, Real Interoperability', 'We use open standards such as HL7 FHIR so systems from different vendors can connect without replacing the core HIS or creating unnecessary lock-in.'],
-      ['Clinically Grounded', 'Founded and led by physicians, HealthTAG starts with a practical question: will this improve care for the patient? We choose technology only after the clinical need is clear.'],
+      ['Clinically Grounded', 'Founded by a physician, HealthTAG starts with a practical question: will this improve care for the patient? We choose technology only after the clinical need is clear.'],
       ['Ecosystem, Not Ego', 'National health data infrastructure requires accountable work with hospitals, universities, the public sector, industry, and technology partners. No organization can build it alone.'],
     ]
   : [
@@ -49,7 +49,7 @@ const values = en
       ['ความไว้วางใจต้องมาก่อนปัญญา', 'ก่อนนำข้อมูลสุขภาพไปใช้กับ AI ต้องตรวจสอบได้ว่าข้อมูลมาจากไหน ใครใช้ ใช้เมื่อไร และใช้ด้วยสิทธิ์อะไร'],
       ['ข้อมูลอยู่ที่ต้นทาง', 'HealthTAG ไม่รวมเวชระเบียนของทั้งประเทศไว้ที่ส่วนกลาง โรงพยาบาลยังเก็บรักษาและดูแลเวชระเบียนของตน ส่วนโครงสร้างพื้นฐานช่วยเชื่อมการเข้าถึงที่ได้รับอนุญาต'],
       ['มาตรฐานเปิด เชื่อมได้จริง', 'เราใช้มาตรฐานเปิดอย่าง HL7 FHIR เพื่อให้ระบบจากผู้พัฒนาต่างรายเชื่อมต่อกันได้ โดยไม่ต้องเปลี่ยน HIS หลักหรือผูกติดกับผู้ให้บริการรายเดียวโดยไม่จำเป็น'],
-      ['เกิดจากหน้างานจริง', 'HealthTAG ก่อตั้งและนำโดยแพทย์ เราเริ่มจากคำถามว่าสิ่งที่ออกแบบจะช่วยให้การดูแลผู้ป่วยดีขึ้นหรือไม่ แล้วจึงเลือกเทคโนโลยีให้เหมาะกับความต้องการนั้น'],
+      ['เกิดจากหน้างานจริง', 'HealthTAG ก่อตั้งโดยแพทย์ เราเริ่มจากคำถามว่าสิ่งที่ออกแบบจะช่วยให้การดูแลผู้ป่วยดีขึ้นหรือไม่ แล้วจึงเลือกเทคโนโลยีให้เหมาะกับความต้องการนั้น'],
       ['ทำงานร่วมกัน ไม่ทำคนเดียว', 'โครงสร้างพื้นฐานข้อมูลสุขภาพระดับประเทศต้องอาศัยการทำงานที่รับผิดชอบร่วมกับโรงพยาบาล มหาวิทยาลัย ภาครัฐ ภาคเอกชน และพันธมิตรเทคโนโลยี ไม่มีองค์กรใดสร้างได้โดยลำพัง'],
     ];
 
@@ -105,16 +105,16 @@ const founderCredentials = en
               ? 'Your data. Your consent. One connected Thailand.'
               : 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ'}</h2>
             <p>{en
-              ? 'We are working toward a Thailand where every person can control consent and use of their health data, records can connect across the country, and data can support better care safely, transparently, and verifiably.'
-              : 'HealthTAG มุ่งสู่ประเทศไทยที่ทุกคนกำหนดความยินยอมและการใช้ข้อมูลสุขภาพของตนได้ เวชระเบียนเชื่อมต่อกันได้ทั่วประเทศ และข้อมูลช่วยให้การดูแลดีขึ้นอย่างปลอดภัย โปร่งใส และตรวจสอบได้'}</p>
+              ? 'We are working toward a Thailand where each person controls consent and use of their health data. Records can connect across the country, and that data can support better care with safeguards, transparency, and an audit trail.'
+              : 'HealthTAG มุ่งให้ทุกคนกำหนดความยินยอมและการใช้ข้อมูลสุขภาพของตนเองได้ เวชระเบียนเชื่อมต่อกันได้ทั่วประเทศ และนำข้อมูลไปช่วยดูแลผู้ป่วยโดยมีมาตรการความปลอดภัย ความโปร่งใส และประวัติที่ตรวจสอบได้'}</p>
           </div>
 
           <div class="mission-panel">
             <span class="mono">{en ? 'OUR MISSION' : 'พันธกิจ'}</span>
             <h2>{en ? 'Build trusted health data infrastructure for Thailand' : 'สร้างโครงสร้างพื้นฐานข้อมูลสุขภาพที่วางใจได้สำหรับประเทศไทย'}</h2>
             <p>{en
-              ? 'Our mission is to keep clinical records in hospital source systems and make their authorized use depend on the data owner\'s consent. Open standards help hospitals, universities, public agencies, and industry work together. This creates a trusted basis for better care and future medical AI.'
-              : 'พันธกิจของเราคือให้เวชระเบียนอยู่ในระบบต้นทางของโรงพยาบาล และให้การใช้ข้อมูลที่ได้รับอนุญาตเป็นไปตามความยินยอมของเจ้าของข้อมูล มาตรฐานเปิดช่วยเชื่อมโรงพยาบาล มหาวิทยาลัย หน่วยงานภาครัฐ และภาคเอกชนเข้าด้วยกัน เพื่อวางฐานความไว้วางใจสำหรับการดูแลที่ดีขึ้นและ AI ทางการแพทย์ในอนาคต'}</p>
+              ? 'Our mission is to keep clinical records in hospital source systems and allow their authorized use according to the data owner\'s consent. Open standards connect hospitals, universities, public agencies, and industry. This can support better care and medical AI in the future.'
+              : 'พันธกิจของเราคือเก็บเวชระเบียนไว้ในระบบต้นทางของโรงพยาบาล และให้การใช้ข้อมูลที่ได้รับอนุญาตเป็นไปตามความยินยอมของเจ้าของข้อมูล มาตรฐานเปิดช่วยเชื่อมโรงพยาบาล มหาวิทยาลัย หน่วยงานภาครัฐ และภาคเอกชน เพื่อรองรับการดูแลผู้ป่วยและ AI ทางการแพทย์ในอนาคต'}</p>
 
             <dl class="operating-model">
               {operatingModel.map(([term, detail]) => (
@@ -131,8 +131,8 @@ const founderCredentials = en
         <div class="section-head">
           <h2 id="values-heading">{en ? 'Six values that guide our work' : 'คุณค่า 6 ข้อที่กำกับการทำงานของเรา'}</h2>
           <p>{en
-            ? 'HealthTAG uses these values to decide what to build, where to set technical boundaries, and how to work with partners.'
-            : 'HealthTAG ใช้คุณค่าเหล่านี้ตัดสินใจว่าจะสร้างอะไร กำหนดขอบเขตทางเทคนิคอย่างไร และทำงานร่วมกับพันธมิตรแบบไหน'}</p>
+            ? 'These values guide HealthTAG product decisions, technical boundaries, and work with partners.'
+            : 'คุณค่าเหล่านี้ใช้กำกับการตัดสินใจเรื่องผลิตภัณฑ์ ขอบเขตทางเทคนิค และการทำงานกับพันธมิตรของ HealthTAG'}</p>
         </div>
         <ol class="values-list">
           {values.map(([title, body], index) => (
@@ -155,8 +155,8 @@ const founderCredentials = en
             ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems. He continues clinical practice while leading the company.'
             : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก ปัจจุบันยังปฏิบัติงานทางคลินิกควบคู่กับการนำบริษัท'}</p>
           <p>{en
-            ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit. This work keeps the patient\'s ownership and consent distinct from the hospital\'s responsibility to store and steward the clinical record.'
-            : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง โดยแยกสิทธิความเป็นเจ้าของและความยินยอมของผู้ป่วยออกจากหน้าที่ของโรงพยาบาลในการเก็บรักษาและดูแลเวชระเบียนให้ชัดเจน'}</p>
+            ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit. Patients retain ownership and control of consent, while hospitals store and steward the clinical records.'
+            : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง ข้อมูลยังเป็นของผู้ป่วยและผู้ป่วยกำหนดความยินยอม ส่วนโรงพยาบาลเก็บรักษาและดูแลเวชระเบียน'}</p>
           <dl class="founder-credentials">
             {founderCredentials.map(([term, detail]) => (
               <div><dt>{term}</dt><dd>{detail}</dd></div>

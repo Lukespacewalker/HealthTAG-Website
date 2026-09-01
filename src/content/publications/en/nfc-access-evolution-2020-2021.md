@@ -78,6 +78,6 @@ The wristband extended the idea beyond tapping to reach a web page. It explored 
 
 ## The NFC sticker's role in the PHR
 
-HealthTAG confirmed on 31 August 2026 that the later format is an NFC sticker that serves as one entry point to the PHR. Tapping the sticker opens the path to the service on a compatible device, after which the system carries out its normal identity and authorization checks.
+HealthTAG confirmed on 31 August 2026 that the later format is an NFC sticker and one way to open the PHR. Tapping the sticker opens the service on a compatible device, after which the system carries out its normal identity and authorization checks.
 
 The NFC sticker does not store clinical records. Clinical information remains in systems controlled by hospitals. Separating the sticker from the record store lets HealthTAG combine the convenience of an NFC tap with identity, permission, and data management in the systems responsible for each function.
