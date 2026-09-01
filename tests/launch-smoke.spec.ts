@@ -3,6 +3,8 @@ import AxeBuilder from '@axe-core/playwright';
 
 const routes = [
   '/',
+  '/platform/',
+  '/investors/',
   '/interoperability/',
   '/how-it-works/',
   '/trust/',
@@ -22,6 +24,12 @@ const routes = [
   '/support/',
   '/support/community-edition/user-manual/',
   '/privacy/',
+  '/en/',
+  '/en/platform/',
+  '/en/investors/',
+  '/en/company/',
+  '/en/contact/',
+  '/en/privacy/',
   '/en/support/',
   '/en/support/community-edition/user-manual/',
   '/en/posts/',
@@ -107,14 +115,15 @@ test('focus treatment and reduced-motion preference are respected', async ({ pag
   expect(scrollBehavior).toBe('auto');
 });
 
-test('contact flow prepares an email draft without claiming submission', async ({ page }) => {
+test('contact form posts to the same-origin endpoint with an honest email fallback', async ({ page }) => {
   await page.goto('/contact/');
-  await page.locator('select[name="enquiry"]').selectOption({ label: 'การเชื่อมต่อระบบทางเทคนิค' });
-  await page.locator('input[name="name"]').fill('ผู้ทดสอบ');
-  await page.locator('input[name="email"]').fill('test@example.com');
-  await page.locator('textarea[name="message"]').fill('ต้องการหารือการเชื่อมต่อระบบด้วยข้อมูลสังเคราะห์');
-  await page.getByRole('button', { name: 'เตรียมอีเมล' }).click();
-  await expect(page.locator('[data-contact-status]')).toContainText('ข้อความยังไม่ถูกส่ง');
+  const form = page.locator('form[data-contact-form]');
+  await expect(form).toHaveAttribute('action', '/api/contact');
+  await expect(form).toHaveAttribute('method', 'post');
+  await expect(form.locator('select[name="topic"]')).toContainText('นักลงทุนสัมพันธ์');
+  await expect(page.getByText(/โปรดอย่าส่งข้อมูลอ่อนไหว/).first()).toBeVisible();
+  await expect(page.locator('a[href="mailto:contact@healthtag.io"]').first()).toBeVisible();
+  await expect(page.locator('[data-contact-status]')).toBeEmpty();
 });
 
 test('network relationships are presented as current network relationships', async ({ page }) => {
@@ -280,7 +289,7 @@ test('PHR page explains the NFC sticker boundary in both languages', async ({ pa
   await expect(page.getByText(/sticker does not store the user’s clinical record/)).toBeVisible();
 });
 
-for (const route of ['/', '/company/', '/trust/', '/phr/', '/interoperability/', '/network/', '/posts/', '/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/contact/', '/support/', '/support/community-edition/user-manual/', '/en/', '/en/company/', '/en/trust/', '/en/phr/', '/en/posts/', '/en/news/siriraj-registration-site-visit-2024/', '/en/articles/blockchain-digital-decentralized-system/', '/en/awards/mobile-id-innovation-awards-top-10/', '/en/support/', '/en/support/community-edition/user-manual/', '/en/evidence/']) {
+for (const route of ['/', '/platform/', '/investors/', '/company/', '/trust/', '/phr/', '/interoperability/', '/network/', '/posts/', '/news/siriraj-registration-site-visit-2024/', '/articles/blockchain-digital-decentralized-system/', '/awards/apicta-2022/', '/contact/', '/privacy/', '/support/', '/support/community-edition/user-manual/', '/en/', '/en/platform/', '/en/investors/', '/en/company/', '/en/trust/', '/en/phr/', '/en/posts/', '/en/news/siriraj-registration-site-visit-2024/', '/en/articles/blockchain-digital-decentralized-system/', '/en/awards/mobile-id-innovation-awards-top-10/', '/en/contact/', '/en/privacy/', '/en/support/', '/en/support/community-edition/user-manual/', '/en/evidence/']) {
   test(`basic accessibility scan passes on ${route}`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(route, { waitUntil: 'networkidle' });

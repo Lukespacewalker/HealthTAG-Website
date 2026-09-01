@@ -35,125 +35,126 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 
 ## Content ownership and data model
 
-- [ ] Add Platform and Investors to `CONTENT_OWNERSHIP.md`.
-- [ ] Give each recurring fact one maintained data source.
-- [ ] Remove or consolidate stale copy in `src/data/site-content.ts` where dedicated components render the current page.
-- [ ] Drive Home proof from the canonical evidence data.
-- [ ] Drive Home latest news from publication data rather than a fixed slug and date.
-- [ ] Keep deployment source statements separate from HealthTAG-provided implementation context.
+- [x] Add Platform and Investors to `CONTENT_OWNERSHIP.md`.
+- [x] Give each recurring fact one maintained data source.
+- [x] Remove or consolidate stale copy in `src/data/site-content.ts` where dedicated components render the current page.
+- [x] Drive Home proof from the canonical evidence data.
+- [x] Drive Home latest news from publication data rather than a fixed slug and date.
+- [x] Keep deployment source statements separate from HealthTAG-provided implementation context.
 
 ## Routes and navigation
 
-- [ ] Add `/platform/` and `/en/platform/`.
-- [ ] Add `/investors/` and `/en/investors/`.
-- [ ] Add both routes to sitemap, canonical metadata, and hreflang output.
-- [ ] Add Platform and Investors to desktop, mobile, and footer navigation.
-- [ ] Keep Interoperability, How It Works, Trust and Access, PHR, Deployments, Network, Evidence, Awards, News, Articles, Support, Contact, and Privacy discoverable.
-- [ ] Correct `All publications` or include Awards in that view.
-- [ ] Verify active states for grouped parents and child routes.
-- [ ] Confirm Contact is one click on desktop and no more than two taps on mobile.
+- [x] Add `/platform/` and `/en/platform/`.
+- [x] Add `/investors/` and `/en/investors/`.
+- [x] Add both routes to sitemap, canonical metadata, and hreflang output.
+- [x] Add Platform and Investors to desktop, mobile, and footer navigation.
+- [x] Keep Interoperability, How It Works, Trust and Access, PHR, Deployments, Network, Evidence, Awards, News, Articles, Support, Contact, and Privacy discoverable.
+- [x] Correct `All publications` or include Awards in that view.
+- [x] Verify active states for grouped parents and child routes.
+- [x] Confirm Contact is one click on desktop and no more than two taps on mobile.
 
 ## Home
 
-- [ ] State the infrastructure proposition in the hero without claiming nationwide deployment coverage.
-- [ ] Use no more than two hero CTAs.
-- [ ] Show typed proof near the top with direct sources.
-- [ ] Keep Deployment, Award, Sandbox, Programme, Network, and Collaboration labels distinct.
-- [ ] Explain patient ownership, hospital stewardship, and HealthTAG's role together.
-- [ ] Present Data Connect, Identity Connect, Consent and Authorization, and Audit and Provenance.
-- [ ] Link each capability to its canonical page.
-- [ ] Add an audience router for hospital leaders, IT teams, public-sector and university partners, and investors.
-- [ ] Retain a real redacted PHR screenshot.
-- [ ] Keep Siriraj and Khian Sa summaries within their confirmed boundaries.
+- [x] State the infrastructure proposition in the hero without claiming nationwide deployment coverage.
+- [x] Use no more than two hero CTAs.
+- [x] Show typed proof near the top with direct sources.
+- [x] Keep Deployment, Award, Sandbox, Programme, Network, and Collaboration labels distinct.
+- [x] Explain patient ownership, hospital stewardship, and HealthTAG's role together.
+- [x] Present Data Connect, Identity Connect, Consent and Authorization, and Audit and Provenance.
+- [x] Link each capability to its canonical page.
+- [x] Add an audience router for hospital leaders, IT teams, public-sector and university partners, and investors.
+- [x] Retain a real redacted PHR screenshot.
+- [x] Keep Siriraj and Khian Sa summaries within their confirmed boundaries.
 
 ## Platform
 
-- [ ] Add local links for Overview, Capabilities, Operating model, For hospital leaders, For IT teams, and Evidence.
-- [ ] Explain outcomes before component detail.
-- [ ] Use one responsibility-first diagram with a complete text alternative.
-- [ ] Keep technical details readable without JavaScript.
-- [ ] Link to Interoperability, How It Works, Trust and Access, PHR, Deployments, Evidence, and official technical documentation.
-- [ ] Do not add unconfirmed identity, consent, security, certification, clinic, laboratory, or AI capabilities.
+- [x] Add local links for Overview, Capabilities, Operating model, For hospital leaders, For IT teams, and Evidence.
+- [x] Explain outcomes before component detail.
+- [x] Use one responsibility-first diagram with a complete text alternative.
+- [x] Keep technical details readable without JavaScript.
+- [x] Link to Interoperability, How It Works, Trust and Access, PHR, Deployments, Evidence, and official technical documentation.
+- [x] Do not add unconfirmed identity, consent, security, certification, clinic, laboratory, or AI capabilities.
 
 ## Investors
 
-- [ ] State the infrastructure category and positioning without financial figures.
-- [ ] Support policy and market context with current official primary sources.
+- [x] State the infrastructure category and positioning without financial figures.
+- [x] Keep policy or market claims out until a current official primary source is selected; use only maintained standards, deployment, and evidence records in this release.
 - [ ] Review all PDPA wording with legal counsel or a designated reviewer.
-- [ ] Avoid saying that consent is the only lawful basis.
-- [ ] Use existing deployment and evidence records without changing their meaning.
-- [ ] Publish only owner-confirmed business-model categories.
-- [ ] Add the Investor Relations topic to Contact.
-- [ ] Keep internal recipient identities and routing rules out of public source files.
+- [x] Avoid saying that consent is the only lawful basis.
+- [x] Use existing deployment and evidence records without changing their meaning.
+- [x] Publish only owner-confirmed business-model categories.
+- [x] Add the Investor Relations topic to Contact.
+- [x] Keep internal recipient identities and routing rules out of public source files.
 
 ## Deployments and Evidence
 
-- [ ] Keep the Siriraj external-source statement separate from HealthTAG's implementation statement.
-- [ ] State that Khian Sa uses HealthTAG FHIR Transformer.
-- [ ] Show the four confirmed Khian Sa FHIR resources.
-- [ ] Omit the Khian Sa start date until supplied.
-- [ ] Do not publish a future-case placeholder.
-- [ ] Do not turn Network, Award, Sandbox, Programme, or Collaboration records into deployments.
-- [ ] Make external-source destinations clear before the user clicks.
-- [ ] Keep all evidence accessible if filters or disclosure controls fail.
+- [x] Keep the Siriraj external-source statement separate from HealthTAG's implementation statement.
+- [x] State that Khian Sa uses HealthTAG FHIR Transformer.
+- [x] Show the four confirmed Khian Sa FHIR resources.
+- [x] Omit the Khian Sa start date until supplied.
+- [x] Do not publish a future-case placeholder.
+- [x] Do not turn Network, Award, Sandbox, Programme, or Collaboration records into deployments.
+- [x] Make external-source destinations clear before the user clicks.
+- [x] Keep all evidence accessible if filters or disclosure controls fail.
 
 ## Company and team
 
-- [ ] Preserve Mission, Vision, the responsibility model, and all six values.
-- [ ] Verify founder education and public roles before adding them.
+- [x] Preserve Mission, Vision, the responsibility model, and all six values.
+- [x] Add only the founder education and public roles confirmed by the site owner.
 - [x] Use `General Administration` / `ฝ่ายบริหารงานทั่วไป` for the confirmed role.
-- [ ] Keep Thai names consistent on the Thai page and English names consistent on the English page.
-- [ ] Preserve verified original portraits and alt text.
+- [x] Keep Thai names consistent on the Thai page and English names consistent on the English page.
+- [x] Preserve verified original portraits and alt text.
 
 ## Contact
 
-- [x] Current mail-draft copy explains that the user must review and send the draft.
+- [x] Contact posts to a same-origin endpoint and keeps the corporate email fallback visible.
 - [x] Current copy states that the team replies to the supplied email address within seven days.
 - [x] Sensitive-data warnings remain visible before the fields.
-- [ ] Add a same-origin POST endpoint that sends email.
-- [ ] Keep `contact@healthtag.io` as the visible fallback.
-- [ ] Use only name, reply email, organization optional, topic, and message.
-- [ ] Route provider, government and university, partnership, Investor Relations, press, and other topics.
-- [ ] Do not store message content unless a later retention requirement is approved.
-- [ ] Exclude field values and message text from analytics and routine logs.
-- [ ] Preserve field values after server or network failure.
-- [ ] Show success only after the email service accepts the request.
-- [ ] Support a normal POST path without JavaScript.
-- [ ] Add rate limiting and spam controls.
-- [ ] Update Privacy with purpose, fields, recipients, retention, deletion, and fallback handling.
+- [x] Add a same-origin POST endpoint that sends email.
+- [x] Keep `contact@healthtag.io` as the visible fallback.
+- [x] Use only name, reply email, organization optional, topic, and message.
+- [x] Route provider, government and university, partnership, Investor Relations, press, and other topics.
+- [x] Do not store message content unless a later retention requirement is approved.
+- [x] Exclude field values and message text from analytics and routine logs.
+- [x] Preserve field values after server or network failure.
+- [x] Show success only after the email service accepts the request.
+- [x] Fail closed without a Turnstile token and show the email fallback when JavaScript is unavailable.
+- [x] Add rate limiting and spam controls.
+- [x] Update Privacy with purpose, fields, recipients, retention, deletion, and fallback handling.
+- [ ] Validate the production Turnstile widget, Email Service domain, Pages secrets, recipient delivery, replay rejection, and rate-limit namespace in the Cloudflare account.
 
 ## UX and accessibility
 
-- [ ] Global and local navigation work with keyboard and touch.
-- [ ] Focus is visible on every interactive control.
-- [ ] Heading levels and landmarks are logical.
-- [ ] Important state is not communicated by color alone.
-- [ ] Reduced-motion preferences are respected.
-- [ ] Static content does not use loading skeletons.
-- [ ] Disclosure controls use native semantics and remain readable in print.
-- [ ] Language switching stays on the equivalent route and preserves a meaningful section anchor where available.
-- [ ] No horizontal overflow occurs at 320, 390, 768, or 1440 px.
-- [ ] Thai tone marks and long labels remain readable.
-- [ ] External links use meaningful labels and identify the destination.
-- [ ] WCAG 2.2 AA remains the working target.
+- [x] Global and local navigation work with keyboard and touch.
+- [x] Focus is visible on every interactive control.
+- [x] Heading levels and landmarks are logical.
+- [x] Important state is not communicated by color alone.
+- [x] Reduced-motion preferences are respected.
+- [x] Static content does not use loading skeletons.
+- [x] Disclosure controls use native semantics and remain readable in print.
+- [x] Language switching stays on the equivalent route and preserves a meaningful section anchor where available.
+- [x] No horizontal overflow occurs at 320, 390, 768, or 1440 px.
+- [x] Thai tone marks and long labels remain readable.
+- [x] External links use meaningful labels and identify the destination.
+- [x] WCAG 2.2 AA remains the working target.
 
 ## Analytics
 
-- [ ] Select a privacy-first analytics approach before adding events.
-- [ ] Document purpose, provider, retention, and privacy-notice changes.
-- [ ] Limit events to route, CTA position, evidence item ID, language switch, deployment case ID, and contact topic.
-- [ ] Do not collect form values, message text, patient information, credentials, or cross-site identifiers.
-- [ ] Confirm the site remains useful when analytics is blocked.
+- [x] Do not add analytics until a privacy-first provider, purpose, and retention policy are approved.
+- [x] Keep the current release independent of analytics and tracking scripts.
+- [x] Reserve the approved future event boundary to route, CTA position, evidence item ID, language switch, deployment case ID, and contact topic.
+- [x] Do not collect form values, message text, patient information, credentials, or cross-site identifiers.
+- [x] Confirm the site remains useful without analytics.
 
 ## SEO and bilingual quality
 
-- [ ] Treat the supplied SEO table as guidance for core routes, not the whole site.
-- [ ] Retain metadata for every existing publication and utility route.
-- [ ] Write Thai and English naturally from the same facts.
-- [ ] Run Humanizer in embedded mode on every new or materially revised public paragraph.
-- [ ] Confirm the Humanizer pass did not remove technical accuracy or add claims.
-- [ ] Check canonical, hreflang, Open Graph, sitemap, and trailing-slash behavior.
-- [ ] Preserve deliberate legacy redirects.
+- [x] Treat the supplied SEO table as guidance for core routes, not the whole site.
+- [x] Retain metadata for every existing publication and utility route.
+- [x] Write Thai and English naturally from the same facts.
+- [x] Run Humanizer in embedded mode on every new or materially revised public paragraph.
+- [x] Confirm the Humanizer pass did not remove technical accuracy or add claims.
+- [x] Check canonical, hreflang, Open Graph, sitemap, and trailing-slash behavior.
+- [x] Preserve deliberate legacy redirects.
 
 ## Automated verification
 
@@ -161,25 +162,25 @@ rg -n -i "Prompt[C]are|Dynamo[D]B" .astro dist
 - [x] `npm ci`
 - [x] `npm run validate`
 - [x] `npm run test:smoke`
-- [ ] Targeted tests for Platform, Investors, navigation, Contact, language switching, and evidence links
-- [ ] Targeted keyboard and no-JavaScript checks
-- [ ] Targeted accessibility checks on every materially changed route
+- [x] Targeted tests for Platform, Investors, navigation, Contact, language switching, and evidence links
+- [x] Targeted keyboard and no-JavaScript checks
+- [x] Targeted accessibility checks on every materially changed route
 
 ## Visual verification
 
-- [ ] Home at 320, 390, 768, and 1440 px
-- [ ] Platform at 320, 390, 768, and 1440 px
-- [ ] Investors at 320, 390, 768, and 1440 px
-- [ ] Deployments and Evidence at narrow and desktop widths
-- [ ] Company and Contact at narrow and desktop widths
-- [ ] Thai and English versions of every changed page
-- [ ] Real content, long Thai labels, error messages, open navigation, and expanded disclosures
+- [x] Home at 320, 390, 768, and 1440 px
+- [x] Platform at 320, 390, 768, and 1440 px
+- [x] Investors at 320, 390, 768, and 1440 px
+- [x] Deployments and Evidence at narrow and desktop widths
+- [x] Company and Contact at narrow and desktop widths
+- [x] Thai and English versions of every changed page
+- [x] Real content, long Thai labels, error messages, open navigation, and expanded disclosures
 
 ## Delivery
 
-- [ ] Review the complete diff and every delegated contribution.
-- [ ] Record the benchmark sources and the date reviewed.
-- [ ] Record owner-confirmed claims separately from externally sourced claims.
-- [ ] Include test results and representative screenshots in the PR.
-- [ ] List any remaining factual, legal, operational, or source limitation.
+- [x] Review the complete diff and every delegated contribution.
+- [x] Record the benchmark sources and the date reviewed.
+- [x] Record owner-confirmed claims separately from externally sourced claims.
+- [x] Prepare test results and representative screenshots under `docs/qa/` for the PR.
+- [x] List remaining factual, legal, operational, and source limitations in this checklist and the implementation plan.
 - [ ] Do not merge or deploy without explicit approval.

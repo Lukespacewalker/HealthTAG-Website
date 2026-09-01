@@ -8,20 +8,24 @@ const en = locale === 'en';
 const prefix = en ? '/en' : '';
 
 const enquiryTypes = en ? [
-  'Hospital / Healthcare Provider',
-  'Government / Public Sector',
-  'University / Research',
-  'Technical Integration',
-  'Industry Partnership',
-  'Media / General',
+  { value: 'provider_integration', label: 'Provider integration' },
+  { value: 'government_university', label: 'Government or university' },
+  { value: 'business_partnership', label: 'Business partnership' },
+  { value: 'investor_relations', label: 'Investor Relations' },
+  { value: 'press', label: 'Press' },
+  { value: 'other', label: 'Other' },
 ] : [
-  'โรงพยาบาล / ผู้ให้บริการด้านสุขภาพ',
-  'ภาครัฐ / หน่วยงานสาธารณะ',
-  'มหาวิทยาลัย / งานวิจัย',
-  'การเชื่อมต่อระบบทางเทคนิค',
-  'ความร่วมมือกับภาคอุตสาหกรรม',
-  'สื่อ / เรื่องทั่วไป',
+  { value: 'provider_integration', label: 'การเชื่อมระบบผู้ให้บริการสุขภาพ' },
+  { value: 'government_university', label: 'ภาครัฐหรือมหาวิทยาลัย' },
+  { value: 'business_partnership', label: 'ความร่วมมือทางธุรกิจ' },
+  { value: 'investor_relations', label: 'นักลงทุนสัมพันธ์' },
+  { value: 'press', label: 'สื่อมวลชน' },
+  { value: 'other', label: 'เรื่องอื่น' },
 ];
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITEKEY?.trim() ?? '';
+const turnstileConfigured = /^[A-Za-z0-9_-]{20,32}$/.test(turnstileSiteKey)
+  && !turnstileSiteKey.includes('REQUIRED');
 ---
 
 <Base
@@ -37,7 +41,7 @@ const enquiryTypes = en ? [
           <div class="eyebrow">HealthTAG / {en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</div>
           <h1>{en ? 'Tell us about your system without including sensitive data' : 'เล่าระบบที่ต้องการเชื่อม โดยไม่ส่งข้อมูลอ่อนไหว'}</h1>
         </div>
-        <p>{en ? 'Choose a topic and write your message. The form opens an email draft in your mail app. Review and send it there, and the team will reply to the address you provide within seven days.' : 'เลือกหัวข้อและเขียนข้อความ แบบฟอร์มจะเปิดร่างอีเมลในแอปอีเมลของคุณ โปรดตรวจสอบและกดส่ง ทีมจะติดต่อกลับทางอีเมลที่ระบุภายใน 7 วัน'}</p>
+        <p>{en ? 'Choose a topic and send a short message. The team will reply to the email address you provide within seven days.' : 'เลือกหัวข้อและส่งข้อความสั้น ๆ ทีมจะติดต่อกลับทางอีเมลที่ระบุภายใน 7 วัน'}</p>
       </div>
     </section>
 
@@ -57,44 +61,58 @@ const enquiryTypes = en ? [
           </div>
         </aside>
 
-        <form class="contact-form" data-contact-form>
+        <form class="contact-form" action="/api/contact" method="post" data-contact-form data-turnstile-configured={String(turnstileConfigured)}>
           <div class="form-intro">
             <div>
-              <div class="eyebrow">{en ? 'Email draft' : 'ร่างอีเมล'}</div>
+              <div class="eyebrow">{en ? 'Contact form' : 'แบบฟอร์มติดต่อ'}</div>
               <h2>{en ? 'Write your message' : 'เขียนข้อความติดต่อ'}</h2>
             </div>
-            <p>{en ? 'Enter the enquiry type, your name, a reply email, and your message. The text stays in your browser until the email draft opens.' : 'กรอกประเภทการติดต่อ ชื่อ อีเมลสำหรับตอบกลับ และข้อความ ข้อมูลจะอยู่ในเบราว์เซอร์จนกว่าร่างอีเมลจะเปิด'}</p>
+            <p>{en ? 'The form sends your details to HealthTAG through this website. It does not add the message to a website database.' : 'แบบฟอร์มส่งข้อมูลของคุณถึง HealthTAG ผ่านเว็บไซต์นี้ โดยไม่นำข้อความไปเก็บในฐานข้อมูลของเว็บไซต์'}</p>
           </div>
 
           <div class="field full">
             <label for={`enquiry-${locale}`}>{en ? 'Enquiry type · required' : 'ประเภทการติดต่อ · จำเป็น'}</label>
-            <select id={`enquiry-${locale}`} name="enquiry" required>
+            <select id={`enquiry-${locale}`} name="topic" required>
               <option value="">{en ? 'Choose one' : 'เลือกหนึ่งรายการ'}</option>
-              {enquiryTypes.map((type) => <option value={type}>{type}</option>)}
+              {enquiryTypes.map((type) => <option value={type.value}>{type.label}</option>)}
             </select>
           </div>
           <div class="field-grid">
             <div class="field">
               <label for={`name-${locale}`}>{en ? 'Your name · required' : 'ชื่อของคุณ · จำเป็น'}</label>
-              <input id={`name-${locale}`} name="name" type="text" autocomplete="name" required />
+              <input id={`name-${locale}`} name="name" type="text" autocomplete="name" maxlength="100" required />
             </div>
             <div class="field">
               <label for={`email-${locale}`}>{en ? 'Reply email · required' : 'อีเมลสำหรับตอบกลับ · จำเป็น'}</label>
-              <input id={`email-${locale}`} name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required />
+              <input id={`email-${locale}`} name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" spellcheck="false" required />
             </div>
           </div>
           <div class="field full">
             <label for={`organization-${locale}`}>{en ? 'Organization · optional' : 'องค์กร · ไม่บังคับ'}</label>
-            <input id={`organization-${locale}`} name="organization" type="text" autocomplete="organization" />
+            <input id={`organization-${locale}`} name="organization" type="text" autocomplete="organization" maxlength="150" />
           </div>
           <div class="field full">
             <label for={`message-${locale}`}>{en ? 'What would you like to discuss? · required' : 'ต้องการพูดคุยเรื่องใด · จำเป็น'}</label>
-            <textarea id={`message-${locale}`} name="message" rows="7" required aria-describedby={`message-help-${locale}`}></textarea>
+            <textarea id={`message-${locale}`} name="message" rows="7" minlength="10" maxlength="4000" required aria-describedby={`message-help-${locale}`}></textarea>
             <small id={`message-help-${locale}`}>{en ? 'Describe the goal and relevant system context only. Do not paste records, logs with secrets, or credentials.' : 'อธิบายเป้าหมายและบริบทของระบบเท่าที่จำเป็น ห้ามวางเวชระเบียน log ที่มีข้อมูลลับ หรือข้อมูลรับรองการเข้าใช้ระบบ'}</small>
           </div>
+          {turnstileConfigured ? (
+            <div class="turnstile-wrap">
+              <div data-turnstile-widget data-sitekey={turnstileSiteKey}></div>
+              <p>{en ? 'Complete the verification before sending.' : 'โปรดยืนยันก่อนส่งข้อความ'}</p>
+            </div>
+          ) : (
+            <div class="form-configuration" role="note">
+              <strong>{en ? 'Online submission is not configured yet.' : 'ระบบส่งข้อความออนไลน์ยังตั้งค่าไม่เสร็จ'}</strong>
+              <p>{en ? 'Please email contact@healthtag.io instead.' : 'โปรดส่งอีเมลไปที่ contact@healthtag.io แทน'}</p>
+            </div>
+          )}
+          <noscript>
+            <p class="noscript-fallback">{en ? 'This form needs JavaScript for bot verification. Email contact@healthtag.io if JavaScript is unavailable.' : 'แบบฟอร์มนี้ต้องใช้ JavaScript เพื่อยืนยันว่าไม่ใช่บอต หากใช้งาน JavaScript ไม่ได้ โปรดส่งอีเมลไปที่ contact@healthtag.io'}</p>
+          </noscript>
           <div class="form-submit">
-            <button class="btn primary" type="submit">{en ? 'Prepare email' : 'เตรียมอีเมล'}</button>
-            <p>{en ? 'Your mail app will open with a draft. The message is not sent until you review and send it there.' : 'แอปอีเมลจะเปิดพร้อมข้อความร่าง ข้อความจะยังไม่ถูกส่งจนกว่าคุณจะตรวจสอบและกดส่งในแอปนั้น'}</p>
+            <button class="btn primary" type="submit" data-contact-submit disabled={!turnstileConfigured}>{en ? 'Send message' : 'ส่งข้อความ'}</button>
+            <p>{en ? 'A success message appears only after the email service accepts the request.' : 'ระบบจะแจ้งว่าส่งสำเร็จเมื่อบริการอีเมลรับคำขอแล้วเท่านั้น'}</p>
           </div>
           <p class="form-status" data-contact-status role="status" aria-live="polite"></p>
           <p class="privacy-link">{en ? 'See how this corporate contact flow is described in the' : 'อ่านรายละเอียดการติดต่อบริษัทได้ใน'} <a href={`${prefix}/privacy/`}>{en ? 'website privacy notice' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์'}</a>.</p>
@@ -107,38 +125,139 @@ const enquiryTypes = en ? [
 <script>
   const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
   const status = document.querySelector<HTMLElement>('[data-contact-status]');
+  const submitButton = document.querySelector<HTMLButtonElement>('[data-contact-submit]');
+  const turnstileContainer = document.querySelector<HTMLElement>('[data-turnstile-widget]');
+  const configured = form?.dataset.turnstileConfigured === 'true';
+  const en = document.documentElement.lang === 'en';
   let formIsDirty = false;
+  let turnstileToken = '';
+  let turnstileWidgetId: string | undefined;
+
+  interface TurnstileApi {
+    render: (container: HTMLElement, options: {
+      sitekey: string;
+      action: string;
+      theme: 'auto';
+      size: 'flexible';
+      callback: (token: string) => void;
+      'error-callback': () => void;
+      'expired-callback': () => void;
+    }) => string;
+    reset: (widgetId: string) => void;
+  }
+
+  declare global {
+    interface Window { turnstile?: TurnstileApi }
+  }
+
+  const setStatus = (message: string, kind: 'success' | 'error' | 'neutral' = 'neutral') => {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.toggle('is-success', kind === 'success');
+    status.classList.toggle('is-error', kind === 'error');
+  };
+
+  const resetTurnstile = () => {
+    turnstileToken = '';
+    if (turnstileWidgetId && window.turnstile) window.turnstile.reset(turnstileWidgetId);
+  };
+
+  if (configured && turnstileContainer) {
+    const sitekey = turnstileContainer.dataset.sitekey ?? '';
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.defer = true;
+    script.addEventListener('load', () => {
+      if (!window.turnstile) return;
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey,
+        action: 'contact',
+        theme: 'auto',
+        size: 'flexible',
+        callback: (token) => { turnstileToken = token; },
+        'error-callback': () => {
+          turnstileToken = '';
+          setStatus(en ? 'Verification could not load. Try again or email contact@healthtag.io.' : 'ระบบยืนยันมีปัญหา โปรดลองอีกครั้งหรือส่งอีเมลไปที่ contact@healthtag.io', 'error');
+        },
+        'expired-callback': () => { turnstileToken = ''; },
+      });
+    });
+    script.addEventListener('error', () => {
+      if (submitButton) submitButton.disabled = true;
+      setStatus(en ? 'Verification could not load. Email contact@healthtag.io instead.' : 'ระบบยืนยันโหลดไม่สำเร็จ โปรดส่งอีเมลไปที่ contact@healthtag.io แทน', 'error');
+    });
+    document.head.append(script);
+  }
+
+  if (new URLSearchParams(window.location.search).get('contact') === 'sent') {
+    setStatus(en ? 'Message sent. The team will reply to your email address within seven days.' : 'ส่งข้อความแล้ว ทีมจะติดต่อกลับทางอีเมลที่ระบุภายใน 7 วัน', 'success');
+    window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+  }
+
   form?.addEventListener('input', () => { formIsDirty = true; });
   window.addEventListener('beforeunload', (event) => {
     if (!formIsDirty) return;
     event.preventDefault();
   });
-  form?.addEventListener('submit', (event) => {
+  form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
-    const values = new FormData(form);
-    const enquiry = String(values.get('enquiry') ?? '');
-    const name = String(values.get('name') ?? '');
-    const email = String(values.get('email') ?? '');
-    const organization = String(values.get('organization') ?? '');
-    const message = String(values.get('message') ?? '');
-    const subject = `HealthTAG enquiry · ${enquiry}`;
-    const body = [
-      `Enquiry type: ${enquiry}`,
-      `Name: ${name}`,
-      `Reply email: ${email}`,
-      `Organization: ${organization || 'Not provided'}`,
-      '',
-      'Message:',
-      message,
-      '',
-      'Safety confirmation: No patient information, medical records, health data, passwords, API keys, credentials, or other sensitive information is included.',
-    ].join('\n');
-    formIsDirty = false;
-    if (status) status.textContent = document.documentElement.lang === 'en'
-      ? 'Opening your mail app. Review and send the draft there; it has not been sent yet.'
-      : 'กำลังเปิดแอปอีเมล โปรดตรวจสอบและกดส่งในแอป ขณะนี้ข้อความยังไม่ถูกส่ง';
-    window.location.href = `mailto:contact@healthtag.io?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (!turnstileToken) {
+      setStatus(en ? 'Complete the verification before sending.' : 'โปรดยืนยันก่อนส่งข้อความ', 'error');
+      return;
+    }
+
+    const formData = new FormData(form);
+    const body = new URLSearchParams();
+    for (const name of ['name', 'email', 'organization', 'topic', 'message']) {
+      body.set(name, String(formData.get(name) ?? ''));
+    }
+    body.set('cf-turnstile-response', turnstileToken);
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = en ? 'Sending…' : 'กำลังส่ง…';
+    }
+    setStatus(en ? 'Sending your message…' : 'กำลังส่งข้อความ…');
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body,
+      });
+      const result: unknown = await response.json().catch(() => null);
+      if (!response.ok) {
+        const errorCode = typeof result === 'object' && result !== null && 'error' in result
+          && typeof result.error === 'object' && result.error !== null && 'code' in result.error
+          ? String(result.error.code)
+          : '';
+        const rateLimited = errorCode === 'rate_limited';
+        setStatus(rateLimited
+          ? (en ? 'Too many attempts. Wait a minute, then try again.' : 'มีการส่งหลายครั้งเกินไป โปรดรอหนึ่งนาทีแล้วลองใหม่')
+          : (en ? 'Message not sent. Your entries are still here. Try again or email contact@healthtag.io.' : 'ยังไม่ได้ส่งข้อความ ข้อมูลที่กรอกยังอยู่ โปรดลองอีกครั้งหรือส่งอีเมลไปที่ contact@healthtag.io'), 'error');
+        resetTurnstile();
+        return;
+      }
+
+      form.reset();
+      formIsDirty = false;
+      resetTurnstile();
+      setStatus(en ? 'Message sent. The team will reply to your email address within seven days.' : 'ส่งข้อความแล้ว ทีมจะติดต่อกลับทางอีเมลที่ระบุภายใน 7 วัน', 'success');
+    } catch {
+      setStatus(en ? 'Message not sent. Your entries are still here. Try again or email contact@healthtag.io.' : 'ยังไม่ได้ส่งข้อความ ข้อมูลที่กรอกยังอยู่ โปรดลองอีกครั้งหรือส่งอีเมลไปที่ contact@healthtag.io', 'error');
+      resetTurnstile();
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = !configured;
+        submitButton.textContent = en ? 'Send message' : 'ส่งข้อความ';
+      }
+    }
   });
 </script>
 
@@ -174,6 +293,14 @@ const enquiryTypes = en ? [
   .form-submit p, .privacy-link { color: var(--muted); margin: 0; font-size: .9rem; }
   .form-submit p { max-width: 500px; }
   .form-status { min-height: 1.7em; margin: 14px 0 0; color: var(--teal); font-weight: 600; }
+  .form-status.is-error { color: var(--amber-ink); }
+  .form-status.is-success { color: var(--teal); }
+  .turnstile-wrap { margin: 4px 0 22px; }
+  .turnstile-wrap p { color: var(--muted); font-size: .85rem; margin: 7px 0 0; }
+  .form-configuration, .noscript-fallback { border: 1px solid #dfc7a9; border-radius: 8px; background: var(--amber-soft); padding: 15px 16px; margin: 4px 0 22px; }
+  .form-configuration p, .noscript-fallback { color: var(--muted); }
+  .form-configuration p { margin: 4px 0 0; }
+  .contact-form button:disabled { cursor: not-allowed; opacity: .55; }
   .privacy-link { border-top: 1px solid var(--line); padding-top: 18px; }
   .privacy-link a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
   @media (max-width: 900px) {

@@ -1,0 +1,443 @@
+---
+import Base from '../layouts/Base.astro';
+import { evidence } from '../data/evidence';
+import type { Locale } from '../data/site-content';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+const localLinks = en
+  ? [
+      ['#overview', 'Overview'],
+      ['#capabilities', 'Capabilities'],
+      ['#operating-model', 'Operating model'],
+      ['#hospital-leaders', 'For hospital leaders'],
+      ['#it-teams', 'For IT teams'],
+      ['#evidence', 'Evidence'],
+    ]
+  : [
+      ['#overview', 'ภาพรวม'],
+      ['#capabilities', 'ความสามารถ'],
+      ['#operating-model', 'บทบาทของแต่ละฝ่าย'],
+      ['#hospital-leaders', 'สำหรับผู้บริหารโรงพยาบาล'],
+      ['#it-teams', 'สำหรับทีม IT'],
+      ['#evidence', 'หลักฐาน'],
+    ];
+
+const capabilities = en
+  ? [
+      {
+        name: 'Data Connect',
+        body: 'Moves selected data from an existing HIS into a hospital-stewarded HL7 FHIR R4 system. Hospital IT can use its own integration script or HealthTAG FHIR Transformer.',
+        href: `${prefix}/interoperability/`,
+        link: 'Data interoperability',
+      },
+      {
+        name: 'Identity Connect',
+        body: 'Links the patient identifier used by each hospital to a common identity reference. The linkage is stored in a cloud database, while clinical records remain in hospital systems.',
+        href: `${prefix}/phr/`,
+        link: 'Identity and PHR',
+      },
+      {
+        name: 'Consent and authorization',
+        body: 'Keeps the patient\'s consent separate from the authorization decision for a specific request. The current Hospital API checks a defined access window before a source system returns a permitted response.',
+        href: `${prefix}/trust/`,
+        link: 'Consent, trust and access',
+      },
+      {
+        name: 'Audit and provenance',
+        body: 'Records consent and access events for later review and keeps the hospital source of the clinical record clear. Clinical records are not stored on blockchain.',
+        href: `${prefix}/trust/`,
+        link: 'Audit boundaries',
+      },
+    ]
+  : [
+      {
+        name: 'Data Connect',
+        body: 'นำข้อมูลที่เลือกจาก HIS เดิมเข้าสู่ระบบ HL7 FHIR R4 ที่โรงพยาบาลดูแล ทีม IT เลือกใช้สคริปต์ของตนเองหรือ HealthTAG FHIR Transformer ได้',
+        href: `${prefix}/interoperability/`,
+        link: 'การเชื่อมโยงข้อมูล',
+      },
+      {
+        name: 'ระบบเชื่อมตัวตนผู้ป่วย',
+        body: 'เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้กับตัวระบุกลาง ข้อมูลการเชื่อมโยงเก็บในฐานข้อมูลบน Cloud ส่วนเวชระเบียนยังอยู่ในระบบของโรงพยาบาล',
+        href: `${prefix}/phr/`,
+        link: 'ตัวตนและ PHR',
+      },
+      {
+        name: 'ความยินยอมและการอนุญาตสิทธิ์',
+        body: 'แยกเจตนาของผู้ป่วยออกจากการตัดสินใจอนุญาตคำขอแต่ละครั้ง Hospital API ในระบบปัจจุบันตรวจช่วงเวลาการเข้าถึงก่อนระบบต้นทางส่งคำตอบตามสิทธิ์',
+        href: `${prefix}/trust/`,
+        link: 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง',
+      },
+      {
+        name: 'การตรวจสอบและที่มาของข้อมูล',
+        body: 'บันทึกเหตุการณ์ความยินยอมและการเข้าถึงไว้ตรวจสอบภายหลัง พร้อมแยกให้ชัดว่าโรงพยาบาลใดดูแลเวชระเบียนต้นทาง โดยไม่เก็บเวชระเบียนบน blockchain',
+        href: `${prefix}/trust/`,
+        link: 'ขอบเขตการตรวจสอบย้อนหลัง',
+      },
+    ];
+
+const proofIds = ['siriraj-5g-smart-hospital', 'apicta-2022', 'etda-digital-service-sandbox'];
+const proofItems = evidence.filter((item) => proofIds.includes(item.id));
+
+const audienceRoutes = en
+  ? [
+      ['Hospital leaders', 'Compare the two confirmed hospital integration paths and the responsibilities that remain with each hospital.', `${prefix}/deployments/`, 'Review deployments'],
+      ['Hospital IT teams', 'Review ingestion options, FHIR components, access checks, and the current technical boundary.', `${prefix}/interoperability/`, 'Open the technical overview'],
+      ['Public-sector and university partners', 'Check externally sourced programme, sandbox, award, and collaboration records.', `${prefix}/evidence/`, 'Review evidence'],
+      ['Patients and general visitors', 'See how authorized records can appear in a Personal Health Record.', `${prefix}/phr/`, 'Explore PHR'],
+    ]
+  : [
+      ['ผู้บริหารโรงพยาบาล', 'เปรียบเทียบแนวทางเชื่อมระบบของโรงพยาบาลสองแห่ง และดูหน้าที่ที่ยังอยู่กับแต่ละโรงพยาบาล', `${prefix}/deployments/`, 'ดูการใช้งานจริง'],
+      ['ทีม IT โรงพยาบาล', 'ดูวิธีนำข้อมูลเข้า องค์ประกอบ FHIR การตรวจสิทธิ์ และขอบเขตทางเทคนิคของระบบปัจจุบัน', `${prefix}/interoperability/`, 'ดูรายละเอียดทางเทคนิค'],
+      ['หน่วยงานภาครัฐและมหาวิทยาลัย', 'ตรวจสอบข้อมูลโครงการ sandbox รางวัล และความร่วมมือจากแหล่งภายนอก', `${prefix}/evidence/`, 'ดูหลักฐาน'],
+      ['ผู้ป่วยและผู้สนใจทั่วไป', 'ดูวิธีที่เวชระเบียนตามสิทธิ์ปรากฏในสมุดสุขภาพส่วนบุคคล', `${prefix}/phr/`, 'ดู PHR'],
+    ];
+---
+
+<Base
+  locale={locale}
+  path="platform"
+  title={en ? 'Health data platform | HealthTAG' : 'แพลตฟอร์มข้อมูลสุขภาพ | HealthTAG'}
+  description={en
+    ? 'An overview of HealthTAG data interoperability, identity linkage, authorization, audit, and the responsibilities of patients and hospitals.'
+    : 'ภาพรวมการเชื่อมโยงข้อมูล การเชื่อมตัวตน การอนุญาตสิทธิ์ การตรวจสอบย้อนหลัง และหน้าที่ของผู้ป่วยกับโรงพยาบาลในระบบ HealthTAG'}
+>
+  <main>
+    <section id="overview" class="page-hero platform-hero" aria-labelledby="platform-heading">
+      <div class="container hero-layout">
+        <div>
+          <div class="eyebrow">HealthTAG / {en ? 'Platform' : 'แพลตฟอร์ม'}</div>
+          <h1 id="platform-heading">{en ? 'Health data infrastructure with clear responsibilities' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่แบ่งหน้าที่ชัดเจน'}</h1>
+          <p>{en
+            ? 'HealthTAG connects existing hospital systems through HL7 FHIR R4, links patient identities, checks access, and records consent and access events. Patients own their health data. Hospitals continue to store and steward clinical records in their source systems.'
+            : 'HealthTAG เชื่อมระบบเดิมของโรงพยาบาลด้วย HL7 FHIR R4 เชื่อมตัวตนผู้ป่วย ตรวจสิทธิ์ และบันทึกเหตุการณ์ความยินยอมกับการเข้าถึง ข้อมูลสุขภาพเป็นของผู้ป่วย ส่วนโรงพยาบาลยังจัดเก็บและดูแลเวชระเบียนในระบบต้นทาง'}</p>
+          <div class="actions">
+            <a class="btn primary" href={`${prefix}/how-it-works/`}>{en ? 'See how it works' : 'ดูขั้นตอนการทำงาน'}</a>
+            <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
+          </div>
+        </div>
+        <aside class="platform-register" aria-label={en ? 'Platform boundary summary' : 'สรุปขอบเขตแพลตฟอร์ม'}>
+          <span class="mono">HEALTHTAG CONNECT</span>
+          <dl>
+            <div><dt>{en ? 'Records' : 'เวชระเบียน'}</dt><dd>{en ? 'Stay in hospital source systems' : 'อยู่ในระบบต้นทางของโรงพยาบาล'}</dd></div>
+            <div><dt>{en ? 'Exchange' : 'การแลกเปลี่ยน'}</dt><dd>{en ? 'Uses HL7 FHIR R4' : 'ใช้ HL7 FHIR R4'}</dd></div>
+            <div><dt>{en ? 'Audit' : 'การตรวจสอบ'}</dt><dd>{en ? 'Records consent and access events' : 'บันทึกเหตุการณ์ความยินยอมและการเข้าถึง'}</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <nav class="page-index" aria-label={en ? 'On this page' : 'สารบัญหน้านี้'}>
+      <div class="container">
+        <span class="mono">{en ? 'ON THIS PAGE' : 'สารบัญ'}</span>
+        <ul role="list">
+          {localLinks.map(([href, label], index) => <li><a href={href}><span>0{index + 1}</span>{label}</a></li>)}
+        </ul>
+      </div>
+    </nav>
+
+    <section id="capabilities" class="section capabilities" aria-labelledby="capabilities-heading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="capabilities-heading">{en ? 'Four responsibilities in an authorized exchange' : 'แยกหน้าที่หลัก 4 ด้านในการแลกเปลี่ยนตามสิทธิ์'}</h2>
+          <p>{en
+            ? 'Data, identity, authorization, and audit remain separate so each system has a defined role.'
+            : 'ข้อมูล ตัวตน การอนุญาตสิทธิ์ และการตรวจสอบแยกออกจากกัน เพื่อให้แต่ละระบบมีหน้าที่ชัดเจน'}</p>
+        </div>
+        <ol class="capability-list">
+          {capabilities.map((capability, index) => (
+            <li>
+              <span class="capability-number">0{index + 1}</span>
+              <div>
+                <h3>{capability.name}</h3>
+                <p>{capability.body}</p>
+              </div>
+              <a href={capability.href}>{capability.link} <span aria-hidden="true">→</span></a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section id="operating-model" class="section operating-section" aria-labelledby="operating-heading">
+      <div class="container operating-layout">
+        <div class="operating-copy">
+          <span class="mono">{en ? 'RESPONSIBILITY FIRST' : 'เริ่มจากหน้าที่'}</span>
+          <h2 id="operating-heading">{en ? 'The platform connects responsibilities without moving ownership' : 'แพลตฟอร์มเชื่อมหน้าที่ต่างฝ่ายโดยไม่ย้ายความเป็นเจ้าของ'}</h2>
+          <p>{en
+            ? 'This conceptual diagram describes responsibility boundaries. It does not prescribe the physical request sequence of every installation.'
+            : 'แผนภาพนี้อธิบายขอบเขตความรับผิดชอบในเชิงแนวคิด ไม่ได้กำหนดลำดับคำขอทางเทคนิคของทุกการติดตั้ง'}</p>
+        </div>
+        <figure class="responsibility-figure" aria-labelledby="responsibility-caption">
+          <div class="responsibility-visual" aria-hidden="true">
+            <div class="responsibility-row patient-row">
+              <span class="role-index">01</span>
+              <strong>{en ? 'Patient' : 'ผู้ป่วย'}</strong>
+              <p>{en ? 'Owns health data and controls consent and use' : 'เป็นเจ้าของข้อมูลสุขภาพและกำหนดความยินยอมกับการใช้ข้อมูล'}</p>
+            </div>
+            <div class="responsibility-row hospital-row">
+              <span class="role-index">02</span>
+              <strong>{en ? 'Hospital' : 'โรงพยาบาล'}</strong>
+              <p>{en ? 'Stores and stewards the clinical record in source systems' : 'จัดเก็บและดูแลเวชระเบียนในระบบต้นทาง'}</p>
+            </div>
+            <div class="responsibility-row healthtag-row">
+              <span class="role-index">03</span>
+              <strong>HealthTAG</strong>
+              <p>{en ? 'Provides identity, authorization, trusted exchange, and audit infrastructure' : 'จัดเตรียมโครงสร้างพื้นฐานด้านตัวตน การอนุญาต การแลกเปลี่ยนตามสิทธิ์ และการตรวจสอบ'}</p>
+            </div>
+            <div class="diagram-boundary">
+              <span>{en ? 'Clinical records stay at source' : 'เวชระเบียนอยู่ที่ต้นทาง'}</span>
+              <span>{en ? 'Blockchain records events, not records' : 'Blockchain บันทึกเหตุการณ์ ไม่ได้เก็บเวชระเบียน'}</span>
+            </div>
+          </div>
+          <figcaption id="responsibility-caption">{en ? 'Conceptual responsibility model for authorized health-data exchange.' : 'แบบจำลองหน้าที่ในการแลกเปลี่ยนข้อมูลสุขภาพตามสิทธิ์'}</figcaption>
+          <details class="diagram-transcript">
+            <summary>{en ? 'Read the diagram as text' : 'อ่านคำอธิบายแผนภาพ'}</summary>
+            <ol>
+              <li>{en ? 'The patient owns their health data and controls consent and use.' : 'ผู้ป่วยเป็นเจ้าของข้อมูลสุขภาพและกำหนดความยินยอมกับการใช้ข้อมูล'}</li>
+              <li>{en ? 'The hospital stores and stewards the clinical record in its source systems.' : 'โรงพยาบาลจัดเก็บและดูแลเวชระเบียนในระบบต้นทางของตน'}</li>
+              <li>{en ? 'HealthTAG supplies infrastructure for identity linkage, authorization, permitted exchange, and audit.' : 'HealthTAG จัดเตรียมโครงสร้างพื้นฐานสำหรับเชื่อมตัวตน อนุญาตสิทธิ์ แลกเปลี่ยนข้อมูลตามสิทธิ์ และตรวจสอบย้อนหลัง'}</li>
+              <li>{en ? 'Clinical records do not pass through blockchain. Blockchain records consent and access events.' : 'เวชระเบียนไม่ได้ไหลผ่าน blockchain โดย blockchain บันทึกเฉพาะเหตุการณ์ความยินยอมและการเข้าถึง'}</li>
+            </ol>
+          </details>
+        </figure>
+      </div>
+    </section>
+
+    <section id="hospital-leaders" class="section leader-section" aria-labelledby="leaders-heading">
+      <div class="container decision-layout">
+        <div>
+          <span class="mono">{en ? 'FOR HOSPITAL LEADERS' : 'สำหรับผู้บริหารโรงพยาบาล'}</span>
+          <h2 id="leaders-heading">{en ? 'Connect without replacing the core HIS' : 'เชื่อมระบบโดยไม่ต้องเปลี่ยน HIS หลัก'}</h2>
+        </div>
+        <div class="decision-copy">
+          <p>{en
+            ? 'The hospital keeps custody of its records and chooses the ingestion path that fits its IT capability. Siriraj uses a hospital-developed script. Khian Sa uses HealthTAG FHIR Transformer for four confirmed FHIR resources.'
+            : 'โรงพยาบาลยังดูแลเวชระเบียนและเลือกวิธีนำข้อมูลเข้าที่เหมาะกับทีม IT ของตน ศิริราชใช้สคริปต์ที่ทีมโรงพยาบาลพัฒนาเอง ส่วนเคียนซาใช้ HealthTAG FHIR Transformer สำหรับ FHIR resources ที่ยืนยันแล้ว 4 ประเภท'}</p>
+          <div class="actions">
+            <a class="btn primary" href={`${prefix}/deployments/`}>{en ? 'Compare deployments' : 'เปรียบเทียบการใช้งานจริง'}</a>
+            <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Discuss an integration' : 'ปรึกษาการเชื่อมต่อ'}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="it-teams" class="section it-section" aria-labelledby="it-heading">
+      <div class="container it-layout">
+        <div>
+          <span class="mono">{en ? 'FOR IT TEAMS' : 'สำหรับทีม IT'}</span>
+          <h2 id="it-heading">{en ? 'Two ingestion paths support different hospital IT models' : 'สองวิธีนำข้อมูลเข้า รองรับรูปแบบทีม IT ที่ต่างกัน'}</h2>
+          <p>{en
+            ? 'A hospital may use an IT-managed script or HealthTAG FHIR Transformer. The current hospital-side architecture separates FHIR storage, API protection, identity linkage, and authorization.'
+            : 'โรงพยาบาลเลือกใช้สคริปต์ที่ทีม IT ดูแลเองหรือ HealthTAG FHIR Transformer ได้ สถาปัตยกรรมฝั่งโรงพยาบาลปัจจุบันแยกการจัดเก็บ FHIR การปกป้อง API การเชื่อมตัวตน และการอนุญาตสิทธิ์ออกจากกัน'}</p>
+        </div>
+        <details class="it-detail">
+          <summary>{en ? 'Technical boundary and current implementation' : 'ขอบเขตทางเทคนิคและการทำงานปัจจุบัน'}</summary>
+          <div class="it-detail-body">
+            <dl>
+              <div><dt>{en ? 'Ingestion' : 'การนำข้อมูลเข้า'}</dt><dd>{en ? 'Hospital IT script or HealthTAG FHIR Transformer.' : 'สคริปต์ของทีม IT โรงพยาบาล หรือ HealthTAG FHIR Transformer'}</dd></div>
+              <div><dt>{en ? 'FHIR system' : 'ระบบ FHIR'}</dt><dd>{en ? 'HAPI FHIR Server using HL7 FHIR R4, with PostgreSQL persistence and Kong API Gateway.' : 'HAPI FHIR Server บน HL7 FHIR R4 ใช้ PostgreSQL จัดเก็บข้อมูลและมี Kong API Gateway'}</dd></div>
+              <div><dt>{en ? 'Access check' : 'การตรวจสิทธิ์'}</dt><dd>{en ? 'HealthTAG Module, also called Hospital API, checks identity and the current authorization window inside the hospital network.' : 'HealthTAG Module หรือ Hospital API ตรวจตัวตนและช่วงเวลาการอนุญาตปัจจุบันภายในเครือข่ายโรงพยาบาล'}</dd></div>
+            </dl>
+            <div class="technical-links">
+              <a href={`${prefix}/interoperability/`}>{en ? 'Interoperability components' : 'องค์ประกอบการเชื่อมโยงข้อมูล'} <span aria-hidden="true">→</span></a>
+              <a href={`${prefix}/how-it-works/`}>{en ? 'Conceptual exchange flow' : 'ลำดับการแลกเปลี่ยนเชิงแนวคิด'} <span aria-hidden="true">→</span></a>
+              <a href="https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/" target="_blank" rel="noopener noreferrer">{en ? 'Official Data Source Node architecture' : 'สถาปัตยกรรม Data Source Node ฉบับทางการ'} <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section audience-section" aria-labelledby="audience-heading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="audience-heading">{en ? 'What each audience can verify' : 'ข้อมูลที่แต่ละกลุ่มตรวจสอบได้'}</h2>
+          <p>{en ? 'Leaders can compare deployments, IT teams can inspect components, institutional partners can check sources, and patients can see the PHR outcome.' : 'ผู้บริหารเปรียบเทียบการใช้งานจริงได้ ทีม IT ตรวจองค์ประกอบระบบได้ พันธมิตรสถาบันตรวจแหล่งข้อมูลได้ และผู้ป่วยดูผลลัพธ์ใน PHR ได้'}</p>
+        </div>
+        <ul class="audience-list" role="list">
+          {audienceRoutes.map(([title, body, href, link], index) => (
+            <li>
+              <span class="route-number">0{index + 1}</span>
+              <div><h3>{title}</h3><p>{body}</p></div>
+              <a href={href}>{link} <span aria-hidden="true">→</span></a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section id="evidence" class="section proof-section" aria-labelledby="evidence-heading">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="evidence-heading">{en ? 'Deployments and external records confirm different facts' : 'การใช้งานจริงและหลักฐานภายนอกยืนยันข้อเท็จจริงต่างกัน'}</h2>
+          <p>{en
+            ? 'Deployments confirm implementation. Programmes, awards, and sandbox records confirm different relationships or results.'
+            : 'การใช้งานจริงยืนยันการนำระบบไปใช้ ส่วนโครงการ รางวัล และข้อมูล sandbox ยืนยันความสัมพันธ์หรือผลลัพธ์คนละประเภทกัน'}</p>
+        </div>
+        <div class="deployment-proof">
+          <span class="proof-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span>
+          <div><h3>{en ? 'Siriraj and Khian Sa' : 'ศิริราชและเคียนซา'}</h3><p>{en ? 'Two confirmed hospital cases use different HIS-to-FHIR ingestion paths.' : 'กรณีโรงพยาบาลที่ยืนยันแล้วสองแห่งใช้วิธีนำข้อมูลจาก HIS เข้า FHIR ต่างกัน'}</p></div>
+          <a href={`${prefix}/deployments/`}>{en ? 'Review both cases' : 'ดูทั้งสองกรณี'} <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="proof-grid">
+          {proofItems.map((item) => (
+            <article>
+              <span class="proof-type">{item.tag[locale]}</span>
+              <h3>{item.title}</h3>
+              <p>{item.externallyConfirmed[locale]}</p>
+              <div class="proof-links">
+                <a href={`${prefix}/evidence/#${item.id}`}>{en ? 'Evidence record' : 'หน้าหลักฐาน'} <span aria-hidden="true">→</span></a>
+                <a href={item.href[locale]} target="_blank" rel="noopener noreferrer">{item.sourceOrganization[locale]} <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="platform-cta" aria-labelledby="platform-cta-heading">
+      <div class="container cta-layout">
+        <div><span class="mono">{en ? 'NEXT STEP' : 'ขั้นต่อไป'}</span><h2 id="platform-cta-heading">{en ? 'Discuss the integration boundary first' : 'เริ่มจากคุยขอบเขตการเชื่อมต่อ'}</h2></div>
+        <div><p>{en ? 'Tell us about the hospital systems, participants, and decision you are working through. Do not send patient, medical, credential, or other sensitive data.' : 'บอกเราได้ว่ากำลังพิจารณาระบบโรงพยาบาล ผู้เกี่ยวข้อง และประเด็นใด โดยไม่ส่งข้อมูลผู้ป่วย ข้อมูลทางการแพทย์ รหัสผ่าน หรือข้อมูลอ่อนไหวอื่น'}</p><a class="btn primary" href={`${prefix}/contact/`}>{en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a></div>
+      </div>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .platform-hero { padding-bottom: 78px; }
+  .hero-layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .55fr); gap: clamp(42px, 7vw, 92px); align-items: end; }
+  .platform-hero h1 { max-width: 16ch; }
+  .platform-register { padding: 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .7rem; letter-spacing: .08em; color: var(--teal); }
+  .platform-register dl { margin: 24px 0 0; }
+  .platform-register dl div { display: grid; gap: 3px; padding: 15px 0; border-top: 1px solid var(--line); }
+  .platform-register dt { font-weight: 700; }
+  .platform-register dd { margin: 0; color: var(--muted); font-size: .9rem; }
+
+  .page-index { position: sticky; top: 76px; z-index: 10; border-block: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(12px); }
+  .page-index .container { display: grid; grid-template-columns: minmax(110px, .22fr) 1fr; gap: 24px; align-items: center; min-height: 66px; }
+  .page-index > .container > .mono { color: var(--muted); }
+  .page-index ul { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; margin: 0; padding: 0; list-style: none; }
+  .page-index a { display: flex; gap: 7px; align-items: baseline; min-height: 44px; padding: 8px; border-radius: 7px; font-size: .84rem; font-weight: 600; line-height: 1.35; }
+  .page-index a:hover { background: var(--mint); }
+  .page-index a span { color: var(--teal); font: 500 .65rem/1 'IBM Plex Mono', ui-monospace, monospace; }
+
+  .capabilities { background: var(--white); }
+  .capability-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .capability-list li { display: grid; grid-template-columns: 70px minmax(0, 1fr) minmax(170px, .3fr); gap: 30px; align-items: start; padding: 30px 0; border-bottom: 1px solid var(--line); }
+  .capability-number, .route-number, .role-index { color: var(--teal); font: 600 .72rem/1 'IBM Plex Mono', ui-monospace, monospace; }
+  .capability-list h3 { margin: 0 0 9px; font-size: clamp(1.45rem, 2.4vw, 2.1rem); line-height: 1.2; letter-spacing: -.035em; }
+  .capability-list p { max-width: 760px; margin: 0; color: var(--muted); }
+  .capability-list a, .audience-list a, .deployment-proof > a { color: var(--teal); font-weight: 600; }
+
+  .operating-section { background: var(--ink); color: var(--paper); }
+  .operating-layout { display: grid; grid-template-columns: minmax(0, .68fr) minmax(30rem, 1.32fr); gap: clamp(42px, 8vw, 110px); align-items: start; }
+  .operating-copy { position: sticky; top: 170px; }
+  .operating-copy .mono { color: #8bd9d1; }
+  .operating-copy h2 { margin: 16px 0 20px; color: var(--paper); font-size: clamp(2.15rem, 4vw, 3.8rem); }
+  .operating-copy p { margin: 0; color: #bdd0d0; }
+  .responsibility-figure { margin: 0; }
+  .responsibility-visual { border: 1px solid rgba(221,243,235,.24); border-radius: 16px; overflow: hidden; }
+  .responsibility-row { display: grid; grid-template-columns: 48px minmax(110px, .35fr) minmax(0, 1fr); gap: 18px; align-items: baseline; min-height: 116px; padding: 28px; border-bottom: 1px solid rgba(221,243,235,.18); }
+  .responsibility-row strong { font-size: 1.2rem; }
+  .responsibility-row p { margin: 0; color: #c3d4d4; }
+  .responsibility-row .role-index { color: #8bd9d1; }
+  .patient-row { background: rgba(0,118,111,.22); }
+  .hospital-row { background: rgba(221,243,235,.06); }
+  .healthtag-row { background: rgba(182,106,22,.13); }
+  .healthtag-row .role-index { color: #f0bd7d; }
+  .diagram-boundary { display: grid; grid-template-columns: 1fr 1fr; }
+  .diagram-boundary span { padding: 17px 22px; color: #bdd0d0; font-size: .8rem; font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  .diagram-boundary span + span { border-left: 1px solid rgba(221,243,235,.18); }
+  .responsibility-figure figcaption { margin-top: 12px; color: #9fb6b8; font-size: .82rem; }
+  .diagram-transcript { margin-top: 18px; border-top: 1px solid rgba(221,243,235,.22); }
+  .diagram-transcript summary { min-height: 48px; padding: 14px 0; color: #9ae3da; font-weight: 600; }
+  .diagram-transcript ol { margin: 0; padding: 4px 0 0 20px; color: #bdd0d0; }
+  .diagram-transcript li + li { margin-top: 9px; }
+
+  .leader-section { background: var(--mint); }
+  .decision-layout { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); gap: clamp(40px, 8vw, 110px); align-items: start; }
+  .decision-layout h2 { margin: 14px 0 0; font-size: clamp(2.2rem, 4vw, 4rem); }
+  .decision-copy > p { margin: 0; color: var(--muted); font-size: 1.08rem; }
+
+  .it-section { background: var(--white); }
+  .it-layout { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: clamp(40px, 8vw, 105px); align-items: start; }
+  .it-layout h2 { margin: 14px 0 18px; font-size: clamp(2.1rem, 4vw, 3.7rem); }
+  .it-layout > div > p { margin: 0; color: var(--muted); }
+  .it-detail { border-block: 1px solid var(--line); }
+  .it-detail summary { min-height: 62px; padding: 18px 4px; font-weight: 700; font-size: 1.05rem; }
+  .it-detail-body { padding: 0 4px 24px; }
+  .it-detail dl { margin: 0; }
+  .it-detail dl div { display: grid; grid-template-columns: minmax(110px, .28fr) minmax(0, 1fr); gap: 22px; padding: 17px 0; border-top: 1px solid var(--line); }
+  .it-detail dt { font-weight: 700; }
+  .it-detail dd { margin: 0; color: var(--muted); }
+  .technical-links { display: grid; gap: 9px; margin-top: 20px; }
+  .technical-links a { width: fit-content; color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+  .audience-section { background: var(--paper); }
+  .audience-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .audience-list li { display: grid; grid-template-columns: 60px minmax(0, 1fr) minmax(170px, .28fr); gap: 24px; align-items: start; padding: 25px 0; border-bottom: 1px solid var(--line); }
+  .audience-list h3 { margin: 0 0 7px; font-size: 1.3rem; }
+  .audience-list p { margin: 0; color: var(--muted); }
+
+  .proof-section { background: #edf3f1; }
+  .deployment-proof { display: grid; grid-template-columns: minmax(120px, .25fr) minmax(0, 1fr) minmax(150px, .25fr); gap: 24px; align-items: start; padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
+  .proof-type { width: fit-content; padding: 5px 8px; border: 1px solid #8fbab3; border-radius: 999px; color: var(--ink); background: #f6fbf9; font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .deployment-proof h3, .proof-grid h3 { margin: 0 0 8px; font-size: 1.35rem; }
+  .deployment-proof p, .proof-grid p { margin: 0; color: var(--muted); }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+  .proof-grid article { min-width: 0; padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
+  .proof-grid h3 { margin-top: 22px; overflow-wrap: anywhere; }
+  .proof-grid p { font-size: .91rem; }
+  .proof-links { display: grid; gap: 7px; margin-top: 19px; }
+  .proof-links a { width: fit-content; color: var(--teal); font-size: .88rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+  .platform-cta { padding: 74px 0; background: var(--ink); color: var(--paper); }
+  .cta-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(36px, 8vw, 110px); align-items: end; }
+  .cta-layout .mono { color: #8bd9d1; }
+  .cta-layout h2 { margin: 12px 0 0; color: var(--paper); font-size: clamp(2.2rem, 4vw, 3.7rem); }
+  .cta-layout p { margin: 0 0 22px; color: #bdd0d0; }
+
+  #overview, #capabilities, #operating-model, #hospital-leaders, #it-teams, #evidence { scroll-margin-top: 164px; }
+
+  @media (max-width: 1050px) {
+    .page-index { position: static; }
+    .page-index .container { grid-template-columns: 1fr; gap: 4px; padding-block: 12px; }
+    .page-index ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .operating-copy { position: static; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-layout, .operating-layout, .decision-layout, .it-layout, .cta-layout { grid-template-columns: 1fr; }
+    .operating-layout { gap: 34px; }
+    .proof-grid { grid-template-columns: 1fr; }
+    .deployment-proof { grid-template-columns: minmax(110px, .3fr) 1fr; }
+    .deployment-proof > a { grid-column: 2; }
+    #overview, #capabilities, #operating-model, #hospital-leaders, #it-teams, #evidence { scroll-margin-top: 92px; }
+  }
+
+  @media (max-width: 650px) {
+    .platform-hero h1 { font-size: clamp(2.45rem, 11vw, 3.2rem); }
+    .page-index ul { grid-template-columns: 1fr 1fr; }
+    .capability-list li, .audience-list li { grid-template-columns: 38px 1fr; gap: 14px; }
+    .capability-list li > a, .audience-list li > a { grid-column: 2; }
+    .responsibility-row { grid-template-columns: 38px 1fr; gap: 10px; padding: 22px; }
+    .responsibility-row p { grid-column: 2; }
+    .diagram-boundary { grid-template-columns: 1fr; }
+    .diagram-boundary span + span { border-top: 1px solid rgba(221,243,235,.18); border-left: 0; }
+    .it-detail dl div, .deployment-proof { grid-template-columns: 1fr; }
+    .deployment-proof > a { grid-column: 1; }
+  }
+
+  @media print {
+    .page-index { position: static; }
+    .diagram-transcript[open] > *, .diagram-transcript > * { display: block; }
+  }
+</style>

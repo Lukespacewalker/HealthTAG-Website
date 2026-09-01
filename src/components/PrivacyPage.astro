@@ -12,33 +12,39 @@ const prefix = en ? '/en' : '';
   locale={locale}
   path="privacy"
   title={en ? 'Website privacy notice | HealthTAG' : 'ประกาศความเป็นส่วนตัวของเว็บไซต์ | HealthTAG'}
-  description={en ? 'How the HealthTAG corporate website and its email-based contact flow handle information, separate from clinical systems and PHR access.' : 'คำอธิบายการจัดการข้อมูลของเว็บไซต์บริษัท HealthTAG และการติดต่อผ่านอีเมล ซึ่งแยกจากระบบข้อมูลทางคลินิกและการเข้าถึง PHR'}
+  description={en ? 'How the HealthTAG corporate website and contact endpoint handle information, separate from clinical systems and PHR access.' : 'คำอธิบายการจัดการข้อมูลของเว็บไซต์บริษัท HealthTAG และระบบรับข้อความติดต่อ ซึ่งแยกจากระบบข้อมูลทางคลินิกและการเข้าถึง PHR'}
 >
   <main>
     <section class="page-hero policy-hero">
       <div class="container">
         <div class="eyebrow">HealthTAG / {en ? 'Website privacy' : 'ความเป็นส่วนตัวของเว็บไซต์'}</div>
         <h1>{en ? 'Website privacy for corporate enquiries' : 'ความเป็นส่วนตัวสำหรับเว็บไซต์และการติดต่อบริษัท'}</h1>
-        <p>{en ? 'This notice covers the public HealthTAG website and its email contact form. Hospital clinical systems, PHR access, and patient authorization follow separate processes.' : 'ประกาศนี้ครอบคลุมเว็บไซต์สาธารณะของ HealthTAG และแบบฟอร์มติดต่อผ่านอีเมล ส่วนระบบข้อมูลทางคลินิก การเข้าถึง PHR และการอนุญาตข้อมูลผู้ป่วยมีกระบวนการแยกต่างหาก'}</p>
+        <p>{en ? 'This notice covers the public HealthTAG website and its corporate contact form. Hospital clinical systems, PHR access, and patient authorization follow separate processes.' : 'ประกาศนี้ครอบคลุมเว็บไซต์สาธารณะของ HealthTAG และแบบฟอร์มติดต่อบริษัท ส่วนระบบข้อมูลทางคลินิก การเข้าถึง PHR และการอนุญาตข้อมูลผู้ป่วยมีกระบวนการแยกต่างหาก'}</p>
       </div>
     </section>
     <section class="section">
       <div class="container policy-layout">
         <aside aria-label={en ? 'Notice scope' : 'ขอบเขตประกาศ'}>
           <span>{en ? 'Last updated' : 'ปรับปรุงล่าสุด'}</span>
-          <strong>{en ? '30 August 2026' : '30 สิงหาคม 2569'}</strong>
+          <strong>{en ? '1 September 2026' : '1 กันยายน 2569'}</strong>
           <p>{en ? 'Contact questions about this notice at contact@healthtag.io.' : 'สอบถามเกี่ยวกับประกาศนี้ได้ที่ contact@healthtag.io'}</p>
         </aside>
         <div class="policy-copy">
           <section>
             <h2>{en ? 'Information you choose to send' : 'ข้อมูลที่คุณเลือกส่ง'}</h2>
-            <p>{en ? 'The contact page asks for an enquiry type, your name, a reply email, an optional organization name, and your message. The page prepares this information as a draft in your own email application.' : 'หน้าติดต่อขอประเภทการติดต่อ ชื่อ อีเมลสำหรับตอบกลับ ชื่อองค์กรซึ่งไม่บังคับ และข้อความของคุณ หน้าดังกล่าวจะเตรียมข้อมูลเหล่านี้เป็นข้อความร่างในแอปอีเมลของคุณ'}</p>
-            <p>{en ? 'The form opens a draft in your mail application. HealthTAG receives the message after you review and send that email.' : 'แบบฟอร์มจะเปิดข้อความร่างในแอปอีเมลของคุณ HealthTAG จะได้รับข้อความเมื่อคุณตรวจสอบและส่งอีเมลนั้นแล้ว'}</p>
+            <p>{en ? 'The contact page asks for a topic, your name, a reply email, an optional organization name, and your message. The form sends this information to a same-origin website endpoint.' : 'หน้าติดต่อขอหัวข้อ ชื่อ อีเมลสำหรับตอบกลับ ชื่อองค์กรซึ่งไม่บังคับ และข้อความของคุณ แบบฟอร์มจะส่งข้อมูลนี้ไปยังระบบรับข้อความภายในโดเมนเดียวกัน'}</p>
+            <p>{en ? 'HealthTAG receives the message only after the email service accepts it. If the online form is unavailable, you can send the same information to contact@healthtag.io through your own email provider.' : 'HealthTAG จะได้รับข้อความเมื่อบริการอีเมลรับคำขอแล้วเท่านั้น หากแบบฟอร์มออนไลน์ใช้งานไม่ได้ คุณสามารถส่งข้อมูลเดียวกันไปที่ contact@healthtag.io ผ่านผู้ให้บริการอีเมลของคุณ'}</p>
           </section>
           <section>
             <h2>{en ? 'How corporate enquiries are used' : 'การใช้ข้อมูลติดต่อบริษัท'}</h2>
-            <p>{en ? 'HealthTAG uses the information to route and respond to your enquiry. The recipient depends on whether the message concerns a healthcare provider, technical integration, partnership, media, or a general question.' : 'HealthTAG ใช้ข้อมูลเพื่อส่งต่อและตอบคำถาม ผู้รับข้อความขึ้นอยู่กับหัวข้อ เช่น ผู้ให้บริการด้านสุขภาพ การเชื่อมต่อทางเทคนิค ความร่วมมือ สื่อ หรือเรื่องทั่วไป'}</p>
-            <p>{en ? 'HealthTAG has not published a fixed retention period for website enquiries. Contact contact@healthtag.io for information about a specific message.' : 'HealthTAG ยังไม่ได้เผยแพร่ระยะเวลาจัดเก็บข้อความติดต่อแบบตายตัว หากต้องการข้อมูลเกี่ยวกับข้อความใดข้อความหนึ่ง โปรดติดต่อ contact@healthtag.io'}</p>
+            <p>{en ? 'HealthTAG uses the information to route and answer your enquiry. The selected topic routes the email to the configured recipient for provider integration, government or university work, business partnerships, Investor Relations, press, or other questions.' : 'HealthTAG ใช้ข้อมูลเพื่อส่งต่อและตอบคำถาม หัวข้อที่เลือกจะกำหนดผู้รับอีเมลสำหรับการเชื่อมระบบผู้ให้บริการสุขภาพ งานภาครัฐหรือมหาวิทยาลัย ความร่วมมือทางธุรกิจ นักลงทุนสัมพันธ์ สื่อมวลชน หรือเรื่องอื่น'}</p>
+            <p>{en ? 'The website does not add the message to a database. The contact endpoint sends it through Cloudflare Email Service to the configured HealthTAG mailbox. Email delivery systems and recipient mailboxes may retain the message under their operational policies. HealthTAG has not published a fixed retention period for these enquiries.' : 'เว็บไซต์ไม่นำข้อความไปเก็บในฐานข้อมูล ระบบรับข้อความจะส่งอีเมลผ่าน Cloudflare Email Service ไปยังกล่องจดหมายของ HealthTAG ที่ตั้งค่าไว้ ระบบส่งอีเมลและกล่องจดหมายของผู้รับอาจเก็บข้อความตามนโยบายการดำเนินงานของแต่ละระบบ ปัจจุบัน HealthTAG ยังไม่ได้เผยแพร่ระยะเวลาจัดเก็บข้อความติดต่อแบบตายตัว'}</p>
+            <p>{en ? 'To ask about a specific enquiry or its deletion, email contact@healthtag.io.' : 'หากต้องการสอบถามเกี่ยวกับข้อความใดข้อความหนึ่งหรือการลบข้อความ โปรดส่งอีเมลไปที่ contact@healthtag.io'}</p>
+          </section>
+          <section>
+            <h2>{en ? 'Bot checks and service logs' : 'การตรวจสอบบอตและบันทึกการทำงาน'}</h2>
+            <p>{en ? 'The form uses Cloudflare Turnstile and a short-window rate limit before it sends email. These checks use a Turnstile token and connection metadata such as the network address. Cloudflare processes the Turnstile check.' : 'แบบฟอร์มใช้ Cloudflare Turnstile และการจำกัดจำนวนครั้งในช่วงเวลาสั้น ๆ ก่อนส่งอีเมล การตรวจสอบนี้ใช้โทเคนของ Turnstile และข้อมูลการเชื่อมต่อ เช่น หมายเลขที่อยู่เครือข่าย โดย Cloudflare เป็นผู้ประมวลผลการตรวจสอบ Turnstile'}</p>
+            <p>{en ? 'Routine contact logs contain a request reference, delivery outcome, route, and selected topic. They do not contain the name, reply email, organization, or message text.' : 'บันทึกการทำงานตามปกติมีหมายเลขอ้างอิง ผลการส่ง เส้นทาง และหัวข้อที่เลือก โดยไม่มีชื่อ อีเมลสำหรับตอบกลับ องค์กร หรือเนื้อหาข้อความ'}</p>
           </section>
           <section class="sensitive-section">
             <h2>{en ? 'Do not use this contact flow for sensitive data' : 'ห้ามใช้ช่องทางนี้ส่งข้อมูลอ่อนไหว'}</h2>

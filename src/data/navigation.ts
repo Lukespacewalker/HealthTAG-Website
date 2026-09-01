@@ -27,6 +27,7 @@ export const navigationGroups: NavigationGroup[] = [
     id: 'platform',
     label: { th: 'แพลตฟอร์ม', en: 'Platform' },
     items: [
+      item('platform-overview', 'platform', 'ภาพรวมแพลตฟอร์ม', 'Platform overview'),
       item('interoperability', 'interoperability', 'การเชื่อมโยงข้อมูล', 'Interoperability'),
       item('how-it-works', 'how-it-works', 'ระบบทำงานอย่างไร', 'How it works'),
       item('trust', 'trust', 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง', 'Consent, trust & access'),
@@ -46,7 +47,7 @@ export const navigationGroups: NavigationGroup[] = [
     id: 'publications',
     label: { th: 'ข่าวและบทความ', en: 'News & articles' },
     items: [
-      item('posts', 'posts', 'ข่าวและบทความทั้งหมด', 'All news & articles'),
+      item('posts', 'posts', 'รวมข่าวและบทความ', 'News & articles overview'),
       item('news', 'news', 'ข่าว', 'News'),
       item('articles', 'articles', 'บทความ', 'Articles'),
       item('awards', 'awards', 'รางวัล', 'Awards'),
@@ -57,6 +58,7 @@ export const navigationGroups: NavigationGroup[] = [
     label: { th: 'เกี่ยวกับ HealthTAG', en: 'About HealthTAG' },
     items: [
       item('company', 'company', 'ภาพรวมบริษัท', 'Company overview'),
+      item('investors', 'investors', 'ข้อมูลสำหรับนักลงทุน', 'Investors'),
       item('mission-vision', 'company', 'พันธกิจและวิสัยทัศน์', 'Mission & vision', 'mission-vision'),
       item('values', 'company', 'ค่านิยม', 'Values', 'values'),
       item('founder', 'company', 'ผู้ก่อตั้ง', 'Founder', 'founder'),

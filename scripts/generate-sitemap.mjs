@@ -6,7 +6,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = path.join(root, 'src', 'content', 'publications');
 const output = path.join(root, 'public', 'sitemap.xml');
 const baseRoutes = [
-  '/', '/interoperability/', '/phr/', '/how-it-works/', '/trust/', '/deployments/', '/network/', '/company/', '/evidence/',
+  '/', '/platform/', '/interoperability/', '/phr/', '/how-it-works/', '/trust/', '/deployments/', '/network/', '/company/', '/investors/', '/evidence/',
   '/posts/', '/news/', '/articles/', '/awards/', '/contact/', '/support/', '/support/community-edition/user-manual/', '/privacy/',
 ];
 

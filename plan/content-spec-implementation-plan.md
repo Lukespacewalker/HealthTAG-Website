@@ -1,6 +1,6 @@
 # HealthTAG content specification implementation plan
 
-Status: approved direction, implementation pending
+Status: repository implementation complete; Cloudflare production activation and legal review pending
 
 Reviewed: 2026-09-01
 
@@ -194,10 +194,10 @@ Required behavior:
 - Do not send message content to analytics.
 - On success, state that the team will reply to the supplied email address within seven days.
 - On failure, preserve the entered fields and show the email fallback.
-- Support a normal POST path when JavaScript is unavailable.
+- Keep the POST endpoint fail-closed when Turnstile cannot provide a token. If JavaScript is unavailable, show `contact@healthtag.io` as the usable fallback.
 - Use anti-abuse controls that do not claim a successful send before the email service accepts the request.
 
-Until that endpoint exists, retain the honest email-draft flow. Make it clear that the user must review and send the draft in their mail application.
+The public form must remain disabled when its Turnstile sitekey is not configured. The email fallback remains available in every state.
 
 ## Implementation phases
 
@@ -207,7 +207,7 @@ Until that endpoint exists, retain the honest email-draft flow. Make it clear th
 - Replace the specific cloud database vendor with generic cloud-database wording.
 - Update the archived bilingual article.
 - Update the team role.
-- Add the seven-day response statement to the current email-draft contact flow.
+- Add the seven-day response statement to Contact.
 - Rebuild generated output and confirm the retired terms are absent.
 
 ### Phase 1: content model and ownership
@@ -276,3 +276,11 @@ Until that endpoint exists, retain the honest email-draft flow. Make it clear th
 
 The work is complete when the approved IA, public naming policy, deployment boundaries, seven-day contact commitment, bilingual quality, responsive behavior, evidence discipline, and all automated checks in the companion checklist pass.
 
+## Remaining activation and review
+
+- Turnstile widget creation, Email Service domain activation, Pages secrets, live recipient delivery, replay rejection, and the rate-limit namespace still require access to the HealthTAG Cloudflare account and explicit approval for the external widget.
+- The public contact form therefore stays disabled when `PUBLIC_TURNSTILE_SITEKEY` is absent; `contact@healthtag.io` remains available in every state.
+- The Investors page deliberately omits PDPA-specific and market-size claims. A legal or designated review is still required before adding PDPA interpretation.
+- Khian Sa's start date remains unpublished until the owner supplies it.
+- Git history, release archives, mirrors, and search-engine caches have not been rewritten or purged; that is a separate coordinated task.
+- No analytics provider or tracking script has been added. The site remains fully usable without analytics.

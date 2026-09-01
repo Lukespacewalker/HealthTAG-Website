@@ -20,7 +20,11 @@ test('Thai Company page publishes the complete founder framework', async ({ page
   ]);
   await expect(values.first()).toContainText('จำกัดขอบเขต');
   await expect(values.first()).toContainText('เพิกถอนได้');
-  await expect(page.locator('#founder')).toBeVisible();
+  const founder = page.locator('#founder');
+  await expect(founder).toContainText('ปัจจุบันยังปฏิบัติงานทางคลินิก');
+  await expect(founder.locator('.founder-credentials')).toContainText('แพทยศาสตรบัณฑิต มหาวิทยาลัยขอนแก่น');
+  await expect(founder.locator('.founder-credentials')).toContainText('National University of Singapore');
+  await expect(founder.locator('.founder-credentials')).toContainText('จุฬาลงกรณ์มหาวิทยาลัย');
   await expect(page.locator('#team')).toBeVisible();
 });
 
@@ -45,6 +49,11 @@ test('English Company page frames nationwide connection as Vision', async ({ pag
   ]);
   await expect(values.first()).toContainText('limited in scope and time');
   await expect(values.first()).toContainText('revocable');
+  const founder = page.locator('#founder');
+  await expect(founder).toContainText('continues clinical practice');
+  await expect(founder.locator('.founder-credentials')).toContainText('M.D., Khon Kaen University');
+  await expect(founder.locator('.founder-credentials')).toContainText('National University of Singapore');
+  await expect(founder.locator('.founder-credentials')).toContainText('Chulalongkorn University');
 });
 
 for (const route of ['/company/', '/en/company/']) {

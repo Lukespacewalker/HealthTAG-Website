@@ -52,6 +52,18 @@ const values = en
       ['เกิดจากหน้างานจริง', 'HealthTAG ก่อตั้งและนำโดยแพทย์ เราเริ่มจากคำถามว่าสิ่งที่ออกแบบจะช่วยให้การดูแลผู้ป่วยดีขึ้นหรือไม่ แล้วจึงเลือกเทคโนโลยีให้เหมาะกับความต้องการนั้น'],
       ['ทำงานร่วมกัน ไม่ทำคนเดียว', 'โครงสร้างพื้นฐานข้อมูลสุขภาพระดับประเทศต้องอาศัยการทำงานที่รับผิดชอบร่วมกับโรงพยาบาล มหาวิทยาลัย ภาครัฐ ภาคเอกชน และพันธมิตรเทคโนโลยี ไม่มีองค์กรใดสร้างได้โดยลำพัง'],
     ];
+
+const founderCredentials = en
+  ? [
+      ['Education', 'M.D., Khon Kaen University'],
+      ['Further study', 'AI in Healthcare, National University of Singapore'],
+      ['Academic roles', 'Guest lecturer in digital health at Chulalongkorn University, KMITL, and Khon Kaen University'],
+    ]
+  : [
+      ['การศึกษา', 'แพทยศาสตรบัณฑิต มหาวิทยาลัยขอนแก่น'],
+      ['การศึกษาเพิ่มเติม', 'AI in Healthcare, National University of Singapore'],
+      ['บทบาททางวิชาการ', 'อาจารย์พิเศษด้านสุขภาพดิจิทัลที่จุฬาลงกรณ์มหาวิทยาลัย สจล. และมหาวิทยาลัยขอนแก่น'],
+    ];
 ---
 
 <Base
@@ -140,11 +152,16 @@ const values = en
           <span class="mono">{en ? 'CLINICALLY GROUNDED' : 'เริ่มจากการดูแลผู้ป่วย'}</span>
           <h2 id="founder-heading">{en ? 'The company began with a problem seen in patient care' : 'บริษัทเริ่มจากปัญหาที่พบในการดูแลผู้ป่วย'}</h2>
           <p>{en
-            ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems.'
-            : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก'}</p>
+            ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems. He continues clinical practice while leading the company.'
+            : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก ปัจจุบันยังปฏิบัติงานทางคลินิกควบคู่กับการนำบริษัท'}</p>
           <p>{en
             ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit. This work keeps the patient\'s ownership and consent distinct from the hospital\'s responsibility to store and steward the clinical record.'
             : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง โดยแยกสิทธิความเป็นเจ้าของและความยินยอมของผู้ป่วยออกจากหน้าที่ของโรงพยาบาลในการเก็บรักษาและดูแลเวชระเบียนให้ชัดเจน'}</p>
+          <dl class="founder-credentials">
+            {founderCredentials.map(([term, detail]) => (
+              <div><dt>{term}</dt><dd>{detail}</dd></div>
+            ))}
+          </dl>
         </div>
         <FounderCard locale={locale} />
       </div>
@@ -195,6 +212,10 @@ const values = en
   .founder-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(35px, 8vw, 110px); align-items: center; }
   .founder-copy h2 { margin: 16px 0 22px; font-size: clamp(2.2rem, 4vw, 4rem); }
   .founder-copy p { color: var(--muted); }
+  .founder-credentials { margin: 30px 0 0; border-top: 1px solid #9ccac2; }
+  .founder-credentials div { display: grid; grid-template-columns: minmax(120px, .42fr) minmax(0, 1fr); gap: 18px; padding: 14px 0; border-bottom: 1px solid #9ccac2; }
+  .founder-credentials dt { color: var(--teal); font-size: .78rem; font-weight: 600; letter-spacing: .04em; }
+  .founder-credentials dd { margin: 0; color: var(--ink); }
   .mission-vision, .values, .founder-story, .team-anchor { scroll-margin-top: 92px; }
 
   @media (max-width: 900px) {
@@ -210,5 +231,6 @@ const values = en
     .company-index a { padding-inline: 6px; }
     .vision-panel { padding-inline: 24px; }
     .operating-model div { grid-template-columns: 1fr; gap: 4px; }
+    .founder-credentials div { grid-template-columns: 1fr; gap: 4px; }
   }
 </style>
