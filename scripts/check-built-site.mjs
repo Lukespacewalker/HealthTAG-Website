@@ -86,6 +86,12 @@ for (const file of htmlFiles) {
     /(?:แต่ละองค์กร|แต่ละรายการ).*(?:ป้ายกำกับ|แสดง|ระบุ)/i,
     /(?:หน้านี้|รายการนี้|ภาพรวมนี้).*(?:แสดง|ระบุ|อธิบาย|เป็นข้อมูล|ใช้กับ)/i,
     /(?:วิธีอ่านป้ายกำกับ|ประเภทความสัมพันธ์ในหน้านี้|แสดงไว้ในกลุ่มเดียว|แสดงแยกจากกัน)/i,
+    /\bThe records below\b/i,
+    /\bWhat each relationship means\b/i,
+    /(?:programme|sandbox|award|collaboration|deployment).{0,160}\b(?:confirm|describe)\b.{0,100}\bdifferent (?:things|facts|relationships|results)\b/i,
+    /รายการด้านล่าง.*(?:ประเภท|ความสัมพันธ์)/i,
+    /ความหมายของความสัมพันธ์แต่ละประเภท/i,
+    /(?:โครงการ|sandbox|รางวัล|ความร่วมมือ).{0,160}(?:คนละประเภท|ยืนยันข้อเท็จจริงต่างกัน|ความสัมพันธ์ต่างกัน)/i,
   ];
   const metaUiMatch = metaUiPatterns.find((pattern) => pattern.test(bodyText));
   if (metaUiMatch) errors.push(`${route}: public copy narrates the interface or editorial structure (${metaUiMatch})`);
