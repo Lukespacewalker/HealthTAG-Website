@@ -15,7 +15,6 @@ The site explains HealthTAG as healthcare interoperability infrastructure. Patie
 | [`docs/COMMUNITY_EDITION_SUPPORT.md`](./docs/COMMUNITY_EDITION_SUPPORT.md) | Product boundary, source provenance, design, and checks for the Community Edition manual |
 | [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 | [`docs/PUBLICATION_ASSETS.md`](./docs/PUBLICATION_ASSETS.md) | Provenance and checksums for migrated article and award images |
-| [`docs/CONTACT_FORM.md`](./docs/CONTACT_FORM.md) | Pages Function, Email Service, Turnstile, secrets, and production validation for Contact |
 
 The official Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy:
 

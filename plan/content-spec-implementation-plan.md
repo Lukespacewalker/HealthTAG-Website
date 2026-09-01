@@ -8,7 +8,7 @@ Reviewed: 2026-09-01
 
 Align the website with the approved Content Specifications and UX Notes while preserving verified facts, canonical page ownership, bilingual quality, sensitive-data safeguards, and the current Clinical Systems Editorial visual system.
 
-The work adds a platform overview and an investor route without replacing the existing technical pages. It also changes the public identity-linkage name, keeps cloud-vendor details private, and prepares a short contact form that sends email.
+The work adds a platform overview and an investor route without replacing the existing technical pages. It also changes the public identity-linkage name, keeps cloud-vendor details private, and uses direct email links for corporate enquiries.
 
 ## Owner decisions
 
@@ -183,21 +183,19 @@ Do not state that consent is the only lawful basis under PDPA. Do not compare un
 
 ### Contact
 
-The preferred target is a short form that posts to a same-origin endpoint and sends email. Keep `contact@healthtag.io` as the fallback.
+The current public route uses `mailto:` links to `contact@healthtag.io`. The main link opens the visitor's email app, and topic links prepare a subject line.
 
 Required behavior:
 
-- Fields: name, reply email, organization optional, topic, and message.
-- Topics: provider integration, government and universities, business partnership, Investor Relations, press, and other.
-- Show the sensitive-data warning before the fields.
-- Do not store the message in a database unless a later requirement defines retention and access controls.
-- Do not send message content to analytics.
-- On success, state that the team will reply to the supplied email address within seven days.
-- On failure, preserve the entered fields and show the email fallback.
-- Keep the POST endpoint fail-closed when Turnstile cannot provide a token. If JavaScript is unavailable, show `contact@healthtag.io` as the usable fallback.
-- Use anti-abuse controls that do not claim a successful send before the email service accepts the request.
+- Keep `contact@healthtag.io` visible in text and links.
+- Offer subject links for provider integration, government and universities, business partnership, Investor Relations, press, and other enquiries.
+- Show the sensitive-data warning before the email links.
+- State that the team replies by email within seven days.
+- Explain that the website does not collect or submit the message.
+- Tell visitors to review the recipient, subject, attachments, and message in their email app before sending.
+- Keep corporate email separate from hospital clinical systems and PHR access.
 
-The public form must remain disabled when its Turnstile sitekey is not configured. The email fallback remains available in every state.
+The form and backend implementation are preserved on `codex/contact-form-backend` for later review. They are not part of the current `main` deployment.
 
 ## Implementation phases
 
@@ -242,11 +240,10 @@ The public form must remain disabled when its Turnstile sitekey is not configure
 
 ### Phase 5: Contact delivery
 
-- Select the same-origin email-delivery endpoint.
-- Define recipients and routing outside public source files.
-- Implement truthful success and error states.
-- Add rate limiting, spam controls, logs that exclude message content, and operational monitoring.
-- Update Privacy with purpose, fields, recipients, retention, and deletion behavior.
+- Publish direct `mailto:` links with prepared subject lines.
+- Keep topic choices visible without collecting form fields.
+- Update Privacy for email-provider and mailbox retention boundaries.
+- Preserve the proposed form/backend implementation on a separate branch for later review.
 
 ### Phase 6: UX, analytics, and accessibility
 
@@ -278,8 +275,8 @@ The work is complete when the approved IA, public naming policy, deployment boun
 
 ## Remaining activation and review
 
-- Turnstile widget creation, Email Service domain activation, Pages secrets, live recipient delivery, replay rejection, and the rate-limit namespace still require access to the HealthTAG Cloudflare account and explicit approval for the external widget.
-- The public contact form therefore stays disabled when `PUBLIC_TURNSTILE_SITEKEY` is absent; `contact@healthtag.io` remains available in every state.
+- The proposed form/backend implementation is preserved on `codex/contact-form-backend`. It still requires a dedicated delivery Worker, Turnstile approval, Email Service activation, rate limiting, secrets, and production validation before it can replace the `mailto:` route.
+- The current public contact route uses `mailto:` only and has no website form, Turnstile widget, or message database.
 - The Investors page deliberately omits PDPA-specific and market-size claims. A legal or designated review is still required before adding PDPA interpretation.
 - Khian Sa's owner-confirmed start date is published as 1 June 2025.
 - Git history, release archives, mirrors, and search-engine caches have not been rewritten or purged; that is a separate coordinated task.

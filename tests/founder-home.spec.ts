@@ -36,16 +36,16 @@ test('English home leads with the founder-confirmed vision and role boundary', a
 
 test('contact routes founder-relevant institution types without accepting sensitive data', async ({ page }) => {
   await page.goto('/contact/');
-  const enquiry = page.locator('select[name="topic"]');
+  const enquiry = page.locator('.topic-grid');
 
-  await expect(enquiry.locator('option', { hasText: 'ภาครัฐหรือมหาวิทยาลัย' })).toHaveCount(1);
-  await expect(enquiry.locator('option', { hasText: 'ความร่วมมือทางธุรกิจ' })).toHaveCount(1);
-  await expect(enquiry.locator('option', { hasText: 'นักลงทุนสัมพันธ์' })).toHaveCount(1);
+  await expect(enquiry.getByRole('link', { name: /ภาครัฐหรือมหาวิทยาลัย/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
+  await expect(enquiry.getByRole('link', { name: /ความร่วมมือทางธุรกิจ/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
+  await expect(enquiry.getByRole('link', { name: /นักลงทุนสัมพันธ์/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
   await expect(page.getByText(/โปรดอย่าส่งข้อมูลอ่อนไหว/).first()).toBeVisible();
 
   await page.goto('/en/contact/');
-  const englishEnquiry = page.locator('select[name="topic"]');
-  await expect(englishEnquiry.locator('option', { hasText: 'Government or university' })).toHaveCount(1);
-  await expect(englishEnquiry.locator('option', { hasText: 'Business partnership' })).toHaveCount(1);
-  await expect(englishEnquiry.locator('option', { hasText: 'Investor Relations' })).toHaveCount(1);
+  const englishEnquiry = page.locator('.topic-grid');
+  await expect(englishEnquiry.getByRole('link', { name: /Government or university/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
+  await expect(englishEnquiry.getByRole('link', { name: /Business partnership/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
+  await expect(englishEnquiry.getByRole('link', { name: /Investor Relations/ })).toHaveAttribute('href', /^mailto:contact@healthtag\.io\?subject=/);
 });
