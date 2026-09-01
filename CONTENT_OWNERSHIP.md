@@ -6,7 +6,7 @@ To avoid repetition, each recurring concept has one canonical page:
 - **Interoperability:** source-held data, the open-standards rationale, HIS ingestion options, HAPI FHIR Server, HL7 FHIR R4, PostgreSQL, Kong, and Transformer resource scope.
 - **How It Works:** the end-to-end six-step flow at conceptual level.
 - **Trust & Access:** patient ownership, consent principles, hospital stewardship, authorization, the 15-minute implementation window, blockchain audit role, and security boundaries.
-- **PHR:** patient-facing value, PromptCare ID, multi-provider view, and confirmed product behavior. It does not own general consent-policy claims.
+- **PHR:** patient-facing value, Identity Connect, multi-provider view, and confirmed product behavior. It does not own general consent-policy claims.
 - **Deployments:** Siriraj and Khian Sa implementation-specific facts.
 - **Network:** relationship context only; not deployment claims.
 - **Evidence:** externally sourced validation and milestone links.

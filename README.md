@@ -28,7 +28,7 @@ The official Data Source Node architecture documentation is the primary technica
 - Hospital data enters the FHIR layer through either a hospital-managed IT script or HealthTAG FHIR Transformer.
 - The current source-node stack uses HAPI FHIR Server, HL7 FHIR R4, PostgreSQL, and Kong API Gateway.
 - HealthTAG Module, also called Hospital API, runs inside the hospital network for identity linkage and authorization.
-- PromptCare ID identity linkage is stored in Amazon DynamoDB and supports linking hospital-local patient identities across providers.
+- Identity Connect links hospital-local patient identities across providers. The linkage is stored in a cloud database.
 - The current 15-minute access window is defined from blockchain state and checked by the Hospital API.
 - Blockchain records consent and access events as an immutable or tamper-resistant audit history. Clinical records are not stored on blockchain.
 

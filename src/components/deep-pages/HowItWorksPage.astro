@@ -8,14 +8,14 @@ const prefix = en ? '/en' : '';
 const stages = en ? [
   ['01','Connect','Send HIS data to the hospital FHIR system through an IT script or HealthTAG FHIR Transformer.','interoperability'],
   ['02','Standardize','Use HL7 FHIR R4 so connected systems share the same data structure.','interoperability'],
-  ['03','Identify','Link each hospital patient ID to PromptCare ID so records can be matched to the same person.','phr'],
+  ['03','Identify','Identity Connect links each hospital-local patient identifier to a common identity reference.','phr'],
   ['04','Authorize','Hospital API checks whether an access request is valid for the 15-minute window defined from blockchain state.','trust'],
   ['05','Return a permitted response','After the check, the hospital source system can return the permitted FHIR response to the approved PHR or application.','phr'],
   ['06','Record','Write consent and access events to blockchain for later review. Clinical records remain in hospital systems.','trust']
 ] : [
   ['01','เชื่อมข้อมูล','ส่งข้อมูลจาก HIS เข้าสู่ระบบ FHIR ของโรงพยาบาล ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer','interoperability'],
   ['02','ทำให้เป็นมาตรฐาน','ใช้ HL7 FHIR R4 เพื่อให้ระบบที่เชื่อมต่อกันใช้โครงสร้างข้อมูลเดียวกัน','interoperability'],
-  ['03','เชื่อมตัวตน','เชื่อมรหัสผู้ป่วยของแต่ละโรงพยาบาลกับ PromptCare ID เพื่อจับคู่ข้อมูลของคนเดียวกัน','phr'],
+  ['03','เชื่อมตัวตน','ระบบเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วยของแต่ละสถานพยาบาลกับตัวระบุกลาง เพื่อจับคู่ข้อมูลของบุคคลเดียวกัน','phr'],
   ['04','อนุญาตสิทธิ์','Hospital API ตรวจว่าคำขอมีสิทธิ์ภายในช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หรือไม่','trust'],
   ['05','ส่งคำตอบตามสิทธิ์','หลังตรวจสิทธิ์แล้ว ระบบต้นทางของโรงพยาบาลจึงส่งคำตอบ FHIR ตามขอบเขตที่อนุญาตไปยัง PHR หรือแอปที่ได้รับสิทธิ์','phr'],
   ['06','บันทึกเหตุการณ์','บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงบน blockchain เพื่อตรวจสอบภายหลัง โดยเวชระเบียนยังอยู่ในระบบโรงพยาบาล','trust']

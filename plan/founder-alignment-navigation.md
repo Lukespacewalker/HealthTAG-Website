@@ -43,7 +43,7 @@ The canonical Company content must include:
 - Keep the confirmed 15-minute access window as an implementation fact. Do not equate that window with the complete consent lifecycle.
 - Do not describe the current PHR connection controls as consent grant or revocation controls without separate product confirmation.
 - Do not claim a deployed medical-AI training pipeline. `Trust Before Intelligence` describes the governance order HealthTAG believes medical AI requires.
-- Do not call PromptCare ID decentralized identity unless the current implementation and documentation support that term.
+- Do not call Identity Connect decentralized identity unless the current implementation and documentation support that term.
 - Preserve the distinction between deployment, network, sandbox, programme, award, and public collaboration.
 
 ## Scope
@@ -189,7 +189,7 @@ Desktop, mobile, and footer navigation must come from one shared data model so r
 - [x] Replace `HealthTAG reads data` with a more precise authorized-request and permitted-response description.
 - [x] Add the sequence `consent -> authorization -> permitted response -> audit` where technically defensible.
 - [x] Explain why open standards matter: cross-vendor communication, reduced lock-in, and long-term extensibility.
-- [x] Keep FHIR, HAPI, Kong, PostgreSQL, DynamoDB, and blockchain implementation facts unchanged unless verified sources support a correction.
+- [x] Keep FHIR, HAPI, Kong, PostgreSQL, cloud-database, and blockchain implementation facts unchanged unless verified sources support a correction.
 - [x] Add patient-ownership language to PHR without claiming unverified grant/revoke UI behavior.
 - [x] Preserve current NFC and synthetic-demo boundaries.
 
