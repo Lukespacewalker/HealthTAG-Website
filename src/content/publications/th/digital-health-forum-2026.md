@@ -7,6 +7,7 @@ locale: th
 translationKey: "digital-health-forum-2026"
 slug: "digital-health-forum-2026"
 category: "กิจกรรม"
+featured: true
 status: published
 publishedAt: "2026-08-26"
 migratedAt: "2026-08-31"

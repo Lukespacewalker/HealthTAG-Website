@@ -1,11 +1,13 @@
 # News image provenance
 
-Reviewed: 2026-08-31.
+Reviewed: 2026-09-01.
 
 Each image is copied unchanged from the source listed below and is used only with its corresponding news item. Astro creates responsive WebP renditions during the static build. Localized alt text describes visible, verified details without identifying people from appearance.
 
 | File | Source | Dimensions | SHA-256 |
 | --- | --- | ---: | --- |
+| `who-thailand-trusted-phr-workshop-2026-1.png` | Original event photograph provided by the site owner for this news item on 1 September 2026 | 1440 × 1080 | `391AC7B0BEDD31E97D2968F407D505D0F8AE977F8CDE51FC79807830CFBFC173` |
+| `who-thailand-trusted-phr-workshop-2026-2.png` | Original event photograph provided by the site owner for this news item on 1 September 2026 | 1440 × 1080 | `C7334CB385EA67ACCDC545BD1CEBFE14CC8DE0DEAA84A3158F385C34523BCA9D` |
 | `digital-health-forum-2026.jpg` | [HealthTAG Facebook post](https://www.facebook.com/mihealthtag/posts/pfbid02KciMVPTgGmTAxhG7epWRqgVsZNrS55KyTQtRKZyBuoTjdcXFrmLSSS1abTwLtXEtl), photo `1531813625414033` | 1477 × 1108 | `0EF05D2BB9B27361163A84FDE0C85844299B00C9AB07833D1DC15E26B99BB303` |
 | `orbix-healthtag-2026.jpg` | [Thai Time News Facebook post](https://www.facebook.com/thaitimenewsonline/posts/pfbid0vXFapuGyf8J1a9gf1GgK2aJcHpCSTRJ1om2hvpwpvmP61R5Vo39hiEXnqLTEfsyGl); relationship source: [KASIKORNBANK](https://www.kasikornbank.com/th/news/pages/healthtag.aspx) | 960 × 540 | `2EAAE4C97E5FD41CE6064E6DECDEF34FEB9C5ECA2001270F3EA2DAFA23FB9B72` |
 | `nia-corporate-spark-2025.jpg` | [National Innovation Agency article](https://www.nia.or.th/Shanghai-CorporateSPARK2025) | 1440 × 1080 | `374EDB7F7767120EAB9447AF8F783D50ADF21DDA8F3BA1BA72FFE5AA572FFA6B` |
@@ -26,4 +28,4 @@ Each image is copied unchanged from the source listed below and is used only wit
 | `siriraj-youth-phr-presentation-2022-1.jpg` | [HealthTAG Facebook post](https://www.facebook.com/mihealthtag/posts/pfbid0yHMUan5UoyGC5NT1YNNqnKL6rt2CvbQ9HKxLFuCQ3TYbLUfKUEoGznqLZv1XZhVwl) | 1200 × 800 | `BF7FB7BFC3F44B3963538352215E25825EE345B424AAB3E07E8C9C5E0705D69E` |
 | `siriraj-youth-phr-presentation-2022-2.jpg` | [HealthTAG Facebook post](https://www.facebook.com/mihealthtag/posts/pfbid0yHMUan5UoyGC5NT1YNNqnKL6rt2CvbQ9HKxLFuCQ3TYbLUfKUEoGznqLZv1XZhVwl) | 1478 × 1108 | `166B8DF1C543DE683717CFEBC55D0EFC36FB3158ABE522D7400BDC71BB78D781` |
 
-The Digital Health Forum, ODESS, BITKUB, ETDA, depa, APICTA, and early NFC images are first-party HealthTAG material. NIA and Siriraj images come from the named institutional sources. The Orbix graphic is public press material from Thai Time News and remains credited accordingly. No image is evidence of a deployment beyond the written source boundary of its news item.
+The WHO Thailand workshop photographs were supplied by the site owner for the corresponding news item. The Digital Health Forum, ODESS, BITKUB, ETDA, depa, APICTA, and early NFC images are first-party HealthTAG material. NIA and Siriraj images come from the named institutional sources. The Orbix graphic is public press material from Thai Time News and remains credited accordingly. No image is evidence of a deployment beyond the written source boundary of its news item.
