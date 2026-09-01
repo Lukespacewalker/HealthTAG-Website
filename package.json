@@ -10,11 +10,14 @@
     "preview": "astro preview",
     "check:site": "node scripts/check-built-site.mjs",
     "check:redirects": "node scripts/check-redirects.mjs",
+    "check:worker-types": "wrangler types worker-configuration.d.ts --check && tsc -p functions/tsconfig.json --noEmit",
     "test:smoke": "playwright test",
+    "test:contact": "playwright test --config playwright.contact.config.ts",
+    "types:worker": "wrangler types worker-configuration.d.ts",
     "preview:screenshots": "node scripts/capture-preview.mjs",
     "check:publication-assets": "node scripts/verify-publication-assets.mjs",
     "check:publication-content": "node scripts/check-publication-content.mjs",
-    "validate": "npm run check:publication-content && npm run check:publication-assets && npm run check && npm run build && npm run check:site && npm run check:redirects"
+    "validate": "npm run check:publication-content && npm run check:publication-assets && npm run check:worker-types && npm run check && npm run build && npm run check:site && npm run check:redirects"
   },
   "dependencies": {
     "@ibm/plex": "6.4.1",
@@ -24,6 +27,7 @@
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.62.1",
+    "@types/node": "^22.20.1",
     "parse5": "8.0.1",
     "sharp": "0.35.4",
     "typescript": "5.9.2",

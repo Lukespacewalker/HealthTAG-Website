@@ -43,7 +43,7 @@ FHIR gives different systems a common data structure. It does not decide who may
 
 ## Identity linkage and authorization are separate jobs
 
-The same person may have a different patient identifier at each hospital. HealthTAG uses PromptCare ID to link those local identifiers to one person, with the linkage stored in Amazon DynamoDB. This helps match identity across providers without moving the person's clinical records out of hospital systems.
+A person may have a different patient identifier at each hospital. Identity Connect links those local identifiers to a common identity reference. The linkage is stored in a cloud database. This helps match identity across providers without moving the person's clinical records out of hospital systems.
 
 When a PHR application requests data, the Hospital API checks whether the request falls within an authorized period. The current system uses a 15-minute window defined from blockchain state. If the authorization is valid, the Hospital API requests FHIR data from the hospital system and returns it to the authorized application.
 

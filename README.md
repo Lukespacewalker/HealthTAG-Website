@@ -15,6 +15,7 @@ The site explains HealthTAG as healthcare interoperability infrastructure. Patie
 | [`docs/COMMUNITY_EDITION_SUPPORT.md`](./docs/COMMUNITY_EDITION_SUPPORT.md) | Product boundary, source provenance, design, and checks for the Community Edition manual |
 | [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 | [`docs/PUBLICATION_ASSETS.md`](./docs/PUBLICATION_ASSETS.md) | Provenance and checksums for migrated article and award images |
+| [`docs/CONTACT_FORM.md`](./docs/CONTACT_FORM.md) | Pages Function, Email Service, Turnstile, secrets, and production validation for Contact |
 
 The official Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy:
 
@@ -28,14 +29,14 @@ The official Data Source Node architecture documentation is the primary technica
 - Hospital data enters the FHIR layer through either a hospital-managed IT script or HealthTAG FHIR Transformer.
 - The current source-node stack uses HAPI FHIR Server, HL7 FHIR R4, PostgreSQL, and Kong API Gateway.
 - HealthTAG Module, also called Hospital API, runs inside the hospital network for identity linkage and authorization.
-- PromptCare ID identity linkage is stored in Amazon DynamoDB and supports linking hospital-local patient identities across providers.
+- Identity Connect links hospital-local patient identities across providers. The linkage is stored in a cloud database.
 - The current 15-minute access window is defined from blockchain state and checked by the Hospital API.
 - Blockchain records consent and access events as an immutable or tamper-resistant audit history. Clinical records are not stored on blockchain.
 
 ### Confirmed deployment examples
 
 - **Siriraj Hospital:** HealthTAG participated in the Permission-based Blockchain for Personal Health Record workstream under Siriraj 5G Smart Hospital. Siriraj IT uses its own HIS-to-FHIR script and does not use HealthTAG FHIR Transformer.
-- **Khian Sa Hospital:** uses HealthTAG FHIR Transformer for selected HIS-to-FHIR R4 transformation. The currently confirmed Transformer scope includes `Patient`, `AllergyIntolerance`, `Encounter`, and `MedicationDispense`.
+- **Khian Sa Hospital:** has used HealthTAG FHIR Transformer since 1 June 2025 for selected HIS-to-FHIR R4 transformation. The currently confirmed Transformer scope includes `Patient`, `AllergyIntolerance`, `Encounter`, and `MedicationDispense`.
 
 Network relationships, awards, sandbox participation, and collaborations are not automatically production deployments or current customer contracts. See the Network, Deployments, and Evidence pages for their separate roles.
 
