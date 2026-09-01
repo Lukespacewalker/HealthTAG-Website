@@ -1,4 +1,6 @@
 [
+  { "path": "src/assets/news/who-thailand-trusted-phr-workshop-2026-1.png", "width": 1440, "height": 1080, "sha256": "391AC7B0BEDD31E97D2968F407D505D0F8AE977F8CDE51FC79807830CFBFC173" },
+  { "path": "src/assets/news/who-thailand-trusted-phr-workshop-2026-2.png", "width": 1440, "height": 1080, "sha256": "C7334CB385EA67ACCDC545BD1CEBFE14CC8DE0DEAA84A3158F385C34523BCA9D" },
   { "path": "src/assets/news/digital-health-forum-2026.jpg", "width": 1477, "height": 1108, "sha256": "0EF05D2BB9B27361163A84FDE0C85844299B00C9AB07833D1DC15E26B99BB303" },
   { "path": "src/assets/news/orbix-healthtag-2026.jpg", "width": 960, "height": 540, "sha256": "2EAAE4C97E5FD41CE6064E6DECDEF34FEB9C5ECA2001270F3EA2DAFA23FB9B72" },
   { "path": "src/assets/news/nia-corporate-spark-2025.jpg", "width": 1440, "height": 1080, "sha256": "374EDB7F7767120EAB9447AF8F783D50ADF21DDA8F3BA1BA72FFE5AA572FFA6B" },

@@ -16,6 +16,7 @@ const ownerConfirmedNews = new Set([
   'siriraj-youth-phr-presentation-2022',
 ]);
 const fullBodyNews = new Set([
+  'who-thailand-trusted-phr-workshop-2026',
   'digital-health-forum-2026',
   'orbix-healthtag',
   'thailand-insurance-symposium-2024',

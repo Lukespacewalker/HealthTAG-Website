@@ -24,10 +24,10 @@ const proof = proofIds.map((id) => {
   return entry;
 });
 
-const [latestStory] = await getPublishedPublications(locale, 'news');
-if (!latestStory?.data.images[0]) throw new Error(`Missing latest ${locale} news story`);
-const latestStoryImage = latestStory.data.images[0];
-const latestStoryDate = latestStory.data.publishedAt ?? latestStory.data.eventDate ?? latestStory.data.migratedAt;
+const homeNews = await getPublishedPublications(locale, 'news');
+const featuredStories = homeNews.filter((entry) => entry.data.featured).slice(0, 2);
+const latestStories = homeNews.filter((entry) => !entry.data.featured).slice(0, 3);
+if (featuredStories.length !== 2 || latestStories.length < 2) throw new Error(`Home news selection is incomplete for ${locale}`);
 
 const responsibilities = en ? [
   {
@@ -255,28 +255,52 @@ const audiences = en ? [
           ))}
         </div>
 
-        <a class="latest-story" href={publicationPath(latestStory)}>
-          <figure>
-            <Image
-              src={latestStoryImage.src}
-              alt={latestStoryImage.alt}
-              width={latestStoryImage.src.width}
-              height={latestStoryImage.src.height}
-              widths={[240, 360, 480]}
-              sizes="(max-width: 620px) calc(100vw - 28px), 180px"
-              format="webp"
-              quality={82}
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-          <div class="latest-story-copy">
-            <span>{en ? 'Latest from HealthTAG' : 'ข่าวล่าสุดจาก HealthTAG'} · {formatPublicationDate(latestStoryDate, locale)}</span>
-            <h3>{latestStory.data.title}</h3>
-            <p>{latestStory.data.summary}</p>
+      </div>
+    </section>
+
+    <section class="home-news-section" data-home-section="news" aria-labelledby="home-news-heading">
+      <div class="container">
+        <div class="home-news-head">
+          <div>
+            <div class="eyebrow">{en ? 'News from HealthTAG' : 'ข่าวจาก HealthTAG'}</div>
+            <h2 id="home-news-heading">{en ? 'Featured news' : 'ข่าวเด่น'}</h2>
           </div>
-          <i aria-hidden="true">→</i>
-        </a>
+          <a href={`${prefix}/news/`}>{en ? 'View all news' : 'ดูข่าวทั้งหมด'} <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="featured-story-grid">
+          {featuredStories.map((story, index) => {
+            const image = story.data.images[0];
+            const date = story.data.publishedAt ?? story.data.eventDate ?? story.data.migratedAt;
+            return <article class:list={['featured-story', { primary: index === 0 }]}>
+              <a class="featured-story-media" href={publicationPath(story)} tabindex="-1" aria-hidden="true">
+                <Image src={image.src} alt="" widths={[480, 720, 1040]} sizes="(max-width: 820px) calc(100vw - 28px), 50vw" format="webp" quality={84} loading="lazy" decoding="async" />
+              </a>
+              <div class="featured-story-copy">
+                <span>{en ? 'Featured' : 'ข่าวเด่น'} · {formatPublicationDate(date, locale)}</span>
+                <h3><a href={publicationPath(story)}>{story.data.title}</a></h3>
+                <p>{story.data.summary}</p>
+              </div>
+            </article>;
+          })}
+        </div>
+
+        <div class="latest-news-block">
+          <div class="latest-news-title">
+            <span>{en ? 'Latest' : 'ล่าสุด'}</span>
+            <h3>{en ? 'More recent news' : 'ข่าวล่าสุดเพิ่มเติม'}</h3>
+          </div>
+          <div class="latest-news-list">
+            {latestStories.map((story, index) => {
+              const date = story.data.publishedAt ?? story.data.eventDate ?? story.data.migratedAt;
+              return <a href={publicationPath(story)}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div><time datetime={date}>{formatPublicationDate(date, locale)}</time><strong>{story.data.title}</strong></div>
+                <i aria-hidden="true">→</i>
+              </a>;
+            })}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -489,13 +513,30 @@ const audiences = en ? [
   .proof-item strong { margin-top: .35rem; line-height: 1.3; }
   .proof-item > span:not(.proof-tag) { color: var(--muted); font-size: .76rem; }
   .proof-item i { position: absolute; top: 1.35rem; right: .8rem; color: var(--teal); font-style: normal; }
-  .latest-story { display: grid; grid-template-columns: 9rem minmax(0, 1fr) auto; gap: clamp(1rem, 2.5vw, 2rem); align-items: center; margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.35rem; border-top: 1px solid color-mix(in srgb, var(--teal) 30%, var(--line)); }
-  .latest-story figure { aspect-ratio: 3 / 2; margin: 0; overflow: hidden; border: 1px solid var(--line); background: var(--paper); }
-  .latest-story figure :global(img) { width: 100%; height: 100%; object-fit: cover; }
-  .latest-story-copy > span { color: var(--teal); font: 600 .69rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .04em; text-transform: uppercase; }
-  .latest-story h3 { margin: .3rem 0 .2rem; font-size: clamp(1.1rem, 2vw, 1.4rem); line-height: 1.25; }
-  .latest-story p { margin: 0; color: var(--muted); font-size: .85rem; }
-  .latest-story > i { font-style: normal; }
+  .home-news-section { padding: clamp(4.5rem, 8vw, 7rem) 0; border-bottom: 1px solid var(--line); background: var(--paper); }
+  .home-news-head { display: flex; gap: 2rem; align-items: end; justify-content: space-between; }
+  .home-news-head h2 { margin: .55rem 0 0; font-size: clamp(2.4rem, 4.8vw, 4.6rem); line-height: 1.02; letter-spacing: -.05em; }
+  .home-news-head > a { color: var(--teal); font-weight: 600; }
+  .featured-story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); margin-top: clamp(2rem, 4vw, 3.5rem); }
+  .featured-story { display: grid; min-width: 0; border: 1px solid var(--line); background: var(--white); }
+  .featured-story-media { aspect-ratio: 16 / 10; overflow: hidden; background: var(--ink); }
+  .featured-story-media :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+  .featured-story:hover .featured-story-media :global(img) { transform: scale(1.02); }
+  .featured-story-copy { padding: clamp(1.3rem, 3vw, 2rem); }
+  .featured-story-copy > span, .latest-news-title > span { color: var(--teal); font: 600 .69rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
+  .featured-story h3 { margin: .7rem 0 .65rem; font-size: clamp(1.4rem, 2.4vw, 2.15rem); line-height: 1.15; letter-spacing: -.035em; text-wrap: balance; }
+  .featured-story h3 a:hover { color: var(--teal); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .featured-story p { margin: 0; color: var(--muted); }
+  .latest-news-block { display: grid; grid-template-columns: minmax(11rem, .35fr) minmax(0, 1.65fr); gap: clamp(2rem, 6vw, 5rem); margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, var(--teal) 35%, var(--line)); }
+  .latest-news-title h3 { margin: .45rem 0 0; font-size: clamp(1.3rem, 2vw, 1.8rem); }
+  .latest-news-list { border-top: 1px solid var(--line); }
+  .latest-news-list > a { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .latest-news-list > a > span { color: var(--teal); font: 600 .68rem/1.4 'IBM Plex Mono', ui-monospace, monospace; }
+  .latest-news-list div { display: grid; gap: .25rem; }
+  .latest-news-list time { color: var(--muted); font-size: .75rem; }
+  .latest-news-list strong { line-height: 1.3; }
+  .latest-news-list i { color: var(--teal); font-style: normal; transition: transform .2s ease; }
+  .latest-news-list a:hover i { transform: translateX(.2rem); }
 
   .governance-section { padding: clamp(4.5rem, 8vw, 7rem) 0; color: var(--paper); background: var(--ink); }
   .governance-head { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 7vw, 5.5rem); align-items: end; }
@@ -559,7 +600,7 @@ const audiences = en ? [
   }
 
   @media (max-width: 820px) {
-    .home-hero .hero-grid, .governance-head, .governance-grid, .split-head, .audience-grid, .phr-proof-grid { grid-template-columns: 1fr; }
+    .home-hero .hero-grid, .featured-story-grid, .latest-news-block, .governance-head, .governance-grid, .split-head, .audience-grid, .phr-proof-grid { grid-template-columns: 1fr; }
     .home-hero h1 { max-width: 12ch; }
     .system-map { margin: 1rem 1rem 0 0; }
     .governance-head { align-items: start; }
@@ -580,10 +621,7 @@ const audiences = en ? [
     .proof-row, .capability-grid { grid-template-columns: 1fr; }
     .proof-item, .proof-item + .proof-item { padding: 1.25rem 2.3rem 1.25rem 0; border-left: 0; border-bottom: 1px solid var(--line); }
     .proof-item:last-child { border-bottom: 0; }
-    .latest-story { grid-template-columns: 1fr auto; }
-    .latest-story figure { grid-column: 1 / -1; }
-    .latest-story-copy { min-width: 0; }
-    .latest-story p { font-size: .82rem; }
+    .home-news-head { display: grid; align-items: start; }
     .capability-grid article, .capability-grid article:nth-child(2n + 1) { padding: 1.6rem 0; border-right: 0; }
     .capability-grid h3 { margin-top: 1.4rem; }
     .audience-grid nav a { grid-template-columns: 1.7rem minmax(0, 1fr) auto; }
