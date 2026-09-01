@@ -35,7 +35,7 @@ test('English Company page frames nationwide connection as Vision', async ({ pag
   const vision = page.locator('#mission-vision');
   await expect(vision).toContainText('Your data. Your consent. One connected Thailand.');
   await expect(vision).toContainText('We are working toward a Thailand');
-  await expect(vision).toContainText('safely, transparently, and verifiably');
+  await expect(vision).toContainText('with safeguards, transparency, and an audit trail');
 
   const values = page.locator('#values .values-list > li');
   await expect(values).toHaveCount(6);

@@ -34,8 +34,9 @@ const responsibilities = en ? [
     number: '01',
     role: 'Patient',
     title: 'Owns the health data',
-    body: 'The patient controls consent and how their health data may be used.',
+    body: 'The patient decides whether and how their health data may be used.',
     path: '/trust/',
+    cta: 'Consent and access',
   },
   {
     number: '02',
@@ -43,6 +44,7 @@ const responsibilities = en ? [
     title: 'Stewards the clinical record',
     body: 'The hospital stores clinical records in its source systems and remains responsible for those systems.',
     path: '/interoperability/',
+    cta: 'Hospital-held records',
   },
   {
     number: '03',
@@ -50,14 +52,16 @@ const responsibilities = en ? [
     title: 'Connects authorized exchange',
     body: 'HealthTAG provides infrastructure for identity linkage, authorization, exchange, and audit.',
     path: '/platform/',
+    cta: 'HealthTAG platform',
   },
 ] : [
   {
     number: '01',
     role: 'ผู้ป่วย',
     title: 'เป็นเจ้าของข้อมูลสุขภาพ',
-    body: 'ผู้ป่วยควบคุมความยินยอมและกำหนดว่าจะใช้ข้อมูลสุขภาพของตนอย่างไร',
+    body: 'ผู้ป่วยตัดสินใจว่าจะยินยอมให้ใช้ข้อมูลสุขภาพของตนหรือไม่และใช้อย่างไร',
     path: '/trust/',
+    cta: 'ความยินยอมและสิทธิ์เข้าถึง',
   },
   {
     number: '02',
@@ -65,6 +69,7 @@ const responsibilities = en ? [
     title: 'ดูแลเวชระเบียน',
     body: 'โรงพยาบาลเก็บเวชระเบียนในระบบต้นทางและรับผิดชอบระบบเหล่านั้น',
     path: '/interoperability/',
+    cta: 'เวชระเบียนในระบบโรงพยาบาล',
   },
   {
     number: '03',
@@ -72,6 +77,7 @@ const responsibilities = en ? [
     title: 'เชื่อมการแลกเปลี่ยนที่ได้รับอนุญาต',
     body: 'HealthTAG จัดโครงสร้างพื้นฐานสำหรับเชื่อมตัวตน ตรวจสิทธิ์ แลกเปลี่ยนข้อมูล และบันทึกเหตุการณ์',
     path: '/platform/',
+    cta: 'แพลตฟอร์ม HealthTAG',
   },
 ];
 
@@ -93,16 +99,16 @@ const capabilities = en ? [
   {
     number: '03',
     title: 'Consent and Authorization',
-    body: 'Keep the patient\'s consent separate from the authorization decision for each access request.',
+    body: 'Record the patient\'s consent, then evaluate each access request separately.',
     path: '/trust/',
-    cta: 'Review consent and access',
+    cta: 'Consent and access',
   },
   {
     number: '04',
     title: 'Audit and Provenance',
     body: 'Record consent and access events for later review while keeping the hospital source of each clinical record clear.',
     path: '/trust/',
-    cta: 'Review audit boundaries',
+    cta: 'Audit and data sources',
   },
 ] : [
   {
@@ -122,7 +128,7 @@ const capabilities = en ? [
   {
     number: '03',
     title: 'ความยินยอมและการอนุญาตสิทธิ์',
-    body: 'แยกเจตนาของผู้ป่วยออกจากการตัดสินใจอนุญาตคำขอเข้าถึงแต่ละครั้ง',
+    body: 'บันทึกความยินยอมของผู้ป่วย แล้วตรวจคำขอเข้าถึงแต่ละครั้งแยกกัน',
     path: '/trust/',
     cta: 'ดูความยินยอมและสิทธิ์เข้าถึง',
   },
@@ -131,14 +137,14 @@ const capabilities = en ? [
     title: 'การตรวจสอบและที่มาของข้อมูล',
     body: 'บันทึกเหตุการณ์ความยินยอมและการเข้าถึงไว้ตรวจสอบภายหลัง พร้อมระบุโรงพยาบาลที่ดูแลเวชระเบียนต้นทางให้ชัดเจน',
     path: '/trust/',
-    cta: 'ดูขอบเขตการตรวจสอบย้อนหลัง',
+    cta: 'การตรวจสอบและที่มาของข้อมูล',
   },
 ];
 
 const audiences = en ? [
   {
     label: 'Hospital leadership',
-    body: 'See the operating model and deployment examples.',
+    body: 'Compare the integration paths used at Siriraj and Khian Sa.',
     path: '/deployments/',
   },
   {
@@ -148,18 +154,18 @@ const audiences = en ? [
   },
   {
     label: 'Public sector and ecosystem partners',
-    body: 'Understand HealthTAG relationships and the evidence behind them.',
+    body: 'Read records published by organizations connected with HealthTAG.',
     path: '/evidence/',
   },
   {
     label: 'Investors',
-    body: 'Review company positioning, public evidence, and the approved business-model categories.',
+    body: 'Read about the business model, deployments, and public records.',
     path: '/investors/',
   },
 ] : [
   {
     label: 'ผู้บริหารโรงพยาบาล',
-    body: 'ดูรูปแบบการทำงานและตัวอย่างการติดตั้งใช้งาน',
+    body: 'เปรียบเทียบวิธีเชื่อมระบบที่ศิริราชและเคียนซาใช้',
     path: '/deployments/',
   },
   {
@@ -169,12 +175,12 @@ const audiences = en ? [
   },
   {
     label: 'ภาครัฐและพันธมิตรในระบบสุขภาพ',
-    body: 'ทำความเข้าใจความสัมพันธ์ของ HealthTAG และหลักฐานที่รองรับ',
+    body: 'อ่านข้อมูลที่หน่วยงานซึ่งเกี่ยวข้องกับ HealthTAG เผยแพร่ไว้',
     path: '/evidence/',
   },
   {
     label: 'นักลงทุน',
-    body: 'ดูตำแหน่งของบริษัท หลักฐานสาธารณะ และหมวดธุรกิจที่เปิดเผยได้',
+    body: 'ดูโมเดลธุรกิจ การติดตั้งใช้งาน และข้อมูลที่เผยแพร่ต่อสาธารณะ',
     path: '/investors/',
   },
 ];
@@ -236,7 +242,7 @@ const audiences = en ? [
             <div class="eyebrow">{en ? 'External evidence' : 'หลักฐานจากแหล่งภายนอก'}</div>
             <h2 id="home-proof-heading">{en ? 'Siriraj, ETDA, APICTA, and KASIKORNBANK have published records related to HealthTAG' : 'ศิริราช ETDA APICTA และธนาคารกสิกรไทยเผยแพร่ข้อมูลที่เกี่ยวข้องกับ HealthTAG'}</h2>
           </div>
-          <a href={`${prefix}/evidence/`}>{en ? 'Review the evidence and boundaries' : 'ดูหลักฐานและขอบเขตที่ยืนยัน'} <span aria-hidden="true">→</span></a>
+          <a href={`${prefix}/evidence/`}>{en ? 'View all records' : 'ดูข้อมูลทั้งหมด'} <span aria-hidden="true">→</span></a>
         </div>
         <div class="proof-row">
           {proof.map((entry) => (
@@ -277,7 +283,7 @@ const audiences = en ? [
     <section class="governance-section" data-home-section="responsibilities">
       <div class="container">
         <div class="governance-head">
-          <h2>{en ? 'One exchange, three distinct responsibilities' : 'หนึ่งการแลกเปลี่ยน สามความรับผิดชอบที่แยกจากกัน'}</h2>
+          <h2>{en ? 'Who owns, stores, and connects health data' : 'ใครเป็นเจ้าของ ใครเก็บ และใครเชื่อมข้อมูลสุขภาพ'}</h2>
           <p>{en
             ? 'Health data belongs to the patient. The hospital stewards the clinical record. HealthTAG provides the infrastructure for authorized exchange.'
             : 'ข้อมูลสุขภาพเป็นของผู้ป่วย โรงพยาบาลดูแลเวชระเบียน และ HealthTAG จัดโครงสร้างพื้นฐานสำหรับการแลกเปลี่ยนที่ได้รับอนุญาต'}</p>
@@ -288,7 +294,7 @@ const audiences = en ? [
               <span>{item.number} / {item.role}</span>
               <h3>{item.title}</h3>
               <p>{item.body}</p>
-              <a href={`${prefix}${item.path}`}>{en ? 'Read the responsibility' : 'อ่านขอบเขตความรับผิดชอบ'} <i aria-hidden="true">→</i></a>
+              <a href={`${prefix}${item.path}`}>{item.cta} <i aria-hidden="true">→</i></a>
             </article>
           ))}
         </div>
@@ -300,11 +306,11 @@ const audiences = en ? [
         <div class="section-head split-head">
           <div>
             <div class="eyebrow">{en ? 'Platform capabilities' : 'ความสามารถของแพลตฟอร์ม'}</div>
-            <h2>{en ? 'Four capabilities, each with a defined role' : 'สี่ความสามารถที่มีหน้าที่ต่างกัน'}</h2>
+            <h2>{en ? 'How HealthTAG connects data and checks access' : 'HealthTAG เชื่อมข้อมูลและตรวจสิทธิ์อย่างไร'}</h2>
           </div>
           <p>{en
-            ? 'Each capability has a defined role. The detailed pages explain the operating model and current implementation separately.'
-            : 'แต่ละความสามารถมีหน้าที่ต่างกัน หน้ารายละเอียดอธิบายทั้งรูปแบบการทำงานและการติดตั้งปัจจุบันแยกจากกัน'}</p>
+            ? 'HealthTAG connects existing HIS data through FHIR, links patient identities, checks authorization, and records consent and access events.'
+            : 'HealthTAG เชื่อมข้อมูลจาก HIS เดิมผ่าน FHIR เชื่อมตัวตนผู้ป่วย ตรวจสิทธิ์ และบันทึกเหตุการณ์ความยินยอมกับการเข้าถึง'}</p>
         </div>
         <div class="capability-grid">
           {capabilities.map((item) => (
@@ -322,11 +328,11 @@ const audiences = en ? [
     <section class="audience-section" data-home-section="audiences">
       <div class="container audience-grid">
         <div class="audience-intro">
-          <div class="eyebrow">{en ? 'Start with your role' : 'เลือกเนื้อหาตามบทบาท'}</div>
-          <h2>{en ? 'The useful detail depends on the decision you need to make' : 'เริ่มจากข้อมูลที่ตรงกับสิ่งที่คุณต้องตัดสินใจ'}</h2>
+          <div class="eyebrow">{en ? 'Information by role' : 'ข้อมูลตามบทบาท'}</div>
+          <h2>{en ? 'Choose the information for your role' : 'เลือกข้อมูลที่ตรงกับบทบาทของคุณ'}</h2>
           <p>{en
-            ? 'Choose a route to the relevant operating detail, evidence, or patient-facing product view.'
-            : 'เลือกไปยังรายละเอียดการทำงาน หลักฐาน หรือหน้าจอสำหรับผู้ป่วยที่เกี่ยวข้องกับคุณ'}</p>
+            ? 'Find deployment details, technical architecture, public records, or investor information.'
+            : 'ดูรายละเอียดการติดตั้ง สถาปัตยกรรมทางเทคนิค ข้อมูลสาธารณะ หรือข้อมูลสำหรับนักลงทุน'}</p>
         </div>
         <nav aria-label={en ? 'Audience routes' : 'เส้นทางเนื้อหาตามบทบาท'}>
           {audiences.map((item, index) => (
@@ -349,8 +355,8 @@ const audiences = en ? [
             <h2>{en ? 'Two hospitals, two integration paths' : 'สองโรงพยาบาล สองแนวทางเชื่อมระบบ'}</h2>
           </div>
           <p>{en
-            ? 'Siriraj and Khian Sa connect existing hospital systems through different methods. The deployment page states what is confirmed for each case.'
-            : 'ศิริราชและเคียนซาเชื่อมระบบโรงพยาบาลเดิมด้วยวิธีต่างกัน หน้าการใช้งานจริงระบุขอบเขตที่ยืนยันแล้วของแต่ละกรณี'}</p>
+            ? 'Siriraj uses a script developed by its hospital IT team. Khian Sa uses HealthTAG FHIR Transformer.'
+            : 'ศิริราชใช้สคริปต์ที่ทีม IT ของโรงพยาบาลพัฒนาเอง ส่วนเคียนซาใช้ HealthTAG FHIR Transformer'}</p>
         </div>
         <div class="case-spread">
           <article>
@@ -394,8 +400,8 @@ const audiences = en ? [
           <figcaption>{en ? 'Redacted HealthTAG PHR product screen' : 'หน้าจอจริงของ HealthTAG PHR ที่ปกปิดข้อมูลแล้ว'}</figcaption>
         </figure>
         <div class="phr-proof-copy">
-          <div class="eyebrow">{en ? 'Patient-facing proof' : 'ตัวอย่างผลิตภัณฑ์สำหรับผู้ป่วย'}</div>
-          <h2>{en ? 'A health record view built around permitted access' : 'มุมมองข้อมูลสุขภาพตามสิทธิ์ที่ได้รับอนุญาต'}</h2>
+          <div class="eyebrow">HealthTAG PHR</div>
+          <h2>{en ? 'View permitted health information in one place' : 'ดูข้อมูลสุขภาพที่ได้รับอนุญาตในที่เดียว'}</h2>
           <p>{en
             ? 'HealthTAG PHR presents the health information available and permitted for each patient. Hospitals continue to store and steward the original clinical records in their source systems.'
             : 'HealthTAG PHR แสดงข้อมูลสุขภาพที่มีอยู่และได้รับอนุญาตสำหรับผู้ป่วยแต่ละคน ขณะที่โรงพยาบาลยังจัดเก็บและดูแลเวชระเบียนต้นฉบับในระบบต้นทาง'}</p>
@@ -413,8 +419,8 @@ const audiences = en ? [
           <div class="eyebrow">{en ? 'Founded from clinical work' : 'เริ่มจากงานดูแลผู้ป่วย'}</div>
           <h2>{en ? 'HealthTAG began with a problem seen in patient care' : 'HealthTAG เริ่มจากปัญหาที่พบในการดูแลผู้ป่วย'}</h2>
           <p class="lead-copy">{en
-            ? 'Health records may exist in several systems but still be difficult to use when a patient needs care. The founder framework asks whether each design improves patient care.'
-            : 'เวชระเบียนอาจอยู่ในหลายระบบ แต่ยังนำมาใช้ได้ยากเมื่อผู้ป่วยต้องรับการดูแล แนวทางของผู้ก่อตั้งจึงเริ่มจากคำถามว่า การออกแบบนั้นช่วยให้การดูแลผู้ป่วยดีขึ้นหรือไม่'}</p>
+            ? 'Health records may exist in several systems but still be difficult to use when a patient needs care. HealthTAG starts product decisions with one question: will this improve patient care?'
+            : 'เวชระเบียนอาจอยู่ในหลายระบบ แต่ยังนำมาใช้ได้ยากเมื่อผู้ป่วยต้องรับการดูแล HealthTAG จึงเริ่มตัดสินใจเรื่องผลิตภัณฑ์ด้วยคำถามว่า สิ่งนี้จะช่วยให้ดูแลผู้ป่วยได้ดีขึ้นหรือไม่'}</p>
         </div>
         <FounderCard locale={locale} />
       </div>

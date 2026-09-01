@@ -55,7 +55,7 @@ Test results, medicines, allergies, and other clinical records are not written t
 
 ## Cryptography is one part of security
 
-A hash-linked history can make later alteration easier to detect, but a healthcare system needs controls beyond a ledger. Kong API Gateway provides the TLS and authentication boundary in the current hospital-side stack. Credential management, firewall configuration, encryption, and hospital operations provide other safeguards.
+A hash-linked history makes later changes easier to detect, but a healthcare system still needs controls beyond the ledger. In the current hospital-side stack, Kong API Gateway provides the boundary for TLS and authentication. Credential management, firewall configuration, encryption, and hospital operations provide additional safeguards.
 
 Immutable should not be read as "incapable of error." Blockchain does not automatically correct inaccurate input, a compromised account, or permission that was defined too broadly. The design still has to control its inputs, user privileges, and incident response.
 

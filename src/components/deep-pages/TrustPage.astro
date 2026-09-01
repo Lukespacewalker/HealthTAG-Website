@@ -10,14 +10,14 @@ const prefix = en ? '/en' : '';
   locale={locale}
   path="trust"
   title={en ? 'Consent, Trust & Access | HealthTAG' : 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง | HealthTAG'}
-  description={en ? 'How patient consent, hospital stewardship, authorization, and audit have distinct roles in trusted health-data exchange.' : 'บทบาทที่แตกต่างกันของความยินยอม การดูแลเวชระเบียนโดยโรงพยาบาล การอนุญาตสิทธิ์ และการตรวจสอบย้อนหลัง'}
+  description={en ? 'How patients control consent while hospitals store clinical records and HealthTAG checks access and records audit events.' : 'ผู้ป่วยกำหนดความยินยอม โรงพยาบาลเก็บเวชระเบียน ส่วน HealthTAG ตรวจสิทธิ์และบันทึกเหตุการณ์เพื่อการตรวจสอบย้อนหลัง'}
 >
   <main>
     <section class="page-hero" data-founder-copy>
       <div class="container">
         <div class="eyebrow">HealthTAG / {en ? 'Consent, trust & access' : 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง'}</div>
         <h1>{en ? 'Patients own their health data. Hospitals steward the records.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย โรงพยาบาลดูแลเวชระเบียน'}</h1>
-        <p>{en ? 'Patients control consent and how their health data may be used. Hospitals store and safeguard clinical records in source systems. HealthTAG provides identity, authorization, trusted exchange, and auditable access infrastructure.' : 'ผู้ป่วยมีอำนาจเหนือความยินยอมและการใช้ข้อมูลสุขภาพ โรงพยาบาลจัดเก็บและดูแลเวชระเบียนในระบบต้นทาง ส่วน HealthTAG จัดเตรียมโครงสร้างพื้นฐานด้านตัวตน การอนุญาตสิทธิ์ การแลกเปลี่ยนที่เชื่อถือได้ และการเข้าถึงที่ตรวจสอบย้อนหลังได้'}</p>
+        <p>{en ? 'Patients decide whether and how their health data may be used. Hospitals store and safeguard clinical records in their source systems. HealthTAG links identities, checks access, supports authorized exchange, and records events for later review.' : 'ผู้ป่วยกำหนดว่าจะยินยอมให้ใช้ข้อมูลสุขภาพของตนหรือไม่และใช้อย่างไร โรงพยาบาลเก็บรักษาเวชระเบียนในระบบต้นทาง ส่วน HealthTAG เชื่อมตัวตน ตรวจสิทธิ์ รองรับการแลกเปลี่ยนข้อมูลที่ได้รับอนุญาต และบันทึกเหตุการณ์ไว้ตรวจสอบภายหลัง'}</p>
       </div>
     </section>
 
@@ -25,7 +25,7 @@ const prefix = en ? '/en' : '';
       <div class="container responsibility">
         <article class="custody">
           <span class="mono">01 / {en ? 'OWNERSHIP & CUSTODY' : 'เจ้าของและผู้ดูแล'}</span>
-          <h2>{en ? 'Ownership and custody are different responsibilities' : 'ความเป็นเจ้าของและการดูแลเป็นคนละหน้าที่'}</h2>
+          <h2>{en ? 'Patients own the data. Hospitals hold the records.' : 'ข้อมูลเป็นของผู้ป่วย เวชระเบียนอยู่กับโรงพยาบาล'}</h2>
           <p>{en ? 'Health data belongs to the patient. The hospital stores and stewards the clinical record in its source FHIR system. After authorization is checked, that source system can return the permitted response.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย โรงพยาบาลจัดเก็บและดูแลเวชระเบียนในระบบ FHIR ต้นทาง เมื่อระบบตรวจสิทธิ์แล้ว ระบบต้นทางจึงส่งคำตอบตามขอบเขตที่อนุญาตได้'}</p>
         </article>
         <article class="identity-card">
@@ -37,12 +37,12 @@ const prefix = en ? '/en' : '';
           <span class="mono">03 / {en ? 'CURRENT ACCESS CHECK' : 'การตรวจสิทธิ์ปัจจุบัน'}</span>
           <div class="window">15<span>min</span></div>
           <h2>{en ? 'Hospital API checks the access window' : 'Hospital API ตรวจช่วงเวลาการเข้าถึง'}</h2>
-          <p>{en ? 'In the current implementation, Hospital API checks the 15-minute window defined from blockchain state before the source system returns a permitted response.' : 'ในการทำงานปัจจุบัน Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนระบบต้นทางส่งคำตอบตามขอบเขตที่อนุญาต'}</p>
+          <p>{en ? 'Hospital API checks a 15-minute access window defined from blockchain state before the source system returns the permitted information.' : 'Hospital API ตรวจช่วงเวลาเข้าถึง 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนระบบต้นทางส่งข้อมูลตามขอบเขตที่อนุญาต'}</p>
         </article>
         <article class="api-card">
           <span class="mono">04 / API</span>
           <h2>{en ? 'Kong protects the HAPI FHIR API' : 'Kong ปกป้อง HAPI FHIR API'}</h2>
-          <p>{en ? 'Kong provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide other safeguards.' : 'Kong ทำหน้าที่เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลเป็นมาตรการป้องกันส่วนอื่น'}</p>
+          <p>{en ? 'Kong provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide the other safeguards.' : 'Kong เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง กฎ firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลช่วยป้องกันระบบในด้านอื่น'}</p>
         </article>
         <article class="ledger">
           <span class="mono">05 / {en ? 'AUDIT' : 'ตรวจสอบ'}</span>
@@ -56,7 +56,7 @@ const prefix = en ? '/en' : '';
       <div class="container">
         <div class="section-head">
           <span class="mono">{en ? 'FOUNDER PRINCIPLE' : 'หลักการของผู้ก่อตั้ง'}</span>
-          <h2>{en ? 'Consent and authorization answer different questions' : 'ความยินยอมและการอนุญาตสิทธิ์ตอบคนละคำถาม'}</h2>
+          <h2>{en ? 'Consent records a choice. Authorization checks a request.' : 'ความยินยอมบันทึกเจตนา การอนุญาตสิทธิ์ตรวจคำขอ'}</h2>
         </div>
         <div class="consent-grid">
           <article>
@@ -77,10 +77,10 @@ const prefix = en ? '/en' : '';
       <div class="container intelligence-grid">
         <div>
           <span class="mono">TRUST BEFORE INTELLIGENCE</span>
-          <h2>{en ? 'Establish trust before health data reaches AI' : 'สร้างความน่าเชื่อถือก่อนส่งข้อมูลสุขภาพให้ AI'}</h2>
+          <h2>{en ? 'Set the rules before medical AI uses health data' : 'กำหนดกติกาก่อนให้ AI ทางการแพทย์ใช้ข้อมูลสุขภาพ'}</h2>
         </div>
         <div>
-          <p>{en ? 'HealthTAG’s principle is that any use of health data by medical AI should begin with provenance, patient consent, authorization, and an auditable record of access. This principle guides future development. The systems described on this website do not include AI training or a clinical AI pipeline.' : 'HealthTAG เชื่อว่าการนำข้อมูลสุขภาพไปใช้กับ AI ทางการแพทย์ต้องเริ่มจากการตรวจสอบที่มาของข้อมูล ความยินยอมของผู้ป่วย การอนุญาตสิทธิ์ และประวัติการเข้าถึงที่ตรวจสอบได้ หลักการนี้ใช้กำกับการพัฒนาในอนาคต ระบบที่อธิบายในเว็บไซต์นี้ยังไม่รวมการฝึก AI หรือกระบวนการ AI ทางคลินิก'}</p>
+          <p>{en ? 'Before medical AI uses health data, the data source, patient consent, authorization, and access history must be clear. HealthTAG uses this principle to guide future development. Current systems do not train AI or run a clinical AI pipeline.' : 'ก่อนนำข้อมูลสุขภาพไปใช้กับ AI ทางการแพทย์ ต้องระบุที่มาของข้อมูล ความยินยอมของผู้ป่วย สิทธิ์ และประวัติการเข้าถึงที่ตรวจสอบได้ HealthTAG ใช้หลักการนี้กำกับการพัฒนาในอนาคต ปัจจุบันระบบไม่ได้ใช้ฝึก AI หรือรองรับกระบวนการ AI ทางคลินิก'}</p>
         </div>
       </div>
     </section>
@@ -89,7 +89,7 @@ const prefix = en ? '/en' : '';
       <div class="container">
         <div class="section-head">
           <h2>{en ? 'What blockchain records' : 'ข้อมูลที่บันทึกบน blockchain'}</h2>
-          <p>{en ? 'Blockchain stores the history of consent and access. Other security and data-storage responsibilities stay with the systems designed for them.' : 'Blockchain เก็บประวัติการให้ความยินยอมและการเข้าถึง ส่วนการจัดเก็บเวชระเบียนและมาตรการความปลอดภัยอื่นอยู่ในระบบที่รับผิดชอบโดยตรง'}</p>
+          <p>{en ? 'Blockchain stores the history of consent and access. Clinical records remain in hospital FHIR systems, while authentication, encryption, API configuration, and hospital operations are handled outside blockchain.' : 'Blockchain เก็บประวัติการให้ความยินยอมและการเข้าถึง เวชระเบียนยังอยู่ในระบบ FHIR ของโรงพยาบาล ส่วนการยืนยันตัวตน การเข้ารหัส การตั้งค่า API และการปฏิบัติงานของโรงพยาบาลไม่ได้ทำบน blockchain'}</p>
         </div>
         <div class="does-grid">
           <div><h3>{en ? 'Recorded on blockchain' : 'บันทึกบน blockchain'}</h3><ul><li>{en ? 'Consent events' : 'เหตุการณ์การให้ความยินยอม'}</li><li>{en ? 'Access events for later review' : 'เหตุการณ์การเข้าถึงสำหรับตรวจสอบภายหลัง'}</li></ul></div>

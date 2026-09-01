@@ -38,7 +38,7 @@ The agreement set a direction for joint work on decentralized data infrastructur
 
 The collaboration covered knowledge exchange with specialists, workforce development in applied blockchain technology, and cooperation among government, businesses, and the public at local, national, and international levels.
 
-In this context, blockchain serves as a distributed ledger through which participants can refer to a common transaction history. Cryptography and distributed computing can make retrospective changes easier to detect and reduce reliance on a single intermediary. A working service must also assign data responsibility, user rights, and safeguards that suit each type of information.
+In this context, blockchain is a distributed ledger through which participants can refer to a common transaction history. Cryptography and distributed computing can make retrospective changes easier to detect and reduce reliance on a single intermediary. A working service must also assign data responsibility, user rights, and safeguards that suit each type of information.
 
 ## Starting with a digital credential wallet
 

@@ -39,7 +39,7 @@ The APICTA entry presented HealthTAG as a health information network designed ar
 
 HealthTAG also described an electronic health identity that uses a specially encoded chip as an entry point to the Personal Health Record. The card or NFC sticker helps a person open the service; it does not store the clinical record. Access is available to the individual and authorised healthcare professionals through the relevant permission controls.
 
-This approach creates an open path for authorised exchange. Patients and healthcare providers can use connected information, while other organisations and applications can participate through defined interfaces and consent. The aim is a privacy-conscious ecosystem built around the person receiving care.
+The system supports authorised information exchange. Patients and healthcare providers can use connected information, while other organisations and applications access it through defined interfaces with the user's consent. The design centres on the person receiving care and their privacy.
 
 ## How HealthTAG developed
 
@@ -49,9 +49,9 @@ The team continued building the product and presented the project to Siriraj Hos
 
 During 2021, the early product work focused on information related to COVID-19. The team then refined its focus: the core problem was connecting hospital-controlled health information so that an authorised patient or clinician could reach the relevant record without repeating the same history at every step.
 
-In 2022, HealthTAG described a roadmap for connecting medication, allergy, treatment history, and coverage information while clinicians continued using their existing hospital systems. The plan covered the care journey from treatment and dispensing to claims, with broader adoption across medical schools proposed for the following years. This roadmap guided product development at the time.
+In 2022, HealthTAG described a roadmap for connecting medication, allergy, treatment history, and coverage information while clinicians continued using their existing hospital systems. The plan covered the care journey from treatment and dispensing to claims, with broader adoption across medical schools proposed for the following years. HealthTAG used this roadmap to guide product development in 2022.
 
-HealthTAG was built as a medical technology startup led by doctors who had experienced fragmented care processes directly. The team wanted to strengthen Thailand's MedTech ecosystem at a time when the pandemic had made connected health information especially urgent. It was also preparing to raise capital to expand the service.
+HealthTAG was founded as a medical technology startup by doctors who had experienced fragmented care directly. At the time, the team said it wanted to support Thailand's MedTech ecosystem and was preparing to raise capital to expand the service.
 
 The team framed the potential value for four groups:
 

@@ -33,7 +33,7 @@ const capabilities = en ? [
   },
   {
     index: '04',
-    title: 'More than a record list',
+    title: 'Other tools available in the PHR',
     body: 'The PHR also includes biological-age analytics, an AI assistant area, referral, emergency information, and profile settings. Availability and content depend on the account, connected services, and the data supplied to the PHR.',
     labels: ['BioAge analytics', 'AI assistant', 'Referral', 'Emergency'],
   },
@@ -64,7 +64,7 @@ const capabilities = en ? [
   },
   {
     index: '04',
-    title: 'มีเครื่องมือมากกว่าการเปิดดูเวชระเบียน',
+    title: 'เครื่องมืออื่นใน PHR',
     body: 'PHR มีการวิเคราะห์อายุชีวภาพ พื้นที่ผู้ช่วย AI การส่งต่อ ข้อมูลฉุกเฉิน และการตั้งค่าโปรไฟล์ เนื้อหาที่เห็นขึ้นกับบัญชี บริการที่เชื่อมต่อ และข้อมูลที่ส่งเข้ามายัง PHR',
     labels: ['BioAge analytics', 'ผู้ช่วย AI', 'การส่งต่อ', 'ข้อมูลฉุกเฉิน'],
   },
@@ -78,13 +78,13 @@ const capabilities = en ? [
 
 const screenshots = en ? [
   { src: overviewScreen, title: 'Health overview', body: 'The overview combines the available clinical summary, biological-age results, and continuous readings. A patient can start here before opening a specific category.', alt: 'HealthTAG PHR health overview with a health score, clinical and biological summaries, and continuous readings', featured: true },
-  { src: medicationsScreen, title: 'Medicine calendar', body: 'The medicine view marks dates on a calendar and reserves the adjacent panel for the medicine details available on the selected date.', alt: 'HealthTAG PHR medicine calendar with a panel for medicine details' },
+  { src: medicationsScreen, title: 'Medicine calendar', body: 'The medicine view marks dates on a calendar. When a patient selects a date, the available medicine details appear beside it.', alt: 'HealthTAG PHR medicine calendar with a panel for medicine details' },
   { src: reportsScreen, title: 'Special reports', body: 'Special reports group health information by clinical context, including NCD and kidney-clinic categories.', alt: 'HealthTAG PHR special-report list with NCD and kidney-clinic categories' },
   { src: connectionsScreen, title: 'Hospital connections', body: 'The connection view summarizes available visits, medicines, documents, and medical images, then lists the data sources a patient can connect.', alt: 'HealthTAG PHR hospital-connection view with record counts and connection controls' },
   { src: bioAgeScreen, title: 'Biological-age trends', body: 'BioAge Analytics compares results across testing rounds and presents the available biological-age, age-acceleration, and telomere measures.', alt: 'HealthTAG PHR BioAge Analytics screen with biological-age trends and test results' },
 ] : [
   { src: overviewScreen, title: 'ภาพรวมสุขภาพ', body: 'หน้า Overview รวมสรุปข้อมูลทางคลินิก ผลอายุชีวภาพ และข้อมูลต่อเนื่องที่มีอยู่ ผู้ป่วยเริ่มจากจุดนี้แล้วจึงเปิดดูหมวดที่ต้องการได้', alt: 'หน้าภาพรวม HealthTAG PHR แสดงคะแนนสุขภาพ สรุปข้อมูลทางคลินิกและชีวภาพ และข้อมูลต่อเนื่อง', featured: true },
-  { src: medicationsScreen, title: 'ปฏิทินยา', body: 'หน้ายาใช้ปฏิทินระบุวันที่รับยา และเตรียมพื้นที่ด้านข้างสำหรับรายละเอียดของยาที่มีในวันที่เลือก', alt: 'หน้าปฏิทินยา HealthTAG PHR พร้อมพื้นที่แสดงรายละเอียดยา' },
+  { src: medicationsScreen, title: 'ปฏิทินยา', body: 'หน้ายาใช้ปฏิทินระบุวันที่รับยา เมื่อเลือกวันที่ รายละเอียดยาที่มีในวันนั้นจะแสดงด้านข้าง', alt: 'หน้าปฏิทินยา HealthTAG PHR พร้อมพื้นที่แสดงรายละเอียดยา' },
   { src: reportsScreen, title: 'รายงานสุขภาพ', body: 'รายงานสุขภาพแยกข้อมูลตามบริบทของคลินิก เช่น คลินิก NCD และคลินิกโรคไต', alt: 'หน้ารายงานสุขภาพ HealthTAG PHR มีหมวดคลินิก NCD และคลินิกโรคไต' },
   { src: connectionsScreen, title: 'การเชื่อมต่อโรงพยาบาล', body: 'หน้าการเชื่อมต่อสรุปจำนวนข้อมูลการรับบริการ ยา เอกสาร และภาพทางการแพทย์ ก่อนแสดงแหล่งข้อมูลที่ผู้ป่วยเชื่อมต่อได้', alt: 'หน้าการเชื่อมต่อโรงพยาบาล HealthTAG PHR แสดงจำนวนข้อมูลและตัวควบคุมการเชื่อมต่อ' },
   { src: bioAgeScreen, title: 'แนวโน้มอายุชีวภาพ', body: 'BioAge Analytics เปรียบเทียบผลจากหลายรอบการตรวจ พร้อมค่าอายุชีวภาพ การเร่งอายุ และความยาวเทโลเมียร์ที่มีอยู่', alt: 'หน้า BioAge Analytics ของ HealthTAG PHR แสดงแนวโน้มอายุชีวภาพและผลการตรวจ' },
@@ -102,7 +102,7 @@ const screenshots = en ? [
       <div class="container phr-hero-grid">
         <div>
           <div class="eyebrow">HealthTAG / {en ? 'Personal Health Record (PHR)' : 'สมุดสุขภาพส่วนบุคคล (PHR)'}</div>
-          <h1>{en ? 'Your health data, arranged for your use.' : 'ข้อมูลสุขภาพของผู้ป่วย จัดไว้ให้ผู้ป่วยใช้งาน'}</h1>
+          <h1>{en ? 'Your health data, organized by purpose' : 'ข้อมูลสุขภาพของคุณ จัดเป็นหมวดตามการใช้งาน'}</h1>
           <p>{en ? 'Health data belongs to the patient. HealthTAG PHR presents the information available and permitted for that patient, organized by purpose with each data source kept visible.' : 'ข้อมูลสุขภาพเป็นของผู้ป่วย HealthTAG PHR แสดงข้อมูลที่มีอยู่และได้รับอนุญาตสำหรับผู้ป่วยคนนั้น โดยจัดตามวัตถุประสงค์การใช้งานและแสดงแหล่งที่มาของข้อมูล'}</p>
           <div class="actions">
             <a class="btn primary" href="https://phr.healthtag.io" target="_blank" rel="noopener noreferrer" aria-label={en ? 'Open the HealthTAG PHR website in a new tab' : 'เปิดเว็บไซต์ HealthTAG PHR ในแท็บใหม่'}>{en ? 'Open PHR website' : 'เปิดเว็บไซต์ PHR'} ↗</a>
@@ -123,8 +123,8 @@ const screenshots = en ? [
 
     <section class="ownership-strip" data-founder-copy>
       <div class="container ownership-grid">
-        <div><span class="mono">{en ? 'PATIENT OWNERSHIP' : 'ผู้ป่วยเป็นเจ้าของข้อมูล'}</span><h2>{en ? 'Ownership and record custody work together' : 'ความเป็นเจ้าของข้อมูลและการดูแลเวชระเบียนทำงานร่วมกัน'}</h2></div>
-        <p>{en ? 'Patients control consent and how their health data may be used. Hospitals store and steward the original clinical records in source systems. The PHR presents a permitted view without changing those responsibilities.' : 'ผู้ป่วยมีอำนาจเหนือความยินยอมและการใช้ข้อมูลสุขภาพ โรงพยาบาลจัดเก็บและดูแลเวชระเบียนต้นฉบับในระบบต้นทาง ส่วน PHR แสดงข้อมูลตามสิทธิ์โดยไม่เปลี่ยนหน้าที่เหล่านี้'}</p>
+        <div><span class="mono">{en ? 'PATIENT OWNERSHIP' : 'ผู้ป่วยเป็นเจ้าของข้อมูล'}</span><h2>{en ? 'Patients control use; hospitals retain the original records' : 'ผู้ป่วยกำหนดการใช้ข้อมูล ส่วนโรงพยาบาลดูแลเวชระเบียนต้นฉบับ'}</h2></div>
+        <p>{en ? 'Patients decide whether and how their health data may be used. Hospitals store and steward the original clinical records in source systems. The PHR displays the information permitted for each patient without moving those records.' : 'ผู้ป่วยกำหนดว่าจะยินยอมให้ใช้ข้อมูลสุขภาพของตนหรือไม่และใช้อย่างไร โรงพยาบาลจัดเก็บและดูแลเวชระเบียนต้นฉบับในระบบต้นทาง ส่วน PHR แสดงข้อมูลที่ผู้ป่วยได้รับอนุญาตให้เข้าถึงโดยไม่ย้ายเวชระเบียนออกจากโรงพยาบาล'}</p>
       </div>
     </section>
 

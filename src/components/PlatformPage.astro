@@ -43,7 +43,7 @@ const capabilities = en
       },
       {
         name: 'Consent and authorization',
-        body: 'Keeps the patient\'s consent separate from the authorization decision for a specific request. The current Hospital API checks a defined access window before a source system returns a permitted response.',
+        body: 'Records the patient\'s consent, while Hospital API evaluates each access request. It checks the current access window before the source system returns permitted information.',
         href: `${prefix}/trust/`,
         link: 'Consent, trust and access',
       },
@@ -51,7 +51,7 @@ const capabilities = en
         name: 'Audit and provenance',
         body: 'Records consent and access events for later review and keeps the hospital source of the clinical record clear. Clinical records are not stored on blockchain.',
         href: `${prefix}/trust/`,
-        link: 'Audit boundaries',
+        link: 'Audit and record sources',
       },
     ]
   : [
@@ -69,7 +69,7 @@ const capabilities = en
       },
       {
         name: 'ความยินยอมและการอนุญาตสิทธิ์',
-        body: 'แยกเจตนาของผู้ป่วยออกจากการตัดสินใจอนุญาตคำขอแต่ละครั้ง Hospital API ในระบบปัจจุบันตรวจช่วงเวลาการเข้าถึงก่อนระบบต้นทางส่งคำตอบตามสิทธิ์',
+        body: 'ระบบบันทึกความยินยอมของผู้ป่วย ส่วน Hospital API ตรวจคำขอเข้าถึงแต่ละครั้งและตรวจช่วงเวลาการเข้าถึงก่อนระบบต้นทางส่งข้อมูลตามสิทธิ์',
         href: `${prefix}/trust/`,
         link: 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง',
       },
@@ -87,7 +87,7 @@ const proofItems = evidence.filter((item) => proofIds.includes(item.id));
 const audienceRoutes = en
   ? [
       ['Hospital leaders', 'Compare the two confirmed hospital integration paths and the responsibilities that remain with each hospital.', `${prefix}/deployments/`, 'Review deployments'],
-      ['Hospital IT teams', 'Review ingestion options, FHIR components, access checks, and the current technical boundary.', `${prefix}/interoperability/`, 'Open the technical overview'],
+      ['Hospital IT teams', 'Review ingestion options, FHIR components, access checks, and the hospital-side architecture.', `${prefix}/interoperability/`, 'Open the technical overview'],
       ['Public-sector and university partners', 'Check externally sourced programme, sandbox, award, and collaboration records.', `${prefix}/evidence/`, 'Review evidence'],
       ['Patients and general visitors', 'See how authorized records can appear in a Personal Health Record.', `${prefix}/phr/`, 'Explore PHR'],
     ]
@@ -112,7 +112,7 @@ const audienceRoutes = en
       <div class="container hero-layout">
         <div>
           <div class="eyebrow">HealthTAG / {en ? 'Platform' : 'แพลตฟอร์ม'}</div>
-          <h1 id="platform-heading">{en ? 'Health data infrastructure with clear responsibilities' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่แบ่งหน้าที่ชัดเจน'}</h1>
+          <h1 id="platform-heading">{en ? 'Connect health data while hospitals keep the clinical records' : 'เชื่อมข้อมูลสุขภาพ โดยเวชระเบียนยังอยู่กับโรงพยาบาล'}</h1>
           <p>{en
             ? 'HealthTAG connects existing hospital systems through HL7 FHIR R4, links patient identities, checks access, and records consent and access events. Patients own their health data. Hospitals continue to store and steward clinical records in their source systems.'
             : 'HealthTAG เชื่อมระบบเดิมของโรงพยาบาลด้วย HL7 FHIR R4 เชื่อมตัวตนผู้ป่วย ตรวจสิทธิ์ และบันทึกเหตุการณ์ความยินยอมกับการเข้าถึง ข้อมูลสุขภาพเป็นของผู้ป่วย ส่วนโรงพยาบาลยังจัดเก็บและดูแลเวชระเบียนในระบบต้นทาง'}</p>
@@ -144,10 +144,10 @@ const audienceRoutes = en
     <section id="capabilities" class="section capabilities" aria-labelledby="capabilities-heading">
       <div class="container">
         <div class="section-head">
-          <h2 id="capabilities-heading">{en ? 'Four responsibilities in an authorized exchange' : 'แยกหน้าที่หลัก 4 ด้านในการแลกเปลี่ยนตามสิทธิ์'}</h2>
+          <h2 id="capabilities-heading">{en ? 'Data, identity, access, and audit are handled separately' : 'ข้อมูล ตัวตน สิทธิ์เข้าถึง และประวัติตรวจสอบแยกจากกัน'}</h2>
           <p>{en
-            ? 'Data, identity, authorization, and audit remain separate so each system has a defined role.'
-            : 'ข้อมูล ตัวตน การอนุญาตสิทธิ์ และการตรวจสอบแยกออกจากกัน เพื่อให้แต่ละระบบมีหน้าที่ชัดเจน'}</p>
+            ? 'Hospital systems retain the clinical records. Identity Connect links patient identifiers, Hospital API checks access requests, and blockchain records consent and access events.'
+            : 'ระบบโรงพยาบาลยังเก็บเวชระเบียน ระบบเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วย Hospital API ตรวจคำขอเข้าถึง และ blockchain บันทึกเหตุการณ์ความยินยอมกับการเข้าถึง'}</p>
         </div>
         <ol class="capability-list">
           {capabilities.map((capability, index) => (
@@ -168,7 +168,7 @@ const audienceRoutes = en
       <div class="container operating-layout">
         <div class="operating-copy">
           <span class="mono">{en ? 'RESPONSIBILITY FIRST' : 'เริ่มจากหน้าที่'}</span>
-          <h2 id="operating-heading">{en ? 'The platform connects responsibilities without moving ownership' : 'แพลตฟอร์มเชื่อมหน้าที่ต่างฝ่ายโดยไม่ย้ายความเป็นเจ้าของ'}</h2>
+          <h2 id="operating-heading">{en ? 'Patients retain ownership while hospitals retain the records' : 'ผู้ป่วยยังเป็นเจ้าของข้อมูล ส่วนโรงพยาบาลยังดูแลเวชระเบียน'}</h2>
           <p>{en
             ? 'This conceptual diagram describes responsibility boundaries. It does not prescribe the physical request sequence of every installation.'
             : 'แผนภาพนี้อธิบายขอบเขตความรับผิดชอบในเชิงแนวคิด ไม่ได้กำหนดลำดับคำขอทางเทคนิคของทุกการติดตั้ง'}</p>
@@ -257,8 +257,8 @@ const audienceRoutes = en
     <section class="section audience-section" aria-labelledby="audience-heading">
       <div class="container">
         <div class="section-head">
-          <h2 id="audience-heading">{en ? 'What each audience can verify' : 'ข้อมูลที่แต่ละกลุ่มตรวจสอบได้'}</h2>
-          <p>{en ? 'Leaders can compare deployments, IT teams can inspect components, institutional partners can check sources, and patients can see the PHR outcome.' : 'ผู้บริหารเปรียบเทียบการใช้งานจริงได้ ทีม IT ตรวจองค์ประกอบระบบได้ พันธมิตรสถาบันตรวจแหล่งข้อมูลได้ และผู้ป่วยดูผลลัพธ์ใน PHR ได้'}</p>
+          <h2 id="audience-heading">{en ? 'Choose a starting point' : 'เลือกข้อมูลที่ต้องการดู'}</h2>
+          <p>{en ? 'Compare deployments, inspect technical components, check published records, or see the PHR.' : 'เปรียบเทียบการติดตั้ง ดูองค์ประกอบทางเทคนิค ตรวจข้อมูลที่เผยแพร่ หรือดู PHR'}</p>
         </div>
         <ul class="audience-list" role="list">
           {audienceRoutes.map(([title, body, href, link], index) => (
@@ -283,7 +283,7 @@ const audienceRoutes = en
         <div class="deployment-proof">
           <span class="proof-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span>
           <div><h3>{en ? 'Siriraj and Khian Sa' : 'ศิริราชและเคียนซา'}</h3><p>{en ? 'Two confirmed hospital cases use different HIS-to-FHIR ingestion paths.' : 'กรณีโรงพยาบาลที่ยืนยันแล้วสองแห่งใช้วิธีนำข้อมูลจาก HIS เข้า FHIR ต่างกัน'}</p></div>
-          <a href={`${prefix}/deployments/`}>{en ? 'Review both cases' : 'ดูทั้งสองกรณี'} <span aria-hidden="true">→</span></a>
+          <a href={`${prefix}/deployments/`}>{en ? 'Compare both cases' : 'เปรียบเทียบทั้งสองกรณี'} <span aria-hidden="true">→</span></a>
         </div>
         <div class="proof-grid">
           {proofItems.map((item) => (
@@ -303,8 +303,8 @@ const audienceRoutes = en
 
     <section class="platform-cta" aria-labelledby="platform-cta-heading">
       <div class="container cta-layout">
-        <div><span class="mono">{en ? 'NEXT STEP' : 'ขั้นต่อไป'}</span><h2 id="platform-cta-heading">{en ? 'Discuss the integration boundary first' : 'เริ่มจากคุยขอบเขตการเชื่อมต่อ'}</h2></div>
-        <div><p>{en ? 'Tell us about the hospital systems, participants, and decision you are working through. Do not send patient, medical, credential, or other sensitive data.' : 'บอกเราได้ว่ากำลังพิจารณาระบบโรงพยาบาล ผู้เกี่ยวข้อง และประเด็นใด โดยไม่ส่งข้อมูลผู้ป่วย ข้อมูลทางการแพทย์ รหัสผ่าน หรือข้อมูลอ่อนไหวอื่น'}</p><a class="btn primary" href={`${prefix}/contact/`}>{en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a></div>
+        <div><span class="mono">{en ? 'NEXT STEP' : 'ขั้นต่อไป'}</span><h2 id="platform-cta-heading">{en ? 'Discuss the systems you need to connect' : 'คุยเรื่องระบบที่ต้องการเชื่อมต่อ'}</h2></div>
+        <div><p>{en ? 'Tell us which hospital systems need to connect and who will use the exchange. Do not send patient, medical, credential, or other sensitive data.' : 'บอกเราได้ว่าต้องการเชื่อมระบบใดและใครจะเป็นผู้ใช้ข้อมูล โดยไม่ส่งข้อมูลผู้ป่วย ข้อมูลทางการแพทย์ รหัสผ่าน หรือข้อมูลอ่อนไหวอื่น'}</p><a class="btn primary" href={`${prefix}/contact/`}>{en ? 'Contact HealthTAG' : 'ติดต่อ HealthTAG'}</a></div>
       </div>
     </section>
   </main>

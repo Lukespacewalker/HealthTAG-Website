@@ -35,7 +35,7 @@ images:
 status: published
 ---
 
-Health data is not medicine in a literal sense, but accurate information with the right context can help patients and care teams make better decisions. Hospital test results, medication history, readings from wearable devices, and daily activity logs each describe a different part of a person's health. Their value grows when the information is reliable, interoperable, and used with appropriate authorization.
+Accurate health information with the right context can help patients and care teams make better decisions. It may include hospital test results, medication history, readings from wearable devices, and daily activity logs. The information must be reliable, interoperable, and used with appropriate authorization.
 
 The phrase "Data is the New Medicine" does not mean that technology can replace clinicians or treatment. It recognizes that information has become an important part of prevention, follow-up care, and individual treatment planning.
 
@@ -76,7 +76,7 @@ HealthTAG uses blockchain as a layer for recording consent and access events. Te
 
 This separation gives each part of the architecture a clear responsibility. Hospitals control clinical records. The FHIR layer supports authorized exchange. Blockchain supports the history of permissions and access. Blockchain alone does not make a system secure. Security also depends on identity verification, key management, access controls, infrastructure protection, and day-to-day operations across every participant.
 
-## The challenges alongside the opportunity
+## Limits and risks
 
 Health information is highly sensitive. Bringing together data from multiple sources requires careful decisions about privacy, purpose, retention, and the rights of the people involved. Better connectivity can reduce duplication, but it also creates more interfaces that teams must protect and monitor.
 

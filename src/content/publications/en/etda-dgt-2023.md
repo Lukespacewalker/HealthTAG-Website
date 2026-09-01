@@ -32,20 +32,18 @@ images:
 
 Dr Dechowat Promda of HealthTAG joined the "AI for Better Health and Well-being" panel at DGT 2023: Happiness Creation on 25 February 2023. ETDA's annual event ran on 24 and 25 February under the theme "A good life with digital technology."
 
-HealthTAG thanked ETDA for the opportunity to take part in the discussion and stated its aim of helping advance Thailand's health technology community.
+After the event, HealthTAG thanked ETDA and said the team wanted to contribute to health technology work in Thailand.
 
 ## The panel
 
 ETDA's recording names five participants: Assistant Professor Dr Theerawit Wilaiprasitporn of the CHIVID app at VISTEC, Pongchai Petsanghan of Dietz Application, Dr Dechowat Promda of HealthTAG, Dr Sak Segkhoonthod of ETDA, and Nopparit Kamonsuwan of Spring News.
 
-The panel brought health technology developers, a digital-policy specialist and a media representative into the same conversation. It connected product experience in healthcare with the wider question of how AI can support health and well-being.
+The speakers included health technology developers, a digital-policy specialist, and a media representative. They discussed product development in healthcare and the use of AI for health and well-being.
 
 ## HealthTAG's context in the discussion
 
-HealthTAG works on the problem of health information that remains in separate hospital systems and is difficult to exchange. Its infrastructure connects data through FHIR and manages identity, authorisation and access history so patients can use their information through a Personal Health Record.
-
-Connected, permissioned health information provides a practical foundation for applying newer technologies in healthcare. Participation in DGT 2023 allowed HealthTAG to bring its experience in health information infrastructure into a discussion that looked ahead to AI.
+HealthTAG connects health information through FHIR and manages identity, authorisation, and access history so patients can use their information through a Personal Health Record. At DGT 2023, the team contributed its experience in health information infrastructure to the discussion about AI.
 
 ## ETDA's session record
 
-ETDA published the complete session video after the event, with the topic, date and all five participants identified. The recording is the primary record of the activity and preserves more of the discussion's context than the stage photograph alone.
+ETDA published the full session recording after the event and identified the topic, date, and all five speakers.

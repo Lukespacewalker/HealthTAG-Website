@@ -65,12 +65,12 @@ const tocHeadings = getHeadings().filter((heading) => heading.depth === 2 || hea
         {en && <p class="language-note" lang="en">The source manual is available in Thai. Product status and support navigation are provided in English.</p>}
         <div class="manual-warning" role="note">
           <strong>ข้อควรระวังก่อนติดตั้ง</strong>
-          <p>ค่ารหัสผ่าน พอร์ต และ credential ในตัวอย่างมาจากคู่มือ Community Edition เดิม ใช้ในเครือข่ายทดสอบเท่านั้น เปลี่ยน credential ก่อนเชื่อมต่อระบบจริง และห้ามใช้ข้อมูลผู้ป่วยจริงในการทดสอบ</p>
+          <p>รหัสผ่าน พอร์ต และข้อมูลรับรองการเข้าใช้ระบบในตัวอย่างมาจากคู่มือ Community Edition เดิม โปรดใช้เฉพาะในเครือข่ายทดสอบที่แยกจากระบบจริง เปลี่ยนข้อมูลรับรองทุกค่าก่อนเชื่อมต่อระบบจริง และห้ามใช้ข้อมูลผู้ป่วยจริงในการทดสอบ</p>
         </div>
         <ManualContent />
         <section class="manual-support" aria-labelledby="manual-support-heading">
           <h2 id="manual-support-heading">ติดต่อฝ่ายสนับสนุน</h2>
-          <p>ระบุ Community Edition, revision ของ source code, ระบบปฏิบัติการ, ขั้นตอนที่พบปัญหา และ log ที่ปกปิดข้อมูลแล้ว ห้ามส่งข้อมูลผู้ป่วย รหัสผ่าน credential, private key หรือ log ที่ยังมีข้อมูลลับ</p>
+          <p>เมื่อติดต่อฝ่ายสนับสนุน โปรดระบุว่าใช้ Community Edition พร้อม revision ของ source code ระบบปฏิบัติการ ขั้นตอนที่เกิดปัญหา และ log ที่ปกปิดข้อมูลลับแล้ว ห้ามส่งข้อมูลผู้ป่วย รหัสผ่าน ข้อมูลรับรองการเข้าใช้ระบบ private key หรือ log ที่ยังมีข้อมูลลับ</p>
           <a class="btn primary" href="mailto:support@healthtag.io">support@healthtag.io</a>
         </section>
       </article>

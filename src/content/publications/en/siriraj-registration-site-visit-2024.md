@@ -31,6 +31,6 @@ images:
 
 ## The registration site visit
 
-On 25 November 2024, the HealthTAG team visited Siriraj Hospital's registration site. The visit gave both teams an opportunity to discuss their continued collaboration and ways to make healthcare services more seamless for users.
+On 25 November 2024, the HealthTAG team visited Siriraj Hospital's registration site. The two teams discussed their ongoing work and the development of healthcare services for users.
 
 HealthTAG published its account of the visit the following day and said it would share further updates as the work progressed.

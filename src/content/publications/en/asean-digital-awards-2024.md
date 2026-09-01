@@ -39,6 +39,4 @@ confirmedResult:
 
 ## HealthTAG's first award result of 2024
 
-HealthTAG received the runner-up result in the Public Sector category at the ASEAN Digital Awards 2024 in Singapore. It was our first award result of the year and recognised HealthTAG's digital health work alongside entries from across ASEAN.
-
-The ASEAN Digital Awards bring together digital initiatives from key stakeholders in the region. The programme reflects ASEAN's effort to keep pace with a rapidly changing digital environment and advance its shared ambition to become a leading digital community.
+HealthTAG was runner-up in the Public Sector category at the ASEAN Digital Awards 2024 in Singapore, its first award result of the year. The awards bring together digital initiatives from across the region in support of ASEAN's goal of becoming a leading digital community.

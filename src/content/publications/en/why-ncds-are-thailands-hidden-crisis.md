@@ -79,9 +79,9 @@ An analytical model or AI system should not be treated as a certain answer. Its 
 
 At community level, appropriately aggregated data may help public agencies see patterns in heart disease, stroke, or risk factors across different areas. It can inform planning for screening, staffing, and budgets. Agencies still need to test data quality, protect privacy, and avoid treating a statistical association as the cause of disease.
 
-The AI, wearable-device, and population-analysis examples in this section describe general HealthTech possibilities. HealthTAG's documented scope covers FHIR exchange, authorization checks, consent and access event records, and the PHR experience.
+AI, wearable devices, and population-level analysis are general HealthTech examples, not confirmed HealthTAG capabilities. HealthTAG's current documented scope covers FHIR exchange, authorization checks, consent and access event records, and the PHR.
 
-## Different participants have different responsibilities
+## Patients authorize use. Hospitals safeguard records. Developers state the limits.
 
 Patients should be able to understand what information they have authorized, who may use it, and for how long. Hospitals are responsible for the quality, security, and appropriate use of records under their control. System developers must describe their scope precisely and should not claim that connecting data alone prevents disease.
 
@@ -89,7 +89,7 @@ Continuous NCD care needs accessible services, clinicians with the right context
 
 Government, care providers, businesses, communities, and the public have different roles in NCD prevention and care. Technology should help services reach people who have difficulty accessing screening and follow-up. It should not widen the gap for people without devices, connectivity, or digital skills, so services need routes that do not rely on an app alone.
 
-## Improving health in Thailand with data and technology
+## Data, technology, and NCD care
 
 Responding to NCDs requires work before disease develops, throughout follow-up, and after an abnormal finding. Connected information can help patients and care teams understand history and trends. Public-health measures must also address risk factors and unequal access to care.
 
