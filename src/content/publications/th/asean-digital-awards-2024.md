@@ -41,6 +41,6 @@ confirmedResult:
   - "พิธีมอบรางวัลจัดขึ้นที่ประเทศสิงคโปร์ เมื่อวันที่ 1 กุมภาพันธ์ 2567"
 ---
 
-## Silver, หมวด Public Sector
+## Silver ในหมวด Public Sector
 
 ผลงาน Decentralized Health Care ของ HealthTAG ได้รับรางวัล Silver หมวด Public Sector ใน ASEAN Digital Awards 2024 พิธีมอบรางวัลจัดขึ้นที่ประเทศสิงคโปร์ เมื่อวันที่ 1 กุมภาพันธ์ 2567

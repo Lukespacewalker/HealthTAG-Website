@@ -58,8 +58,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'The Ministry of Public Health and Mahidol University signed an MOU on 5 June 2026 to connect medical and public-health data through the Ministry\'s Digital Health Platform.',
     },
     healthTagContext: {
-      th: 'HealthTAG สนับสนุนเทคโนโลยีให้ MU Health Wallet ภายใต้ความร่วมมือนี้ โดยคู่ลงนามใน MOU คือมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข',
-      en: 'HealthTAG provides technology support for MU Health Wallet under this collaboration. The MOU was signed by Mahidol University and the Ministry of Public Health.',
+      th: 'HealthTAG สนับสนุนเทคโนโลยีให้ MU Health Wallet ส่วนผู้ลงนาม MOU คือมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข',
+      en: 'HealthTAG provides technology support for MU Health Wallet. The MOU was signed by Mahidol University and the Ministry of Public Health.',
     },
     href: { th: 'https://www.thecoverage.info/news/content/11474', en: 'https://www.thecoverage.info/news/content/11474' },
   },

@@ -66,7 +66,7 @@ export const networkGroups: NetworkGroup[] = [
   {
     id: 'international',
     title: { th: 'องค์กรต่างประเทศ', en: 'International organizations' },
-    introduction: { th: 'องค์กรต่างประเทศที่มีหลักฐานเกี่ยวข้องกับ HealthTAG และองค์กรที่เจ้าของเว็บไซต์ยืนยันว่าอยู่ในเครือข่าย', en: 'International organizations with published records related to HealthTAG and organizations confirmed by the site owner as part of the network.' },
+    introduction: { th: 'ความสัมพันธ์ระหว่างประเทศของ HealthTAG ครอบคลุมผู้จัดรางวัลและเครือข่ายด้านสุขภาพดิจิทัล', en: 'HealthTAG\'s international relationships include award organizers and digital-health networks.' },
     organizations: [
       { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category: Start-Up', en: '2022 winner · Cross Category: Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },

@@ -12,7 +12,7 @@ const en = locale === 'en';
   </figcaption>
   <div id="architecture-description" class="sr-only">{en ? 'The diagram shows system responsibilities. An existing HIS uses a hospital IT script or HealthTAG FHIR Transformer to send data to a FHIR Server backed by a relational database. An API Gateway protects the FHIR API. Identity and authorization services link hospital-local patient identifiers and check a 15-minute access window defined from blockchain state. Authorized PHR applications receive permitted FHIR responses. Blockchain receives consent and access events, while clinical records remain in hospital systems.' : 'แผนผังนี้แสดงหน้าที่ของระบบ ข้อมูลจาก HIS เดิมเข้าสู่ FHIR Server ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer โดยใช้ relational database จัดเก็บข้อมูล มี API Gateway ปกป้อง FHIR API และมีบริการเชื่อมตัวตนกับตรวจสิทธิ์สำหรับจับคู่รหัสผู้ป่วยและตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain แอป PHR ที่ได้รับสิทธิ์จึงรับข้อมูล FHIR ได้ ส่วน blockchain รับเฉพาะเหตุการณ์การให้ความยินยอมและการเข้าถึง เวชระเบียนยังอยู่ในระบบของโรงพยาบาล'}</div>
   <div class="boundary">
-    <div class="boundary-title"><span></span>{en ? 'Hospital Data Source Node' : 'Data Source Node ภายในโรงพยาบาล'}</div>
+    <div class="boundary-title"><span></span>{en ? 'Hospital source environment' : 'ระบบต้นทางของโรงพยาบาล'}</div>
     <div class="ingestion">
       <div class="his node"><b>Existing HIS</b><small>{en ? 'Existing hospital system' : 'ระบบโรงพยาบาลเดิม'}</small></div>
       <div class="route clinical"><span>{en ? 'Choose one ingestion path' : 'เลือกเส้นทางนำเข้าข้อมูล'}</span></div>
@@ -28,7 +28,7 @@ const en = locale === 'en';
     </div>
     <div class="module-row">
       <div class="node module"><b>{en ? 'Identity and authorization service' : 'บริการเชื่อมตัวตนและตรวจสิทธิ์'}</b><small>{en ? 'Identity linkage and authorization inside the hospital network' : 'เชื่อมตัวตนและอนุญาตสิทธิ์ภายในเครือข่ายโรงพยาบาล'}</small></div>
-      <div class="documented-note"><b>{en ? 'Inside the hospital node' : 'ภายในโหนดโรงพยาบาล'}</b><small>FHIR Server · API Gateway · {en ? 'supporting services' : 'บริการที่เกี่ยวข้อง'}</small></div>
+      <div class="documented-note"><b>{en ? 'Inside the hospital environment' : 'ภายในระบบโรงพยาบาล'}</b><small>FHIR Server · API Gateway · {en ? 'supporting services' : 'บริการที่เกี่ยวข้อง'}</small></div>
     </div>
   </div>
   <div class="context-title">{en ? 'HealthTAG services connected to the hospital node' : 'บริการ HealthTAG ที่เชื่อมต่อกับระบบโรงพยาบาล'}</div>

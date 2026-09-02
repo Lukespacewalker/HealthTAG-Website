@@ -41,4 +41,4 @@ HealthTAG contributed perspectives from its work on health data infrastructure, 
 
 The discussion covered how personal health records can help people access their own health information and how digital health wallets can carry information or digital credentials when people receive care. Trust therefore depends on more than connecting systems. It also requires clear identity, access, and accountability across the organizations involved.
 
-HealthTAG shared its experience in health data infrastructure with other people working on digital health in Thailand. The external report confirms the workshop but does not name HealthTAG. HealthTAG's participation and the photographs on this page come from information confirmed by the site owner.
+HealthTAG shared its experience in health data infrastructure with other people working on digital health in Thailand. The external report confirms the workshop but does not name HealthTAG. HealthTAG confirms its participation and provided the photographs published here.
