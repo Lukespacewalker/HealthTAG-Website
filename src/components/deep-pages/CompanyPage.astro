@@ -53,16 +53,26 @@ const values = en
       ['ทำงานร่วมกัน ไม่ทำคนเดียว', 'โครงสร้างพื้นฐานข้อมูลสุขภาพระดับประเทศต้องอาศัยการทำงานที่รับผิดชอบร่วมกับโรงพยาบาล มหาวิทยาลัย ภาครัฐ ภาคเอกชน และพันธมิตรเทคโนโลยี ไม่มีองค์กรใดสร้างได้โดยลำพัง'],
     ];
 
-const founderCredentials = en
+const founderEducation = en
   ? [
-      ['Education', 'M.D., Khon Kaen University'],
-      ['Further study', 'AI in Healthcare, National University of Singapore'],
-      ['Academic roles', 'Guest lecturer in digital health at Chulalongkorn University, KMITL, and Khon Kaen University'],
+      ['M.D.', 'Khon Kaen University'],
+      ['AI in Healthcare', 'National University of Singapore'],
     ]
   : [
-      ['การศึกษา', 'แพทยศาสตรบัณฑิต มหาวิทยาลัยขอนแก่น'],
-      ['การศึกษาเพิ่มเติม', 'AI in Healthcare, National University of Singapore'],
-      ['บทบาททางวิชาการ', 'อาจารย์พิเศษด้านสุขภาพดิจิทัลที่จุฬาลงกรณ์มหาวิทยาลัย สจล. และมหาวิทยาลัยขอนแก่น'],
+      ['แพทยศาสตรบัณฑิต', 'มหาวิทยาลัยขอนแก่น'],
+      ['AI in Healthcare', 'National University of Singapore'],
+    ];
+
+const founderAcademicRoles = en
+  ? [
+      ['KMITL', 'Adjunct Lecturer, Master\'s programme in Digital Health, Faculty of Medicine (International Programme), teaching Blockchain and Health Data'],
+      ['Khon Kaen University', 'Adjunct Lecturer, KKU Academy, teaching Introduction to Blockchain'],
+      ['Chulalongkorn University', 'Guest Lecturer, Master\'s programme in Digital Health, Faculty of Medicine'],
+    ]
+  : [
+      ['สจล.', 'อาจารย์พิเศษ หลักสูตรปริญญาโทดิจิทัลเฮลท์ คณะแพทยศาสตร์ (หลักสูตรนานาชาติ) รายวิชา Blockchain and Health Data'],
+      ['มหาวิทยาลัยขอนแก่น', 'อาจารย์พิเศษ หลักสูตร KKU Academy หัวข้อ Introduction to Blockchain'],
+      ['จุฬาลงกรณ์มหาวิทยาลัย', 'วิทยากรรับเชิญ หลักสูตรปริญญาโทดิจิทัลเฮลท์ คณะแพทยศาสตร์'],
     ];
 ---
 
@@ -148,22 +158,49 @@ const founderCredentials = en
 
     <section id="founder" class="section founder-story" aria-labelledby="founder-heading">
       <div class="container founder-layout">
-        <div class="founder-copy">
+        <div class="founder-intro">
           <span class="mono">{en ? 'CLINICALLY GROUNDED' : 'เริ่มจากการดูแลผู้ป่วย'}</span>
-          <h2 id="founder-heading">{en ? 'The company began with a problem seen in patient care' : 'บริษัทเริ่มจากปัญหาที่พบในการดูแลผู้ป่วย'}</h2>
+          <h2 id="founder-heading">{en ? 'Dechowat Promda, M.D.' : 'นพ.เดโชวัต พรมดา'}</h2>
+          <p class="founder-title">{en ? 'Founder & CEO, HealthTAG' : 'ผู้ก่อตั้งและประธานเจ้าหน้าที่บริหาร HealthTAG'}</p>
           <p>{en
-            ? 'Dechowat Promda, M.D. founded HealthTAG after seeing how difficult it was to access health information across separate hospital systems. He continues clinical practice while leading the company.'
-            : 'นพ. เดโชวัต พรมดา ก่อตั้ง HealthTAG หลังพบว่าการเข้าถึงข้อมูลสุขภาพจากระบบโรงพยาบาลที่แยกจากกันยังทำได้ยาก ปัจจุบันยังปฏิบัติงานทางคลินิกควบคู่กับการนำบริษัท'}</p>
-          <p>{en
-            ? 'HealthTAG works on FHIR interoperability, patient identity, access control, and audit. Patients retain ownership and control of consent, while hospitals store and steward the clinical records.'
-            : 'HealthTAG พัฒนาการเชื่อมโยงข้อมูลด้วย FHIR การเชื่อมตัวตนผู้ป่วย การควบคุมสิทธิ์ และการตรวจสอบย้อนหลัง ข้อมูลยังเป็นของผู้ป่วยและผู้ป่วยกำหนดความยินยอม ส่วนโรงพยาบาลเก็บรักษาและดูแลเวชระเบียน'}</p>
-          <dl class="founder-credentials">
-            {founderCredentials.map(([term, detail]) => (
-              <div><dt>{term}</dt><dd>{detail}</dd></div>
-            ))}
-          </dl>
+            ? 'Dr. Dechowat founded HealthTAG after seeing a recurring problem in patient care: one patient\'s records were scattered across systems that did not connect, with no shared infrastructure for moving data correctly and with permission. He remains in clinical practice while leading the team, keeping product decisions tied to the realities of care.'
+            : 'นพ.เดโชวัตก่อตั้ง HealthTAG จากปัญหาที่พบในการดูแลผู้ป่วยโดยตรง เวชระเบียนของผู้ป่วยหนึ่งคนกระจายอยู่ในระบบที่ไม่เชื่อมกัน และยังขาดโครงสร้างพื้นฐานที่ช่วยให้ข้อมูลเคลื่อนที่ได้อย่างถูกต้องและได้รับอนุญาต ปัจจุบันยังคงปฏิบัติงานทางคลินิกควบคู่กับการนำทีม เพื่อให้การออกแบบผลิตภัณฑ์เริ่มจากหน้างานจริง'}</p>
         </div>
-        <FounderCard locale={locale} />
+        <FounderCard locale={locale} variant="portrait" />
+        <div class="founder-details">
+          <section aria-labelledby="founder-education-heading">
+            <h3 id="founder-education-heading">{en ? 'Education' : 'การศึกษา'}</h3>
+            <dl>{founderEducation.map(([course, institution]) => <div><dt>{course}</dt><dd>{institution}</dd></div>)}</dl>
+          </section>
+          <section aria-labelledby="founder-academic-heading">
+            <h3 id="founder-academic-heading">{en ? 'Academic roles' : 'บทบาททางวิชาการ'}</h3>
+            <dl>{founderAcademicRoles.map(([institution, role]) => <div><dt>{institution}</dt><dd>{role}</dd></div>)}</dl>
+          </section>
+        </div>
+        <section class="founder-talk" aria-labelledby="founder-talk-heading">
+          <div class="talk-copy">
+            <span class="mono">TEDxSirirajFacultyOfMedicine · 2022</span>
+            <h3 id="founder-talk-heading">DON'T TRUST JUST VERIFY!</h3>
+            <p>{en
+              ? 'The talk considers how verifiable health data can support connected care across healthcare institutions.'
+              : 'การบรรยายกล่าวถึงข้อมูลสุขภาพที่ตรวจสอบได้และการดูแลที่เชื่อมถึงกันระหว่างสถานพยาบาล'}</p>
+            <div class="talk-links">
+              <a href="https://www.ted.com/talks/dechowat_promda_don_t_trust_just_verify" target="_blank" rel="noopener noreferrer">{en ? 'Watch on TED.com' : 'ดู talk บน TED.com'} <span aria-hidden="true">↗</span></a>
+              <a href="https://www.ted.com/tedx/events/44335" target="_blank" rel="noopener noreferrer">{en ? 'Event record' : 'ข้อมูลงาน'} <span aria-hidden="true">↗</span></a>
+              <a href="https://youtu.be/94WBbooeqhc" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+            </div>
+            <blockquote>"Don't trust. Just verify."</blockquote>
+          </div>
+          <div class="talk-embed">
+            <iframe
+              src="https://embed.ted.com/talks/dechowat_promda_don_t_trust_just_verify"
+              title={en ? "DON'T TRUST JUST VERIFY! by Dechowat Promda at TEDxSirirajFacultyOfMedicine" : "DON'T TRUST JUST VERIFY! โดย นพ.เดโชวัต พรมดา ที่ TEDxSirirajFacultyOfMedicine"}
+              loading="lazy"
+              allow="autoplay; fullscreen; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -191,7 +228,7 @@ const founderCredentials = en
   .vision-panel h2 { margin: 20px 0 26px; color: var(--paper); font-size: clamp(2.45rem, 5vw, 4.8rem); }
   .vision-panel p { margin: 0; color: #c7d8d8; font-size: 1.05rem; }
   .mission-panel { padding-top: clamp(6px, 2vw, 20px); }
-  .mission-panel > .mono, .founder-copy > .mono { color: var(--teal); font-size: .7rem; letter-spacing: .08em; }
+  .mission-panel > .mono, .founder-intro > .mono { color: var(--teal); font-size: .7rem; letter-spacing: .08em; }
   .mission-panel h2 { margin: 17px 0 22px; font-size: clamp(2.2rem, 4vw, 3.9rem); }
   .mission-panel > p { margin: 0; color: var(--muted); font-size: 1.06rem; }
 
@@ -209,19 +246,37 @@ const founderCredentials = en
   .values-list p { margin: 0; color: var(--muted); }
 
   .founder-story { background: var(--mint); }
-  .founder-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(35px, 8vw, 110px); align-items: center; }
-  .founder-copy h2 { margin: 16px 0 22px; font-size: clamp(2.2rem, 4vw, 4rem); }
-  .founder-copy p { color: var(--muted); }
-  .founder-credentials { margin: 30px 0 0; border-top: 1px solid #9ccac2; }
-  .founder-credentials div { display: grid; grid-template-columns: minmax(120px, .42fr) minmax(0, 1fr); gap: 18px; padding: 14px 0; border-bottom: 1px solid #9ccac2; }
-  .founder-credentials dt { color: var(--teal); font-size: .78rem; font-weight: 600; letter-spacing: .04em; }
-  .founder-credentials dd { margin: 0; color: var(--ink); }
+  .founder-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 78px); align-items: center; }
+  .founder-intro h2 { margin: 16px 0 4px; font-size: clamp(2.2rem, 4vw, 4rem); }
+  .founder-title { margin: 0 0 24px; color: var(--ink); font-weight: 600; }
+  .founder-intro > p:last-child { color: var(--muted); font-size: 1.04rem; }
+  .founder-details { grid-column: 1 / -1; display: grid; grid-template-columns: .72fr 1.28fr; border-top: 1px solid #9ccac2; border-bottom: 1px solid #9ccac2; }
+  .founder-details > section { padding: 28px 32px 30px 0; }
+  .founder-details > section + section { padding-left: 32px; border-left: 1px solid #9ccac2; }
+  .founder-details h3 { margin: 0 0 18px; color: var(--teal); font-size: .76rem; letter-spacing: .07em; text-transform: uppercase; }
+  .founder-details dl { margin: 0; }
+  .founder-details dl div { display: grid; grid-template-columns: minmax(130px, .42fr) minmax(0, 1fr); gap: 18px; padding: 13px 0; border-top: 1px solid color-mix(in srgb, var(--teal) 22%, transparent); }
+  .founder-details dt { font-weight: 600; }
+  .founder-details dd { margin: 0; color: var(--muted); }
+  .founder-talk { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr); border: 1px solid #9ccac2; background: var(--white); }
+  .talk-copy { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(24px, 4vw, 42px); }
+  .talk-copy > .mono { color: var(--teal); font-size: .66rem; letter-spacing: .06em; }
+  .talk-copy h3 { margin: 18px 0 12px; font-size: clamp(1.75rem, 3vw, 2.8rem); line-height: 1.05; letter-spacing: -.04em; }
+  .talk-copy p { margin: 0; color: var(--muted); }
+  .talk-links { display: flex; flex-wrap: wrap; gap: 10px 16px; margin-top: 22px; }
+  .talk-links a { color: var(--teal); font-size: .86rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .talk-copy blockquote { margin: auto 0 0; padding-top: 34px; color: var(--ink); font-size: clamp(1.25rem, 2.1vw, 1.8rem); font-weight: 600; letter-spacing: -.02em; }
+  .talk-embed { min-width: 0; aspect-ratio: 16 / 9; background: var(--ink); }
+  .talk-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
   .mission-vision, .values, .founder-story, .team-anchor { scroll-margin-top: 92px; }
 
   @media (max-width: 900px) {
     .company-index .container { grid-template-columns: 1fr; gap: 10px; }
     .company-index ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .vision-grid, .founder-layout { grid-template-columns: 1fr; }
+    .vision-grid, .founder-layout, .founder-details, .founder-talk { grid-template-columns: 1fr; }
+    .founder-details > section, .founder-details > section + section { padding: 24px 0; border-left: 0; }
+    .founder-details > section + section { border-top: 1px solid #9ccac2; }
+    .talk-copy blockquote { margin-top: 28px; }
     .values-list li { grid-template-columns: 46px 1fr; gap: 14px; }
     .values-list p { grid-column: 2; }
   }
@@ -231,6 +286,6 @@ const founderCredentials = en
     .company-index a { padding-inline: 6px; }
     .vision-panel { padding-inline: 24px; }
     .operating-model div { grid-template-columns: 1fr; gap: 4px; }
-    .founder-credentials div { grid-template-columns: 1fr; gap: 4px; }
+    .founder-details dl div { grid-template-columns: 1fr; gap: 4px; }
   }
 </style>

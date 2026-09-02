@@ -16,7 +16,11 @@ const thaiRoles: Record<string, string> = {
   'Graphic Designer': 'นักออกแบบกราฟิก',
   'Account Executive': 'ผู้บริหารงานลูกค้า',
 };
-const members = team.map(([name, role]) => ({ name, role: en ? role : (thaiRoles[role] ?? role), image: portraitForName(name) }));
+const members = team.map(([name, role]) => ({
+  name: name === 'Dechowat Promda' ? (en ? 'Dechowat Promda, M.D.' : 'นพ.เดโชวัต พรมดา') : name,
+  role: en ? role : (thaiRoles[role] ?? role),
+  image: portraitForName(name),
+}));
 const photographed = members.filter((member) => member.image);
 const otherContributors = members.filter((member) => !member.image);
 ---
