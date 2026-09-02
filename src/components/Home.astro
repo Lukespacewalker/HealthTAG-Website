@@ -12,17 +12,35 @@ const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
 
-const proofIds = [
-  'siriraj-5g-smart-hospital',
-  'etda-digital-service-sandbox',
+const trustBarIds = [
+  'who-thailand-dhw-workshop-2026',
+  'mahidol-moph-digital-health-mou-2026',
+  'asean-digital-awards-2024',
   'apicta-2022',
+  'etda-digital-service-sandbox',
   'orbix-healthtag',
 ];
-const proof = proofIds.map((id) => {
+const trustBarEvidence = trustBarIds.map((id) => {
   const entry = evidence.find((candidate) => candidate.id === id);
-  if (!entry) throw new Error(`Missing Home evidence entry: ${id}`);
+  if (!entry) throw new Error(`Missing Home trust bar entry: ${id}`);
   return entry;
 });
+const trustBarPaths: Record<string, string> = {
+  'who-thailand-dhw-workshop-2026': `${prefix}/news/who-thailand-trusted-phr-workshop-2026/`,
+  'mahidol-moph-digital-health-mou-2026': `${prefix}/evidence/#mahidol-moph-digital-health-mou-2026`,
+  'asean-digital-awards-2024': `${prefix}/awards/asean-digital-awards-2024/`,
+  'etda-digital-service-sandbox': `${prefix}/evidence/#etda-digital-service-sandbox`,
+  'apicta-2022': `${prefix}/awards/apicta-2022/`,
+  'orbix-healthtag': `${prefix}/news/orbix-healthtag/`,
+};
+const trustBarTitles: Record<string, Record<'th' | 'en', string>> = {
+  'who-thailand-dhw-workshop-2026': { th: 'WHO Thailand DHW Workshop', en: 'WHO Thailand DHW Workshop' },
+  'mahidol-moph-digital-health-mou-2026': { th: 'MOU มหิดล - สธ.', en: 'Mahidol - MOPH MOU' },
+  'asean-digital-awards-2024': { th: 'ASEAN Digital Awards 2024', en: 'ASEAN Digital Awards 2024' },
+  'etda-digital-service-sandbox': { th: 'ETDA Digital Service Sandbox', en: 'ETDA Digital Service Sandbox' },
+  'apicta-2022': { th: 'APICTA 2022', en: 'APICTA 2022' },
+  'orbix-healthtag': { th: 'Orbix × HealthTAG', en: 'Orbix × HealthTAG' },
+};
 
 const homeNews = await getPublishedPublications(locale, 'news');
 const featuredStories = homeNews.filter((entry) => entry.data.featured).slice(0, 2);
@@ -235,26 +253,28 @@ const audiences = en ? [
       </div>
     </section>
 
-    <section class="proof-band" data-home-section="proof" aria-labelledby="home-proof-heading">
-      <div class="container">
-        <div class="proof-band-head">
+    <section class="trust-bar" data-home-section="proof" aria-labelledby="home-proof-heading">
+      <div class="container trust-bar-frame">
+        <header class="trust-bar-intro">
           <div>
-            <div class="eyebrow">{en ? 'External evidence' : 'หลักฐานจากแหล่งภายนอก'}</div>
-            <h2 id="home-proof-heading">{en ? 'Siriraj, ETDA, APICTA, and KASIKORNBANK have published records related to HealthTAG' : 'ศิริราช ETDA APICTA และธนาคารกสิกรไทยเผยแพร่ข้อมูลที่เกี่ยวข้องกับ HealthTAG'}</h2>
+            <span class="trust-bar-kicker">{en ? 'VERIFIABLE RECORDS' : 'ข้อมูลที่ตรวจสอบได้'}</span>
+            <h2 id="home-proof-heading">{en ? 'Public records behind the work' : 'หลักฐานสาธารณะที่เกี่ยวข้องกับงานของเรา'}</h2>
           </div>
-          <a href={`${prefix}/evidence/`}>{en ? 'View all records' : 'ดูข้อมูลทั้งหมด'} <span aria-hidden="true">→</span></a>
-        </div>
-        <div class="proof-row">
-          {proof.map((entry) => (
-            <a class="proof-item" href={entry.href[locale]} target="_blank" rel="noopener noreferrer">
-              <span class="proof-tag">{entry.tag[locale]}</span>
-              <strong>{entry.title}</strong>
-              <span>{entry.sourceOrganization[locale]}</span>
-              <i aria-hidden="true">↗</i>
-            </a>
+          <a href={`${prefix}/evidence/`}>{en ? 'Evidence and sources' : 'ดูหลักฐานและแหล่งข้อมูล'} <span aria-hidden="true">→</span></a>
+        </header>
+        <ol class="trust-bar-list">
+          {trustBarEvidence.map((entry, index) => (
+            <li>
+              <a href={trustBarPaths[entry.id]}>
+                <span class="trust-bar-number">{String(index + 1).padStart(2, '0')}</span>
+                <span class="trust-bar-type">{entry.tag[locale]}</span>
+                <strong>{trustBarTitles[entry.id][locale]}</strong>
+                <small>{entry.id === 'asean-digital-awards-2024' ? (en ? 'Silver · Public Sector' : 'Silver · Public Sector') : entry.sourceOrganization[locale]}</small>
+                <i aria-hidden="true">→</i>
+              </a>
+            </li>
           ))}
-        </div>
-
+        </ol>
       </div>
     </section>
 
@@ -502,17 +522,24 @@ const audiences = en ? [
   .map-path b { font: 600 .68rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
   .map-path.amber { color: var(--amber); }
 
-  .proof-band { padding: clamp(3.25rem, 6vw, 5.25rem) 0; border-bottom: 1px solid var(--line); background: var(--white); }
-  .proof-band-head { display: flex; gap: 2rem; align-items: end; justify-content: space-between; }
-  .proof-band-head h2 { max-width: 23ch; margin: .55rem 0 0; font-size: clamp(2rem, 3.6vw, 3.6rem); line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; }
-  .proof-band-head > a { color: var(--teal); font-weight: 600; }
-  .proof-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(2rem, 4vw, 3.5rem); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .proof-item { position: relative; display: grid; align-content: start; gap: .45rem; min-width: 0; padding: 1.35rem 2.3rem 1.4rem 0; }
-  .proof-item + .proof-item { padding-left: 1.25rem; border-left: 1px solid var(--line); }
-  .proof-item .proof-tag { width: fit-content; padding: .2rem .45rem; color: var(--teal); border: 1px solid color-mix(in srgb, var(--teal) 35%, var(--line)); font: 600 .64rem/1.35 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .03em; text-transform: uppercase; }
-  .proof-item strong { margin-top: .35rem; line-height: 1.3; }
-  .proof-item > span:not(.proof-tag) { color: var(--muted); font-size: .76rem; }
-  .proof-item i { position: absolute; top: 1.35rem; right: .8rem; color: var(--teal); font-style: normal; }
+  .trust-bar { padding: 0 0 clamp(2.8rem, 5vw, 4.5rem); border-bottom: 1px solid var(--line); background: var(--white); }
+  .trust-bar-frame { border-inline: 1px solid var(--line); }
+  .trust-bar-intro { display: flex; gap: 2rem; align-items: end; justify-content: space-between; padding: 1.35rem clamp(1rem, 2.4vw, 2rem); border-bottom: 1px solid var(--line); }
+  .trust-bar-intro > div { display: flex; gap: clamp(1rem, 3vw, 2.5rem); align-items: baseline; }
+  .trust-bar-kicker { color: var(--teal); font: 600 .65rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; white-space: nowrap; }
+  .trust-bar-intro h2 { margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.35rem); line-height: 1.3; letter-spacing: -.02em; }
+  .trust-bar-intro > a { flex: 0 0 auto; color: var(--teal); font-size: .84rem; font-weight: 600; }
+  .trust-bar-list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+  .trust-bar-list li + li { border-left: 1px solid var(--line); }
+  .trust-bar-list a { position: relative; display: grid; grid-template-rows: auto auto 1fr auto; min-height: 12rem; gap: .62rem; padding: 1.15rem 1rem 1.3rem; transition: color .2s ease, background-color .2s ease; }
+  .trust-bar-list a:hover { color: var(--teal); background: var(--mint); }
+  .trust-bar-list a:focus-visible { z-index: 1; outline: 3px solid var(--amber); outline-offset: -3px; }
+  .trust-bar-number { color: var(--muted); font: 500 .62rem/1.4 'IBM Plex Mono', ui-monospace, monospace; }
+  .trust-bar-type { width: fit-content; color: var(--teal); font: 600 .59rem/1.35 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .035em; text-transform: uppercase; }
+  .trust-bar-list strong { align-self: end; font-size: .94rem; line-height: 1.28; }
+  .trust-bar-list small { max-width: 19ch; color: var(--muted); font-size: .68rem; line-height: 1.4; }
+  .trust-bar-list i { position: absolute; right: .85rem; bottom: 1.18rem; color: var(--teal); font-style: normal; transition: transform .2s ease; }
+  .trust-bar-list a:hover i { transform: translateX(.2rem); }
   .home-news-section { padding: clamp(4.5rem, 8vw, 7rem) 0; border-bottom: 1px solid var(--line); background: var(--paper); }
   .home-news-head { display: flex; gap: 2rem; align-items: end; justify-content: space-between; }
   .home-news-head h2 { margin: .55rem 0 0; font-size: clamp(2.4rem, 4.8vw, 4.6rem); line-height: 1.02; letter-spacing: -.05em; }
@@ -592,9 +619,9 @@ const audiences = en ? [
   .founder-section { border-top: 1px solid var(--line); }
 
   @media (max-width: 960px) {
-    .proof-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .proof-item:nth-child(3) { border-left: 0; }
-    .proof-item:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
+    .trust-bar-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .trust-bar-list li:nth-child(4) { border-left: 0; }
+    .trust-bar-list li:nth-child(-n + 3) { border-bottom: 1px solid var(--line); }
     .audience-grid nav a { grid-template-columns: 2rem minmax(0, 1fr) auto; }
     .audience-grid nav p { grid-column: 2 / 3; }
   }
@@ -609,6 +636,24 @@ const audiences = en ? [
     .governance-grid h3 { margin-top: 1.15rem; }
     .audience-intro { position: static; }
     .phr-proof-copy { grid-row: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .trust-bar { padding-bottom: 2.5rem; }
+    .trust-bar-intro, .trust-bar-intro > div { align-items: flex-start; flex-direction: column; gap: .6rem; }
+    .trust-bar-list { grid-template-columns: 1fr; }
+    .trust-bar-list li, .trust-bar-list li + li, .trust-bar-list li:nth-child(4) { border-left: 0; border-bottom: 1px solid var(--line); }
+    .trust-bar-list li:last-child { border-bottom: 0; }
+    .trust-bar-list a { grid-template-columns: 2rem minmax(8rem, .8fr) minmax(0, 1.2fr); grid-template-rows: auto auto; min-height: 0; gap: .35rem .8rem; padding: 1rem 2.5rem 1rem 1rem; }
+    .trust-bar-number { grid-row: 1 / 3; }
+    .trust-bar-list strong { align-self: start; }
+    .trust-bar-list small { grid-column: 2 / 4; max-width: none; }
+    .trust-bar-list i { right: 1rem; bottom: auto; top: 50%; transform: translateY(-50%); }
+    .trust-bar-list a:hover i { transform: translate(.2rem, -50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-bar-list a, .trust-bar-list i { transition: none; }
   }
 
   @media (max-width: 620px) {
