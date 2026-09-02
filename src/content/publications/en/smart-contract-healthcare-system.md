@@ -15,10 +15,6 @@ sources:
     url: "https://cms.healthtag.io/posts/smart-contract-healthcare-system"
     organization: HealthTAG
     type: archive
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: HealthTAG
-    type: first-party
   - label: "Smart contracts documentation"
     url: "https://ethereum.org/developers/docs/smart-contracts/"
     organization: Ethereum Foundation
@@ -49,7 +45,7 @@ Consistency is useful when a rule can be defined precisely, but it does not prov
 
 Authorization state is the smart-contract use case most closely related to HealthTAG. A patient or another authorized process defines an access period, and the receiving system checks the state before releasing information.
 
-In the current architecture, the Hospital API checks a 15-minute window defined from blockchain state. After a successful check, it reads FHIR data from the hospital system. Blockchain records consent and access events, while clinical records remain in the hospital-controlled FHIR Server.
+In the current architecture, the authorization service checks a 15-minute window defined from blockchain state. After a successful check, it reads FHIR data from the hospital system. Blockchain records consent and access events, while clinical records remain in the hospital-controlled FHIR Server.
 
 This is different from placing a medical record inside a smart contract. Clinical information is detailed, changes as care progresses, and remains under hospital control. The system sends it through an API after authorization instead of publishing it to a ledger.
 
@@ -80,7 +76,7 @@ An auditable history does not mean every detail should be public. Developers sho
 
 ## HealthTAG's confirmed boundary
 
-HealthTAG uses blockchain as a layer for authorization state and the history of consent and access. Hospitals still control clinical records. The Hospital API checks access, and clinical information travels through a FHIR API only after the request has been authorized.
+HealthTAG uses blockchain as a layer for authorization state and the history of consent and access. Hospitals still control clinical records. The authorization service checks access, and clinical information travels through a FHIR API only after the request has been authorized.
 
 An accurate account of smart contracts states both what the code does and what remains outside it. A contract can make some rules consistent and auditable. It does not make every input correct, replace governance, or turn blockchain into a clinical-record store.
 
@@ -89,4 +85,3 @@ An accurate account of smart contracts states both what the code does and what r
 - V. Singh and K. Sharma (2023), "The Role of Smart Contracts in Revolutionizing Healthcare Insurance Claim Processing," as listed in the original archived article
 - [Smart contracts](https://ethereum.org/developers/docs/smart-contracts/), Ethereum Foundation
 - [Oracles](https://ethereum.org/developers/docs/oracles/), Ethereum Foundation
-- [Data Source Node architecture](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

@@ -16,7 +16,7 @@ The site explains HealthTAG as healthcare interoperability infrastructure. Patie
 | [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 | [`docs/PUBLICATION_ASSETS.md`](./docs/PUBLICATION_ASSETS.md) | Provenance and checksums for migrated article and award images |
 
-The official Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy:
+The Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy. Its future public-access policy will be decided separately. Public website copy uses generic component names and does not link to the document for now:
 
 `https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/`
 
@@ -26,10 +26,10 @@ The official Data Source Node architecture documentation is the primary technica
 - Hospitals store and steward clinical records in their source systems.
 - HealthTAG provides the trust and interoperability infrastructure around authorized exchange.
 - Hospital data enters the FHIR layer through either a hospital-managed IT script or HealthTAG FHIR Transformer.
-- The current source-node stack uses HAPI FHIR Server, HL7 FHIR R4, PostgreSQL, and Kong API Gateway.
-- HealthTAG Module, also called Hospital API, runs inside the hospital network for identity linkage and authorization.
+- The public website describes the source-node stack as a FHIR Server using HL7 FHIR R4, a relational database, and an API Gateway.
+- An identity and authorization service runs inside the hospital network.
 - Identity Connect links hospital-local patient identities across providers. The linkage is stored in a cloud database.
-- The current 15-minute access window is defined from blockchain state and checked by the Hospital API.
+- The current 15-minute access window is defined from blockchain state and checked by the authorization service.
 - Blockchain records consent and access events as an immutable or tamper-resistant audit history. Clinical records are not stored on blockchain.
 
 ### Confirmed deployment examples

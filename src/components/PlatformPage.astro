@@ -36,14 +36,14 @@ const capabilities = en
         link: 'Data interoperability',
       },
       {
-        name: 'Identity Connect',
-        body: 'Links the patient identifier used by each hospital to a common identity reference. The linkage is stored in a cloud database, while clinical records remain in hospital systems.',
+        name: 'Patient identity linkage',
+        body: 'Links the patient identifier used by each hospital to a common identity reference, while clinical records remain in hospital systems.',
         href: `${prefix}/phr/`,
         link: 'Identity and PHR',
       },
       {
         name: 'Consent and authorization',
-        body: 'Records the patient\'s consent, while Hospital API evaluates each access request. It checks the current access window before the source system returns permitted information.',
+        body: 'Records the patient\'s consent, while the authorization service evaluates each access request before the source system returns permitted information.',
         href: `${prefix}/trust/`,
         link: 'Consent, trust and access',
       },
@@ -63,13 +63,13 @@ const capabilities = en
       },
       {
         name: 'ระบบเชื่อมตัวตนผู้ป่วย',
-        body: 'เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้กับตัวระบุกลาง ข้อมูลการเชื่อมโยงเก็บในฐานข้อมูลบน Cloud ส่วนเวชระเบียนยังอยู่ในระบบของโรงพยาบาล',
+        body: 'เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้กับตัวระบุกลาง ส่วนเวชระเบียนยังอยู่ในระบบของโรงพยาบาล',
         href: `${prefix}/phr/`,
         link: 'ตัวตนและ PHR',
       },
       {
         name: 'ความยินยอมและการอนุญาตสิทธิ์',
-        body: 'ระบบบันทึกความยินยอมของผู้ป่วย ส่วน Hospital API ตรวจคำขอเข้าถึงแต่ละครั้งและตรวจช่วงเวลาการเข้าถึงก่อนระบบต้นทางส่งข้อมูลตามสิทธิ์',
+        body: 'ระบบบันทึกความยินยอมของผู้ป่วย ส่วนบริการตรวจสิทธิ์ประเมินคำขอแต่ละครั้งก่อนระบบต้นทางส่งข้อมูลตามสิทธิ์',
         href: `${prefix}/trust/`,
         link: 'ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง',
       },
@@ -146,8 +146,8 @@ const audienceRoutes = en
         <div class="section-head">
           <h2 id="capabilities-heading">{en ? 'Data, identity, access, and audit are handled separately' : 'ข้อมูล ตัวตน สิทธิ์เข้าถึง และประวัติตรวจสอบแยกจากกัน'}</h2>
           <p>{en
-            ? 'Hospital systems retain the clinical records. Identity Connect links patient identifiers, Hospital API checks access requests, and blockchain records consent and access events.'
-            : 'ระบบโรงพยาบาลยังเก็บเวชระเบียน ระบบเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วย Hospital API ตรวจคำขอเข้าถึง และ blockchain บันทึกเหตุการณ์ความยินยอมกับการเข้าถึง'}</p>
+            ? 'Hospital systems retain the clinical records. An identity linkage service connects patient identifiers, an authorization service checks access requests, and blockchain records consent and access events.'
+            : 'ระบบโรงพยาบาลยังเก็บเวชระเบียน บริการเชื่อมตัวตนจับคู่รหัสผู้ป่วย บริการตรวจสิทธิ์ประเมินคำขอเข้าถึง และ blockchain บันทึกเหตุการณ์ความยินยอมกับการเข้าถึง'}</p>
         </div>
         <ol class="capability-list">
           {capabilities.map((capability, index) => (
@@ -241,13 +241,13 @@ const audienceRoutes = en
           <div class="it-detail-body">
             <dl>
               <div><dt>{en ? 'Ingestion' : 'การนำข้อมูลเข้า'}</dt><dd>{en ? 'Hospital IT script or HealthTAG FHIR Transformer.' : 'สคริปต์ของทีม IT โรงพยาบาล หรือ HealthTAG FHIR Transformer'}</dd></div>
-              <div><dt>{en ? 'FHIR system' : 'ระบบ FHIR'}</dt><dd>{en ? 'HAPI FHIR Server using HL7 FHIR R4, with PostgreSQL persistence and Kong API Gateway.' : 'HAPI FHIR Server บน HL7 FHIR R4 ใช้ PostgreSQL จัดเก็บข้อมูลและมี Kong API Gateway'}</dd></div>
-              <div><dt>{en ? 'Access check' : 'การตรวจสิทธิ์'}</dt><dd>{en ? 'HealthTAG Module, also called Hospital API, checks identity and the current authorization window inside the hospital network.' : 'HealthTAG Module หรือ Hospital API ตรวจตัวตนและช่วงเวลาการอนุญาตปัจจุบันภายในเครือข่ายโรงพยาบาล'}</dd></div>
+              <div><dt>{en ? 'FHIR system' : 'ระบบ FHIR'}</dt><dd>{en ? 'FHIR Server using HL7 FHIR R4, backed by a relational database and protected by an API Gateway.' : 'FHIR Server บน HL7 FHIR R4 ใช้ relational database จัดเก็บข้อมูลและมี API Gateway ปกป้องการเข้าถึง'}</dd></div>
+              <div><dt>{en ? 'Access check' : 'การตรวจสิทธิ์'}</dt><dd>{en ? 'Identity and authorization services link patient identifiers and check the current access window inside the hospital network.' : 'บริการเชื่อมตัวตนและตรวจสิทธิ์จับคู่รหัสผู้ป่วยและตรวจช่วงเวลาการเข้าถึงภายในเครือข่ายโรงพยาบาล'}</dd></div>
             </dl>
             <div class="technical-links">
               <a href={`${prefix}/interoperability/`}>{en ? 'Interoperability components' : 'องค์ประกอบการเชื่อมโยงข้อมูล'} <span aria-hidden="true">→</span></a>
               <a href={`${prefix}/how-it-works/`}>{en ? 'Conceptual exchange flow' : 'ลำดับการแลกเปลี่ยนเชิงแนวคิด'} <span aria-hidden="true">→</span></a>
-              <a href="https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/" target="_blank" rel="noopener noreferrer">{en ? 'Official Data Source Node architecture' : 'สถาปัตยกรรม Data Source Node ฉบับทางการ'} <span aria-hidden="true">↗</span></a>
+              <a href={`${prefix}/contact/`}>{en ? 'Discuss the technical architecture' : 'สอบถามข้อมูลสถาปัตยกรรม'} <span aria-hidden="true">→</span></a>
             </div>
           </div>
         </details>

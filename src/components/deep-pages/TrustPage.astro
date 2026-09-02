@@ -30,19 +30,19 @@ const prefix = en ? '/en' : '';
         </article>
         <article class="identity-card">
           <span class="mono">02 / {en ? 'IDENTITY' : 'ตัวตน'}</span>
-          <h2>{en ? 'Identity Connect uses a cloud database' : 'ระบบเชื่อมตัวตนผู้ป่วยใช้ฐานข้อมูลบน Cloud'}</h2>
-          <p>{en ? 'Identity Connect links the patient identifier used by each hospital to a common identity reference.' : 'ระบบนี้เชื่อมรหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้กับตัวระบุกลาง เพื่อจับคู่ข้อมูลของบุคคลเดียวกัน'}</p>
+          <h2>{en ? 'Identity linkage connects local patient identifiers' : 'เชื่อมรหัสผู้ป่วยของแต่ละโรงพยาบาลผ่านตัวระบุกลาง'}</h2>
+          <p>{en ? 'The identity linkage service connects the patient identifier used by each hospital to a common identity reference.' : 'บริการเชื่อมตัวตนจับคู่รหัสผู้ป่วยที่แต่ละโรงพยาบาลใช้กับตัวระบุกลาง เพื่อระบุข้อมูลของบุคคลเดียวกัน'}</p>
         </article>
         <article class="authorization">
           <span class="mono">03 / {en ? 'CURRENT ACCESS CHECK' : 'การตรวจสิทธิ์ปัจจุบัน'}</span>
           <div class="window">15<span>min</span></div>
-          <h2>{en ? 'Hospital API checks the access window' : 'Hospital API ตรวจช่วงเวลาการเข้าถึง'}</h2>
-          <p>{en ? 'Hospital API checks a 15-minute access window defined from blockchain state before the source system returns the permitted information.' : 'Hospital API ตรวจช่วงเวลาเข้าถึง 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนระบบต้นทางส่งข้อมูลตามขอบเขตที่อนุญาต'}</p>
+          <h2>{en ? 'The authorization service checks the access window' : 'บริการตรวจสิทธิ์ตรวจช่วงเวลาการเข้าถึง'}</h2>
+          <p>{en ? 'The authorization service checks a 15-minute access window defined from blockchain state before the source system returns the permitted information.' : 'บริการตรวจสิทธิ์ตรวจช่วงเวลาเข้าถึง 15 นาทีที่กำหนดจากสถานะบน blockchain ก่อนระบบต้นทางส่งข้อมูลตามขอบเขตที่อนุญาต'}</p>
         </article>
         <article class="api-card">
           <span class="mono">04 / API</span>
-          <h2>{en ? 'Kong protects the HAPI FHIR API' : 'Kong ปกป้อง HAPI FHIR API'}</h2>
-          <p>{en ? 'Kong provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide the other safeguards.' : 'Kong เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง กฎ firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลช่วยป้องกันระบบในด้านอื่น'}</p>
+          <h2>{en ? 'The API Gateway protects the FHIR API' : 'API Gateway ปกป้อง FHIR API'}</h2>
+          <p>{en ? 'The API Gateway provides the TLS gateway and authentication boundary. Credentials, firewall rules, encryption, and hospital operations provide the other safeguards.' : 'API Gateway เป็น TLS gateway และขอบเขตการยืนยันตัวตน ส่วนข้อมูลรับรอง กฎ firewall การเข้ารหัส และการปฏิบัติการของโรงพยาบาลช่วยป้องกันระบบในด้านอื่น'}</p>
         </article>
         <article class="ledger">
           <span class="mono">05 / {en ? 'AUDIT' : 'ตรวจสอบ'}</span>

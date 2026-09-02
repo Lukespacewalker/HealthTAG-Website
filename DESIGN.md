@@ -112,18 +112,20 @@ Show, where relevant:
 - The hospital-stewarded source environment
 - Existing HIS
 - Hospital-owned IT script and HealthTAG FHIR Transformer as two ingestion options
-- HAPI FHIR Server using HL7 FHIR R4
-- PostgreSQL persistence
-- Kong API Gateway around or protecting the HAPI FHIR API
-- HealthTAG Module or Hospital API inside the hospital network
-- Identity Connect linking hospital-local patient identities through a cloud database
-- Authorization, with the 15-minute access window defined from blockchain state and checked by the Hospital API
+- FHIR Server using HL7 FHIR R4
+- Relational database persistence
+- API Gateway protecting the FHIR API
+- Identity and authorization service inside the hospital network
+- Patient identity linkage through a common identity reference
+- Authorization, with the 15-minute access window defined from blockchain state and checked by the authorization service
 - Authorized PHR or application access
 - Consent and access events flowing to the audit ledger
 
 Do not draw clinical data as flowing through blockchain. If the physical request sequence is not established, label the diagram as conceptual and show responsibilities rather than inventing topology.
 
 Use teal for clinical-data paths and amber for permission or audit paths, supported by labels, line patterns, or icons.
+
+Implementation product names and the full Data Source Node architecture remain in separate technical documentation. Public pages use the generic component names above and do not link to that documentation until its access policy is decided. The Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
 
 ### Product proof
 

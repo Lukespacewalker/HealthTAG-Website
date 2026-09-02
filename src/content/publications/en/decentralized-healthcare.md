@@ -14,10 +14,6 @@ sources:
     url: "https://cms.healthtag.io/posts/decentralized-healthcare"
     organization: "HealthTAG"
     type: first-party
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: "HealthTAG"
-    type: primary
 images:
   - src: ../../../assets/publications/articles/decentralized-healthcare.jpg
     alt: "Illustration of a decentralized healthcare network connecting a patient with healthcare providers"
@@ -41,7 +37,7 @@ A system with distributed responsibilities can include hospital data sources, id
 
 In the HealthTAG model, medical records remain in systems controlled by each hospital. Information selected for exchange is represented as HL7 FHIR R4 within the hospital environment. It reaches the FHIR layer through a hospital-managed script or the HealthTAG FHIR Transformer, depending on the implementation.
 
-The HealthTAG Module, also called the Hospital API, runs within the hospital network to support identity linkage and authorization checks. When an application or PHR requests information, the system checks permission before releasing data within the approved scope. The medical record never passes through or resides on the blockchain.
+Identity and authorization services run within the hospital network. When an application or PHR requests information, the system checks permission before releasing data within the approved scope. The medical record never passes through or resides on the blockchain.
 
 ## Data sovereignty in healthcare
 
@@ -53,7 +49,7 @@ Calling a patient the "owner of the medical record" can be misleading because th
 
 Authorization does not need to be an all-or-nothing choice. A system can limit access by information type, requester, purpose, and time. A patient might, for example, authorize a verified professional to view a specific item during a defined period.
 
-The current HealthTAG architecture defines a 15-minute access window from blockchain state, which the Hospital API checks. Expiration reduces the chance that an authorization remains open longer than necessary. The implementation still needs appropriate identity checks, revocation handling, event records, and procedures for exceptional or emergency access.
+The current HealthTAG architecture defines a 15-minute access window from blockchain state, which the authorization service checks. Expiration reduces the chance that an authorization remains open longer than necessary. The implementation still needs appropriate identity checks, revocation handling, event records, and procedures for exceptional or emergency access.
 
 ## Blockchain as an audit record, not a medical record store
 

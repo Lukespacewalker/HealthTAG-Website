@@ -15,10 +15,6 @@ sources:
     url: "https://cms.healthtag.io/posts/smart-contract-healthcare-system"
     organization: HealthTAG
     type: archive
-  - label: "สถาปัตยกรรม Data Source Node"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: HealthTAG
-    type: first-party
   - label: "เอกสาร Smart contracts"
     url: "https://ethereum.org/developers/docs/smart-contracts/"
     organization: Ethereum Foundation
@@ -49,7 +45,7 @@ Smart contract คือโปรแกรมที่ประมวลผล�
 
 กรณีใช้งานที่เกี่ยวข้องกับ HealthTAG มากที่สุดคือการจัดการสถานะสิทธิ์ ผู้ป่วยหรือกระบวนการที่ได้รับอนุญาตกำหนดช่วงเวลาการเข้าถึง จากนั้นระบบปลายทางตรวจสถานะก่อนส่งข้อมูล
 
-ในสถาปัตยกรรมปัจจุบัน Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หากคำขอผ่านจึงอ่านข้อมูล FHIR จากระบบโรงพยาบาล Blockchain เก็บเหตุการณ์การให้ความยินยอมและการเข้าถึง ส่วนเวชระเบียนยังอยู่ใน FHIR Server ที่โรงพยาบาลควบคุม
+ในสถาปัตยกรรมปัจจุบัน บริการตรวจสิทธิ์ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หากคำขอผ่านจึงอ่านข้อมูล FHIR จากระบบโรงพยาบาล Blockchain เก็บเหตุการณ์การให้ความยินยอมและการเข้าถึง ส่วนเวชระเบียนยังอยู่ใน FHIR Server ที่โรงพยาบาลควบคุม
 
 ขอบเขตนี้ต่างจากการนำเวชระเบียนไปเก็บใน smart contract ข้อมูลทางคลินิกมีรายละเอียดมาก เปลี่ยนแปลงตามการรักษา และอยู่ภายใต้การควบคุมของโรงพยาบาล ระบบจึงส่งข้อมูลผ่าน API หลังตรวจสิทธิ์ แทนการเผยแพร่ข้อมูลลงในบัญชีแยกประเภท
 
@@ -80,7 +76,7 @@ Smart contract อาจถูกออกแบบให้ตรวจข้�
 
 ## ขอบเขตที่ควรจำเกี่ยวกับ HealthTAG
 
-HealthTAG ใช้ blockchain เป็นชั้นสำหรับสถานะสิทธิ์และประวัติการให้ความยินยอมกับการเข้าถึง โรงพยาบาลยังควบคุมเวชระเบียน Hospital API ตรวจสิทธิ์ และข้อมูลทางคลินิกเดินทางผ่าน FHIR API เมื่อคำขอได้รับอนุญาต
+HealthTAG ใช้ blockchain เป็นชั้นสำหรับสถานะสิทธิ์และประวัติการให้ความยินยอมกับการเข้าถึง โรงพยาบาลยังควบคุมเวชระเบียน บริการตรวจสิทธิ์ประเมินคำขอ และข้อมูลทางคลินิกเดินทางผ่าน FHIR API เมื่อคำขอได้รับอนุญาต
 
 การอธิบาย smart contract อย่างรับผิดชอบจึงต้องระบุทั้งสิ่งที่โค้ดทำและสิ่งที่อยู่นอกขอบเขต มันช่วยให้กฎบางประเภททำงานสม่ำเสมอและตรวจย้อนหลังได้ แต่ไม่ได้ทำให้ข้อมูลนำเข้าถูกต้อง ไม่ได้แทนการกำกับดูแล และไม่ได้เปลี่ยน blockchain ให้เป็นที่เก็บเวชระเบียน
 
@@ -89,4 +85,3 @@ HealthTAG ใช้ blockchain เป็นชั้นสำหรับสถ�
 - V. Singh และ K. Sharma (2023), "The Role of Smart Contracts in Revolutionizing Healthcare Insurance Claim Processing" ตามรายการอ้างอิงที่ปรากฏในบทความต้นฉบับ
 - [Smart contracts](https://ethereum.org/developers/docs/smart-contracts/), Ethereum Foundation
 - [Oracles](https://ethereum.org/developers/docs/oracles/), Ethereum Foundation
-- [สถาปัตยกรรม Data Source Node](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

@@ -31,7 +31,7 @@ const d = pageContent[slug]?.[locale] ?? { label: 'HealthTAG', title: en ? 'Heal
     {d.sections.length > 0 && <section class="section">
       <div class="container detail-layout"><div class="prose">
         {d.sections.map((section) => <section class="detail-section"><h2>{section.heading}</h2><p>{section.body}</p></section>)}
-        {slug === 'interoperability' && <div class="resource-list"><span class="chip">HAPI FHIR</span><span class="chip">FHIR R4</span><span class="chip">PostgreSQL</span><span class="chip">Kong</span><span class="chip">Hospital API</span></div>}
+        {slug === 'interoperability' && <div class="resource-list"><span class="chip">FHIR Server</span><span class="chip">FHIR R4</span><span class="chip">Relational database</span><span class="chip">API Gateway</span><span class="chip">Authorization service</span></div>}
       </div></div>
     </section>}
     {slug === 'network' && <PartnerNetwork locale={locale} />}

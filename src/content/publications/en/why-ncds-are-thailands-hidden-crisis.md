@@ -15,10 +15,6 @@ sources:
     url: "https://cms.healthtag.io/posts/why-ncds-are-thailands-hidden-crisis"
     organization: HealthTAG
     type: archive
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: HealthTAG
-    type: first-party
   - label: "Noncommunicable diseases fact sheet"
     url: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases"
     organization: World Health Organization
@@ -65,7 +61,7 @@ Where an implementation supports it, authorized information such as encounters, 
 
 ## Connected information still needs access controls
 
-A combined view does not mean every system should have permanent access. HealthTAG separates record storage from authorization. Clinical records stay in hospital-controlled FHIR systems, while the Hospital API checks a request against an access period defined from blockchain state.
+A combined view does not mean every system should have permanent access. HealthTAG separates record storage from authorization. Clinical records stay in hospital-controlled FHIR systems, while the authorization service checks a request against an access period defined from blockchain state.
 
 Blockchain records consent and access events. It does not store test results or other clinical records. This keeps responsibility for the source record with the hospital while providing a history of how access rights were used.
 
@@ -99,4 +95,3 @@ Information is useful when it is accurate, used under proper authorization, and 
 
 - [Noncommunicable diseases](https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases), World Health Organization
 - [Division of Non-Communicable Diseases](https://ddc.moph.go.th/dncd/), Department of Disease Control
-- [Data Source Node architecture](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

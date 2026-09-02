@@ -8,15 +8,15 @@ const prefix = en ? '/en' : '';
 const stages = en ? [
   ['01','Connect','Send HIS data to the hospital FHIR system through an IT script or HealthTAG FHIR Transformer.','interoperability'],
   ['02','Standardize','Use HL7 FHIR R4 so connected systems share the same data structure.','interoperability'],
-  ['03','Identify','Identity Connect links each hospital-local patient identifier to a common identity reference.','phr'],
-  ['04','Authorize','Hospital API checks whether an access request is valid for the 15-minute window defined from blockchain state.','trust'],
+  ['03','Identify','The identity linkage service connects each hospital-local patient identifier to a common identity reference.','phr'],
+  ['04','Authorize','The authorization service checks whether an access request is valid for the 15-minute window defined from blockchain state.','trust'],
   ['05','Return a permitted response','After the check, the hospital source system can return the permitted FHIR response to the approved PHR or application.','phr'],
   ['06','Record','Write consent and access events to blockchain for later review. Clinical records remain in hospital systems.','trust']
 ] : [
   ['01','เชื่อมข้อมูล','ส่งข้อมูลจาก HIS เข้าสู่ระบบ FHIR ของโรงพยาบาล ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer','interoperability'],
   ['02','ทำให้เป็นมาตรฐาน','ใช้ HL7 FHIR R4 เพื่อให้ระบบที่เชื่อมต่อกันใช้โครงสร้างข้อมูลเดียวกัน','interoperability'],
   ['03','เชื่อมตัวตน','ระบบเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วยของแต่ละสถานพยาบาลกับตัวระบุกลาง เพื่อจับคู่ข้อมูลของบุคคลเดียวกัน','phr'],
-  ['04','อนุญาตสิทธิ์','Hospital API ตรวจว่าคำขอมีสิทธิ์ภายในช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หรือไม่','trust'],
+  ['04','อนุญาตสิทธิ์','บริการตรวจสิทธิ์ตรวจว่าคำขออยู่ภายในช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain หรือไม่','trust'],
   ['05','ส่งคำตอบตามสิทธิ์','หลังตรวจสิทธิ์แล้ว ระบบต้นทางของโรงพยาบาลจึงส่งคำตอบ FHIR ตามขอบเขตที่อนุญาตไปยัง PHR หรือแอปที่ได้รับสิทธิ์','phr'],
   ['06','บันทึกเหตุการณ์','บันทึกเหตุการณ์การให้ความยินยอมและการเข้าถึงบน blockchain เพื่อตรวจสอบภายหลัง โดยเวชระเบียนยังอยู่ในระบบโรงพยาบาล','trust']
 ];
@@ -39,19 +39,19 @@ const detailLabels: Record<string, string> = en ? {
           <span class="mono">{en ? 'SYSTEM BOUNDARIES' : 'ขอบเขตของระบบ'}</span>
           <h2>{en ? 'Clinical records stay with the hospital' : 'เวชระเบียนยังอยู่กับโรงพยาบาล'}</h2>
           <p>{en
-            ? 'The hospital stewards its HIS and FHIR environment. HealthTAG Module supports identity and authorization, while consent and access events go to the audit ledger.'
-            : 'โรงพยาบาลดูแล HIS และระบบ FHIR ของตนเอง HealthTAG Module รองรับการเชื่อมตัวตนและการอนุญาตสิทธิ์ ส่วนเหตุการณ์ความยินยอมและการเข้าถึงเข้าสู่ประวัติตรวจสอบ'}</p>
+            ? 'The hospital stewards its HIS and FHIR environment. Identity and authorization services support permitted exchange, while consent and access events go to the audit ledger.'
+            : 'โรงพยาบาลดูแล HIS และระบบ FHIR ของตนเอง บริการเชื่อมตัวตนและตรวจสิทธิ์รองรับการแลกเปลี่ยนตามสิทธิ์ ส่วนเหตุการณ์ความยินยอมและการเข้าถึงเข้าสู่ประวัติตรวจสอบ'}</p>
           <p class="concept-note">{en
             ? 'The physical request sequence may differ between installations.'
             : 'แต่ละการติดตั้งอาจใช้ลำดับคำขอทางเทคนิคแตกต่างกัน'}</p>
         </div>
         <div class="topology-card" role="img" aria-label={en
-          ? 'Conceptual architecture: an existing HIS uses a hospital IT script or FHIR Transformer to reach the hospital-stewarded FHIR system. Kong and HealthTAG Module protect permitted exchange to PHR applications. Consent and access events go to the audit ledger, while clinical records remain in hospital source systems.'
-          : 'สถาปัตยกรรมเชิงแนวคิด: HIS เดิมใช้สคริปต์ของโรงพยาบาลหรือ FHIR Transformer เพื่อนำข้อมูลเข้าสู่ระบบ FHIR ที่โรงพยาบาลดูแล Kong และ HealthTAG Module ปกป้องการแลกเปลี่ยนตามสิทธิ์ไปยัง PHR เหตุการณ์การให้ความยินยอมและการเข้าถึงเข้าสู่ประวัติตรวจสอบ ส่วนเวชระเบียนยังอยู่ในระบบต้นทางของโรงพยาบาล'}>
+          ? 'Conceptual architecture: an existing HIS uses a hospital IT script or FHIR Transformer to reach the hospital-stewarded FHIR system. An API Gateway and identity and authorization services protect permitted exchange to PHR applications. Consent and access events go to the audit ledger, while clinical records remain in hospital source systems.'
+          : 'สถาปัตยกรรมเชิงแนวคิด: HIS เดิมใช้สคริปต์ของโรงพยาบาลหรือ FHIR Transformer เพื่อนำข้อมูลเข้าสู่ระบบ FHIR ที่โรงพยาบาลดูแล API Gateway และบริการเชื่อมตัวตนกับตรวจสิทธิ์ปกป้องการแลกเปลี่ยนตามสิทธิ์ไปยัง PHR เหตุการณ์การให้ความยินยอมและการเข้าถึงเข้าสู่ประวัติตรวจสอบ ส่วนเวชระเบียนยังอยู่ในระบบต้นทางของโรงพยาบาล'}>
           <div class="boundary-label">{en ? 'Conceptual · hospital-stewarded source environment' : 'ภาพเชิงแนวคิด · ระบบต้นทางที่โรงพยาบาลดูแล'}</div>
           <div class="topology-ingress"><div class="topology-node"><strong>Existing HIS</strong><small>{en ? 'Hospital source system' : 'ระบบต้นทางของโรงพยาบาล'}</small></div><div class="topology-split"><span>↓</span><div><b>IT Script</b><b>FHIR Transformer</b></div><span>↓</span></div></div>
           <div class="topology-fhir"><strong>FHIR System</strong><span>HL7 FHIR R4</span><em>{en ? 'Hospital stewardship' : 'โรงพยาบาลดูแล'}</em></div>
-          <div class="topology-edge"><div><strong>Kong API Gateway</strong><small>{en ? 'FHIR API protection' : 'ปกป้อง FHIR API'}</small></div><div><strong>HealthTAG Module</strong><small>{en ? 'Identity · Authorization' : 'ตัวตน · การอนุญาต'}</small></div></div>
+          <div class="topology-edge"><div><strong>API Gateway</strong><small>{en ? 'FHIR API protection' : 'ปกป้อง FHIR API'}</small></div><div><strong>{en ? 'Identity and authorization service' : 'บริการเชื่อมตัวตนและตรวจสิทธิ์'}</strong><small>{en ? 'Identity · Authorization' : 'ตัวตน · การอนุญาต'}</small></div></div>
           <div class="topology-out">↓ {en ? 'Permitted exchange' : 'แลกเปลี่ยนตามสิทธิ์'} ↓</div>
           <div class="topology-dest"><span>PHR</span><span>{en ? 'Permitted apps' : 'แอปที่ได้รับสิทธิ์'}</span></div>
           <div class="topology-audit"><strong>{en ? 'Consent/access events → audit ledger' : 'เหตุการณ์การให้ความยินยอม/การเข้าถึง → ประวัติตรวจสอบ'}</strong><small>{en ? 'Clinical records remain in hospital source systems' : 'เวชระเบียนยังอยู่ในระบบต้นทางของโรงพยาบาล'}</small></div>

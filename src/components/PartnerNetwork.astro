@@ -35,7 +35,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 
       <article class="featured-network-card" data-organization={featured.id}>
         <div class="featured-logo">
-          <Image src={featured.logo} alt={featured.name[locale]} width={featured.logo.width} height={featured.logo.height} loading="eager" decoding="async" format="webp" quality={100} />
+          {featured.logo && <Image src={featured.logo} alt={featured.name[locale]} width={featured.logo.width} height={featured.logo.height} loading="eager" decoding="async" format="webp" quality={100} />}
         </div>
         <div class="featured-copy">
           <span class="relationship-badge">{featured.badge[locale]}</span>
@@ -54,7 +54,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
         <ul class="logo-grid ecosystem-grid" role="list">
           {relatedSiriraj.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
-              <div class="logo-frame"><Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /></div>
+              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>{organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}</div>
               <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
             </li>
           ))}
@@ -66,7 +66,7 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
         <ul class="logo-grid medical-grid" role="list">
           {otherMedical.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
-              <div class="logo-frame"><Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /></div>
+              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>{organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}</div>
               <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
             </li>
           ))}
@@ -85,14 +85,15 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
         <ul class="logo-grid" role="list">
           {group.organizations.map((organization) => (
             <li class="logo-card" data-organization={organization.id}>
-              <div class="logo-frame">
-                <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} />
+              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>
+                {organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}
               </div>
               <div class="organization-copy">
                 <span class="relationship-badge">{organization.badge[locale]}</span>
                 <h3>{organization.name[locale]}</h3>
                 {organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}
                 {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'View evidence for' : 'ดูหลักฐานของ'} ${organization.name[locale]}`}>{en ? 'View evidence' : 'ดูหลักฐาน'} <span aria-hidden="true">→</span></a>}
+                {organization.detailPath && <a href={`${prefix}${organization.detailPath}`} aria-label={`${en ? 'View published record for' : 'ดูข้อมูลที่เผยแพร่ของ'} ${organization.name[locale]}`}>{en ? 'View published record' : 'ดูข้อมูลที่เผยแพร่'} <span aria-hidden="true">→</span></a>}
               </div>
             </li>
           ))}
@@ -134,6 +135,8 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
   .logo-card { min-width: 0; border-top: 2px solid var(--ink); background: rgba(255, 255, 255, .72); }
   .logo-frame { height: 146px; padding: 20px; display: flex; align-items: center; justify-content: center; }
   .logo-frame img { display: block; max-width: 100%; width: auto; max-height: 102px; height: auto; object-fit: contain; }
+  .logo-frame.text-mark { padding-inline: 24px; color: var(--teal); background: color-mix(in srgb, var(--mint) 65%, var(--white)); text-align: center; }
+  .logo-frame.text-mark strong { max-width: 16ch; font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.2; letter-spacing: -.025em; }
   .organization-copy { border-top: 1px solid var(--line); padding: 18px 4px 24px; }
   .organization-copy h3 { margin: 13px 0 0; font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
   .organization-copy p { margin: 8px 0 0; font-size: .84rem; color: var(--muted); }
