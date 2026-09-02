@@ -6,14 +6,14 @@ test('Trust separates patient consent from the current authorization check', asy
   await expect(page.locator('.consent-section')).toContainText('ความยินยอมกำหนดว่าผู้ป่วยอนุญาตให้นำข้อมูลสุขภาพไปใช้หรือไม่และอย่างไร');
   await expect(page.locator('.consent-section')).toContainText('การอนุญาตสิทธิ์คือการตัดสินใจของระบบเมื่อแอปพลิเคชันขอเข้าถึง');
   await expect(page.locator('.authorization')).toContainText('15min');
-  await expect(page.locator('.authorization')).toContainText('Hospital API ตรวจช่วงเวลาเข้าถึง 15 นาที');
+  await expect(page.locator('.authorization')).toContainText('บริการตรวจสิทธิ์ตรวจช่วงเวลาเข้าถึง 15 นาที');
 
   await page.goto('/en/trust/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Patients own their health data. Hospitals steward the records.');
   await expect(page.locator('.consent-section')).toContainText('Consent defines whether and how the patient permits health data to be used.');
   await expect(page.locator('.consent-section')).toContainText('clear scope and time limit, remain auditable, and be revocable');
   await expect(page.locator('.consent-section')).toContainText('Authorization is the system decision made when an application requests access.');
-  await expect(page.locator('.authorization')).toContainText('Hospital API checks a 15-minute access window');
+  await expect(page.locator('.authorization')).toContainText('The authorization service checks a 15-minute access window');
 });
 
 test('Trust Before Intelligence is a governance principle rather than a deployed AI claim', async ({ page }) => {

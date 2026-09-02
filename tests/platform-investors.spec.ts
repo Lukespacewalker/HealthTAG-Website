@@ -46,7 +46,9 @@ test.describe('platform overview', () => {
     const details = page.locator('.it-detail');
     await details.locator('summary').click();
     await expect(details.locator('dt')).toHaveCount(3);
-    await expect(details.locator('a[target="_blank"]')).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(details.locator('.technical-links a')).toHaveCount(3);
+    await expect(details.locator('a[href="/contact/"]')).toHaveText('สอบถามข้อมูลสถาปัตยกรรม →');
+    await expect(details.locator('a[target="_blank"]')).toHaveCount(0);
   });
 
   test('renders the complete disclosure content when JavaScript is disabled', async ({ browser }) => {
@@ -73,8 +75,8 @@ test.describe('investor overview', () => {
   test('shows public proof, business-model categories, and an IR route', async ({ page }) => {
     await page.goto('/en/investors/');
 
-    await expect(page.locator('.evidence-grid article')).toHaveCount(4);
-    await expect(page.locator('.evidence-grid .record-type')).toHaveText(['Programme', 'Award', 'Sandbox', 'Strategic Collaboration']);
+    await expect(page.locator('.evidence-grid article')).toHaveCount(6);
+    await expect(page.locator('.evidence-grid .record-type')).toHaveText(['Public Forum', 'Announced Collaboration', 'Award', 'Award', 'Sandbox', 'Strategic Collaboration']);
     await expect(page.locator('.business-list h3')).toHaveText(['Connectivity services', 'Usage services', 'Infrastructure projects']);
     await expect(page.locator('#contact-investors a[href="/en/contact/"]')).toHaveText('Contact investor relations');
   });
