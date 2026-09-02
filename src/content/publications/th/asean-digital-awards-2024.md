@@ -1,7 +1,7 @@
 ---
 kind: award
-title: HealthTAG ได้รับรางวัลรองชนะเลิศ ASEAN Digital Awards 2024
-summary: "HealthTAG ได้รับรางวัลรองชนะเลิศหมวด Public Sector ในงาน ASEAN Digital Awards 2024 ที่สิงคโปร์ จากผลงานด้านสุขภาพดิจิทัลที่เข้าร่วมเวทีระดับอาเซียน"
+title: HealthTAG ได้รับรางวัล Silver จาก ASEAN Digital Awards 2024
+summary: "HealthTAG ได้รับรางวัล Silver หมวด Public Sector จากผลงาน Decentralized Health Care ใน ASEAN Digital Awards 2024 ที่ประเทศสิงคโปร์"
 author: HealthTAG
 locale: th
 translationKey: asean-digital-awards-2024
@@ -13,6 +13,10 @@ migratedAt: "2026-08-31"
 eventDate: "2024-01-31"
 eventEndDate: "2024-02-01"
 sources:
+  - label: ผลงานผู้ชนะ ASEAN Digital Awards 2024
+    url: "https://www.depa.or.th/th/asean-digital-awards"
+    organization: depa
+    type: primary
   - label: ASEAN Digital Awards 2024
     url: "https://asean.org/asean-digital-award-2024/"
     organization: ASEAN
@@ -31,12 +35,12 @@ images:
     credit: "ภาพ: HealthTAG"
     sourceUrl: "https://cms.healthtag.io/api/media/file/strapi-91-article-9.jpg"
     checksum: "sha256:ddf22958f9ee2e2b64d361110b025bced244dd3f79eab2b6bd6ad6960ec8c1b5"
-resultStatus: "รองชนะเลิศ หมวด Public Sector"
+resultStatus: "Silver, หมวด Public Sector"
 confirmedResult:
-  - "HealthTAG ได้รับรางวัลรองชนะเลิศหมวด Public Sector"
-  - "ประกาศผลในงาน ASEAN Digital Awards 2024 ที่ประเทศสิงคโปร์"
+  - "ผลงาน Decentralized Health Care ของ HealthTAG ได้รับรางวัล Silver หมวด Public Sector"
+  - "พิธีมอบรางวัลจัดขึ้นที่ประเทศสิงคโปร์ เมื่อวันที่ 1 กุมภาพันธ์ 2567"
 ---
 
-## ผลรางวัลแรกของ HealthTAG ในปี 2024
+## Silver, หมวด Public Sector
 
-HealthTAG ได้รับรางวัลรองชนะเลิศหมวด Public Sector ในงาน ASEAN Digital Awards 2024 ที่สิงคโปร์ นับเป็นรางวัลแรกของบริษัทในปีนั้น งานนี้รวบรวมผลงานดิจิทัลจากทั่วภูมิภาคเพื่อสนับสนุนเป้าหมายของอาเซียนในการเป็นประชาคมดิจิทัลชั้นนำ
+ผลงาน Decentralized Health Care ของ HealthTAG ได้รับรางวัล Silver หมวด Public Sector ใน ASEAN Digital Awards 2024 พิธีมอบรางวัลจัดขึ้นที่ประเทศสิงคโปร์ เมื่อวันที่ 1 กุมภาพันธ์ 2567

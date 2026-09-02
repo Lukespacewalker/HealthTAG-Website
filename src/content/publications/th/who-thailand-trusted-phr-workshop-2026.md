@@ -1,7 +1,7 @@
 ---
 kind: news
-title: "HealthTAG ร่วมเวิร์กช็อป WHO Thailand เรื่อง Trusted Personal Health Records และ Digital Health Wallets"
-summary: "HealthTAG ร่วมเวิร์กช็อปของ WHO Thailand เมื่อวันที่ 17 มิถุนายน 2569 และแลกเปลี่ยนมุมมองเรื่องการเข้าถึงข้อมูลสุขภาพที่ปลอดภัย เชื่อมโยงกัน และยึดผู้ป่วยเป็นศูนย์กลาง"
+title: "HealthTAG ร่วม Regional Digital Health Wallets Thailand Inception Workshop"
+summary: "HealthTAG เข้าร่วม Regional Digital Health Wallets (DHW) Thailand Inception Workshop เมื่อวันที่ 17 มิถุนายน 2569"
 author: HealthTAG
 locale: th
 translationKey: "who-thailand-trusted-phr-workshop-2026"
@@ -13,6 +13,10 @@ publishedAt: "2026-09-01"
 migratedAt: "2026-09-01"
 eventDate: "2026-06-17"
 sources:
+  - label: "WHO, Thailand begin regional digital health wallet cooperation"
+    url: "https://www.nationthailand.com/health-wellness/40067590"
+    organization: "The Nation"
+    type: context
   - label: "ข้อมูลและภาพประกอบที่ยืนยันโดยเจ้าของเว็บไซต์"
     organization: "HealthTAG"
     type: "owner-confirmed"
@@ -27,9 +31,9 @@ images:
     checksum: "sha256:c7334cb385ea67accdc545bd1cebfe14cc8de0deaa84a3158f385c34523bca9d"
 ---
 
-## ร่วมแลกเปลี่ยนเรื่องข้อมูลสุขภาพที่ผู้ป่วยไว้วางใจได้
+## Regional Digital Health Wallets Thailand Inception Workshop
 
-HealthTAG เข้าร่วม Inception Workshop: Establishing Trusted Personal Health Records and Digital Health Wallets in Thailand ของ WHO Thailand เมื่อวันที่ 17 มิถุนายน 2569 ที่จังหวัดนนทบุรี เวิร์กช็อปมุ่งหารือแนวทางสำหรับ Personal Health Records และ Digital Health Wallets ที่ประชาชนไว้วางใจและใช้งานได้ในบริบทของระบบสุขภาพไทย
+HealthTAG เข้าร่วม Regional Digital Health Wallets (DHW) Thailand Inception Workshop เมื่อวันที่ 17 มิถุนายน 2569 ที่จังหวัดนนทบุรี งานนี้จัดโดย WHO Thailand และกระทรวงสาธารณสุข เพื่อหารือแนวทางพัฒนา Digital Health Wallets ในประเทศไทย
 
 HealthTAG แลกเปลี่ยนมุมมองจากการทำงานด้านโครงสร้างพื้นฐานข้อมูลสุขภาพ โดยให้ความสำคัญกับการเชื่อมต่อข้อมูลอย่างปลอดภัยและการออกแบบที่ยึดผู้ป่วยเป็นศูนย์กลาง การมีข้อมูลที่เชื่อมโยงกันควรเดินคู่กับการกำหนดสิทธิ์ที่ชัดเจน เพื่อให้ผู้ป่วยเข้าใจและควบคุมการเข้าถึงข้อมูลสุขภาพของตนได้
 
@@ -37,4 +41,4 @@ HealthTAG แลกเปลี่ยนมุมมองจากการท�
 
 การหารือครอบคลุมบทบาทของ Personal Health Records ในการช่วยให้ประชาชนเข้าถึงข้อมูลสุขภาพของตน และบทบาทของ Digital Health Wallets ในการนำข้อมูลหรือหลักฐานดิจิทัลไปใช้เมื่อรับบริการสุขภาพ ประเด็นเรื่องความไว้วางใจจึงไม่ได้อยู่ที่การเชื่อมระบบเพียงอย่างเดียว แต่รวมถึงตัวตน สิทธิ์ในการเข้าถึง และความรับผิดชอบของแต่ละฝ่ายที่เกี่ยวข้อง
 
-HealthTAG นำประสบการณ์ของตนมาร่วมแลกเปลี่ยนและรับฟังมุมมองจากผู้เข้าร่วมที่ทำงานด้านสุขภาพดิจิทัลในประเทศไทย การสนทนามุ่งไปที่บริการสุขภาพที่ปลอดภัย เชื่อมโยงกัน และคำนึงถึงผู้ป่วยเป็นหลัก
+HealthTAG นำประสบการณ์ด้านโครงสร้างพื้นฐานข้อมูลสุขภาพมาร่วมแลกเปลี่ยนกับผู้ทำงานด้านสุขภาพดิจิทัลในประเทศไทย แหล่งข่าวภายนอกยืนยันรายละเอียดของงาน แต่ไม่ได้ระบุชื่อ HealthTAG การเข้าร่วมของ HealthTAG และภาพประกอบในหน้านี้มาจากข้อมูลที่เจ้าของเว็บไซต์ยืนยัน

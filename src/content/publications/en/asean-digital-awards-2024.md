@@ -1,7 +1,7 @@
 ---
 kind: award
-title: HealthTAG is runner-up at the ASEAN Digital Awards 2024
-summary: "HealthTAG received the runner-up result in the Public Sector category at the ASEAN Digital Awards 2024 in Singapore, recognising its digital health work among ASEAN participants."
+title: HealthTAG receives Silver at the ASEAN Digital Awards 2024
+summary: "HealthTAG received Silver in the Public Sector category for Decentralized Health Care at the ASEAN Digital Awards 2024 in Singapore."
 author: HealthTAG
 locale: en
 translationKey: asean-digital-awards-2024
@@ -13,6 +13,10 @@ migratedAt: "2026-08-31"
 eventDate: "2024-01-31"
 eventEndDate: "2024-02-01"
 sources:
+  - label: ASEAN Digital Awards 2024 past winners
+    url: "https://www.depa.or.th/th/asean-digital-awards"
+    organization: depa
+    type: primary
   - label: ASEAN Digital Awards 2024
     url: "https://asean.org/asean-digital-award-2024/"
     organization: ASEAN
@@ -31,12 +35,12 @@ images:
     credit: "Photo: HealthTAG"
     sourceUrl: "https://cms.healthtag.io/api/media/file/strapi-91-article-9.jpg"
     checksum: "sha256:ddf22958f9ee2e2b64d361110b025bced244dd3f79eab2b6bd6ad6960ec8c1b5"
-resultStatus: "Runner-up, Public Sector category"
+resultStatus: "Silver, Public Sector category"
 confirmedResult:
-  - "HealthTAG received the runner-up result in the Public Sector category"
-  - "The result was announced at the ASEAN Digital Awards 2024 in Singapore"
+  - "HealthTAG's Decentralized Health Care received Silver in the Public Sector category"
+  - "The award ceremony took place in Singapore on 1 February 2024"
 ---
 
-## HealthTAG's first award result of 2024
+## Silver in the Public Sector category
 
-HealthTAG was runner-up in the Public Sector category at the ASEAN Digital Awards 2024 in Singapore, its first award result of the year. The awards bring together digital initiatives from across the region in support of ASEAN's goal of becoming a leading digital community.
+HealthTAG's Decentralized Health Care received Silver in the Public Sector category at the ASEAN Digital Awards 2024. The award ceremony took place in Singapore on 1 February 2024.

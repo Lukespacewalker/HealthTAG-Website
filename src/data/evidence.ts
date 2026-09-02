@@ -208,6 +208,10 @@ export const evidence: EvidenceEntry[] = [
         href: { th: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/', en: 'https://www.odess.io/en/initiative/decentralized-health-care-empowering-well-being-countrywide/' },
       },
       {
+        label: { th: 'รูปแบบการสนับสนุนผู้ได้รับรางวัล', en: 'Support provided to laureates' },
+        href: { th: 'https://www.odess.io/en/about-us/the-observatory/', en: 'https://www.odess.io/en/about-us/the-observatory/' },
+      },
+      {
         label: { th: 'อ่านหน้ารางวัล', en: 'Read the award record' },
         href: { th: '/awards/odess-laureate-2024/', en: '/en/awards/odess-laureate-2024/' },
       },
