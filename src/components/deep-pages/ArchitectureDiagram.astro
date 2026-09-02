@@ -7,10 +7,10 @@ const en = locale === 'en';
 <figure class="architecture" aria-labelledby="architecture-title" aria-describedby="architecture-description">
   <figcaption id="architecture-title">
     <span class="mono">01 / SYSTEM OVERVIEW</span>
-    <strong>{en ? 'Hospital API, Kong, and HAPI by responsibility.' : 'Hospital API, Kong และ HAPI แยกตามหน้าที่'}</strong>
-    <p>{en ? 'The hospital Data Source Node includes Hospital API, Kong, HAPI FHIR, and supporting services. Connected HealthTAG services handle Identity Connect, access checks, PHR, and audit.' : 'Data Source Node ภายในโรงพยาบาลประกอบด้วย Hospital API, Kong, HAPI FHIR และบริการที่เกี่ยวข้อง ส่วนบริการ HealthTAG ที่เชื่อมต่อกันดูแลระบบเชื่อมตัวตนผู้ป่วย การตรวจสิทธิ์ PHR และการตรวจสอบย้อนหลัง'}</p>
+    <strong>{en ? 'Hospital-side services by responsibility' : 'บริการฝั่งโรงพยาบาล แยกตามหน้าที่'}</strong>
+    <p>{en ? 'The hospital environment separates the FHIR Server, relational database, API Gateway, identity linkage, and authorization. Connected services support PHR access and audit.' : 'ระบบฝั่งโรงพยาบาลแยก FHIR Server, relational database, API Gateway, การเชื่อมตัวตน และการตรวจสิทธิ์ออกจากกัน ส่วนบริการที่เชื่อมต่อรองรับ PHR และการตรวจสอบย้อนหลัง'}</p>
   </figcaption>
-  <div id="architecture-description" class="sr-only">{en ? 'The diagram shows system responsibilities. An existing HIS uses a hospital IT script or HealthTAG FHIR Transformer to send data to HAPI FHIR Server, which stores data in PostgreSQL. Kong protects the HAPI FHIR API. HealthTAG Module or Hospital API checks identity and authorization. Identity Connect stores hospital-local patient identity linkages in a cloud database. Hospital API checks a 15-minute access window defined from blockchain state. Authorized PHR applications receive permitted FHIR responses. Blockchain receives consent and access events, while clinical records remain in hospital systems.' : 'แผนผังนี้แสดงหน้าที่ของระบบ ข้อมูลจาก HIS เดิมเข้าสู่ HAPI FHIR Server ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer และจัดเก็บด้วย PostgreSQL โดยมี Kong ปกป้อง HAPI FHIR API ส่วน HealthTAG Module หรือ Hospital API ตรวจตัวตนและสิทธิ์ ระบบเชื่อมตัวตนผู้ป่วยจัดเก็บการเชื่อมโยงรหัสผู้ป่วยเฉพาะแต่ละโรงพยาบาลไว้ในฐานข้อมูลบน Cloud และ Hospital API ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain แอป PHR ที่ได้รับสิทธิ์จึงรับข้อมูล FHIR ได้ ส่วน blockchain รับเฉพาะเหตุการณ์การให้ความยินยอมและการเข้าถึง เวชระเบียนยังอยู่ในระบบของโรงพยาบาล'}</div>
+  <div id="architecture-description" class="sr-only">{en ? 'The diagram shows system responsibilities. An existing HIS uses a hospital IT script or HealthTAG FHIR Transformer to send data to a FHIR Server backed by a relational database. An API Gateway protects the FHIR API. Identity and authorization services link hospital-local patient identifiers and check a 15-minute access window defined from blockchain state. Authorized PHR applications receive permitted FHIR responses. Blockchain receives consent and access events, while clinical records remain in hospital systems.' : 'แผนผังนี้แสดงหน้าที่ของระบบ ข้อมูลจาก HIS เดิมเข้าสู่ FHIR Server ผ่านสคริปต์ของทีม IT หรือ HealthTAG FHIR Transformer โดยใช้ relational database จัดเก็บข้อมูล มี API Gateway ปกป้อง FHIR API และมีบริการเชื่อมตัวตนกับตรวจสิทธิ์สำหรับจับคู่รหัสผู้ป่วยและตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain แอป PHR ที่ได้รับสิทธิ์จึงรับข้อมูล FHIR ได้ ส่วน blockchain รับเฉพาะเหตุการณ์การให้ความยินยอมและการเข้าถึง เวชระเบียนยังอยู่ในระบบของโรงพยาบาล'}</div>
   <div class="boundary">
     <div class="boundary-title"><span></span>{en ? 'Hospital Data Source Node' : 'Data Source Node ภายในโรงพยาบาล'}</div>
     <div class="ingestion">
@@ -22,19 +22,19 @@ const en = locale === 'en';
       </div>
     </div>
     <div class="fhir-row">
-      <div class="node fhir"><b>HAPI FHIR Server</b><span>HL7 FHIR R4</span></div>
-      <div class="store"><b>PostgreSQL</b><small>{en ? 'FHIR persistence' : 'ชั้นจัดเก็บ FHIR'}</small></div>
-      <div class="node gateway"><b>Kong API Gateway</b><small>{en ? 'FHIR API boundary' : 'ขอบเขต FHIR API'}</small></div>
+      <div class="node fhir"><b>FHIR Server</b><span>HL7 FHIR R4</span></div>
+      <div class="store"><b>Relational database</b><small>{en ? 'FHIR persistence' : 'ชั้นจัดเก็บ FHIR'}</small></div>
+      <div class="node gateway"><b>API Gateway</b><small>{en ? 'FHIR API boundary' : 'ขอบเขต FHIR API'}</small></div>
     </div>
     <div class="module-row">
-      <div class="node module"><b>{en ? 'HealthTAG Module / Hospital API' : 'HealthTAG Module / Hospital API'}</b><small>{en ? 'Identity linkage and authorization inside the hospital network' : 'เชื่อมตัวตนและอนุญาตสิทธิ์ภายในเครือข่ายโรงพยาบาล'}</small></div>
-      <div class="documented-note"><b>{en ? 'Inside the hospital node' : 'ภายในโหนดโรงพยาบาล'}</b><small>Hospital API · Kong · HAPI FHIR · {en ? 'supporting services' : 'บริการที่เกี่ยวข้อง'}</small></div>
+      <div class="node module"><b>{en ? 'Identity and authorization service' : 'บริการเชื่อมตัวตนและตรวจสิทธิ์'}</b><small>{en ? 'Identity linkage and authorization inside the hospital network' : 'เชื่อมตัวตนและอนุญาตสิทธิ์ภายในเครือข่ายโรงพยาบาล'}</small></div>
+      <div class="documented-note"><b>{en ? 'Inside the hospital node' : 'ภายในโหนดโรงพยาบาล'}</b><small>FHIR Server · API Gateway · {en ? 'supporting services' : 'บริการที่เกี่ยวข้อง'}</small></div>
     </div>
   </div>
   <div class="context-title">{en ? 'HealthTAG services connected to the hospital node' : 'บริการ HealthTAG ที่เชื่อมต่อกับระบบโรงพยาบาล'}</div>
   <div class="outside">
-    <div class="identity"><b>{en ? 'Identity Connect · Cloud database' : 'ระบบเชื่อมตัวตนผู้ป่วย · ฐานข้อมูลบน Cloud'}</b><small>{en ? 'Stores linkage for hospital-local patient identities' : 'จัดเก็บการเชื่อมโยงตัวตนผู้ป่วยเฉพาะแต่ละโรงพยาบาล'}</small></div>
-    <div class="permission-path"><span class="path-key"></span><b>{en ? 'Authorization gate' : 'จุดตรวจสอบสิทธิ์'}</b><small>{en ? '15-minute window defined from blockchain state and checked by Hospital API' : 'ช่วงเวลา 15 นาทีกำหนดจากสถานะบน blockchain และตรวจสอบโดย Hospital API'}</small></div>
+    <div class="identity"><b>{en ? 'Patient identity linkage' : 'การเชื่อมตัวตนผู้ป่วย'}</b><small>{en ? 'Stores linkage for hospital-local patient identities' : 'จัดเก็บการเชื่อมโยงตัวตนผู้ป่วยเฉพาะแต่ละโรงพยาบาล'}</small></div>
+    <div class="permission-path"><span class="path-key"></span><b>{en ? 'Authorization gate' : 'จุดตรวจสอบสิทธิ์'}</b><small>{en ? 'Checks the 15-minute window defined from blockchain state' : 'ตรวจช่วงเวลา 15 นาทีที่กำหนดจากสถานะบน blockchain'}</small></div>
     <div class="authorized"><b>{en ? 'Authorized PHR & applications' : 'PHR และแอปพลิเคชันที่ได้รับสิทธิ์'}</b><small>{en ? 'Receive permitted FHIR responses' : 'รับข้อมูลตอบกลับ FHIR ที่ได้รับอนุญาต'}</small></div>
     <div class="audit"><span class="path-key"></span><b>{en ? 'Audit ledger' : 'ประวัติเหตุการณ์ตรวจสอบ'}</b><small>{en ? 'Stores consent and access events; clinical records remain in hospital systems' : 'เก็บเหตุการณ์การให้ความยินยอมและการเข้าถึง ส่วนเวชระเบียนยังอยู่ในระบบโรงพยาบาล'}</small></div>
   </div>

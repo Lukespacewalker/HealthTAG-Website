@@ -14,10 +14,6 @@ sources:
     url: "https://cms.healthtag.io/posts/data-is-the-new-medicine-"
     organization: "HealthTAG"
     type: first-party
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: "HealthTAG"
-    type: primary
   - label: "Digital-in-Health: Unlocking the Value for Everyone"
     url: "https://www.worldbank.org/en/topic/health/publication/digital-in-health-unlocking-the-value-for-everyone"
     organization: "World Bank"
@@ -94,4 +90,3 @@ HealthTAG ใช้ blockchain เป็นชั้นสำหรับบั�
 - Health Data, Wikipedia, 2025
 - AI and Health Data Analytics, arXiv, 2024
 - [HL7 FHIR overview](https://www.hl7.org/fhir/overview.html), HL7 International
-- [สถาปัตยกรรม Data Source Node](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

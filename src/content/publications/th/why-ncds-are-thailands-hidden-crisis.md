@@ -15,10 +15,6 @@ sources:
     url: "https://cms.healthtag.io/posts/why-ncds-are-thailands-hidden-crisis"
     organization: HealthTAG
     type: archive
-  - label: "สถาปัตยกรรม Data Source Node"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: HealthTAG
-    type: first-party
   - label: "ข้อมูลสรุปโรคไม่ติดต่อ"
     url: "https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases"
     organization: World Health Organization
@@ -65,7 +61,7 @@ HL7 FHIR R4 จัดโครงสร้างข้อมูลสุขภ�
 
 ## สิทธิ์เข้าถึงต้องมากับการเชื่อมข้อมูล
 
-การรวมมุมมองข้อมูลไม่ได้หมายความว่าทุกระบบควรเปิดข้อมูลให้กันตลอดเวลา HealthTAG แยกการเก็บเวชระเบียนออกจากการตรวจสิทธิ์ Clinical records อยู่ในระบบ FHIR ที่โรงพยาบาลควบคุม ส่วน Hospital API ตรวจคำขอเข้าถึงตามช่วงเวลาที่กำหนดจากสถานะบน blockchain
+การรวมมุมมองข้อมูลไม่ได้หมายความว่าทุกระบบควรเปิดข้อมูลให้กันตลอดเวลา HealthTAG แยกการเก็บเวชระเบียนออกจากการตรวจสิทธิ์ เวชระเบียนอยู่ในระบบ FHIR ที่โรงพยาบาลควบคุม ส่วนบริการตรวจสิทธิ์ประเมินคำขอตามช่วงเวลาที่กำหนดจากสถานะบน blockchain
 
 Blockchain เก็บเหตุการณ์การให้ความยินยอมและการเข้าถึง ไม่ได้เก็บผลตรวจหรือเวชระเบียน การออกแบบนี้ทำให้โรงพยาบาลยังรับผิดชอบข้อมูลต้นทาง ขณะที่ระบบมีประวัติสำหรับตรวจสอบการใช้สิทธิ์
 
@@ -99,4 +95,3 @@ AI อุปกรณ์สวมใส่ และการวิเครา�
 
 - [Noncommunicable diseases](https://www.who.int/news-room/fact-sheets/detail/noncommunicable-diseases), World Health Organization
 - [กองโรคไม่ติดต่อ](https://ddc.moph.go.th/dncd/), กรมควบคุมโรค
-- [สถาปัตยกรรม Data Source Node](https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/), HealthTAG

@@ -21,10 +21,11 @@ type Localized = Record<Locale, string>;
 export interface NetworkOrganization {
   id: string;
   name: Localized;
-  logo: ImageMetadata;
+  logo?: ImageMetadata;
   relationship: Localized;
   badge: Localized;
   detailPage?: 'deployments' | 'evidence';
+  detailPath?: string;
   featured?: boolean;
 }
 export interface NetworkGroup {
@@ -55,7 +56,7 @@ export const networkGroups: NetworkGroup[] = [
     organizations: [
       { id: 'depa', name: { th: 'depa', en: 'depa' }, logo: depa, relationship: { th: 'บันทึกความเข้าใจด้านโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน', en: 'Public MoU on blockchain infrastructure for public services' }, badge: { th: 'ความร่วมมือสาธารณะ', en: 'Public Collaboration' }, detailPage: 'evidence' },
       { id: 'etda', name: { th: 'ETDA', en: 'ETDA' }, logo: etda, relationship: { th: 'ผลการทดสอบใน Digital Service Sandbox เป็นไปตามเป้าหมายที่ ETDA กำหนด', en: 'Testing in the Digital Service Sandbox met the goals set by ETDA' }, badge: { th: 'Sandbox', en: 'Sandbox' }, detailPage: 'evidence' },
-      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: '', en: '' }, badge: { th: 'รางวัล', en: 'Award' } },
+      { id: 'ticta', name: { th: 'Thailand ICT Awards (TICTA)', en: 'Thailand ICT Awards (TICTA)' }, logo: ticta, relationship: { th: 'รางวัลรองชนะเลิศปี 2565 ในหมวด Technology Award: Blockchain และ Cross Category: Startup พร้อมได้รับเสนอชื่อเป็นตัวแทนประเทศไทยไป APICTA 2022', en: 'Two runner-up results in 2022, in Technology Award: Blockchain and Cross Category: Startup, followed by nomination to represent Thailand at APICTA 2022' }, badge: { th: 'รางวัล', en: 'Award' }, detailPath: '/awards/thailand-ict-award-2022/' },
       { id: 'nia', name: { th: 'สำนักงานนวัตกรรมแห่งชาติ (NIA)', en: 'National Innovation Agency (NIA)' }, logo: nia, relationship: { th: 'โครงการสนับสนุนการขยายตลาดและการจับคู่ธุรกิจ', en: 'Market-expansion and business-matching programme' }, badge: { th: 'โครงการ', en: 'Programme' }, detailPage: 'evidence' },
       { id: 'sidata', name: { th: 'SiData', en: 'SiData' }, logo: sidata, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'sil-th', name: { th: 'Standards and Interoperability Lab–Thailand', en: 'Standards and Interoperability Lab–Thailand' }, logo: silth, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
@@ -65,10 +66,11 @@ export const networkGroups: NetworkGroup[] = [
   {
     id: 'international',
     title: { th: 'องค์กรต่างประเทศ', en: 'International organizations' },
-    introduction: { th: 'เครือข่าย HealthTAG ในต่างประเทศประกอบด้วย Department for International Trade (UK), APICTA, AeHIN และ Asia Open Data Partnership', en: 'The international HealthTAG network includes the Department for International Trade (UK), APICTA, AeHIN, and Asia Open Data Partnership.' },
+    introduction: { th: 'องค์กรต่างประเทศที่มีหลักฐานเกี่ยวข้องกับ HealthTAG และองค์กรที่เจ้าของเว็บไซต์ยืนยันว่าอยู่ในเครือข่าย', en: 'International organizations with published records related to HealthTAG and organizations confirmed by the site owner as part of the network.' },
     organizations: [
       { id: 'dit', name: { th: 'Department for International Trade (UK)', en: 'Department for International Trade (UK)' }, logo: dit, relationship: listing, badge: { th: 'เครือข่าย', en: 'Network' } },
       { id: 'apicta', name: { th: 'APICTA Awards', en: 'APICTA Awards' }, logo: apicta, relationship: { th: 'ผู้ชนะปี 2022 · หมวด Cross Category: Start-Up', en: '2022 winner · Cross Category: Start-Up' }, badge: { th: 'รางวัล', en: 'Award' }, detailPage: 'evidence' },
+      { id: 'odess', name: { th: 'ODESS / Fondation Pierre Fabre', en: 'ODESS / Fondation Pierre Fabre' }, relationship: { th: 'ผู้จัดรางวัล ODESS Laureate 2024 พร้อมการสนับสนุนด้านเทคนิคและการเงินเป็นเวลา 12 เดือน', en: 'Organizer of the ODESS Laureate 2024 programme, which provides 12 months of technical and financial support' }, badge: { th: 'ผู้จัดรางวัลและผู้สนับสนุน', en: 'Award Organizer and Funder' }, detailPath: '/awards/odess-laureate-2024/' },
       { id: 'aehin', name: { th: 'Asia eHealth Information Network (AeHIN)', en: 'Asia eHealth Information Network (AeHIN)' }, logo: aehin, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },
       { id: 'aodp', name: { th: 'Asia Open Data Partnership', en: 'Asia Open Data Partnership' }, logo: aodp, relationship: listing, badge: { th: 'เครือข่ายนานาชาติ', en: 'International Network' } },
     ],

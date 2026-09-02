@@ -103,7 +103,7 @@ const businessModel = en
             : 'ผู้ป่วยเป็นเจ้าของข้อมูลสุขภาพและกำหนดความยินยอมกับการใช้ข้อมูล โรงพยาบาลจัดเก็บและดูแลเวชระเบียน ส่วน HealthTAG จัดเตรียมโครงสร้างพื้นฐานสำหรับการแลกเปลี่ยนตามสิทธิ์ โดยไม่แทนที่ HIS หลักและไม่นำเวชระเบียนไปเก็บบน blockchain'}</p>
           <dl>
             <div><dt>{en ? 'Interoperability' : 'การเชื่อมโยงข้อมูล'}</dt><dd>{en ? 'Selected HIS data enters a hospital-stewarded HL7 FHIR R4 system.' : 'ข้อมูลที่เลือกจาก HIS เข้าสู่ระบบ HL7 FHIR R4 ที่โรงพยาบาลดูแล'}</dd></div>
-            <div><dt>{en ? 'Identity' : 'ตัวตน'}</dt><dd>{en ? 'Identity Connect links hospital-local patient identifiers through a common identity reference.' : 'ระบบเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วยของแต่ละโรงพยาบาลผ่านตัวระบุกลาง'}</dd></div>
+            <div><dt>{en ? 'Identity' : 'ตัวตน'}</dt><dd>{en ? 'The identity linkage service connects hospital-local patient identifiers through a common identity reference.' : 'บริการเชื่อมตัวตนผู้ป่วยเชื่อมรหัสผู้ป่วยของแต่ละโรงพยาบาลผ่านตัวระบุกลาง'}</dd></div>
             <div><dt>{en ? 'Trust and audit' : 'ความไว้วางใจและการตรวจสอบ'}</dt><dd>{en ? 'Authorization is checked before a permitted response. Consent and access events remain available for later review.' : 'ระบบตรวจการอนุญาตก่อนส่งคำตอบตามสิทธิ์ และเก็บเหตุการณ์ความยินยอมกับการเข้าถึงไว้ตรวจสอบภายหลัง'}</dd></div>
           </dl>
           <a class="text-link" href={`${prefix}/platform/`}>{en ? 'HealthTAG platform' : 'แพลตฟอร์ม HealthTAG'} <span aria-hidden="true">→</span></a>

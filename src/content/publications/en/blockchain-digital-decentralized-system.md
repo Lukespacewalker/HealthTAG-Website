@@ -19,10 +19,6 @@ sources:
     url: "https://cms.healthtag.io/posts/blockchain-digital-decentralized-system"
     organization: HealthTAG
     type: archive
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: HealthTAG
-    type: first-party
 images:
   - src: "../../../assets/publications/articles/blockchain-digital-decentralized-system.jpg"
     alt: "Illustration of a phone, digital health records, a shield, and a padlock"
@@ -43,9 +39,9 @@ FHIR gives different systems a common data structure. It does not decide who may
 
 ## Identity linkage and authorization are separate jobs
 
-A person may have a different patient identifier at each hospital. Identity Connect links those local identifiers to a common identity reference. The linkage is stored in a cloud database. This helps match identity across providers without moving the person's clinical records out of hospital systems.
+A person may have a different patient identifier at each hospital. The identity linkage service connects those local identifiers to a common identity reference. This helps match identity across providers without moving the person's clinical records out of hospital systems.
 
-When a PHR application requests data, the Hospital API checks whether the request falls within an authorized period. The current system uses a 15-minute window defined from blockchain state. If the authorization is valid, the Hospital API requests FHIR data from the hospital system and returns it to the authorized application.
+When a PHR application requests data, the authorization service checks whether the request falls within an authorized period. The current system uses a 15-minute window defined from blockchain state. If the authorization is valid, the service requests FHIR data from the hospital system and returns it to the authorized application.
 
 ## Blockchain records events, not medical records
 
@@ -55,7 +51,7 @@ Test results, medicines, allergies, and other clinical records are not written t
 
 ## Cryptography is one part of security
 
-A hash-linked history makes later changes easier to detect, but a healthcare system still needs controls beyond the ledger. In the current hospital-side stack, Kong API Gateway provides the boundary for TLS and authentication. Credential management, firewall configuration, encryption, and hospital operations provide additional safeguards.
+A hash-linked history makes later changes easier to detect, but a healthcare system still needs controls beyond the ledger. In the current hospital-side stack, an API Gateway provides the boundary for TLS and authentication. Credential management, firewall configuration, encryption, and hospital operations provide additional safeguards.
 
 Immutable should not be read as "incapable of error." Blockchain does not automatically correct inaccurate input, a compromised account, or permission that was defined too broadly. The design still has to control its inputs, user privileges, and incident response.
 
@@ -63,10 +59,10 @@ Immutable should not be read as "incapable of error." Blockchain does not automa
 
 A smart contract is code that evaluates agreed conditions on a blockchain network. It can express rules that need consistent verification, such as authorization state and the period for which permission remains valid. It cannot interpret a patient's clinical context, and it should not be used as a reason to put clinical records on the network.
 
-The Hospital API checks a 15-minute window defined from blockchain state, and blockchain records consent and access events. Smart-contract execution details depend on the deployed system version.
+The authorization service checks a 15-minute window defined from blockchain state, and blockchain records consent and access events. Smart-contract execution details depend on the deployed system version.
 
 ## What decentralization means here
 
-Decentralization in this architecture does not mean copying every medical record to every node. It means that one database does not perform every job. Hospitals manage records, identity linkage connects local patient identifiers, the Hospital API checks access, and blockchain keeps the authorization and access history.
+Decentralization in this architecture does not mean copying every medical record to every node. It means that one database does not perform every job. Hospitals manage records, an identity linkage service connects local patient identifiers, an authorization service checks access, and blockchain keeps the authorization and access history.
 
 Clear boundaries make it possible to answer basic questions: where the data sits, who controls it, and what each technology does. That is a more useful foundation for accountable health-data exchange than applying blockchain to every kind of information.

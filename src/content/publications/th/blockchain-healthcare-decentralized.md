@@ -14,10 +14,6 @@ sources:
     url: "https://cms.healthtag.io/posts/blockchain-healthcare-decentralized"
     organization: "HealthTAG"
     type: first-party
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: "HealthTAG"
-    type: primary
 images:
   - src: ../../../assets/publications/articles/blockchain-healthcare-decentralized.jpg
     alt: "ภาพประกอบบล็อกที่เชื่อมต่อกันเพื่อสื่อถึง blockchain ในระบบสุขภาพ"
@@ -51,13 +47,13 @@ Blockchain สำหรับระบบสุขภาพไม่จำเป
 
 ### Smart contract และเงื่อนไขการเข้าถึง
 
-Smart contract คือโค้ดที่ประมวลผลตามเงื่อนไขที่กำหนดไว้ล่วงหน้า ในงานด้านการเข้าถึงข้อมูล เงื่อนไขอาจระบุผู้ขอใช้ ขอบเขตข้อมูล และเวลาที่อนุญาต ระบบ HealthTAG ปัจจุบันใช้สถานะบน blockchain เพื่อกำหนดช่วงเข้าถึง 15 นาที และให้ Hospital API ภายในเครือข่ายโรงพยาบาลตรวจสอบก่อนส่งข้อมูล
+Smart contract คือโค้ดที่ประมวลผลตามเงื่อนไขที่กำหนดไว้ล่วงหน้า ในงานด้านการเข้าถึงข้อมูล เงื่อนไขอาจระบุผู้ขอใช้ ขอบเขตข้อมูล และเวลาที่อนุญาต ระบบ HealthTAG ปัจจุบันใช้สถานะบน blockchain เพื่อกำหนดช่วงเข้าถึง 15 นาที และให้บริการตรวจสิทธิ์ภายในเครือข่ายโรงพยาบาลตรวจสอบก่อนส่งข้อมูล
 
 Smart contract ทำให้กติกาบางส่วนทำงานสม่ำเสมอขึ้น แต่ไม่ได้แทนกฎหมาย การตัดสินใจทางคลินิก หรือกระบวนการกรณีฉุกเฉิน โค้ดอาจมีข้อผิดพลาด และข้อมูลที่ส่งเข้ามาอาจไม่ถูกต้อง จึงต้องมีการทดสอบ การกำกับดูแล และวิธีหยุดหรือแก้ไขการทำงานเมื่อเกิดปัญหา
 
 ## FHIR เชื่อมข้อมูลโดยไม่ผ่าน blockchain
 
-HealthTAG ใช้ HL7 FHIR R4 เป็นมาตรฐานสำหรับข้อมูลที่แลกเปลี่ยน โรงพยาบาลนำข้อมูลจาก HIS เข้าสู่ชั้น FHIR ด้วยสคริปต์ที่ดูแลเองหรือ HealthTAG FHIR Transformer ตามการติดตั้ง HAPI FHIR Server และ PostgreSQL รองรับข้อมูลในสภาพแวดล้อมของโรงพยาบาล ส่วน Kong API Gateway ช่วยควบคุมการเข้าถึง API
+HealthTAG ใช้ HL7 FHIR R4 เป็นมาตรฐานสำหรับข้อมูลที่แลกเปลี่ยน โรงพยาบาลนำข้อมูลจาก HIS เข้าสู่ชั้น FHIR ด้วยสคริปต์ที่ดูแลเองหรือ HealthTAG FHIR Transformer ตามการติดตั้ง FHIR Server และ relational database รองรับข้อมูลในสภาพแวดล้อมของโรงพยาบาล ส่วน API Gateway ช่วยควบคุมการเข้าถึง API
 
 เส้นทางของข้อมูลทางคลินิกกับเส้นทางของเหตุการณ์อนุญาตจึงเป็นคนละส่วน Blockchain ไม่ได้เป็นทางผ่านของผลตรวจหรือเวชระเบียน การออกแบบนี้ทำให้เลือกเทคโนโลยีตามหน้าที่ของมันแทนการนำ blockchain ไปใช้กับข้อมูลทุกชนิด
 

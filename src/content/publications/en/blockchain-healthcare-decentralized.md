@@ -14,10 +14,6 @@ sources:
     url: "https://cms.healthtag.io/posts/blockchain-healthcare-decentralized"
     organization: "HealthTAG"
     type: first-party
-  - label: "Data Source Node architecture"
-    url: "https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/"
-    organization: "HealthTAG"
-    type: primary
 images:
   - src: ../../../assets/publications/articles/blockchain-healthcare-decentralized.jpg
     alt: "Illustration of connected blocks representing blockchain in a healthcare system"
@@ -51,13 +47,13 @@ Clinical information remains in a system controlled by the hospital. When someon
 
 ### Smart contracts and access conditions
 
-A smart contract is code that applies predefined conditions. For data access, those conditions might identify the requester, information scope, and permitted time. The current HealthTAG architecture uses blockchain state to define a 15-minute access window. The Hospital API inside the hospital network checks that state before releasing information.
+A smart contract is code that applies predefined conditions. For data access, those conditions might identify the requester, information scope, and permitted time. The current HealthTAG architecture uses blockchain state to define a 15-minute access window. The authorization service inside the hospital network checks that state before releasing information.
 
 A smart contract can apply some rules consistently, but it does not replace law, clinical judgment, or emergency procedures. Code can contain defects, and input data can be wrong. Implementations need testing, governance, and a way to stop or correct behavior when something goes wrong.
 
 ## FHIR carries clinical information, not blockchain
 
-HealthTAG uses HL7 FHIR R4 as the standard for exchanged information. Each hospital brings data from its HIS into the FHIR layer through its own managed script or the HealthTAG FHIR Transformer, depending on the implementation. HAPI FHIR Server and PostgreSQL support the data within the hospital environment, while Kong API Gateway helps control API access.
+HealthTAG uses HL7 FHIR R4 as the standard for exchanged information. Each hospital brings data from its HIS into the FHIR layer through its own managed script or the HealthTAG FHIR Transformer, depending on the implementation. A FHIR Server and relational database support the data within the hospital environment, while an API Gateway helps control API access.
 
 The clinical data path is separate from the authorization event path. Blockchain never carries test results or medical records. This design selects each technology for a defined responsibility instead of applying blockchain to every type of data.
 
