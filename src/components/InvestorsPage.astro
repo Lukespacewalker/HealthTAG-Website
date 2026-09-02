@@ -13,6 +13,7 @@ const prefix = en ? '/en' : '';
 const localLinks = en
   ? [
       ['#position', 'Position'],
+      ['#why-now', 'Why now'],
       ['#evidence', 'Evidence'],
       ['#business-model', 'Business model'],
       ['#team', 'Founder and team'],
@@ -20,6 +21,7 @@ const localLinks = en
     ]
   : [
       ['#position', 'จุดยืน'],
+      ['#why-now', 'ทำไมตอนนี้'],
       ['#evidence', 'หลักฐาน'],
       ['#business-model', 'โมเดลธุรกิจ'],
       ['#team', 'ผู้ก่อตั้งและทีม'],
@@ -27,7 +29,9 @@ const localLinks = en
     ];
 
 const investmentEvidenceIds = [
-  'siriraj-5g-smart-hospital',
+  'who-thailand-dhw-workshop-2026',
+  'mahidol-moph-digital-health-mou-2026',
+  'asean-digital-awards-2024',
   'apicta-2022',
   'etda-digital-service-sandbox',
   'orbix-healthtag',
@@ -72,8 +76,8 @@ const businessModel = en
         <aside class="principle-note">
           <span class="mono">TRUST BEFORE INTELLIGENCE</span>
           <p>{en
-            ? 'Before medical AI uses health data, its source, access rights, and audit history must be clear. This principle guides future development. Current HealthTAG systems do not train medical AI.'
-            : 'ก่อนนำข้อมูลสุขภาพไปใช้กับ AI ทางการแพทย์ ต้องระบุที่มา สิทธิ์เข้าถึง และประวัติที่ตรวจสอบได้ หลักการนี้ใช้กำกับการพัฒนาในอนาคต ปัจจุบันระบบของ HealthTAG ไม่ได้ใช้ฝึก AI ทางการแพทย์'}</p>
+            ? 'Current HealthTAG systems do not use health data to train medical AI.'
+            : 'ปัจจุบันระบบของ HealthTAG ไม่ได้นำข้อมูลสุขภาพไปใช้ฝึก AI ทางการแพทย์'}</p>
         </aside>
       </div>
     </section>
@@ -107,13 +111,46 @@ const businessModel = en
       </div>
     </section>
 
+    <section id="why-now" class="section why-now-section" aria-labelledby="why-now-heading">
+      <div class="container why-now-layout">
+        <header>
+          <span class="mono">{en ? 'WHY NOW' : 'ทำไมตอนนี้'}</span>
+          <h2 id="why-now-heading">{en ? 'Thailand and ASEAN are moving toward portable, interoperable health information' : 'ไทยและอาเซียนกำลังเดินหน้าสู่ข้อมูลสุขภาพที่พกพาและเชื่อมต่อกันได้'}</h2>
+        </header>
+        <div class="why-now-records">
+          <article>
+            <time datetime="2026-03-23">{en ? 'March 2026' : 'มีนาคม 2569'}</time>
+            <h3>{en ? 'WHO launched a three-year digital health wallet initiative for ASEAN' : 'WHO เปิดโครงการ Digital Health Wallet ระยะ 3 ปีสำหรับอาเซียน'}</h3>
+            <p>{en
+              ? 'WHO, the Alliance for Health Policy and Systems Research, and Temasek Foundation launched an initiative to help ASEAN Member States move from paper records to secure, interoperable digital health wallets.'
+              : 'WHO, Alliance for Health Policy and Systems Research และ Temasek Foundation เปิดโครงการเพื่อช่วยประเทศสมาชิกอาเซียนเปลี่ยนจากเวชระเบียนกระดาษไปสู่ Digital Health Wallet ที่ปลอดภัยและเชื่อมต่อกันได้'}</p>
+            <a href="https://www.who.int/news/item/23-03-2026-who-and-partners-launch-new-initiative-to-expand-use-of-digital-health-wallets" target="_blank" rel="noopener noreferrer">WHO <span aria-hidden="true">↗</span></a>
+          </article>
+          <article>
+            <time datetime="2026-06-05">{en ? 'June 2026' : 'มิถุนายน 2569'}</time>
+            <h3>{en ? 'Mahidol University and the Ministry of Public Health signed a health-data MOU' : 'มหิดลและกระทรวงสาธารณสุขลงนาม MOU ด้านข้อมูลสุขภาพ'}</h3>
+            <p>{en
+              ? 'The MOU covers connections to the Ministry\'s Digital Health Platform for research, innovation, and data-informed public-health policy.'
+              : 'MOU ครอบคลุมการเชื่อมโยงข้อมูลบน Digital Health Platform ของกระทรวง เพื่อสนับสนุนงานวิจัย นวัตกรรม และนโยบายสาธารณสุขที่ใช้ข้อมูลประกอบ'}</p>
+            <a href="https://www.thecoverage.info/news/content/11474" target="_blank" rel="noopener noreferrer">The Coverage <span aria-hidden="true">↗</span></a>
+          </article>
+          <aside>
+            <strong>{en ? 'The connection to HealthTAG' : 'ความเกี่ยวข้องกับ HealthTAG'}</strong>
+            <p>{en
+              ? 'Neither source identifies HealthTAG as part of the WHO initiative or as a signatory to the MOU. They show demand for portable health information, identity, permission checks, and standards-based exchange. HealthTAG works on these capabilities within the deployments and collaborations documented on this site.'
+              : 'ทั้งสองแหล่งไม่ได้ระบุว่า HealthTAG เป็นส่วนหนึ่งของโครงการ WHO หรือเป็นคู่ลงนาม MOU แต่สะท้อนความต้องการข้อมูลสุขภาพที่พกพาได้ การจัดการตัวตน การตรวจสิทธิ์ และการแลกเปลี่ยนตามมาตรฐาน ซึ่งเป็นขอบเขตงานของ HealthTAG ในการติดตั้งและความร่วมมือที่มีหลักฐานบนเว็บไซต์นี้'}</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
     <section id="evidence" class="section evidence-section" aria-labelledby="investor-evidence-heading">
       <div class="container">
         <div class="section-head">
-          <h2 id="investor-evidence-heading">{en ? 'Published records from Siriraj, ETDA, APICTA, and KASIKORNBANK' : 'ข้อมูลที่เผยแพร่โดยศิริราช ETDA APICTA และธนาคารกสิกรไทย'}</h2>
+          <h2 id="investor-evidence-heading">{en ? 'Published records across programmes, awards, and collaborations' : 'หลักฐานจากโครงการ รางวัล และความร่วมมือ'}</h2>
           <p>{en
-            ? 'Siriraj published the 5G Smart Hospital programme. ETDA recorded HealthTAG\'s sandbox participation, APICTA published the 2022 award result, and KASIKORNBANK announced the Orbix Technology and HealthTAG collaboration.'
-            : 'ศิริราชเผยแพร่โครงการ 5G Smart Hospital, ETDA บันทึกการเข้าร่วม sandbox ของ HealthTAG, APICTA เผยแพร่ผลรางวัลปี 2022 และธนาคารกสิกรไทยประกาศความร่วมมือระหว่าง Orbix Technology กับ HealthTAG'}</p>
+            ? 'The records below distinguish programmes, awards, sandbox participation, and announced collaborations from hospital deployments.'
+            : 'รายการด้านล่างแยกโครงการ รางวัล การเข้าร่วม sandbox และความร่วมมือที่ประกาศแล้ว ออกจากการติดตั้งใช้งานในโรงพยาบาล'}</p>
         </div>
         <article class="deployment-record">
           <div><span class="record-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span><h3>{en ? 'Two hospital integration paths' : 'สองแนวทางเชื่อมระบบโรงพยาบาล'}</h3></div>
@@ -201,7 +238,7 @@ const businessModel = en
   .page-index { position: sticky; top: 76px; z-index: 10; border-block: 1px solid var(--line); background: rgba(255,255,255,.96); backdrop-filter: blur(12px); }
   .page-index .container { display: grid; grid-template-columns: minmax(150px, .3fr) 1fr; gap: 24px; align-items: center; min-height: 66px; }
   .page-index > .container > .mono { color: var(--muted); }
-  .page-index ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; margin: 0; padding: 0; list-style: none; }
+  .page-index ul { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; margin: 0; padding: 0; list-style: none; }
   .page-index a { display: flex; gap: 8px; align-items: baseline; min-height: 44px; padding: 8px; border-radius: 7px; font-size: .85rem; font-weight: 600; line-height: 1.35; }
   .page-index a:hover { background: var(--mint); }
   .page-index a span { color: var(--teal); font: 500 .65rem/1 'IBM Plex Mono', ui-monospace, monospace; }
@@ -216,6 +253,21 @@ const businessModel = en
   .position-copy dt { font-weight: 700; }
   .position-copy dd { margin: 0; color: var(--muted); }
   .text-link { display: inline-block; color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+  .why-now-section { color: var(--paper); background: var(--ink); }
+  .why-now-layout { display: grid; grid-template-columns: minmax(18rem, .68fr) minmax(0, 1.32fr); gap: clamp(42px, 8vw, 110px); align-items: start; }
+  .why-now-layout > header { position: sticky; top: 176px; }
+  .why-now-layout > header .mono { color: #8bd9d1; }
+  .why-now-layout > header h2 { margin: 16px 0 0; color: var(--paper); font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.08; letter-spacing: -.045em; }
+  .why-now-records { border-top: 1px solid rgba(221,243,235,.24); }
+  .why-now-records article { position: relative; display: grid; grid-template-columns: minmax(90px, .26fr) minmax(0, .74fr); gap: 8px 24px; padding: 28px 0; border-bottom: 1px solid rgba(221,243,235,.24); }
+  .why-now-records time { grid-row: 1 / 4; color: #8bd9d1; font: 600 .7rem/1.5 'IBM Plex Mono', ui-monospace, monospace; }
+  .why-now-records h3 { margin: 0; color: var(--paper); font-size: 1.45rem; line-height: 1.25; }
+  .why-now-records article p { margin: 0; color: #bdd0d0; }
+  .why-now-records article a { width: fit-content; color: #8bd9d1; font-size: .88rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .why-now-records aside { margin-top: 24px; padding: 22px 24px; border-left: 3px solid var(--amber); background: rgba(221,243,235,.08); }
+  .why-now-records aside strong { color: #f0bd7d; }
+  .why-now-records aside p { margin: 8px 0 0; color: #d5e0dc; }
 
   .evidence-section { background: #edf3f1; }
   .deployment-record { display: grid; grid-template-columns: minmax(200px, .55fr) minmax(0, 1fr) minmax(160px, .3fr); gap: 28px; align-items: start; padding: 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--white); }
@@ -251,7 +303,7 @@ const businessModel = en
   .contact-layout h2 { margin: 13px 0 0; font-size: clamp(2.2rem, 4vw, 3.8rem); }
   .contact-layout p { margin: 0 0 22px; color: var(--muted); }
 
-  #position, #evidence, #business-model, #team, #contact-investors { scroll-margin-top: 164px; }
+  #position, #why-now, #evidence, #business-model, #team, #contact-investors { scroll-margin-top: 164px; }
 
   @media (max-width: 1050px) {
     .page-index { position: static; }
@@ -259,17 +311,20 @@ const businessModel = en
   }
 
   @media (max-width: 900px) {
-    .investor-hero-layout, .position-layout, .business-layout, .team-layout, .contact-layout { grid-template-columns: 1fr; }
+    .investor-hero-layout, .position-layout, .why-now-layout, .business-layout, .team-layout, .contact-layout { grid-template-columns: 1fr; }
+    .why-now-layout > header { position: static; }
     .page-index ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .deployment-record { grid-template-columns: minmax(180px, .45fr) 1fr; }
     .deployment-record > a { grid-column: 2; }
-    #position, #evidence, #business-model, #team, #contact-investors { scroll-margin-top: 92px; }
+    #position, #why-now, #evidence, #business-model, #team, #contact-investors { scroll-margin-top: 92px; }
   }
 
   @media (max-width: 650px) {
     .investor-hero h1 { font-size: clamp(2.45rem, 11vw, 3.2rem); }
     .page-index ul, .evidence-grid { grid-template-columns: 1fr; }
     .position-copy dl div, .deployment-record { grid-template-columns: 1fr; }
+    .why-now-records article { grid-template-columns: 1fr; }
+    .why-now-records time { grid-row: auto; }
     .deployment-record > a { grid-column: 1; }
     .evidence-meta { align-items: flex-start; flex-direction: column; }
   }
