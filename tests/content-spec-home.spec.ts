@@ -23,8 +23,8 @@ for (const route of ['/', '/en/']) {
     )).toEqual(expectedSequence);
 
     await expect(page.locator('[data-home-section="hero"] .hero-actions a')).toHaveCount(2);
-    await expect(page.locator('[data-home-section="proof"] .proof-item')).toHaveCount(4);
-    await expect(page.locator('[data-home-section="proof"] .proof-tag')).toHaveCount(4);
+    await expect(page.locator('[data-home-section="proof"] .trust-bar-list > li')).toHaveCount(6);
+    await expect(page.locator('[data-home-section="proof"] .trust-bar-type')).toHaveCount(6);
     await expect(page.locator('[data-home-section="news"] .featured-story')).toHaveCount(2);
     await expect(page.locator('[data-home-section="news"] .latest-news-list > a')).toHaveCount(3);
     await expect(page.locator('[data-home-section="responsibilities"] article')).toHaveCount(3);
