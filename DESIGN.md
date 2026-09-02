@@ -125,7 +125,7 @@ Do not draw clinical data as flowing through blockchain. If the physical request
 
 Use teal for clinical-data paths and amber for permission or audit paths, supported by labels, line patterns, or icons.
 
-Implementation product names and the full Data Source Node architecture belong in restricted technical documentation. Public pages use the generic component names above and route hospital IT teams to Contact to request access. The Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
+Implementation product names and the full Data Source Node architecture remain in separate technical documentation. Public pages use the generic component names above and do not link to that documentation until its access policy is decided. The Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
 
 ### Product proof
 

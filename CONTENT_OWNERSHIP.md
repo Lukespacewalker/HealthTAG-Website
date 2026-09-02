@@ -4,7 +4,7 @@ To avoid repetition, each recurring concept has one canonical page:
 
 - **Home:** infrastructure positioning, typed external proof, responsibility boundaries, four capability summaries, audience routes, featured deployments, PHR product proof, founder context, and the primary CTA.
 - **Platform:** executive overview of how interoperability, Identity Connect, authorization and audit, and the PHR work together. It routes readers to the detailed platform pages instead of repeating their implementation detail.
-- **Interoperability:** source-held data, the open-standards rationale, HIS ingestion options, FHIR Server, HL7 FHIR R4, relational database, API Gateway, and Transformer resource scope. Exact implementation product names remain in restricted technical documentation.
+- **Interoperability:** source-held data, the open-standards rationale, HIS ingestion options, FHIR Server, HL7 FHIR R4, relational database, API Gateway, and Transformer resource scope. Exact implementation product names remain in separate technical documentation.
 - **How It Works:** the end-to-end six-step flow at conceptual level.
 - **Trust & Access:** patient ownership, consent principles, hospital stewardship, authorization, the 15-minute implementation window, blockchain audit role, and security boundaries.
 - **PHR:** patient-facing value, Identity Connect, multi-provider view, and confirmed product behavior. It does not own general consent-policy claims.
@@ -16,7 +16,7 @@ To avoid repetition, each recurring concept has one canonical page:
 - **Company:** mission, vision, the selected vision tagline, all six core values, founder context, and current team.
 - **Investors:** company positioning for prospective investors, the business model at an approved public level, verified traction and evidence links, and the investor enquiry route. It does not own deployment facts or detailed technical architecture.
 - **Contact:** corporate enquiry routing, sensitive-data warning, and the honest email fallback.
-- **Support:** reader selection, drivers and installers, setup steps, the Community Edition open-source manual, legacy downloads, troubleshooting, and support escalation. Restricted Data Source Node documentation remains separate and is available by request.
+- **Support:** reader selection, drivers and installers, setup steps, the Community Edition open-source manual, legacy downloads, troubleshooting, and support escalation. Data Source Node documentation remains separate, and its access policy will be decided later.
 - **Privacy:** corporate website/contact handling and its separation from clinical systems and PHR access.
 
 When adding content, prefer linking to the canonical page instead of repeating implementation details elsewhere.

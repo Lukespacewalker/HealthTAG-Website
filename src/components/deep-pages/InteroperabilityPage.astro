@@ -30,7 +30,7 @@ const prefix = en ? '/en' : '';
         </div>
       </div>
     </section>
-    <section class="section resources"><div class="container"><div class="section-head"><h2>{en ? 'FHIR resources used at Khian Sa' : 'FHIR resources ที่ใช้ในโรงพยาบาลเคียนซา'}</h2><p>{en ? 'Khian Sa uses four FHIR resources in this installation.' : 'การติดตั้งที่เคียนซาใช้ FHIR resources 4 ประเภท'}</p></div><div class="resource-grid">{['Patient','AllergyIntolerance','Encounter','MedicationDispense'].map((resource) => <span class="mono">{resource}</span>)}</div><a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Request technical architecture access' : 'ขอสิทธิ์เข้าถึงเอกสารสถาปัตยกรรม'} <span aria-hidden="true">→</span></a></div></section>
+    <section class="section resources"><div class="container"><div class="section-head"><h2>{en ? 'FHIR resources used at Khian Sa' : 'FHIR resources ที่ใช้ในโรงพยาบาลเคียนซา'}</h2><p>{en ? 'Khian Sa uses four FHIR resources in this installation.' : 'การติดตั้งที่เคียนซาใช้ FHIR resources 4 ประเภท'}</p></div><div class="resource-grid">{['Patient','AllergyIntolerance','Encounter','MedicationDispense'].map((resource) => <span class="mono">{resource}</span>)}</div><a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Discuss the technical architecture' : 'สอบถามข้อมูลสถาปัตยกรรม'} <span aria-hidden="true">→</span></a></div></section>
   </main>
 </Base>
 <style>
