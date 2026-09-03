@@ -1,0 +1,177 @@
+---
+import Home from './Home.astro';
+
+interface Props { locale: 'th' | 'en' }
+const { locale } = Astro.props;
+---
+
+<Home locale={locale} />
+
+<script>
+  import { mountHealthTagFlagshipHero } from '../lib/home-network-flagship';
+
+  document.querySelectorAll<HTMLElement>('[data-network-hero]').forEach((hero) => {
+    if (hero.dataset.flagshipHeroMounted === 'true') return;
+    hero.dataset.flagshipHeroMounted = 'true';
+
+    const host = hero.querySelector<HTMLElement>('[data-three-hero]');
+    const controls = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-hero-phase]'));
+    const status = hero.querySelector<HTMLElement>('[data-hero-status]');
+    const statusTitle = status?.querySelector<HTMLElement>('strong');
+    const statusBody = status?.querySelector<HTMLElement>('span');
+    const motionToggle = hero.querySelector<HTMLButtonElement>('[data-hero-motion-toggle]');
+    const motionIcon = motionToggle?.querySelector<HTMLElement>('[data-motion-icon]');
+    const motionLabel = motionToggle?.querySelector<HTMLElement>('[data-motion-label]');
+    if (!host || !controls.length || !statusTitle || !statusBody) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let scene: ReturnType<typeof mountHealthTagFlagshipHero> | null = null;
+    let visible = false;
+    let paused = false;
+    let userControlled = false;
+    let timer: number | undefined;
+    let disposed = false;
+
+    const stopTimer = () => {
+      if (timer !== undefined) window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    const setPhaseUi = (phase: number) => {
+      const next = (phase + controls.length) % controls.length;
+      const active = controls[next];
+      hero.dataset.phase = String(next);
+      controls.forEach((control, index) => {
+        const selected = index === next;
+        control.classList.toggle('active', selected);
+        control.setAttribute('aria-pressed', String(selected));
+      });
+      statusTitle.textContent = `${String(next + 1).padStart(2, '0')} · ${active.dataset.title ?? ''}`;
+      statusBody.textContent = active.dataset.body ?? '';
+      scene?.setPhase(next);
+    };
+
+    const startTimer = () => {
+      if (timer !== undefined || paused || userControlled || !visible || reducedMotion.matches) return;
+      timer = window.setInterval(() => {
+        const current = Number(hero.dataset.phase ?? 0);
+        setPhaseUi(current + 1);
+      }, 4200);
+    };
+
+    const syncMotionButton = () => {
+      if (!motionToggle || !motionIcon || !motionLabel) return;
+      const label = paused ? motionToggle.dataset.playLabel ?? '' : motionToggle.dataset.pauseLabel ?? '';
+      motionIcon.textContent = paused ? '▶' : 'Ⅱ';
+      motionLabel.textContent = label;
+      motionToggle.setAttribute('aria-label', label);
+    };
+
+    const onPhaseChange = (event: Event) => {
+      const detail = (event as CustomEvent<{ phase?: number }>).detail;
+      if (typeof detail?.phase === 'number') scene?.setPhase(detail.phase);
+    };
+    hero.addEventListener('healthtag:hero-phase-change', onPhaseChange);
+
+    const onControlClick = () => {
+      userControlled = true;
+      stopTimer();
+    };
+    controls.forEach((control) => control.addEventListener('click', onControlClick));
+
+    const onMotionCapture = (event: Event) => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      paused = !paused;
+      syncMotionButton();
+      if (paused) {
+        stopTimer();
+        scene?.setActive(false);
+      } else {
+        userControlled = false;
+        scene?.setActive(visible && !reducedMotion.matches);
+        startTimer();
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      scene?.setActive(visible && !paused && !reducedMotion.matches);
+      if (visible) startTimer(); else stopTimer();
+    }, { threshold: 0.25 });
+    observer.observe(hero);
+
+    const onReducedMotionChange = () => {
+      if (reducedMotion.matches) {
+        stopTimer();
+        setPhaseUi(controls.length - 1);
+        scene?.setActive(false);
+      } else if (!paused) {
+        scene?.setActive(visible);
+        startTimer();
+      }
+    };
+    reducedMotion.addEventListener('change', onReducedMotionChange);
+
+    let bootstrapFrame = 0;
+    const bootstrap = () => {
+      if (disposed) return;
+      const legacyCanvas = host.querySelector<HTMLCanvasElement>('.hero-network-canvas:not(.hero-network-flagship-canvas)');
+      const legacyReady = Boolean(legacyCanvas || host.classList.contains('hero-network-fallback'));
+      if (!legacyReady && bootstrapFrame < 60) {
+        bootstrapFrame += 1;
+        window.requestAnimationFrame(bootstrap);
+        return;
+      }
+
+      // Home.astro owns copy, controls, accessibility and fallback behavior. Pause only
+      // its legacy WebGL renderer, then hand the same host to the flagship scene.
+      motionToggle?.click();
+      scene = mountHealthTagFlagshipHero(host);
+      hero.classList.add('flagship-network-hero');
+      const phase = reducedMotion.matches ? controls.length - 1 : Number(hero.dataset.phase ?? 0);
+      setPhaseUi(phase);
+
+      paused = false;
+      syncMotionButton();
+      motionToggle?.addEventListener('click', onMotionCapture, { capture: true });
+      scene.setActive(visible && !reducedMotion.matches);
+      if (reducedMotion.matches) setPhaseUi(controls.length - 1);
+      else startTimer();
+    };
+    window.requestAnimationFrame(bootstrap);
+
+    const dispose = () => {
+      if (disposed) return;
+      disposed = true;
+      stopTimer();
+      observer.disconnect();
+      reducedMotion.removeEventListener('change', onReducedMotionChange);
+      hero.removeEventListener('healthtag:hero-phase-change', onPhaseChange);
+      controls.forEach((control) => control.removeEventListener('click', onControlClick));
+      motionToggle?.removeEventListener('click', onMotionCapture, { capture: true });
+      scene?.dispose();
+      scene = null;
+      delete hero.dataset.flagshipHeroMounted;
+    };
+
+    window.addEventListener('pagehide', dispose, { once: true });
+    document.addEventListener('astro:before-swap', dispose, { once: true });
+  });
+</script>
+
+<style>
+  :global(.home-hero.flagship-network-hero .hero-network::after) {
+    background:
+      radial-gradient(circle at 72% 44%, rgba(112, 211, 198, .07), transparent 28%),
+      linear-gradient(90deg, rgba(16, 47, 54, 1) 0%, rgba(16, 47, 54, .98) 36%, rgba(16, 47, 54, .78) 49%, rgba(16, 47, 54, .16) 70%, rgba(16, 47, 54, .38) 100%);
+  }
+  :global(.hero-network-flagship-canvas) {
+    filter: saturate(.96) contrast(1.02);
+  }
+  @media (max-width: 620px) {
+    :global(.home-hero.flagship-network-hero .hero-network::after) {
+      background: linear-gradient(180deg, rgba(16, 47, 54, .9), rgba(16, 47, 54, .68) 58%, rgba(16, 47, 54, .96));
+    }
+  }
+</style>
