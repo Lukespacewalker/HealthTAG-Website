@@ -66,7 +66,7 @@ test.describe('platform overview', () => {
     await page.goto('/en/platform/');
 
     await expect(page.locator('.deployment-proof .proof-type')).toHaveText('Deployment');
-    await expect(page.locator('.proof-grid .proof-type')).toHaveText(['Programme', 'Award', 'Sandbox']);
+    await expect(page.locator('.proof-grid .proof-type')).toHaveText(['Programme', 'Award', 'Sandbox Certified']);
     await expect(page.locator('.proof-grid a[target="_blank"]')).toHaveCount(3);
   });
 });
@@ -76,16 +76,19 @@ test.describe('investor overview', () => {
     await page.goto('/en/investors/');
 
     await expect(page.locator('.evidence-grid article')).toHaveCount(6);
-    await expect(page.locator('.evidence-grid .record-type')).toHaveText(['Public Forum', 'Announced Collaboration', 'Award', 'Award', 'Sandbox', 'Strategic Collaboration']);
+    await expect(page.locator('.evidence-grid .record-type')).toHaveText(['Public Forum', 'Announced Collaboration', 'Award', 'Award', 'Sandbox Certified', 'Strategic Collaboration']);
     await expect(page.locator('.business-list h3')).toHaveText(['Connectivity services', 'Usage services', 'Infrastructure projects']);
     await expect(page.locator('#contact-investors a[href="/en/contact/"]')).toHaveText('Contact investor relations');
   });
 
-  test('does not publish financial figures or unsupported compliance language', async ({ page }) => {
+  test('does not publish financial figures or claim regulatory approval', async ({ page }) => {
     await page.goto('/en/investors/');
     const publicCopy = await page.locator('main').innerText();
 
     expect(publicCopy).not.toMatch(/\b(?:revenue|valuation|contract)\s*(?:of|is|was|:)?\s*[฿$€£¥]?\d/i);
-    expect(publicCopy).not.toMatch(/certified|certification|compliant|compliance|regulatory approval/i);
+    expect(publicCopy).not.toMatch(/compliant|compliance/i);
+    const sandbox = page.locator('.evidence-grid article', { hasText: 'ETDA Digital Service Sandbox' });
+    await expect(sandbox).toContainText('Sandbox Certified');
+    await expect(sandbox).toContainText('after meeting the defined test goals and success indicators');
   });
 });

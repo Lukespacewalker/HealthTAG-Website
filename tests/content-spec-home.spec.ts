@@ -30,7 +30,7 @@ for (const route of ['/', '/en/']) {
     await expect(page.locator('[data-home-section="responsibilities"] article')).toHaveCount(3);
     await expect(page.locator('[data-home-section="capabilities"] article')).toHaveCount(4);
     await expect(page.locator('[data-home-section="audiences"] nav > a')).toHaveCount(4);
-    await expect(page.locator('[data-home-section="deployments"] article')).toHaveCount(2);
+    await expect(page.locator('[data-home-section="deployments"] article')).toHaveCount(3);
     await expect(page.locator('[data-home-section="phr"] img')).toBeVisible();
     await expect(page.locator('[data-home-section="founder"]')).toBeVisible();
     await expect(page.locator('[data-home-section="contact"] a[href$="/contact/"]')).toBeVisible();
