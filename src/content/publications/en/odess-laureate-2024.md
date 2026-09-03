@@ -1,7 +1,7 @@
 ---
 kind: award
 title: HealthTAG named a 2024 ODESS laureate
-summary: "ODESS named HealthTAG a 2024 digital health laureate. Laureates receive 12 months of technical and financial support from Fondation Pierre Fabre."
+summary: "ODESS named HealthTAG a 2024 digital health laureate. HealthTAG was the first selected project from Thailand and received 12 months of technical and financial support."
 author: HealthTAG
 locale: en
 translationKey: odess-laureate-2024
@@ -28,6 +28,9 @@ sources:
     url: "https://www.facebook.com/reel/1057181826138578"
     organization: HealthTAG
     type: first-party
+  - label: HealthTAG confirmation that it was the first selected project from Thailand
+    organization: HealthTAG
+    type: owner-confirmed
 images:
   - src: ../../../assets/publications/awards/odess-laureate-2024.jpg
     alt: HealthTAG announcement graphic for the ODESS Winner Award 2024
@@ -39,10 +42,11 @@ confirmedResult:
   - "ODESS includes HealthTAG in its 2024 digital health laureate list"
   - "The ODESS profile identifies HealthTAG as an initiative from Thailand"
   - "ODESS awards provide 12 months of technical and financial support"
+  - "HealthTAG was the first project from Thailand selected by ODESS"
 ---
 
 ## Recognition from ODESS
 
-ODESS named HealthTAG a 2024 digital health laureate and identified it as an initiative from Thailand. ODESS awards provide 12 months of technical and financial support from Fondation Pierre Fabre.
+ODESS named HealthTAG a 2024 digital health laureate and identified it as an initiative from Thailand. HealthTAG confirms that it was the first project from Thailand selected by ODESS. ODESS awards provide 12 months of technical and financial support from Fondation Pierre Fabre.
 
 The initiative, "Decentralized Health Care, empowering Well-being Countrywide", focuses on patient access to health information and interoperability across health systems.

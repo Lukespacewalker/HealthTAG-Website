@@ -58,8 +58,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'The Ministry of Public Health and Mahidol University signed an MOU on 5 June 2026 to connect medical and public-health data through the Ministry\'s Digital Health Platform.',
     },
     healthTagContext: {
-      th: 'HealthTAG สนับสนุนเทคโนโลยีให้ MU Health Wallet ส่วนผู้ลงนาม MOU คือมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข',
-      en: 'HealthTAG provides technology support for MU Health Wallet. The MOU was signed by Mahidol University and the Ministry of Public Health.',
+      th: 'HealthTAG สนับสนุนเทคโนโลยีให้ MU Health Wallet เชื่อมข้อมูลหมอพร้อมสำเร็จ และร่วมจัดแสดงในงาน Digital Health Forum ส่วนผู้ลงนาม MOU คือมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข',
+      en: 'HealthTAG provides technology support for MU Health Wallet, completed the Mor Prom connection, and exhibited at Digital Health Forum. The MOU was signed by Mahidol University and the Ministry of Public Health.',
     },
     href: { th: 'https://www.thecoverage.info/news/content/11474', en: 'https://www.thecoverage.info/news/content/11474' },
   },
@@ -134,15 +134,15 @@ export const evidence: EvidenceEntry[] = [
     sourceOrganization: { th: 'ETDA', en: 'ETDA' },
     sourcePublicationDate: { th: 'หน้าประกาศสถานะโครงการ', en: 'Programme status page' },
     lastVerifiedDate: '2026-08-30',
-    tag: { th: 'Sandbox', en: 'Sandbox' },
+    tag: { th: 'Sandbox Certified', en: 'Sandbox Certified' },
     title: 'ETDA Digital Service Sandbox',
     externallyConfirmed: {
-      th: 'ETDA แสดงรายการบริการ HealthTAG ใน Digital Service Sandbox พร้อมช่วงทดสอบและสถานะออกจาก Sandbox โดยผลเป็นไปตามเป้าหมายและตัวชี้วัดความสำเร็จที่กำหนด',
-      en: 'ETDA lists the HealthTAG service in its Digital Service Sandbox, including the testing period and an exit status after meeting the defined goals and success indicators.',
+      th: 'ETDA แสดงรายการบริการ HealthTAG ใน Digital Service Sandbox พร้อมช่วงทดสอบและสถานะออกจาก Sandbox หลังผลเป็นไปตามเป้าหมายและตัวชี้วัดความสำเร็จที่กำหนด',
+      en: 'ETDA lists the HealthTAG service in its Digital Service Sandbox and records its exit after meeting the defined test goals and success indicators.',
     },
     healthTagContext: {
-      th: 'ETDA ระบุว่าผลการทดสอบเป็นไปตามเป้าหมายและตัวชี้วัดของโครงการ สถานะนี้ไม่ได้ยืนยันการรับรอง การอนุมัติด้านกฎระเบียบ หรือการติดตั้งใช้งานจริง',
-      en: 'ETDA states that the testing met the programme\'s goals and success indicators. This status does not confirm certification, regulatory approval, or a production deployment.',
+      th: 'HealthTAG ใช้คำว่า Sandbox Certified สำหรับผลการทดสอบในโรงพยาบาลเครือศิริราช 3 แห่ง โดยหมายถึงการผ่านเป้าหมายและตัวชี้วัดของ Sandbox ไม่ใช่การอนุมัติด้านกฎระเบียบหรือการรับรองระบบประเภทอื่น',
+      en: 'HealthTAG uses Sandbox Certified for this test outcome across three hospitals in the Siriraj network, meaning that the service met the Sandbox goals and success indicators. It is not regulatory approval or another form of system certification.',
     },
     href: { th: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx', en: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx' },
   },
@@ -164,6 +164,25 @@ export const evidence: EvidenceEntry[] = [
       en: 'The announcement confirms an MoU between depa and HealthTAG, but does not state that a healthcare system has been deployed or that a service is live.',
     },
     href: { th: 'https://www.depa.or.th/th/article-view/20230112_03', en: 'https://www.depa.or.th/th/article-view/20230112_03' },
+  },
+  {
+    id: 'nia-thematic-innovation-grant-2025',
+    eventDate: '2025',
+    displayDate: { th: '2568', en: '2025' },
+    sourceOrganization: { th: 'สำนักงานนวัตกรรมแห่งชาติ (NIA)', en: 'National Innovation Agency (NIA)' },
+    sourcePublicationDate: { th: 'ข้อมูลโครงการทุน', en: 'Grant programme information' },
+    lastVerifiedDate: '2026-09-03',
+    tag: { th: 'ทุนโครงการ', en: 'Project Grant' },
+    title: 'NIA Thematic Innovation Grant',
+    externallyConfirmed: {
+      th: 'NIA อธิบาย Thematic Innovation Grant ว่าเป็นทุนสนับสนุนผู้ประกอบการในอุตสาหกรรมเป้าหมาย เพื่อทดสอบตลาดและปรับปรุงผลิตภัณฑ์หรือบริการนวัตกรรม',
+      en: 'NIA describes the Thematic Innovation Grant as support for businesses in target industries to test markets and improve innovative products or services.',
+    },
+    healthTagContext: {
+      th: 'HealthTAG ยืนยันว่าได้ลงนามสัญญาและรับทุน Thematic Innovation Grant ในปี 2568',
+      en: 'HealthTAG confirms that it signed the grant agreement and received Thematic Innovation Grant funding in 2025.',
+    },
+    href: { th: 'https://www.nia.or.th/event/detail/17986', en: 'https://www.nia.or.th/event/detail/17986' },
   },
   {
     id: 'nia-corporate-spark-china',
@@ -198,8 +217,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'ODESS includes HealthTAG among its 2024 digital health laureates and profiles the Thai initiative Decentralized Health Care, empowering Well-being Countrywide.',
     },
     healthTagContext: {
-      th: 'สถานะ laureate ยืนยันการได้รับคัดเลือกในโครงการ ODESS ไม่ใช่การรับรองด้านกฎระเบียบหรือหลักฐานการติดตั้งในโรงพยาบาลแห่งใดแห่งหนึ่ง',
-      en: 'Laureate status confirms selection by ODESS. It is not a regulatory certification or evidence of deployment at a specific hospital.',
+      th: 'HealthTAG ยืนยันว่าเป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก สถานะ laureate ไม่ใช่การรับรองด้านกฎระเบียบหรือหลักฐานการติดตั้งในโรงพยาบาลแห่งใดแห่งหนึ่ง',
+      en: 'HealthTAG confirms that it was the first project from Thailand selected by ODESS. Laureate status is not regulatory certification or evidence of deployment at a specific hospital.',
     },
     href: { th: 'https://www.odess.io/en/the-conference/laureates/', en: 'https://www.odess.io/en/the-conference/laureates/' },
     supportingLinks: [
@@ -250,8 +269,8 @@ export const evidence: EvidenceEntry[] = [
       en: 'TED.com identifies Dechowat Promda as the speaker of "DON\'T TRUST JUST VERIFY!" at TEDxSirirajFacultyOfMedicine in February 2022.',
     },
     healthTagContext: {
-      th: 'การบรรยายกล่าวถึงข้อมูลสุขภาพที่ตรวจสอบได้และการดูแลที่เชื่อมถึงกันระหว่างสถานพยาบาล รายการนี้เป็นเวทีสาธารณะ ไม่ใช่รางวัล',
-      en: 'The talk discusses verifiable health data and connected care across healthcare institutions. This is a public-speaking record, not an award.',
+      th: 'การบรรยายกล่าวถึงข้อมูลสุขภาพที่ตรวจสอบได้และการดูแลที่เชื่อมถึงกันระหว่างสถานพยาบาล TEDx เป็นเวทีสาธารณะ ไม่ใช่รางวัล',
+      en: 'The talk discusses verifiable health data and connected care across healthcare institutions. TEDx is a public-speaking record, not an award.',
     },
     href: { th: 'https://www.ted.com/talks/dechowat_promda_don_t_trust_just_verify', en: 'https://www.ted.com/talks/dechowat_promda_don_t_trust_just_verify' },
     supportingLinks: [
@@ -264,5 +283,24 @@ export const evidence: EvidenceEntry[] = [
         href: { th: 'https://youtu.be/94WBbooeqhc', en: 'https://youtu.be/94WBbooeqhc' },
       },
     ],
+  },
+  {
+    id: 'kbtg-techtopia-2026',
+    eventDate: '2026-09-16',
+    displayDate: { th: '16 ก.ย. 2569', en: '16 Sep 2026' },
+    sourceOrganization: { th: 'KBTG / Zipevent', en: 'KBTG / Zipevent' },
+    sourcePublicationDate: { th: 'หน้ารายละเอียดงาน', en: 'Event listing' },
+    lastVerifiedDate: '2026-09-03',
+    tag: { th: 'กิจกรรมที่จะจัดขึ้น', en: 'Upcoming Event' },
+    title: 'KBTG Techtopia 2026: Human of Tomorrow',
+    externallyConfirmed: {
+      th: 'Zipevent ระบุว่างาน KBTG Techtopia: Human of Tomorrow จะจัดวันที่ 16 กันยายน 2569 เวลา 08.00-18.30 น. ที่ศูนย์การประชุมแห่งชาติสิริกิติ์',
+      en: 'Zipevent lists KBTG Techtopia: Human of Tomorrow for 16 September 2026, from 08:00 to 18:30, at Queen Sirikit National Convention Center.',
+    },
+    healthTagContext: {
+      th: 'HealthTAG ยืนยันว่า นพ.เดโชวัต พรมดา มีกำหนดร่วมเสวนาในหัวข้อ "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain" ข้อมูลกำหนดการนี้อาจเปลี่ยนแปลงได้',
+      en: 'HealthTAG confirms that Dechowat Promda, M.D. is scheduled to join the panel "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain". The event is upcoming, and the programme may change.',
+    },
+    href: { th: 'https://www.zipeventapp.com/e/kbtg-techtopia-2026', en: 'https://www.zipeventapp.com/e/kbtg-techtopia-2026' },
   },
 ];

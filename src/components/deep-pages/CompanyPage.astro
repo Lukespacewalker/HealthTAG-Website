@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import FounderCard from '../FounderCard.astro';
 import TeamGallery from '../TeamGallery.astro';
+import CompanyMilestones from '../CompanyMilestones.astro';
 import type { Locale } from '../../data/site-content';
 
 interface Props { locale: Locale }
@@ -13,12 +14,14 @@ const sectionLinks = en
   ? [
       ['#mission-vision', 'Mission & vision'],
       ['#values', 'Core values'],
+      ['#milestones', 'Milestones'],
       ['#founder', 'Founder'],
       ['#team', 'Team'],
     ]
   : [
       ['#mission-vision', 'พันธกิจและวิสัยทัศน์'],
       ['#values', 'คุณค่าองค์กร'],
+      ['#milestones', 'เหตุการณ์สำคัญ'],
       ['#founder', 'ผู้ก่อตั้ง'],
       ['#team', 'ทีมงาน'],
     ];
@@ -81,8 +84,8 @@ const founderAcademicRoles = en
   path="company"
   title={en ? 'Company overview | HealthTAG' : 'ภาพรวมบริษัท | HealthTAG'}
   description={en
-    ? 'HealthTAG mission, vision, values, founder, and the roles of patients, hospitals, and trust infrastructure.'
-    : 'พันธกิจ วิสัยทัศน์ คุณค่า ผู้ก่อตั้ง และบทบาทของผู้ป่วย โรงพยาบาล และโครงสร้างพื้นฐานด้านความไว้วางใจของ HealthTAG'}
+    ? 'HealthTAG mission, vision, values, milestones, founder, and current team.'
+    : 'พันธกิจ วิสัยทัศน์ คุณค่า เหตุการณ์สำคัญ ผู้ก่อตั้ง และทีมงานปัจจุบันของ HealthTAG'}
 >
   <main data-founder-copy>
     <section class="page-hero company-hero">
@@ -156,6 +159,8 @@ const founderAcademicRoles = en
       </div>
     </section>
 
+    <CompanyMilestones locale={locale} />
+
     <section id="founder" class="section founder-story" aria-labelledby="founder-heading">
       <div class="container founder-layout">
         <div class="founder-intro">
@@ -215,7 +220,7 @@ const founderAcademicRoles = en
   .company-index { border-block: 1px solid var(--line); background: var(--white); }
   .company-index .container { display: grid; grid-template-columns: minmax(130px, .32fr) 1fr; gap: 34px; align-items: center; padding-block: 20px; }
   .company-index > .container > .mono { color: var(--muted); font-size: .68rem; letter-spacing: .08em; }
-  .company-index ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .company-index ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
   .company-index a { display: flex; gap: 9px; align-items: baseline; min-height: 44px; padding: 10px 12px; border-radius: 8px; font-weight: 600; line-height: 1.35; }
   .company-index a:hover { background: var(--mint); }
   .company-index a:focus-visible { outline: 3px solid var(--amber); }
@@ -268,7 +273,7 @@ const founderAcademicRoles = en
   .talk-copy blockquote { margin: auto 0 0; padding-top: 34px; color: var(--ink); font-size: clamp(1.25rem, 2.1vw, 1.8rem); font-weight: 600; letter-spacing: -.02em; }
   .talk-embed { min-width: 0; aspect-ratio: 16 / 9; background: var(--ink); }
   .talk-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
-  .mission-vision, .values, .founder-story, .team-anchor { scroll-margin-top: 92px; }
+  .mission-vision, .values, .founder-story, .team-anchor, :global(#milestones) { scroll-margin-top: 92px; }
 
   @media (max-width: 900px) {
     .company-index .container { grid-template-columns: 1fr; gap: 10px; }

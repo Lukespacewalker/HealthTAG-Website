@@ -1,0 +1,227 @@
+---
+import type { Locale } from '../data/site-content';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+
+type MilestoneItem = {
+  text: string;
+  type: 'relationship' | 'recognition';
+  href?: string;
+};
+
+type MilestoneYear = {
+  year: string;
+  heading: string;
+  items: MilestoneItem[];
+};
+
+const years: MilestoneYear[] = en ? [
+  {
+    year: '2020',
+    heading: 'Proof of concept',
+    items: [
+      { text: 'Proof of concept under the previous legal entity', type: 'relationship' },
+      { text: 'Began working with SIL-TH on interoperability standards and HL7 FHIR', type: 'relationship', href: `${prefix}/network/` },
+    ],
+  },
+  {
+    year: '2021',
+    heading: 'First implementation',
+    items: [
+      { text: 'Implemented a health-data exchange system at Siriraj Hospital', type: 'relationship', href: `${prefix}/deployments/` },
+    ],
+  },
+  {
+    year: '2022',
+    heading: 'Go-live and recognition',
+    items: [
+      { text: 'Siriraj system went live', type: 'relationship', href: `${prefix}/deployments/` },
+      { text: 'APICTA Awards winner, Cross Category: Start-Up', type: 'recognition', href: `${prefix}/awards/apicta-2022/` },
+      { text: 'TEDxSirirajFacultyOfMedicine: "Don\'t Trust, Just Verify"', type: 'recognition', href: `${prefix}/evidence/#tedx-dont-trust-just-verify` },
+    ],
+  },
+  {
+    year: '2023',
+    heading: 'Public collaboration',
+    items: [
+      { text: 'MoU with depa on blockchain infrastructure for public services', type: 'relationship', href: `${prefix}/evidence/#depa-healthtag` },
+    ],
+  },
+  {
+    year: '2024',
+    heading: 'Sandbox and awards',
+    items: [
+      { text: 'ETDA Digital Service Sandbox Certified across three hospitals in the Siriraj network after meeting the defined test goals and success indicators', type: 'recognition', href: `${prefix}/evidence/#etda-digital-service-sandbox` },
+      { text: 'Selected as an ODESS Laureate, the first project from Thailand', type: 'recognition', href: `${prefix}/awards/odess-laureate-2024/` },
+      { text: 'ASEAN Digital Awards Silver', type: 'recognition', href: `${prefix}/awards/asean-digital-awards-2024/` },
+    ],
+  },
+  {
+    year: '2025',
+    heading: 'Deployment and ecosystem',
+    items: [
+      { text: 'NIA Thematic Innovation Grant', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'Deployment at Khian Sa Hospital', type: 'relationship', href: `${prefix}/deployments/#khian-sa` },
+      { text: 'MoU with Kub Chain for Layer 2 for Healthcare', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'Terminology Server with the Thai Medical Informatics Association', type: 'relationship', href: `${prefix}/network/` },
+    ],
+  },
+  {
+    year: '2026',
+    heading: 'National-scale infrastructure',
+    items: [
+      { text: 'MU Health Data Network: five live institutions and 60,000 active users, funded by BTFP through Mahidol University', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'MoU between Mahidol University and the Ministry of Public Health, with HealthTAG providing technology support', type: 'relationship', href: `${prefix}/evidence/#mahidol-moph-digital-health-mou-2026` },
+      { text: 'Public collaboration with Orbix Technology on Quarix infrastructure', type: 'relationship', href: `${prefix}/evidence/#orbix-healthtag` },
+      { text: 'WHO Thailand Digital Health Wallet workshop', type: 'relationship', href: `${prefix}/news/who-thailand-trusted-phr-workshop-2026/` },
+      { text: 'MU Health Wallet at Digital Health Forum', type: 'relationship', href: `${prefix}/news/digital-health-forum-2026/` },
+    ],
+  },
+] : [
+  {
+    year: '2020',
+    heading: 'จุดเริ่มต้น',
+    items: [
+      { text: 'พัฒนา Proof of Concept ภายใต้นิติบุคคลเดิม', type: 'relationship' },
+      { text: 'เริ่มทำงานร่วมกับ SIL-TH ด้านมาตรฐาน Interoperability และ HL7 FHIR', type: 'relationship', href: `${prefix}/network/` },
+    ],
+  },
+  {
+    year: '2021',
+    heading: 'การติดตั้งระบบแรก',
+    items: [
+      { text: 'ติดตั้งระบบแลกเปลี่ยนข้อมูลสุขภาพที่โรงพยาบาลศิริราช', type: 'relationship', href: `${prefix}/deployments/` },
+    ],
+  },
+  {
+    year: '2022',
+    heading: 'เปิดใช้งานและเป็นที่ยอมรับ',
+    items: [
+      { text: 'ระบบที่ศิริราชเปิดใช้งานจริง', type: 'relationship', href: `${prefix}/deployments/` },
+      { text: 'ชนะ APICTA Awards หมวด Cross Category: Start-Up', type: 'recognition', href: `${prefix}/awards/apicta-2022/` },
+      { text: 'TEDxSirirajFacultyOfMedicine: "Don\'t Trust, Just Verify"', type: 'recognition', href: `${prefix}/evidence/#tedx-dont-trust-just-verify` },
+    ],
+  },
+  {
+    year: '2023',
+    heading: 'ความร่วมมือภาครัฐ',
+    items: [
+      { text: 'ลงนามบันทึกความเข้าใจกับ depa เรื่องโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน', type: 'relationship', href: `${prefix}/evidence/#depa-healthtag` },
+    ],
+  },
+  {
+    year: '2024',
+    heading: 'Sandbox และรางวัล',
+    items: [
+      { text: 'ETDA Digital Service Sandbox Certified ในโรงพยาบาลเครือศิริราช 3 แห่ง หลังผลทดสอบเป็นไปตามเป้าหมายและตัวชี้วัดความสำเร็จที่กำหนด', type: 'recognition', href: `${prefix}/evidence/#etda-digital-service-sandbox` },
+      { text: 'ได้รับเลือกเป็น ODESS Laureate ในฐานะโครงการแรกจากประเทศไทย', type: 'recognition', href: `${prefix}/awards/odess-laureate-2024/` },
+      { text: 'ASEAN Digital Awards รางวัล Silver', type: 'recognition', href: `${prefix}/awards/asean-digital-awards-2024/` },
+    ],
+  },
+  {
+    year: '2025',
+    heading: 'ลงพื้นที่และขยายระบบนิเวศ',
+    items: [
+      { text: 'ได้รับทุน NIA Thematic Innovation Grant', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'ติดตั้งระบบที่โรงพยาบาลเคียนซา', type: 'relationship', href: `${prefix}/deployments/#khian-sa` },
+      { text: 'ลงนามบันทึกความเข้าใจกับ Kub Chain เรื่อง Layer 2 for Healthcare', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'พัฒนา Terminology Server ร่วมกับสมาคมเวชสารสนเทศไทย', type: 'relationship', href: `${prefix}/network/` },
+    ],
+  },
+  {
+    year: '2026',
+    heading: 'โครงสร้างพื้นฐานระดับประเทศ',
+    items: [
+      { text: 'MU Health Data Network เปิดใช้งานจริงใน 5 หน่วยงาน มีผู้ใช้งานจริง 60,000 คน และได้รับทุนจาก กทปส. ผ่านมหาวิทยาลัยมหิดล', type: 'relationship', href: `${prefix}/network/` },
+      { text: 'MOU ระหว่างมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข โดย HealthTAG สนับสนุนเทคโนโลยี', type: 'relationship', href: `${prefix}/evidence/#mahidol-moph-digital-health-mou-2026` },
+      { text: 'ความร่วมมือสาธารณะกับ Orbix Technology บนโครงสร้างพื้นฐาน Quarix', type: 'relationship', href: `${prefix}/evidence/#orbix-healthtag` },
+      { text: 'ร่วม WHO Thailand Workshop เรื่อง Digital Health Wallet', type: 'relationship', href: `${prefix}/news/who-thailand-trusted-phr-workshop-2026/` },
+      { text: 'นำเสนอ MU Health Wallet ในงาน Digital Health Forum', type: 'relationship', href: `${prefix}/news/digital-health-forum-2026/` },
+    ],
+  },
+];
+---
+
+<section id="milestones" class="section milestones" aria-labelledby="milestones-heading">
+  <div class="container">
+    <header class="milestones-head">
+      <span class="mono">HEALTHTAG MILESTONES</span>
+      <h2 id="milestones-heading">{en ? 'From proof of concept to health-data infrastructure' : 'จาก Proof of Concept สู่โครงสร้างพื้นฐานข้อมูลสุขภาพ'}</h2>
+      <p>{en ? 'Selected milestones from 2020 to 2026' : 'เหตุการณ์สำคัญระหว่างปี 2020 ถึง 2026'}</p>
+    </header>
+
+    <div class="milestone-key" aria-label={en ? 'Milestone categories' : 'ประเภทเหตุการณ์'}>
+      <span><i class="relationship-dot"></i>{en ? 'Collaboration, project, or deployment' : 'ความร่วมมือ โครงการ หรือการติดตั้ง'}</span>
+      <span><i class="recognition-dot"></i>{en ? 'Award, selection, or recognition' : 'รางวัล การได้รับเลือก หรือการยอมรับ'}</span>
+    </div>
+
+    <ol class="milestone-grid">
+      {years.map((entry) => (
+        <li class="milestone-year">
+          <div class="year-marker"><time datetime={entry.year}>{entry.year}</time><span aria-hidden="true"></span></div>
+          <article>
+            <h3>{entry.heading}</h3>
+            <ul>
+              {entry.items.map((item) => (
+                <li class={item.type}>
+                  {item.href ? <a href={item.href}>{item.text}</a> : item.text}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .milestones { overflow: hidden; border-top: 1px solid var(--line); background: var(--white); }
+  .milestones-head { display: grid; grid-template-columns: minmax(10rem, .36fr) minmax(0, 1.2fr); gap: .7rem clamp(2rem, 6vw, 5rem); align-items: end; }
+  .milestones-head .mono { grid-row: 1 / 3; align-self: start; color: var(--teal); font-size: .68rem; letter-spacing: .08em; }
+  .milestones-head h2 { margin: 0; font-size: clamp(2.3rem, 4.8vw, 4.7rem); line-height: 1.04; letter-spacing: -.05em; text-wrap: balance; }
+  .milestones-head p { margin: 0; color: var(--muted); }
+  .milestone-key { display: flex; justify-content: flex-end; gap: 1.4rem; margin-top: 2rem; color: var(--muted); font-size: .78rem; }
+  .milestone-key span { display: inline-flex; align-items: center; gap: .45rem; }
+  .milestone-key i { width: .58rem; height: .58rem; border-radius: 50%; }
+  .relationship-dot { background: var(--teal); }
+  .recognition-dot { background: #35a6d4; }
+  .milestone-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); margin: 2.2rem 0 0; padding: 0; list-style: none; }
+  .milestone-year { position: relative; min-width: 0; }
+  .year-marker { position: relative; display: grid; min-height: 5.4rem; align-content: start; padding-left: 1rem; border-top: 4px solid #2281bd; }
+  .year-marker::before { content: ''; position: absolute; top: -10px; left: 1rem; width: 12px; height: 12px; border: 3px solid #1766a5; border-radius: 50%; background: var(--white); }
+  .year-marker::after { content: ''; position: absolute; top: 8px; bottom: 0; left: calc(1rem + 7px); width: 1px; background: #9fc9e6; }
+  .year-marker time { margin-top: 1.2rem; color: #0e3766; font: 700 clamp(1.35rem, 2.2vw, 2rem)/1 'IBM Plex Sans', sans-serif; }
+  .milestone-year article { min-height: 24rem; margin-right: .75rem; padding: 1.25rem 1rem 1.5rem; border: 1px solid #bed3df; border-top: 5px solid #1766a5; border-radius: 0 0 12px 12px; background: #f1f7fa; }
+  .milestone-year:last-child article { margin-right: 0; }
+  .milestone-year h3 { margin: 0 0 1rem; color: #173d5d; font-size: 1rem; line-height: 1.3; }
+  .milestone-year ul { display: grid; gap: .8rem; margin: 0; padding: 0; list-style: none; }
+  .milestone-year ul li { position: relative; padding-left: .9rem; color: var(--ink); font-size: .76rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .milestone-year ul li::before { content: ''; position: absolute; top: .48em; left: 0; width: .42rem; height: .42rem; border-radius: 50%; background: var(--teal); }
+  .milestone-year ul li.recognition::before { background: #35a6d4; }
+  .milestone-year a { text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 3px; transition: color .2s ease, text-decoration-color .2s ease; }
+  .milestone-year a:hover { color: var(--teal); text-decoration-color: currentColor; }
+  .milestone-year a:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+  @media (max-width: 1100px) {
+    .milestone-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 0; }
+    .milestone-year article { min-height: 18rem; }
+  }
+  @media (max-width: 680px) {
+    .milestones-head { grid-template-columns: 1fr; }
+    .milestones-head .mono { grid-row: auto; }
+    .milestone-key { align-items: flex-start; flex-direction: column; }
+    .milestone-grid { grid-template-columns: 1fr; gap: 0; margin-top: 2.5rem; }
+    .milestone-year { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); }
+    .year-marker { min-height: 100%; padding-left: 0; border-top: 0; border-right: 2px solid #2281bd; }
+    .year-marker::before { top: 1.35rem; right: -8px; left: auto; }
+    .year-marker::after { display: none; }
+    .year-marker time { margin-top: 1.2rem; font-size: 1.05rem; }
+    .milestone-year article, .milestone-year:last-child article { min-height: 0; margin: 0 0 1rem 1.2rem; border-top-width: 3px; border-radius: 0 0 10px 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .milestone-year a { transition: none; }
+  }
+</style>

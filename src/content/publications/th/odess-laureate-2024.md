@@ -1,7 +1,7 @@
 ---
 kind: award
 title: HealthTAG ได้รับเลือกเป็น ODESS laureate ปี 2024
-summary: "ODESS คัดเลือก HealthTAG เป็น digital health laureate ปี 2024 โดยสถานะ laureate ให้สิทธิ์รับการสนับสนุนด้านเทคนิคและการเงินเป็นเวลา 12 เดือน"
+summary: "ODESS คัดเลือก HealthTAG เป็น digital health laureate ปี 2024 และเป็นโครงการแรกจากประเทศไทยที่ได้รับเลือก พร้อมการสนับสนุนด้านเทคนิคและการเงิน 12 เดือน"
 author: HealthTAG
 locale: th
 translationKey: odess-laureate-2024
@@ -28,6 +28,9 @@ sources:
     url: "https://www.facebook.com/reel/1057181826138578"
     organization: HealthTAG
     type: first-party
+  - label: ข้อมูลยืนยันจาก HealthTAG ว่าเป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก
+    organization: HealthTAG
+    type: owner-confirmed
 images:
   - src: ../../../assets/publications/awards/odess-laureate-2024.jpg
     alt: ภาพประกาศ ODESS Winner Award 2024 ของ HealthTAG
@@ -39,10 +42,11 @@ confirmedResult:
   - "ODESS แสดงชื่อ HealthTAG ในรายชื่อ digital health laureates ปี 2024"
   - "ข้อมูลของ ODESS ระบุว่า HealthTAG เป็นโครงการจากประเทศไทย"
   - "รางวัลของ ODESS ให้สิทธิ์รับการสนับสนุนด้านเทคนิคและการเงินเป็นเวลา 12 เดือน"
+  - "HealthTAG เป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก"
 ---
 
 ## การได้รับเลือกจาก ODESS
 
-ODESS คัดเลือก HealthTAG เป็น digital health laureate ปี 2024 และระบุว่าเป็นโครงการจากประเทศไทย รางวัลของ ODESS ให้สิทธิ์รับการสนับสนุนด้านเทคนิคและการเงินจาก Fondation Pierre Fabre เป็นเวลา 12 เดือน
+ODESS คัดเลือก HealthTAG เป็น digital health laureate ปี 2024 และระบุว่าเป็นโครงการจากประเทศไทย HealthTAG ยืนยันว่าเป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก รางวัลของ ODESS ให้สิทธิ์รับการสนับสนุนด้านเทคนิคและการเงินจาก Fondation Pierre Fabre เป็นเวลา 12 เดือน
 
 ผลงาน "Decentralized Health Care, empowering Well-being Countrywide" มุ่งให้ผู้ป่วยเข้าถึงข้อมูลสุขภาพของตนและสนับสนุนการเชื่อมโยงข้อมูลระหว่างระบบสุขภาพ
