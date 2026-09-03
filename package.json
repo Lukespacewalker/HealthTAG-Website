@@ -18,12 +18,14 @@
   },
   "dependencies": {
     "@ibm/plex": "6.4.1",
-    "astro": "7.2.9"
+    "astro": "7.2.9",
+    "three": "0.185.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
     "@playwright/test": "1.62.1",
+    "@types/three": "0.185.4",
     "parse5": "8.0.1",
     "sharp": "0.35.4",
     "typescript": "5.9.2",

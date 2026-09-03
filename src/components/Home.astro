@@ -202,6 +202,50 @@ const audiences = en ? [
     path: '/investors/',
   },
 ];
+
+const heroPhases = en ? [
+  {
+    number: '01',
+    title: 'Hospital-held records',
+    body: 'Hospitals retain clinical records in their own source systems.',
+  },
+  {
+    number: '02',
+    title: 'Connect to the Wallet',
+    body: 'FHIR provides a standard structure for permitted information exchanged with the Wallet.',
+  },
+  {
+    number: '03',
+    title: 'Authorized data exchange',
+    body: 'After identity and authorization are checked, permitted data can travel along the connections.',
+  },
+  {
+    number: '04',
+    title: 'Consent and access audit',
+    body: 'Consent and access events are recorded on blockchain. Clinical records are not stored there.',
+  },
+] : [
+  {
+    number: '01',
+    title: 'เวชระเบียนอยู่กับโรงพยาบาล',
+    body: 'โรงพยาบาลเก็บเวชระเบียนไว้ในระบบต้นทางของตนเอง',
+  },
+  {
+    number: '02',
+    title: 'เชื่อมต่อเข้าสู่ Wallet',
+    body: 'FHIR กำหนดโครงสร้างมาตรฐานสำหรับแลกเปลี่ยนข้อมูลที่ได้รับอนุญาตกับ Wallet',
+  },
+  {
+    number: '03',
+    title: 'แลกเปลี่ยนข้อมูลที่ได้รับอนุญาต',
+    body: 'หลังตรวจตัวตนและสิทธิ์แล้ว ข้อมูลที่ได้รับอนุญาตจึงเดินทางผ่านเส้นเชื่อมได้',
+  },
+  {
+    number: '04',
+    title: 'บันทึกความยินยอมและการเข้าถึง',
+    body: 'บันทึกเหตุการณ์ความยินยอมและการเข้าถึงลงบนบล็อกเชน โดยไม่เก็บเวชระเบียนไว้บนบล็อกเชน',
+  },
+];
 ---
 
 <Base
@@ -212,44 +256,40 @@ const audiences = en ? [
     : 'HealthTAG จัดโครงสร้างพื้นฐานด้านตัวตน สิทธิ์ การเชื่อมโยงข้อมูล และการตรวจสอบย้อนหลัง สำหรับการแลกเปลี่ยนข้อมูลสุขภาพที่ได้รับอนุญาต'}
 >
   <main>
-    <section class="hero home-hero" data-home-section="hero">
+    <section class="hero home-hero" data-home-section="hero" data-network-hero data-phase="0">
+      <div class="hero-network" aria-hidden="true" data-three-hero></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <div class="eyebrow">{en ? 'Health data infrastructure · Thailand' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพ · ประเทศไทย'}</div>
-          <h1>{en ? 'Trusted health data infrastructure for Thailand' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่ประเทศไทยวางใจได้'}</h1>
-          <p class="vision-line">{en ? 'Your data. Your consent. One connected Thailand.' : 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ'}</p>
+          <h1 aria-label={en ? undefined : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่ประเทศไทยวางใจได้'}>{en ? 'Trusted health data infrastructure for Thailand' : <><span>โครงสร้างพื้นฐาน</span><span>ข้อมูลสุขภาพ</span><span>ที่ประเทศไทย</span><span>วางใจได้</span></>}</h1>
           <p class="hero-body">{en
             ? 'HealthTAG connects hospital systems through open standards and checks identity and access before permitted data is returned. The original clinical records remain in hospital source systems.'
             : 'HealthTAG เชื่อมระบบโรงพยาบาลด้วยมาตรฐานเปิด พร้อมตรวจตัวตนและสิทธิ์ก่อนส่งข้อมูลที่ได้รับอนุญาต โดยเวชระเบียนต้นฉบับยังอยู่ในระบบต้นทางของโรงพยาบาล'}</p>
+          <div class="hero-story" aria-label={en ? 'Conceptual exchange sequence' : 'ลำดับแนวคิดการแลกเปลี่ยนข้อมูล'}>
+            <p class="hero-story-kicker">{en ? 'Authorized exchange' : 'การแลกเปลี่ยนที่ได้รับอนุญาต'}</p>
+            <div class="hero-phase-controls" role="group" aria-label={en ? 'Choose a sequence step' : 'เลือกขั้นตอน'}>
+              {heroPhases.map((phase, index) => (
+                <button type="button" class:list={['hero-phase-control', { active: index === 0 }]} data-hero-phase={index} aria-pressed={index === 0 ? 'true' : 'false'} data-title={phase.title} data-body={phase.body}>
+                  <span>{phase.number}</span><span>{phase.title}</span>
+                </button>
+              ))}
+            </div>
+            <p class="hero-story-status" aria-live="polite" data-hero-status><strong>{heroPhases[0].number} · {heroPhases[0].title}</strong><span>{heroPhases[0].body}</span></p>
+          </div>
           <div class="actions hero-actions">
             <a class="btn primary" href={`${prefix}/platform/`}>{en ? 'Explore the platform' : 'ดูภาพรวมแพลตฟอร์ม'}</a>
             <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
           </div>
+          <p class="hero-story-note">{en ? 'Conceptual view: clinical records remain with hospitals.' : 'ภาพแนวคิด: เวชระเบียนยังอยู่กับโรงพยาบาล'}</p>
+          <button
+            type="button"
+            class="hero-motion-toggle"
+            data-hero-motion-toggle
+            data-pause-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+            data-play-label={en ? 'Play motion' : 'เล่นภาพเคลื่อนไหว'}
+            aria-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+          ><span aria-hidden="true" data-motion-icon>Ⅱ</span><span data-motion-label>{en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}</span></button>
         </div>
-
-        <figure class="system-map">
-          <figcaption>{en ? 'Conceptual responsibility map' : 'ภาพรวมขอบเขตความรับผิดชอบ'}</figcaption>
-          <div class="map-source">
-            <span>{en ? 'Hospital source environment' : 'ระบบต้นทางของโรงพยาบาล'}</span>
-            <strong>HIS</strong>
-            <small>{en ? 'Clinical records stay here' : 'เวชระเบียนอยู่ที่นี่'}</small>
-          </div>
-          <div class="map-path" aria-hidden="true"><span></span><b>FHIR</b><span></span></div>
-          <div class="map-core">
-            <span>HealthTAG</span>
-            <strong>{en ? 'Trust and interoperability infrastructure' : 'โครงสร้างพื้นฐานด้านความไว้วางใจและการเชื่อมโยงข้อมูล'}</strong>
-            <ul>
-              <li>{en ? 'Identity' : 'ตัวตน'}</li>
-              <li>{en ? 'Authorization' : 'สิทธิ์'}</li>
-              <li>{en ? 'Audit' : 'การตรวจสอบ'}</li>
-            </ul>
-          </div>
-          <div class="map-path amber" aria-hidden="true"><span></span><b>{en ? 'Permitted' : 'ได้รับอนุญาต'}</b><span></span></div>
-          <div class="map-output">
-            <span>{en ? 'Patient-facing access' : 'การเข้าถึงสำหรับผู้ป่วย'}</span>
-            <strong>PHR</strong>
-          </div>
-        </figure>
       </div>
     </section>
 
@@ -495,40 +535,403 @@ const audiences = en ? [
   </main>
 </Base>
 
-<style>
-  .home-hero {
-    padding: clamp(4rem, 7vw, 7rem) 0 clamp(4rem, 7vw, 6rem);
-    overflow: hidden;
-    border-bottom: 1px solid var(--line);
-    background:
-      linear-gradient(90deg, color-mix(in srgb, var(--teal) 7%, transparent) 1px, transparent 1px),
-      linear-gradient(color-mix(in srgb, var(--teal) 7%, transparent) 1px, transparent 1px),
-      linear-gradient(145deg, var(--paper) 0%, var(--paper) 58%, #e8f5f0 100%);
-    background-size: 38px 38px, 38px 38px, auto;
-  }
-  .home-hero .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(26rem, .92fr); gap: clamp(2.5rem, 5vw, 5rem); align-items: center; }
-  .home-hero h1 { max-width: 17ch; font-size: clamp(3.1rem, 4.8vw, 5.25rem); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
-  .home-hero .hero-copy > p { max-width: 62ch; }
-  .home-hero .vision-line { margin: 1.3rem 0 0; color: var(--teal); font-size: clamp(1rem, 1.35vw, 1.16rem); font-weight: 600; }
-  .home-hero .hero-body { margin-top: .75rem; font-size: clamp(1rem, 1.35vw, 1.16rem); }
-  .hero-actions { margin-top: clamp(1.6rem, 3vw, 2.25rem); }
+<script>
+  import * as THREE from 'three';
 
-  .system-map { position: relative; min-width: 0; margin: 0; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--line); background: rgba(255,255,255,.92); box-shadow: 0 28px 74px rgba(16, 47, 54, .12); }
-  .system-map::before { content: ''; position: absolute; inset: -1rem 1rem 1rem -1rem; z-index: -1; border: 1px solid #a9d9cf; background: var(--mint); }
-  .system-map figcaption { margin-bottom: 1.2rem; color: var(--muted); font: 600 .7rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
-  .map-source, .map-core, .map-output { display: grid; gap: .35rem; padding: 1rem 1.15rem; border: 1px solid var(--line); background: var(--paper); }
-  .map-source > span, .map-core > span, .map-output > span { color: var(--muted); font: 600 .69rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .04em; text-transform: uppercase; }
-  .map-source strong, .map-output strong { font-size: 1.45rem; letter-spacing: -.03em; }
-  .map-source small { color: var(--muted); }
-  .map-core { color: var(--paper); border-color: var(--ink); background: var(--ink); }
-  .map-core > span { color: #8bd9d1; }
-  .map-core > strong { max-width: 26ch; font-size: clamp(1.15rem, 2vw, 1.55rem); line-height: 1.25; }
-  .map-core ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; margin: .65rem 0 0; padding: 0; list-style: none; }
-  .map-core li { padding-top: .55rem; border-top: 1px solid rgba(221,243,235,.22); color: #bdd0d0; font-size: .74rem; }
-  .map-path { display: grid; grid-template-columns: 1fr auto 1fr; gap: .7rem; align-items: center; min-height: 2.8rem; color: var(--teal); }
-  .map-path span { height: 1px; background: currentColor; }
-  .map-path b { font: 600 .68rem/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .05em; text-transform: uppercase; }
-  .map-path.amber { color: var(--amber); }
+  document.querySelectorAll<HTMLElement>('[data-network-hero]').forEach((hero) => {
+    const controls = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-hero-phase]'));
+    const motionToggle = hero.querySelector<HTMLButtonElement>('[data-hero-motion-toggle]');
+    const motionIcon = motionToggle?.querySelector<HTMLElement>('[data-motion-icon]');
+    const motionLabel = motionToggle?.querySelector<HTMLElement>('[data-motion-label]');
+    const status = hero.querySelector<HTMLElement>('[data-hero-status]');
+    const statusTitle = status?.querySelector<HTMLElement>('strong');
+    const statusBody = status?.querySelector<HTMLElement>('span');
+    if (!controls.length || !statusTitle || !statusBody) return;
+
+    const sceneHost = hero.querySelector<HTMLElement>('[data-three-hero]');
+    let phase = 0;
+    let visible = false;
+    let userControlled = false;
+    let motionPaused = false;
+    let timer: number | undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let updateScene = (_next: number) => {};
+
+    const setPhase = (next: number, byUser = false) => {
+      phase = (next + controls.length) % controls.length;
+      const active = controls[phase];
+      hero.dataset.phase = String(phase);
+      controls.forEach((control, index) => {
+        const selected = index === phase;
+        control.classList.toggle('active', selected);
+        control.setAttribute('aria-pressed', String(selected));
+      });
+      statusTitle.textContent = `${String(phase + 1).padStart(2, '0')} · ${active.dataset.title ?? ''}`;
+      statusBody.textContent = active.dataset.body ?? '';
+      updateScene(phase);
+      hero.dispatchEvent(new CustomEvent('healthtag:hero-phase-change', { detail: { phase } }));
+      if (byUser) {
+        userControlled = true;
+        stop();
+      }
+    };
+
+    const stop = () => {
+      if (timer !== undefined) window.clearInterval(timer);
+      timer = undefined;
+    };
+    const start = () => {
+      if (userControlled || motionPaused || !visible || timer !== undefined || reducedMotion.matches) return;
+      timer = window.setInterval(() => setPhase(phase + 1), 4200);
+    };
+
+    controls.forEach((control, index) => {
+      control.addEventListener('click', () => setPhase(index, true));
+      control.addEventListener('focus', () => stop());
+      control.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const next = event.key === 'ArrowLeft' ? phase - 1 : event.key === 'ArrowRight' ? phase + 1 : event.key === 'Home' ? 0 : controls.length - 1;
+        controls[(next + controls.length) % controls.length].focus();
+        setPhase(next, true);
+      });
+    });
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start(); else stop();
+      setSceneActive(visible && !motionPaused && !reducedMotion.matches);
+    }, { threshold: 0.25 });
+    observer.observe(hero);
+
+    let setSceneActive = (_active: boolean) => {};
+    const onMotionToggle = () => {
+      if (!motionToggle || !motionIcon || !motionLabel) return;
+      motionPaused = !motionPaused;
+      motionIcon.textContent = motionPaused ? '▶' : 'Ⅱ';
+      const nextLabel = motionPaused ? motionToggle.dataset.playLabel ?? '' : motionToggle.dataset.pauseLabel ?? '';
+      motionLabel.textContent = nextLabel;
+      motionToggle.setAttribute('aria-label', nextLabel);
+      if (motionPaused) {
+        stop();
+        setSceneActive(false);
+      } else {
+        userControlled = false;
+        start();
+        setSceneActive(visible && !reducedMotion.matches);
+      }
+    };
+    motionToggle?.addEventListener('click', onMotionToggle);
+
+    if (sceneHost) {
+      try {
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x102f36, 0.052);
+        const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setClearColor(0x102f36, 0);
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.domElement.className = 'hero-network-canvas';
+        sceneHost.append(renderer.domElement);
+
+        const mobile = window.matchMedia('(max-width: 700px)');
+        const sceneTimer = new THREE.Timer();
+        sceneTimer.connect(document);
+        const teal = new THREE.Color(0x70d3c6);
+        const amber = new THREE.Color(0xe2a55c);
+        const nodeMaterial = new THREE.MeshStandardMaterial({ color: 0x1e6970, metalness: 0.42, roughness: 0.3, emissive: 0x0b4549, emissiveIntensity: 1.15 });
+        const trustMaterial = new THREE.MeshStandardMaterial({ color: 0x0b988b, metalness: 0.35, roughness: 0.24, emissive: 0x00766f, emissiveIntensity: 1.45 });
+        const patientMaterial = new THREE.MeshStandardMaterial({ color: 0x28747a, metalness: 0.42, roughness: 0.27, emissive: 0x0d565b, emissiveIntensity: 1.15 });
+        const auditMaterial = new THREE.MeshStandardMaterial({ color: 0x72451b, metalness: 0.32, roughness: 0.34, emissive: 0x7a3f09, emissiveIntensity: 1.2 });
+        const glowMaterial = (color: THREE.ColorRepresentation, opacity = 1) => new THREE.MeshBasicMaterial({ color, transparent: opacity < 1, opacity, blending: THREE.AdditiveBlending, depthWrite: false });
+        const resources: Array<THREE.BufferGeometry | THREE.Material | THREE.Texture> = [nodeMaterial, trustMaterial, patientMaterial, auditMaterial];
+        const root = new THREE.Group();
+        root.position.x = mobile.matches ? .15 : 1.35;
+        scene.add(root);
+        scene.add(new THREE.HemisphereLight(0xa8e6db, 0x071d22, 1.6));
+        const keyLight = new THREE.DirectionalLight(0x9ce8dc, 2.1); keyLight.position.set(-5, 7, 5); scene.add(keyLight);
+        const rimLight = new THREE.PointLight(0x35d8c5, 11, 22); rimLight.position.set(3, 2, 4); scene.add(rimLight);
+        const auditLight = new THREE.PointLight(0xf0a846, 4.5, 14); auditLight.position.set(4, -2, 2); scene.add(auditLight);
+
+        const unitBox = new THREE.BoxGeometry(1, 1, 1);
+        const unitEdges = new THREE.EdgesGeometry(unitBox);
+        const unitPlate = new THREE.BoxGeometry(.72, .035, .72);
+        const tealFrame = new THREE.LineBasicMaterial({ color: teal, transparent: true, opacity: .92 });
+        const amberFrame = new THREE.LineBasicMaterial({ color: amber, transparent: true, opacity: .92 });
+        const tealPlate = glowMaterial(teal, .72);
+        const amberPlate = glowMaterial(amber, .72);
+        resources.push(unitBox, unitEdges, unitPlate, tealFrame, amberFrame, tealPlate, amberPlate);
+
+        const addNode = (position: THREE.Vector3, scale: THREE.Vector3, material: THREE.Material, glow: THREE.ColorRepresentation) => {
+          const group = new THREE.Group(); group.position.copy(position);
+          const body = new THREE.Mesh(unitBox, material); body.scale.copy(scale); group.add(body);
+          const frame = new THREE.LineSegments(unitEdges, glow === amber ? amberFrame : tealFrame); frame.scale.copy(scale); group.add(frame);
+          const plate = new THREE.Mesh(unitPlate, glow === amber ? amberPlate : tealPlate); plate.scale.set(scale.x, 1, scale.z); plate.position.y = scale.y / 2 + .025; group.add(plate);
+          root.add(group); return group;
+        };
+        const crossGeometry = new THREE.BoxGeometry(1, 1, .12);
+        const crossMaterial = glowMaterial(0xddf3eb, .9); resources.push(crossGeometry, crossMaterial);
+        const addMedicalCross = (parent: THREE.Group, size = .28) => {
+          const cross = new THREE.Group();
+          const vertical = new THREE.Mesh(crossGeometry, crossMaterial); vertical.scale.set(size * .32, size, 1); cross.add(vertical);
+          const horizontal = new THREE.Mesh(crossGeometry, crossMaterial); horizontal.scale.set(size, size * .32, 1); cross.add(horizontal);
+          cross.position.set(0, parent.children[0].scale.y / 2 + .08, parent.children[0].scale.z / 2 + .08); parent.add(cross);
+        };
+        // This is a conceptual network: the six identical source boxes are not a
+        // deployment map. The Wallet is a patient-facing access point, not a store
+        // for the hospitals' clinical records.
+        const center = new THREE.Vector3(1.85, .12, 0);
+        const wallet = addNode(center.clone().add(new THREE.Vector3(0, .72, .08)), new THREE.Vector3(1.28, 1.58, .24), patientMaterial, teal);
+        const cardLines = new THREE.Group();
+        [0, 1, 2].forEach((index) => { const line = new THREE.Mesh(new THREE.BoxGeometry(.74 - index * .1, .045, .025), glowMaterial(0xddf3eb, .72)); line.position.set(-.18, .35 - index * .28, .235); cardLines.add(line); resources.push(line.geometry, line.material); });
+        wallet.add(cardLines);
+        const walletHaloPosition = center.clone().add(new THREE.Vector3(0, -.18, 0));
+        const ringRadiusX = mobile.matches ? 2.15 : 2.8;
+        const ringRadiusZ = mobile.matches ? 1.6 : 2.15;
+        const hospitalScale = new THREE.Vector3(.62, .86, .6);
+        const sourcePositions = Array.from({ length: 6 }, (_, index) => {
+          const angle = index * Math.PI * 2 / 6;
+          return new THREE.Vector3(center.x + Math.cos(angle) * ringRadiusX, center.y, Math.sin(angle) * ringRadiusZ);
+        });
+        const sourceHospitals = sourcePositions.map((position) => {
+          const node = addNode(position, hospitalScale, nodeMaterial, teal);
+          addMedicalCross(node, .23);
+          return node;
+        });
+        // The audit layer is intentionally a small, linked record chain: it represents
+        // consent/access events only, never a destination for clinical data.
+        const auditChain = new THREE.Group(); auditChain.position.set(0, -1.9, .45); auditChain.visible = false; root.add(auditChain);
+        // Keep the blocks and their links in one moving group so the audit record
+        // reads as a continuous chain rather than unrelated boxes.
+        const auditRing = new THREE.Group(); auditChain.add(auditRing);
+        const auditBlockGeometry = new THREE.BoxGeometry(.54, .38, .5);
+        const auditBlockEdges = new THREE.EdgesGeometry(auditBlockGeometry);
+        const auditLinkMaterial = new THREE.LineBasicMaterial({ color: amber, transparent: true, opacity: .22 });
+        const auditConnectorMaterial = new THREE.MeshBasicMaterial({ color: amber, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthTest: true, depthWrite: false });
+        resources.push(auditBlockGeometry, auditBlockEdges, auditLinkMaterial, auditConnectorMaterial);
+        const auditBlocks: Array<{ group: THREE.Group; material: THREE.MeshStandardMaterial; base: THREE.Vector3 }> = [];
+        const makeAuditBlock = (position: THREE.Vector3, parent = auditRing) => {
+          const group = new THREE.Group(); group.position.copy(position);
+          const material = auditMaterial.clone(); material.emissiveIntensity = .34; material.transparent = true; material.opacity = .86;
+          const body = new THREE.Mesh(auditBlockGeometry, material);
+          const frame = new THREE.LineSegments(auditBlockEdges, amberFrame); frame.scale.setScalar(1.015);
+          const plate = new THREE.Mesh(unitPlate, amberPlate); plate.scale.set(.54 / .72, 1, .5 / .72); plate.position.y = .215;
+          group.add(body, frame, plate); parent.add(group); resources.push(material);
+          return { group, material, base: position.clone() };
+        };
+        const auditCount = mobile.matches ? 5 : 8;
+        const auditBlockPositions = Array.from({ length: auditCount }, (_, index) => {
+          const progress = index / Math.max(1, auditCount - 1);
+          const spacing = mobile.matches ? .68 : .76;
+          return new THREE.Vector3(-.35 + index * spacing, .1, -.05 + Math.sin(progress * Math.PI) * .34);
+        });
+        auditBlockPositions.forEach((position) => auditBlocks.push(makeAuditBlock(position)));
+        const auditBlockHalfSize = new THREE.Vector3(.27, .19, .25);
+        const blockSurfacePoint = (block: THREE.Vector3, toward: THREE.Vector3) => {
+          const direction = toward.clone().sub(block);
+          const scale = Math.min(
+            auditBlockHalfSize.x / Math.max(Math.abs(direction.x), .0001),
+            auditBlockHalfSize.y / Math.max(Math.abs(direction.y), .0001),
+            auditBlockHalfSize.z / Math.max(Math.abs(direction.z), .0001),
+          );
+          return block.clone().add(direction.multiplyScalar(scale));
+        };
+        auditBlocks.slice(0, -1).forEach((block, index) => {
+          const next = auditBlocks[index + 1];
+          const start = blockSurfacePoint(block.base, next.base);
+          const end = blockSurfacePoint(next.base, block.base);
+          const geometry = new THREE.TubeGeometry(new THREE.LineCurve3(start, end), 4, .018, 6, false);
+          const link = new THREE.Mesh(geometry, auditConnectorMaterial); auditRing.add(link); resources.push(geometry);
+        });
+        const pendingAuditBlock = makeAuditBlock(new THREE.Vector3(1.94, .78, .24));
+        pendingAuditBlock.group.visible = false;
+        const pendingAuditStart = pendingAuditBlock.base.clone();
+        const pendingAuditTarget = blockSurfacePoint(auditBlocks[0].base, auditBlocks[1].base).add(new THREE.Vector3(-.24, .12, 0));
+        const pendingLinkGeometry = new THREE.BufferGeometry();
+        const pendingLinkPositions = new Float32Array(6); pendingLinkGeometry.setAttribute('position', new THREE.BufferAttribute(pendingLinkPositions, 3));
+        const pendingLink = new THREE.Line(pendingLinkGeometry, auditLinkMaterial); pendingLink.visible = false; auditRing.add(pendingLink); resources.push(pendingLinkGeometry);
+        const haloGeometry = new THREE.TorusGeometry(1.7, .016, 8, 80); const haloMaterial = new THREE.MeshBasicMaterial({ color: teal, transparent: true, opacity: .68, blending: THREE.AdditiveBlending, depthWrite: false }); resources.push(haloGeometry, haloMaterial);
+        const halo = new THREE.Mesh(haloGeometry, haloMaterial); halo.rotation.x = Math.PI / 2; halo.position.copy(walletHaloPosition); root.add(halo);
+        const haloOuter = new THREE.Mesh(haloGeometry, new THREE.MeshBasicMaterial({ color: 0x8bd9d1, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthWrite: false })); haloOuter.scale.setScalar(1.55); resources.push(haloOuter.material); haloOuter.rotation.x = Math.PI / 2; haloOuter.position.copy(halo.position); root.add(haloOuter);
+        const person = new THREE.Group();
+        const head = new THREE.Mesh(new THREE.SphereGeometry(.3, 18, 12), glowMaterial(0xddf3eb)); resources.push(head.geometry, head.material); head.position.y = .55; person.add(head);
+        const torso = new THREE.Mesh(new THREE.CapsuleGeometry(.25, .65, 4, 10), glowMaterial(0x70d3c6, .85)); resources.push(torso.geometry, torso.material); torso.position.y = -.05; person.add(torso); person.position.copy(wallet.position).add(new THREE.Vector3(.4, .12, .38)); person.scale.setScalar(.62); root.add(person);
+
+        const makePath = (points: THREE.Vector3[], color: THREE.ColorRepresentation, dashed = false) => {
+          const curve = new THREE.CatmullRomCurve3(points);
+          const geometry = dashed
+            ? new THREE.BufferGeometry().setFromPoints(curve.getPoints(56))
+            : new THREE.TubeGeometry(curve, 56, .014, 6, false);
+          const material = dashed
+            ? new THREE.LineDashedMaterial({ color, transparent: true, opacity: .48, dashSize: .16, gapSize: .14, depthTest: false, depthWrite: false })
+            : new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthTest: true, depthWrite: false });
+          const line = dashed ? new THREE.Line(geometry, material) : new THREE.Mesh(geometry, material);
+          if (dashed && line instanceof THREE.Line) line.computeLineDistances();
+          resources.push(geometry, material); root.add(line);
+          return { curve, line, material, geometry };
+        };
+        const sourcePaths = sourcePositions.map((position) => {
+          const start = position.clone().add(new THREE.Vector3(0, hospitalScale.y / 2 + .06, 0));
+          const end = wallet.position.clone().add(new THREE.Vector3(0, .16, .06));
+          const midpoint = start.clone().lerp(end, .5); midpoint.y = Math.max(start.y, end.y) + .92;
+          return makePath([start, midpoint, end], teal);
+        });
+        sourcePaths.forEach((path) => path.geometry.setDrawRange(0, 0));
+        const auditPath = makePath([wallet.position.clone().add(new THREE.Vector3(.04, -.62, .05)), new THREE.Vector3(2.1, -1.02, -.14), pendingAuditStart.clone()], amber, true);
+        const particles: Array<{ mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; offset: number; layer: number; audit?: boolean }> = [];
+        const particleGeometry = new THREE.SphereGeometry(.07, 10, 8); resources.push(particleGeometry);
+        const addParticles = (path: { curve: THREE.CatmullRomCurve3 }, color: THREE.ColorRepresentation, layer: number, count: number, audit = false) => {
+          for (let index = 0; index < count; index += 1) { const material = glowMaterial(color); resources.push(material); const mesh = new THREE.Mesh(particleGeometry, material); root.add(mesh); particles.push({ mesh, curve: path.curve, offset: index / count, layer, audit }); }
+        };
+        // Links become visible in phase 02; particles wait until phase 03, after
+        // the conceptual identity/authorization gate is active.
+        sourcePaths.forEach((path) => addParticles(path, teal, 2, mobile.matches ? 1 : 2));
+        addParticles(auditPath, amber, 3, mobile.matches ? 1 : 3, true);
+
+        const stars = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0x8bd9d1, size: .032, transparent: true, opacity: .34, depthWrite: false }));
+        const starCount = mobile.matches ? 42 : 110; const positions = new Float32Array(starCount * 3);
+        for (let index = 0; index < starCount; index += 1) { positions[index * 3] = (Math.random() - .5) * 15; positions[index * 3 + 1] = (Math.random() - .5) * 8; positions[index * 3 + 2] = -3 - Math.random() * 5; }
+        stars.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)); resources.push(stars.geometry, stars.material); root.add(stars);
+
+        const floorVertices: number[] = []; const hexRadius = .54;
+        for (let row = -9; row <= 9; row += 1) for (let column = -14; column <= 14; column += 1) {
+          const x = column * hexRadius * 1.73 + (row & 1 ? hexRadius * .86 : 0) + 1.9; const z = row * hexRadius * 1.5;
+          for (let side = 0; side < 6; side += 1) { const a = Math.PI / 3 * side; const b = Math.PI / 3 * (side + 1); floorVertices.push(x + Math.cos(a) * hexRadius, 0, z + Math.sin(a) * hexRadius, x + Math.cos(b) * hexRadius, 0, z + Math.sin(b) * hexRadius); }
+        }
+        const floorGeometry = new THREE.BufferGeometry(); floorGeometry.setAttribute('position', new THREE.Float32BufferAttribute(floorVertices, 3));
+        const floor = new THREE.LineSegments(floorGeometry, new THREE.LineBasicMaterial({ color: 0x3bcabd, transparent: true, opacity: .19 })); floor.position.y = -2.28; resources.push(floorGeometry, floor.material); root.add(floor);
+
+        let running = false; let pointerX = 0; let pointerY = 0;
+        let targetPhase = 0;
+        let scenePhase = 0;
+        const resize = () => { const { width, height } = sceneHost.getBoundingClientRect(); if (!width || !height) return; const preferredRatio = Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.5); const maxPixels = mobile.matches ? 1_400_000 : 2_600_000; const pixelRatio = Math.min(preferredRatio, Math.sqrt(maxPixels / (width * height))); renderer.setPixelRatio(pixelRatio); renderer.setSize(width, height, false); camera.aspect = width / height; camera.position.set(mobile.matches ? 2.25 : -.2, mobile.matches ? 6.6 : 6.2, mobile.matches ? 14.7 : 14.8); camera.lookAt(mobile.matches ? 2.15 : .92, .25, 0); camera.updateProjectionMatrix(); };
+        const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(sceneHost); resize();
+        const onPointerMove = (event: PointerEvent) => { if (mobile.matches || reducedMotion.matches) return; const rect = sceneHost.getBoundingClientRect(); pointerX = ((event.clientX - rect.left) / rect.width - .5) * .45; pointerY = ((event.clientY - rect.top) / rect.height - .5) * .25; };
+        hero.addEventListener('pointermove', onPointerMove);
+        updateScene = (next) => {
+          targetPhase = next;
+          if (reducedMotion.matches) scenePhase = next;
+        };
+        const render = (timestamp?: number) => {
+          sceneTimer.update(timestamp); const elapsed = sceneTimer.getElapsed();
+          scenePhase += (targetPhase - scenePhase) * .055;
+          root.rotation.y += (pointerX + Math.sin(elapsed * .14) * .055 - root.rotation.y) * .025; root.rotation.x += (pointerY - root.rotation.x) * .025;
+          const connectionProgress = THREE.MathUtils.smoothstep(scenePhase, .05, .95);
+          const dataProgress = THREE.MathUtils.smoothstep(scenePhase, 1.05, 1.95);
+          const auditProgress = THREE.MathUtils.smoothstep(scenePhase, 2.05, 2.95);
+          wallet.position.y = center.y + .72 + Math.sin(elapsed * 1.15) * .08;
+          halo.rotation.z = elapsed * .18; haloOuter.rotation.z = -elapsed * .1;
+          person.position.y = wallet.position.y + .12 + Math.sin(elapsed * 1.4) * .035;
+          sourceHospitals.forEach((node, index) => { node.position.y = sourcePositions[index].y; });
+          sourcePaths.forEach((path, index) => {
+            const stagger = THREE.MathUtils.clamp(connectionProgress * 1.6 - index * .12, 0, 1);
+            const drawCount = path.geometry.index?.count ?? path.geometry.getAttribute('position').count;
+            path.geometry.setDrawRange(0, Math.floor(drawCount * stagger / 6) * 6);
+            path.material.opacity = stagger * .96;
+          });
+          wallet.scale.setScalar(.93 + connectionProgress * .11 + dataProgress * .03);
+          const auditCycle = reducedMotion.matches ? 4.3 : elapsed % 5.4;
+          const auditActive = auditProgress > .02;
+          const auditPhaseActive = targetPhase === controls.length - 1 && auditActive && !reducedMotion.matches;
+          auditChain.visible = auditProgress > .01;
+          auditChain.scale.setScalar(.86 + auditProgress * .18);
+          auditRing.rotation.y = 0;
+          auditRing.position.x = auditPhaseActive ? Math.sin(elapsed * .38) * .34 : 0;
+          auditRing.position.z = auditPhaseActive ? Math.cos(elapsed * .38) * .08 : 0;
+          amberFrame.opacity = .05 + auditProgress * .87;
+          amberPlate.opacity = .04 + auditProgress * .68;
+          auditLight.intensity = .25 + auditProgress * 4.75;
+          auditPath.material.opacity = auditActive && auditCycle < 1.12 ? auditProgress * .95 : auditActive ? auditProgress * .28 : .01;
+          const settle = Math.min(1, Math.max(0, (auditCycle - .92) / .72));
+          const pulse = Math.min(1, Math.max(0, (auditCycle - 1.7) / 2.25));
+          const pendingVisible = auditActive && auditCycle < 4.75;
+          pendingAuditBlock.group.visible = pendingVisible;
+          pendingLink.visible = auditActive && settle > .72 && auditCycle < 4.75;
+          if (pendingVisible) {
+            const easedSettle = settle * settle * (3 - 2 * settle);
+            pendingAuditBlock.group.position.lerpVectors(pendingAuditStart, pendingAuditTarget, easedSettle);
+            pendingAuditBlock.material.opacity = auditCycle > 4.25 ? Math.max(0, (4.75 - auditCycle) / .5) : .92;
+            const linkPositions = pendingLinkGeometry.getAttribute('position') as THREE.BufferAttribute;
+            const blockSurface = blockSurfacePoint(auditBlocks[0].base, pendingAuditBlock.group.position);
+            const pendingSurface = blockSurfacePoint(pendingAuditBlock.group.position, auditBlocks[0].base);
+            linkPositions.setXYZ(0, pendingSurface.x, pendingSurface.y, pendingSurface.z);
+            linkPositions.setXYZ(1, blockSurface.x, blockSurface.y, blockSurface.z);
+            linkPositions.needsUpdate = true;
+          } else {
+            pendingAuditBlock.group.position.copy(pendingAuditStart);
+          }
+          auditBlocks.forEach((block, index) => {
+            const distance = Math.abs(index / Math.max(1, auditBlocks.length - 1) - pulse);
+            const confirmation = auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? Math.max(0, 1 - distance * 5.4) : 0;
+            block.material.emissiveIntensity = (.08 + auditProgress * .26) + confirmation * .7;
+            block.material.opacity = (.04 + auditProgress * .66) + confirmation * .22;
+          });
+          auditLinkMaterial.opacity = (.02 + auditProgress * .4) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .26 : 0);
+          auditConnectorMaterial.opacity = (.02 + auditProgress * .5) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .24 : 0);
+          pendingAuditBlock.material.emissiveIntensity = auditActive ? .42 + (settle > .96 ? .4 : .08) : .08;
+          particles.forEach((particle) => {
+            if (particle.audit) {
+              const progress = auditCycle / .92 - particle.offset * .46;
+              const allowed = auditActive && auditCycle < .98 && progress >= 0 && progress <= 1;
+              particle.mesh.visible = allowed;
+              if (allowed) particle.mesh.position.copy(particle.curve.getPointAt(progress));
+              return;
+            }
+            const allowed = dataProgress > .02; particle.mesh.visible = allowed;
+            (particle.mesh.material as THREE.MeshBasicMaterial).opacity = dataProgress;
+            if (allowed) particle.mesh.position.copy(particle.curve.getPointAt((elapsed * .14 + particle.offset) % 1));
+          });
+          stars.rotation.y = elapsed * .012; renderer.render(scene, camera);
+        };
+        setSceneActive = (active) => { if (reducedMotion.matches) { renderer.setAnimationLoop(null); render(); return; } if (active && !running) { running = true; sceneTimer.reset(); renderer.setAnimationLoop(render); } else if (!active && running) { running = false; renderer.setAnimationLoop(null); } };
+        const onMotionChange = () => { if (reducedMotion.matches) { setPhase(controls.length - 1); } setSceneActive(visible && !motionPaused && !reducedMotion.matches); };
+        reducedMotion.addEventListener('change', onMotionChange);
+        const dispose = () => { observer.disconnect(); stop(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); hero.removeEventListener('pointermove', onPointerMove); motionToggle?.removeEventListener('click', onMotionToggle); reducedMotion.removeEventListener('change', onMotionChange); sceneTimer.dispose(); resources.forEach((resource) => resource.dispose()); renderer.dispose(); renderer.domElement.remove(); };
+        window.addEventListener('pagehide', dispose, { once: true });
+        document.addEventListener('astro:before-swap', dispose, { once: true });
+        updateScene(phase);
+      } catch {
+        sceneHost.classList.add('hero-network-fallback');
+      }
+    }
+    if (reducedMotion.matches) setPhase(controls.length - 1);
+  });
+</script>
+
+<style>
+  .home-hero { position: relative; isolation: isolate; min-height: calc(100svh - 76px); padding: clamp(4rem, 9vw, 8.5rem) env(safe-area-inset-right) clamp(3.5rem, 7vw, 6.5rem) env(safe-area-inset-left); overflow: hidden; color: var(--paper); border-bottom: 1px solid #21474b; background: var(--ink); }
+  .home-hero .container { width: min(calc(100% - 48px), 1280px); }
+  .hero-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(circle at 78% 43%, rgba(0,160,145,.56), transparent 34%), linear-gradient(115deg, #102f36 0%, #102f36 38%, #0b292f 100%); }
+  .hero-network::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(16,47,54,1) 0%, rgba(16,47,54,.98) 38%, rgba(16,47,54,.76) 49%, rgba(16,47,54,.14) 70%, rgba(16,47,54,.42) 100%); }
+  .hero-network-canvas { display: block; width: 100%; height: 100%; opacity: 1; }
+  .hero-network-fallback { background: radial-gradient(circle at 74% 40%, rgba(0,118,111,.42), transparent 25%), linear-gradient(125deg, #102f36, #0d292f); }
+  .home-hero .hero-grid { grid-template-columns: minmax(0, 36rem) 1fr; align-items: center; min-height: inherit; }
+  .home-hero .hero-copy { grid-column: 1; max-width: 36rem; }
+  .home-hero h1 { max-width: 15ch; overflow-wrap: anywhere; font-size: clamp(3.1rem, 5vw, 5.7rem); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
+  .home-hero h1:lang(th) { max-width: none; font-size: clamp(2.9rem, 4.2vw, 4.8rem); letter-spacing: -.045em; }
+  .home-hero h1 span { display: block; }
+  .home-hero .hero-copy > p { max-width: 62ch; color: #c6d7d6; }
+  .home-hero .eyebrow { color: #8bd9d1; }
+  .home-hero .hero-body { margin-top: 1.15rem; font-size: clamp(1rem, 1.35vw, 1.16rem); }
+  .hero-actions { margin-top: clamp(1.35rem, 2.4vw, 1.75rem); }
+  .home-hero .btn.secondary { color: var(--paper); border-color: rgba(221,243,235,.5); }
+  .home-hero .btn.secondary:hover { color: var(--ink); border-color: var(--mint); background: var(--mint); }
+  .hero-story { max-width: 34rem; margin-top: clamp(1.35rem, 2.6vw, 1.8rem); }
+  .hero-story-kicker, .hero-story-note { margin: 0; color: #8bd9d1; font: 600 .68rem/1.45 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .hero-story-status { display: grid; gap: .3rem; margin: .9rem 0 0; color: #c6d7d6; line-height: 1.45; }
+  .hero-story-status strong { color: var(--paper); font-size: clamp(1rem, 1.5vw, 1.2rem); letter-spacing: -.025em; }
+  .hero-phase-controls { display: grid; max-width: 31rem; margin-top: .7rem; border-top: 1px solid rgba(221,243,235,.24); border-bottom: 1px solid rgba(221,243,235,.24); }
+  .hero-phase-control { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: .45rem; min-width: 0; padding: .42rem .55rem; touch-action: manipulation; color: #b5cbca; text-align: left; border: 0; border-bottom: 1px solid rgba(221,243,235,.18); background: transparent; font: inherit; font-size: .78rem; line-height: 1.3; }
+  .hero-phase-control:last-child { border-bottom: 0; }
+  .hero-phase-control > span:first-child { color: #8bd9d1; font: 600 .67rem/1.45 'IBM Plex Mono', ui-monospace, monospace; }
+  .hero-phase-control:hover, .hero-phase-control.active { color: var(--paper); background: rgba(112,211,198,.12); }
+  .hero-phase-control.active > span:first-child { color: #ffd7a1; }
+  .hero-phase-control:focus-visible { outline: 3px solid #ffd7a1; outline-offset: -2px; }
+  .hero-story-note { margin-top: .85rem; color: #b5cbca; font-size: .61rem; letter-spacing: .035em; text-transform: none; }
+  .hero-motion-toggle { display: inline-flex; gap: .45rem; align-items: center; margin-top: .55rem; padding: .25rem 0; touch-action: manipulation; color: #b5cbca; border: 0; background: transparent; font: 600 .7rem/1.4 'IBM Plex Mono', ui-monospace, monospace; }
+  .hero-motion-toggle:hover { color: var(--paper); }
+  .hero-motion-toggle:focus-visible { outline: 3px solid #ffd7a1; outline-offset: 3px; }
 
   .trust-bar { padding: 0 0 clamp(2.8rem, 5vw, 4.5rem); border-bottom: 1px solid var(--line); background: var(--white); }
   .trust-bar-frame { border-inline: 1px solid var(--line); }
@@ -640,7 +1043,9 @@ const audiences = en ? [
   @media (max-width: 820px) {
     .home-hero .hero-grid, .featured-story-grid, .latest-news-block, .governance-head, .governance-grid, .split-head, .audience-grid, .phr-proof-grid, .real-world-section .case-spread { grid-template-columns: 1fr; }
     .home-hero h1 { max-width: 12ch; }
-    .system-map { margin: 1rem 1rem 0 0; }
+    .home-hero { min-height: 0; }
+    .hero-network::after { background: linear-gradient(180deg, rgba(16,47,54,.9), rgba(16,47,54,.78) 62%, rgba(16,47,54,.96)); }
+    .home-hero .hero-grid { min-height: 0; }
     .governance-head { align-items: start; }
     .governance-grid article, .governance-grid article + article { padding: 1.65rem 0; border-left: 0; border-bottom: 1px solid rgba(221,243,235,.2); }
     .governance-grid article:last-child { border-bottom: 0; }
@@ -664,15 +1069,16 @@ const audiences = en ? [
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-motion-toggle { display: none; }
     .trust-bar-list a, .trust-bar-list i { transition: none; }
   }
 
   @media (max-width: 620px) {
     .home-hero { padding-top: 3.25rem; }
-    .home-hero h1 { font-size: clamp(2.8rem, 13vw, 4rem); }
-    .system-map { margin-right: .7rem; }
-    .system-map::before { inset: -.7rem .7rem .7rem -.7rem; }
-    .map-core ul { grid-template-columns: 1fr; }
+    .home-hero .container { width: min(calc(100% - 28px), 1280px); }
+    .home-hero h1 { max-width: none; font-size: clamp(2.55rem, 12vw, 3.6rem); letter-spacing: -.05em; }
+    .home-hero .hero-copy > p { overflow-wrap: anywhere; }
+    .hero-network::after { background: linear-gradient(180deg, rgba(16,47,54,.88), rgba(16,47,54,.68) 58%, rgba(16,47,54,.96)); }
     .proof-band-head { display: grid; align-items: start; }
     .proof-row, .capability-grid { grid-template-columns: 1fr; }
     .proof-item, .proof-item + .proof-item { padding: 1.25rem 2.3rem 1.25rem 0; border-left: 0; border-bottom: 1px solid var(--line); }
