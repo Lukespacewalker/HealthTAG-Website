@@ -161,6 +161,9 @@ const { locale } = Astro.props;
 </script>
 
 <style>
+  :global(.home-hero .hero-network-canvas:not(.hero-network-flagship-canvas)) {
+    opacity: 0;
+  }
   :global(.home-hero.flagship-network-hero .hero-network::after) {
     background:
       radial-gradient(circle at 72% 44%, rgba(112, 211, 198, .07), transparent 28%),
