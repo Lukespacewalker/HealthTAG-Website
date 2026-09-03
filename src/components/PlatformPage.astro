@@ -86,13 +86,13 @@ const proofItems = evidence.filter((item) => proofIds.includes(item.id));
 
 const audienceRoutes = en
   ? [
-      ['Hospital leaders', 'Compare the two confirmed hospital integration paths and the responsibilities that remain with each hospital.', `${prefix}/deployments/`, 'Review deployments'],
+      ['Hospital leaders', 'Compare the confirmed deployment models and the responsibilities that remain with each institution.', `${prefix}/deployments/`, 'Review deployments'],
       ['Hospital IT teams', 'Review ingestion options, FHIR components, access checks, and the hospital-side architecture.', `${prefix}/interoperability/`, 'Open the technical overview'],
       ['Public-sector and university partners', 'Check externally sourced programme, sandbox, award, and collaboration records.', `${prefix}/evidence/`, 'Review evidence'],
       ['Patients and general visitors', 'See how authorized records can appear in a Personal Health Record.', `${prefix}/phr/`, 'Explore PHR'],
     ]
   : [
-      ['ผู้บริหารโรงพยาบาล', 'เปรียบเทียบแนวทางเชื่อมระบบของโรงพยาบาลสองแห่ง และดูหน้าที่ที่ยังอยู่กับแต่ละโรงพยาบาล', `${prefix}/deployments/`, 'ดูการใช้งานจริง'],
+      ['ผู้บริหารโรงพยาบาล', 'เปรียบเทียบรูปแบบการติดตั้งที่ยืนยันแล้ว และดูหน้าที่ที่ยังอยู่กับแต่ละหน่วยงาน', `${prefix}/deployments/`, 'ดูการใช้งานจริง'],
       ['ทีม IT โรงพยาบาล', 'ดูวิธีนำข้อมูลเข้า องค์ประกอบ FHIR การตรวจสิทธิ์ และขอบเขตทางเทคนิคของระบบปัจจุบัน', `${prefix}/interoperability/`, 'ดูรายละเอียดทางเทคนิค'],
       ['หน่วยงานภาครัฐและมหาวิทยาลัย', 'ตรวจสอบข้อมูลโครงการ sandbox รางวัล และความร่วมมือจากแหล่งภายนอก', `${prefix}/evidence/`, 'ดูหลักฐาน'],
       ['ผู้ป่วยและผู้สนใจทั่วไป', 'ดูวิธีที่เวชระเบียนตามสิทธิ์ปรากฏในสมุดสุขภาพส่วนบุคคล', `${prefix}/phr/`, 'ดู PHR'],
@@ -282,8 +282,8 @@ const audienceRoutes = en
         </div>
         <div class="deployment-proof">
           <span class="proof-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span>
-          <div><h3>{en ? 'Siriraj and Khian Sa' : 'ศิริราชและเคียนซา'}</h3><p>{en ? 'Two confirmed hospital cases use different HIS-to-FHIR ingestion paths.' : 'กรณีโรงพยาบาลที่ยืนยันแล้วสองแห่งใช้วิธีนำข้อมูลจาก HIS เข้า FHIR ต่างกัน'}</p></div>
-          <a href={`${prefix}/deployments/`}>{en ? 'Compare both cases' : 'เปรียบเทียบทั้งสองกรณี'} <span aria-hidden="true">→</span></a>
+          <div><h3>{en ? 'Siriraj, Khian Sa, and MU Health Data Network' : 'ศิริราช เคียนซา และ MU Health Data Network'}</h3><p>{en ? 'The confirmed deployments use hospital-managed scripts, HealthTAG FHIR Transformer, and a multi-institution network model.' : 'การติดตั้งที่ยืนยันแล้วใช้ทั้งสคริปต์ของโรงพยาบาล HealthTAG FHIR Transformer และเครือข่ายที่เชื่อมหลายหน่วยงาน'}</p></div>
+          <a href={`${prefix}/deployments/`}>{en ? 'Compare the deployment models' : 'เปรียบเทียบรูปแบบการติดตั้ง'} <span aria-hidden="true">→</span></a>
         </div>
         <div class="proof-grid">
           {proofItems.map((item) => (

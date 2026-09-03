@@ -162,7 +162,7 @@ const capabilities = en ? [
 const audiences = en ? [
   {
     label: 'Hospital leadership',
-    body: 'Compare the integration paths used at Siriraj and Khian Sa.',
+    body: 'Compare the deployment models used at Siriraj, Khian Sa, and MU Health Data Network.',
     path: '/deployments/',
   },
   {
@@ -183,7 +183,7 @@ const audiences = en ? [
 ] : [
   {
     label: 'ผู้บริหารโรงพยาบาล',
-    body: 'เปรียบเทียบวิธีเชื่อมระบบที่ศิริราชและเคียนซาใช้',
+    body: 'เปรียบเทียบรูปแบบการติดตั้งที่ศิริราช เคียนซา และ MU Health Data Network',
     path: '/deployments/',
   },
   {
@@ -396,11 +396,11 @@ const audiences = en ? [
         <div class="section-head split-head">
           <div>
             <div class="eyebrow">{en ? 'Deployment examples' : 'ตัวอย่างการติดตั้งใช้งาน'}</div>
-            <h2>{en ? 'Two hospitals, two integration paths' : 'สองโรงพยาบาล สองแนวทางเชื่อมระบบ'}</h2>
+            <h2>{en ? 'Three deployment models' : 'การติดตั้งใช้งาน 3 รูปแบบ'}</h2>
           </div>
           <p>{en
-            ? 'Siriraj uses a script developed by its hospital IT team. Khian Sa uses HealthTAG FHIR Transformer.'
-            : 'ศิริราชใช้สคริปต์ที่ทีม IT ของโรงพยาบาลพัฒนาเอง ส่วนเคียนซาใช้ HealthTAG FHIR Transformer'}</p>
+            ? 'Siriraj uses a hospital-developed script. Khian Sa uses HealthTAG FHIR Transformer. MU Health Data Network connects five live institutions.'
+            : 'ศิริราชใช้สคริปต์ที่ทีมโรงพยาบาลพัฒนาเอง เคียนซาใช้ HealthTAG FHIR Transformer ส่วน MU Health Data Network เชื่อม 5 หน่วยงานที่เปิดใช้งานจริง'}</p>
         </div>
         <div class="case-spread">
           <article>
@@ -418,6 +418,14 @@ const audiences = en ? [
               ? 'The Khian Sa installation uses HealthTAG FHIR Transformer to connect selected HIS data to the hospital FHIR R4 environment.'
               : 'การติดตั้งที่เคียนซาใช้ HealthTAG FHIR Transformer เชื่อมข้อมูล HIS ที่เลือกเข้าสู่ระบบ FHIR R4 ของโรงพยาบาล'}</p>
             <a href={`${prefix}/deployments/#khian-sa`}>{en ? 'Read the Khian Sa case' : 'อ่านกรณีเคียนซา'} <span aria-hidden="true">→</span></a>
+          </article>
+          <article>
+            <div class="kicker">MU Health Data Network</div>
+            <h3>{en ? 'Five live institutions and 60,000 active users' : '5 หน่วยงานที่เปิดใช้งานจริง ผู้ใช้งาน 60,000 คน'}</h3>
+            <p>{en
+              ? 'HealthTAG is the technology partner for MU Health Data Network and MU Health Wallet. The network is live across five Mahidol University institutions.'
+              : 'HealthTAG เป็น Technology Partner ของ MU Health Data Network และ MU Health Wallet โดยเครือข่ายเปิดใช้งานจริงใน 5 หน่วยงานของมหาวิทยาลัยมหิดล'}</p>
+            <a href={`${prefix}/deployments/#mu-health-data-network`}>{en ? 'Read the MU Health Data Network case' : 'อ่านกรณี MU Health Data Network'} <span aria-hidden="true">→</span></a>
           </article>
         </div>
       </div>
@@ -592,6 +600,8 @@ const audiences = en ? [
   .capability-grid i { font-style: normal; }
 
   .audience-section { padding: clamp(4.5rem, 8vw, 7rem) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--mint); }
+  .real-world-section .case-spread { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .real-world-section .case-spread article:nth-child(3) { background: #eef3f1; }
   .audience-grid { display: grid; grid-template-columns: minmax(17rem, .75fr) minmax(0, 1.25fr); gap: clamp(2.5rem, 8vw, 7rem); }
   .audience-intro { align-self: start; position: sticky; top: 7rem; }
   .audience-intro h2 { margin: .65rem 0 1rem; font-size: clamp(2rem, 4vw, 4rem); line-height: 1.08; letter-spacing: -.05em; text-wrap: balance; }
@@ -619,6 +629,7 @@ const audiences = en ? [
   .founder-section { border-top: 1px solid var(--line); }
 
   @media (max-width: 960px) {
+    .real-world-section .case-spread { grid-template-columns: 1fr; }
     .trust-bar-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .trust-bar-list li:nth-child(4) { border-left: 0; }
     .trust-bar-list li:nth-child(-n + 3) { border-bottom: 1px solid var(--line); }
@@ -627,7 +638,7 @@ const audiences = en ? [
   }
 
   @media (max-width: 820px) {
-    .home-hero .hero-grid, .featured-story-grid, .latest-news-block, .governance-head, .governance-grid, .split-head, .audience-grid, .phr-proof-grid { grid-template-columns: 1fr; }
+    .home-hero .hero-grid, .featured-story-grid, .latest-news-block, .governance-head, .governance-grid, .split-head, .audience-grid, .phr-proof-grid, .real-world-section .case-spread { grid-template-columns: 1fr; }
     .home-hero h1 { max-width: 12ch; }
     .system-map { margin: 1rem 1rem 0 0; }
     .governance-head { align-items: start; }

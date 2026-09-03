@@ -124,13 +124,15 @@ test('contact uses direct email links and does not collect a message on the webs
   await expect(page.locator('.topic-grid')).toContainText('นักลงทุนสัมพันธ์');
 });
 
-test('network relationships are presented as current network relationships', async ({ page }) => {
+test('network presents relationship types in its four current groups', async ({ page }) => {
   await page.goto('/network/');
   await expect(page.locator('body')).not.toContainText('เครือข่ายในอดีต');
-  await expect(page.locator('.relationship-badge', { hasText: 'เครือข่าย' }).first()).toBeVisible();
+  await expect(page.locator('[data-network-group]')).toHaveCount(4);
+  await expect(page.locator('[data-network-group="deployments"] .relationship-badge', { hasText: 'การติดตั้งใช้งานจริง' }).first()).toBeVisible();
   await page.goto('/en/network/');
   await expect(page.locator('body')).not.toContainText('Historical Network');
-  await expect(page.locator('.relationship-badge', { hasText: 'Network' }).first()).toBeVisible();
+  await expect(page.locator('[data-network-group]')).toHaveCount(4);
+  await expect(page.locator('[data-network-group="government"] .relationship-badge', { hasText: 'Sandbox certified' })).toBeVisible();
 });
 
 test('support separates the recommended and legacy reader paths', async ({ page }) => {

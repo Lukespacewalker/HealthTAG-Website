@@ -153,11 +153,11 @@ const businessModel = en
             : 'โครงการ รางวัล การเข้าร่วม sandbox ความร่วมมือที่ประกาศแล้ว และการติดตั้งในโรงพยาบาลมีขอบเขตต่างกัน'}</p>
         </div>
         <article class="deployment-record">
-          <div><span class="record-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span><h3>{en ? 'Two hospital integration paths' : 'สองแนวทางเชื่อมระบบโรงพยาบาล'}</h3></div>
+          <div><span class="record-type">{en ? 'Deployment' : 'การใช้งานจริง'}</span><h3>{en ? 'Three confirmed deployment models' : 'สามรูปแบบการติดตั้งที่ยืนยันแล้ว'}</h3></div>
           <p>{en
-            ? 'Siriraj uses a hospital-developed HIS-to-FHIR script. Khian Sa uses HealthTAG FHIR Transformer for four confirmed FHIR resources.'
-            : 'ศิริราชใช้ HIS-to-FHIR script ที่ทีมโรงพยาบาลพัฒนาเอง ส่วนเคียนซาใช้ HealthTAG FHIR Transformer สำหรับ FHIR resources ที่ยืนยันแล้ว 4 ประเภท'}</p>
-          <a href={`${prefix}/deployments/`}>{en ? 'Compare the Siriraj and Khian Sa deployments' : 'เปรียบเทียบการติดตั้งที่ศิริราชและเคียนซา'} <span aria-hidden="true">→</span></a>
+            ? 'Siriraj uses a hospital-developed HIS-to-FHIR script. Khian Sa uses HealthTAG FHIR Transformer. MU Health Data Network connects five live institutions and 60,000 active users.'
+            : 'ศิริราชใช้ HIS-to-FHIR script ที่ทีมโรงพยาบาลพัฒนาเอง เคียนซาใช้ HealthTAG FHIR Transformer ส่วน MU Health Data Network เชื่อม 5 หน่วยงานที่เปิดใช้งานจริงและมีผู้ใช้งานจริง 60,000 คน'}</p>
+          <a href={`${prefix}/deployments/`}>{en ? 'Compare the deployment models' : 'เปรียบเทียบรูปแบบการติดตั้ง'} <span aria-hidden="true">→</span></a>
         </article>
         <div class="evidence-grid">
           {investmentEvidence.map((item) => (
