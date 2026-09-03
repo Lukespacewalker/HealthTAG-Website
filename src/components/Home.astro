@@ -678,10 +678,16 @@ const heroPhases = en ? [
           const horizontal = new THREE.Mesh(crossGeometry, crossMaterial); horizontal.scale.set(size, size * .32, 1); cross.add(horizontal);
           cross.position.set(0, parent.children[0].scale.y / 2 + .08, parent.children[0].scale.z / 2 + .08); parent.add(cross);
         };
-        const hospital = addNode(new THREE.Vector3(-1.75, 1.05, .6), new THREE.Vector3(1.55, 1.02, 1.18), nodeMaterial, teal); addMedicalCross(hospital, .42);
-        const fhir = addNode(new THREE.Vector3(.55, .58, -.1), new THREE.Vector3(1.15, .9, 1.05), nodeMaterial, teal);
-        const trust = addNode(new THREE.Vector3(2.55, 1.32, 0), new THREE.Vector3(1.95, 1.95, 1.62), trustMaterial, teal);
-        const phr = addNode(new THREE.Vector3(5.55, 1.18, .35), new THREE.Vector3(1.3, 1.95, .34), patientMaterial, teal);
+        // The composition deliberately uses a wide ring of source hospitals around a
+        // small central exchange. It is a conceptual network, not a deployment map.
+        const hospital = addNode(new THREE.Vector3(-2.9, .42, .86), new THREE.Vector3(.72, 1.15, .68), nodeMaterial, teal); addMedicalCross(hospital, .28);
+        const fhir = addNode(new THREE.Vector3(1.25, .05, -.08), new THREE.Vector3(.82, .56, .76), nodeMaterial, teal);
+        const trust = addNode(new THREE.Vector3(2.28, .55, -.12), new THREE.Vector3(.72, .82, .68), trustMaterial, teal);
+        // The patient-facing outcome is a floating card, rather than a data store.
+        const phr = addNode(new THREE.Vector3(2.28, 1.72, .1), new THREE.Vector3(1.32, 1.72, .22), patientMaterial, teal);
+        const cardLines = new THREE.Group();
+        [0, 1, 2].forEach((index) => { const line = new THREE.Mesh(new THREE.BoxGeometry(.74 - index * .1, .045, .025), glowMaterial(0xddf3eb, .72)); line.position.set(-.18, .35 - index * .28, .235); cardLines.add(line); resources.push(line.geometry, line.material); });
+        phr.add(cardLines);
         // The audit layer is intentionally a small, linked record chain: it represents
         // consent/access events only, never a destination for clinical data.
         const auditChain = new THREE.Group(); auditChain.position.set(0, -1.9, .45); root.add(auditChain);
@@ -699,28 +705,37 @@ const heroPhases = en ? [
           group.add(body, frame, plate); auditChain.add(group); resources.push(material);
           return { group, material, base: position.clone() };
         };
-        const auditBlockPositions = Array.from({ length: mobile.matches ? 5 : 6 }, (_, index) => new THREE.Vector3(3.45 + index * .62, 0, .12 + (index % 2 ? -.08 : .08)));
+        const auditCount = mobile.matches ? 5 : 8;
+        const auditBlockPositions = Array.from({ length: auditCount }, (_, index) => {
+          const angle = Math.PI * (.15 + index / Math.max(1, auditCount - 1) * .7);
+          return new THREE.Vector3(.2 + Math.cos(angle) * 2.55, .05 + Math.sin(angle) * .18, .15 + Math.sin(angle) * .48);
+        });
         auditBlockPositions.forEach((position) => auditBlocks.push(makeAuditBlock(position)));
         auditBlocks.slice(0, -1).forEach((block, index) => {
           const next = auditBlocks[index + 1];
           const geometry = new THREE.BufferGeometry().setFromPoints([block.base.clone().add(new THREE.Vector3(.28, 0, 0)), next.base.clone().add(new THREE.Vector3(-.28, 0, 0))]);
           const link = new THREE.Line(geometry, auditLinkMaterial); auditChain.add(link); resources.push(geometry);
         });
-        const pendingAuditBlock = makeAuditBlock(new THREE.Vector3(2.72, .62, .26));
+        const pendingAuditBlock = makeAuditBlock(new THREE.Vector3(1.94, .78, .24));
         pendingAuditBlock.group.visible = false;
         const pendingAuditStart = pendingAuditBlock.base.clone();
-        const pendingAuditTarget = new THREE.Vector3(2.82, 0, .26);
+        const pendingAuditTarget = auditBlocks[0].base.clone().add(new THREE.Vector3(-.58, .12, .1));
         const pendingLinkGeometry = new THREE.BufferGeometry();
         const pendingLinkPositions = new Float32Array(6); pendingLinkGeometry.setAttribute('position', new THREE.BufferAttribute(pendingLinkPositions, 3));
         const pendingLink = new THREE.Line(pendingLinkGeometry, auditLinkMaterial); pendingLink.visible = false; auditChain.add(pendingLink); resources.push(pendingLinkGeometry);
-        const sourcePositions = [new THREE.Vector3(-.9, 2.85, -1), new THREE.Vector3(.75, 3.15, -.9), new THREE.Vector3(2.8, 3.35, -.75), new THREE.Vector3(4.85, 2.85, -.8), new THREE.Vector3(5.85, -.05, -.7), new THREE.Vector3(2.2, -.52, -.9)];
-        sourcePositions.forEach((position) => { const node = addNode(position, new THREE.Vector3(.62, .44, .56), nodeMaterial, teal); addMedicalCross(node, .2); });
-        const haloGeometry = new THREE.TorusGeometry(2.35, .018, 8, 72); const haloMaterial = new THREE.MeshBasicMaterial({ color: teal, transparent: true, opacity: .74, blending: THREE.AdditiveBlending, depthWrite: false }); resources.push(haloGeometry, haloMaterial);
-        const halo = new THREE.Mesh(haloGeometry, haloMaterial); halo.rotation.x = Math.PI / 2; halo.position.copy(trust.position); halo.position.y = -.02; root.add(halo);
-        const haloOuter = new THREE.Mesh(haloGeometry, new THREE.MeshBasicMaterial({ color: 0x8bd9d1, transparent: true, opacity: .27, blending: THREE.AdditiveBlending, depthWrite: false })); haloOuter.scale.setScalar(1.28); resources.push(haloOuter.material); haloOuter.rotation.x = Math.PI / 2; haloOuter.position.copy(trust.position); haloOuter.position.y = -.04; root.add(haloOuter);
+        const sourcePositions = [new THREE.Vector3(-2.05, 2.45, -1.15), new THREE.Vector3(.05, 3.18, -1.32), new THREE.Vector3(2.3, 3.28, -1.05), new THREE.Vector3(4.38, 2.38, -1.15), new THREE.Vector3(5.25, .55, -.9), new THREE.Vector3(4.15, -.72, -.9), new THREE.Vector3(.35, -.88, -1.1)];
+        const sourceHospitals = sourcePositions.map((position, index) => {
+          const width = index % 3 === 0 ? .7 : .58;
+          const node = addNode(position, new THREE.Vector3(width, .86 + (index % 2) * .24, .62), nodeMaterial, teal);
+          addMedicalCross(node, .23);
+          return node;
+        });
+        const haloGeometry = new THREE.TorusGeometry(1.7, .016, 8, 80); const haloMaterial = new THREE.MeshBasicMaterial({ color: teal, transparent: true, opacity: .68, blending: THREE.AdditiveBlending, depthWrite: false }); resources.push(haloGeometry, haloMaterial);
+        const halo = new THREE.Mesh(haloGeometry, haloMaterial); halo.rotation.x = Math.PI / 2; halo.position.set(2.28, -.56, -.12); root.add(halo);
+        const haloOuter = new THREE.Mesh(haloGeometry, new THREE.MeshBasicMaterial({ color: 0x8bd9d1, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthWrite: false })); haloOuter.scale.setScalar(1.55); resources.push(haloOuter.material); haloOuter.rotation.x = Math.PI / 2; haloOuter.position.copy(halo.position); root.add(haloOuter);
         const person = new THREE.Group();
         const head = new THREE.Mesh(new THREE.SphereGeometry(.3, 18, 12), glowMaterial(0xddf3eb)); resources.push(head.geometry, head.material); head.position.y = .55; person.add(head);
-        const torso = new THREE.Mesh(new THREE.CapsuleGeometry(.25, .65, 4, 10), glowMaterial(0x70d3c6, .85)); resources.push(torso.geometry, torso.material); torso.position.y = -.05; person.add(torso); person.position.set(5.55, 1.28, .3); root.add(person);
+        const torso = new THREE.Mesh(new THREE.CapsuleGeometry(.25, .65, 4, 10), glowMaterial(0x70d3c6, .85)); resources.push(torso.geometry, torso.material); torso.position.y = -.05; person.add(torso); person.position.set(2.68, 1.66, .38); person.scale.setScalar(.62); root.add(person);
 
         const makePath = (points: THREE.Vector3[], color: THREE.ColorRepresentation, dashed = false) => {
           const curve = new THREE.CatmullRomCurve3(points);
@@ -729,19 +744,28 @@ const heroPhases = en ? [
           const line = new THREE.Line(geometry, material); if (dashed) line.computeLineDistances(); resources.push(geometry, material); root.add(line);
           return { curve, line, material };
         };
-        const dataPaths = [
-          makePath([new THREE.Vector3(-.95, 1.05, .55), new THREE.Vector3(-.45, 1.75, -.3), new THREE.Vector3(.05, .58, -.1)], teal),
-          makePath([new THREE.Vector3(1.1, .58, -.1), new THREE.Vector3(1.55, .3, -.45), new THREE.Vector3(1.6, 1.32, 0)], teal),
-          makePath([new THREE.Vector3(3.55, 1.32, 0), new THREE.Vector3(4.2, 2.25, -.2), new THREE.Vector3(4.75, 1.18, .25), new THREE.Vector3(4.9, 1.18, .35)], teal),
+        const sourcePaths = [
+          makePath([hospital.position.clone().add(new THREE.Vector3(0, -.32, 0)), new THREE.Vector3(-.8, 1.35, -.5), fhir.position.clone()], teal),
+          ...sourcePositions.map((position) => makePath([
+            position.clone().add(new THREE.Vector3(0, -.32, 0)),
+            position.clone().lerp(fhir.position, .48).add(new THREE.Vector3(0, .3, -.48)),
+            fhir.position.clone(),
+          ], teal)),
         ];
-        sourcePositions.forEach((position) => makePath([position.clone().add(new THREE.Vector3(0, -.28, 0)), position.clone().lerp(new THREE.Vector3(.55, .58, -.1), .55).add(new THREE.Vector3(0, .2, -.35)), new THREE.Vector3(.05, .58, -.1)], teal));
-        const auditPath = makePath([new THREE.Vector3(2.55, .15, .05), new THREE.Vector3(2.65, -1.02, -.08), new THREE.Vector3(2.72, -1.28, .26)], amber, true);
+        const gatePath = makePath([fhir.position.clone().add(new THREE.Vector3(.4, 0, 0)), new THREE.Vector3(1.72, .18, -.48), trust.position.clone().add(new THREE.Vector3(-.35, 0, 0))], teal);
+        const phrPath = makePath([trust.position.clone().add(new THREE.Vector3(0, .48, 0)), new THREE.Vector3(2.7, 1.25, -.25), phr.position.clone().add(new THREE.Vector3(.02, -.36, 0))], teal);
+        const dataPaths = [...sourcePaths, gatePath, phrPath];
+        const auditPath = makePath([trust.position.clone().add(new THREE.Vector3(0, -.48, .05)), new THREE.Vector3(2.1, -1.02, -.14), pendingAuditStart.clone()], amber, true);
         const particles: Array<{ mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; offset: number; layer: number; audit?: boolean }> = [];
         const particleGeometry = new THREE.SphereGeometry(.07, 10, 8); resources.push(particleGeometry);
         const addParticles = (path: { curve: THREE.CatmullRomCurve3 }, color: THREE.ColorRepresentation, layer: number, count: number, audit = false) => {
           for (let index = 0; index < count; index += 1) { const material = glowMaterial(color); resources.push(material); const mesh = new THREE.Mesh(particleGeometry, material); root.add(mesh); particles.push({ mesh, curve: path.curve, offset: index / count, layer, audit }); }
         };
-        dataPaths.forEach((path, index) => addParticles(path, teal, index < 2 ? 1 : 2, mobile.matches ? 1 : 3));
+        // Links become visible in phase 02; particles wait until phase 03, after
+        // the conceptual identity/authorization gate is active.
+        sourcePaths.forEach((path) => addParticles(path, teal, 2, mobile.matches ? 1 : 2));
+        addParticles(gatePath, teal, 2, mobile.matches ? 1 : 2);
+        addParticles(phrPath, teal, 2, mobile.matches ? 1 : 3);
         addParticles(auditPath, amber, 3, mobile.matches ? 1 : 3, true);
 
         const stars = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0x8bd9d1, size: .032, transparent: true, opacity: .34, depthWrite: false }));
@@ -750,12 +774,12 @@ const heroPhases = en ? [
         stars.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)); resources.push(stars.geometry, stars.material); root.add(stars);
 
         const floorVertices: number[] = []; const hexRadius = .54;
-        for (let row = -6; row <= 6; row += 1) for (let column = -9; column <= 9; column += 1) {
-          const x = column * hexRadius * 1.73 + (row & 1 ? hexRadius * .86 : 0) + 2.1; const z = row * hexRadius * 1.5;
+        for (let row = -9; row <= 9; row += 1) for (let column = -14; column <= 14; column += 1) {
+          const x = column * hexRadius * 1.73 + (row & 1 ? hexRadius * .86 : 0) + 1.9; const z = row * hexRadius * 1.5;
           for (let side = 0; side < 6; side += 1) { const a = Math.PI / 3 * side; const b = Math.PI / 3 * (side + 1); floorVertices.push(x + Math.cos(a) * hexRadius, 0, z + Math.sin(a) * hexRadius, x + Math.cos(b) * hexRadius, 0, z + Math.sin(b) * hexRadius); }
         }
         const floorGeometry = new THREE.BufferGeometry(); floorGeometry.setAttribute('position', new THREE.Float32BufferAttribute(floorVertices, 3));
-        const floor = new THREE.LineSegments(floorGeometry, new THREE.LineBasicMaterial({ color: 0x3bcabd, transparent: true, opacity: .24 })); floor.position.y = -2.31; resources.push(floorGeometry, floor.material); root.add(floor);
+        const floor = new THREE.LineSegments(floorGeometry, new THREE.LineBasicMaterial({ color: 0x3bcabd, transparent: true, opacity: .19 })); floor.position.y = -2.28; resources.push(floorGeometry, floor.material); root.add(floor);
 
         let running = false; let pointerX = 0; let pointerY = 0;
         const resize = () => { const { width, height } = sceneHost.getBoundingClientRect(); if (!width || !height) return; const preferredRatio = Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.5); const maxPixels = mobile.matches ? 1_400_000 : 2_600_000; const pixelRatio = Math.min(preferredRatio, Math.sqrt(maxPixels / (width * height))); renderer.setPixelRatio(pixelRatio); renderer.setSize(width, height, false); camera.aspect = width / height; camera.position.set(mobile.matches ? 2.6 : -.35, mobile.matches ? 6.8 : 5.55, mobile.matches ? 14.5 : 13.4); camera.lookAt(mobile.matches ? 2.8 : .85, .35, 0); camera.updateProjectionMatrix(); };
@@ -763,28 +787,35 @@ const heroPhases = en ? [
         const onPointerMove = (event: PointerEvent) => { if (mobile.matches || reducedMotion.matches) return; const rect = sceneHost.getBoundingClientRect(); pointerX = ((event.clientX - rect.left) / rect.width - .5) * .45; pointerY = ((event.clientY - rect.top) / rect.height - .5) * .25; };
         hero.addEventListener('pointermove', onPointerMove);
         updateScene = (next) => {
-          const activeNodes = [[hospital], [hospital, fhir], [trust, phr]][next] ?? [];
-          [hospital, fhir, trust, phr].forEach((node) => { node.scale.setScalar(activeNodes.includes(node) ? 1.08 : 1); });
+          const activeNodes = next === 0 ? [hospital, ...sourceHospitals] : next === 1 ? [hospital, ...sourceHospitals, fhir] : [fhir, trust, phr];
+          [hospital, ...sourceHospitals, fhir, trust, phr].forEach((node) => { node.scale.setScalar(activeNodes.includes(node) ? 1.06 : 1); });
           auditChain.scale.setScalar(next === 3 ? 1.04 : 1);
-          dataPaths.forEach((path, index) => path.material.opacity = next >= (index < 2 ? 1 : 2) ? .88 : .19);
-          auditPath.material.opacity = next === 3 ? .95 : .18;
-          auditLight.intensity = next === 3 ? 5 : 2.1;
+          amberFrame.opacity = next === 3 ? .92 : .2;
+          amberPlate.opacity = next === 3 ? .72 : .12;
+          dataPaths.forEach((path, index) => {
+            const threshold = index < sourcePaths.length ? 1 : 2;
+            path.material.opacity = next >= threshold ? .82 : .045;
+          });
+          auditPath.material.opacity = next === 3 ? .95 : .04;
+          auditLight.intensity = next === 3 ? 5 : .45;
           rimLight.intensity = next + 3;
           if (next !== 3) {
             pendingAuditBlock.group.visible = false;
             pendingAuditBlock.group.position.copy(pendingAuditStart);
             pendingAuditBlock.material.emissiveIntensity = .34;
-            auditBlocks.forEach((block) => { block.material.emissiveIntensity = .34; block.material.opacity = .7; });
-            auditLinkMaterial.opacity = .16;
+            auditBlocks.forEach((block) => { block.material.emissiveIntensity = .08; block.material.opacity = .18; });
+            auditLinkMaterial.opacity = .05;
           }
         };
         const render = (timestamp?: number) => {
           sceneTimer.update(timestamp); const elapsed = sceneTimer.getElapsed();
-          root.rotation.y += (pointerX - root.rotation.y) * .025; root.rotation.x += (pointerY - root.rotation.x) * .025;
-          trust.rotation.y = Math.sin(elapsed * .7) * .06; halo.rotation.z = elapsed * .18; haloOuter.rotation.z = -elapsed * .1; person.position.y = 1.28 + Math.sin(elapsed * 1.4) * .06;
+          root.rotation.y += (pointerX + Math.sin(elapsed * .14) * .055 - root.rotation.y) * .025; root.rotation.x += (pointerY - root.rotation.x) * .025;
+          trust.rotation.y = Math.sin(elapsed * .7) * .06; phr.position.y = 1.72 + Math.sin(elapsed * 1.15) * .08; halo.rotation.z = elapsed * .18; haloOuter.rotation.z = -elapsed * .1; person.position.y = phr.position.y - .06 + Math.sin(elapsed * 1.4) * .035;
+          sourceHospitals.forEach((node, index) => { node.position.y = sourcePositions[index].y + Math.sin(elapsed * .72 + index) * .035; });
+          hospital.position.y = .42 + Math.sin(elapsed * .72) * .035;
           const auditCycle = reducedMotion.matches ? 4.3 : elapsed % 5.4;
           const auditActive = phase === 3 && !reducedMotion.matches;
-          auditPath.material.opacity = auditActive && auditCycle < 1.12 ? .95 : auditActive ? .28 : .18;
+          auditPath.material.opacity = auditActive && auditCycle < 1.12 ? .95 : auditActive ? .28 : .04;
           const settle = Math.min(1, Math.max(0, (auditCycle - .92) / .72));
           const pulse = Math.min(1, Math.max(0, (auditCycle - 1.7) / 2.25));
           const pendingVisible = auditActive && auditCycle < 4.75;
@@ -804,10 +835,10 @@ const heroPhases = en ? [
           auditBlocks.forEach((block, index) => {
             const distance = Math.abs(index / Math.max(1, auditBlocks.length - 1) - pulse);
             const confirmation = auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? Math.max(0, 1 - distance * 5.4) : 0;
-            block.material.emissiveIntensity = .34 + confirmation * .7;
-            block.material.opacity = .7 + confirmation * .22;
+            block.material.emissiveIntensity = (auditActive ? .34 : .08) + confirmation * .7;
+            block.material.opacity = (auditActive ? .7 : .18) + confirmation * .22;
           });
-          auditLinkMaterial.opacity = .16 + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .2 : 0);
+          auditLinkMaterial.opacity = (auditActive ? .16 : .05) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .2 : 0);
           pendingAuditBlock.material.emissiveIntensity = auditActive ? .42 + (settle > .96 ? .4 : .08) : .34;
           particles.forEach((particle) => {
             if (particle.audit) {
