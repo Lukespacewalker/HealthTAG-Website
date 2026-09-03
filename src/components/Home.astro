@@ -257,41 +257,7 @@ const heroPhases = en ? [
 >
   <main>
     <section class="hero home-hero" data-home-section="hero" data-network-hero data-phase="0">
-      <div class="hero-network" aria-hidden="true">
-        <svg viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <pattern id="hero-grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M 48 0 L 0 0 0 48" fill="none" stroke="currentColor" stroke-width="1" /></pattern>
-          </defs>
-          <rect width="1440" height="720" fill="url(#hero-grid)" class="network-grid" />
-          <circle cx="1040" cy="270" r="250" class="network-halo" />
-          <path class="data-path path-source" d="M180 240 H420 C455 240 467 300 505 300 H690" />
-          <path class="data-path path-fhir" d="M690 300 H825" />
-          <path class="data-path path-authorized" d="M1000 300 H1110 C1150 300 1160 240 1200 240 H1320" />
-          <path class="audit-path path-audit" d="M915 370 V510 H1120" />
-          <path class="pulse path-source" d="M180 240 H420 C455 240 467 300 505 300 H690" pathLength="100" />
-          <path class="pulse path-fhir" d="M690 300 H825" pathLength="100" />
-          <path class="pulse path-authorized" d="M1000 300 H1110 C1150 300 1160 240 1200 240 H1320" pathLength="100" />
-          <path class="pulse path-audit" d="M915 370 V510 H1120" pathLength="100" />
-          <g class="network-node node-hospital" transform="translate(72 171)">
-            <rect width="215" height="138" rx="8" /><text x="20" y="34" class="node-kicker">{en ? 'HOSPITAL SOURCE' : 'ระบบต้นทางโรงพยาบาล'}</text><text x="20" y="76" class="node-title">HIS</text><text x="20" y="109" class="node-copy">{en ? 'Clinical records stay here' : 'เวชระเบียนอยู่ที่นี่'}</text>
-          </g>
-          <g class="network-node node-fhir" transform="translate(690 240)">
-            <rect width="135" height="120" rx="8" /><text x="18" y="33" class="node-kicker">FHIR</text><text x="18" y="71" class="node-title node-title-small">{en ? 'OPEN' : 'มาตรฐาน'}</text><text x="18" y="94" class="node-copy">{en ? 'standards' : 'เปิด'}</text>
-          </g>
-          <g class="network-node node-trust" transform="translate(825 202)">
-            <rect width="175" height="172" rx="8" /><text x="20" y="35" class="node-kicker">HEALTHTAG</text><text x="20" y="74" class="node-title node-title-small">{en ? 'IDENTITY' : 'ตัวตน'}</text><text x="20" y="101" class="node-title node-title-small">{en ? '+ ACCESS' : '+ สิทธิ์'}</text><text x="20" y="137" class="node-copy">{en ? 'checked before access' : 'ตรวจสอบก่อนเข้าถึง'}</text>
-          </g>
-          <g class="network-node node-phr" transform="translate(1200 171)">
-            <rect width="172" height="138" rx="8" /><text x="20" y="34" class="node-kicker">{en ? 'PATIENT ACCESS' : 'การเข้าถึงของผู้ป่วย'}</text><text x="20" y="76" class="node-title">PHR</text><text x="20" y="109" class="node-copy">{en ? 'Permitted access' : 'เข้าถึงตามสิทธิ์'}</text>
-          </g>
-          <g class="network-node node-audit" transform="translate(1120 459)">
-            <rect width="230" height="103" rx="8" /><text x="20" y="34" class="node-kicker">{en ? 'AUDIT LAYER' : 'ชั้นบันทึกเหตุการณ์'}</text><text x="20" y="67" class="node-title node-title-small">{en ? 'CONSENT + ACCESS' : 'ความยินยอม + การเข้าถึง'}</text><text x="20" y="87" class="node-copy">{en ? 'events only' : 'บันทึกเฉพาะเหตุการณ์'}</text>
-          </g>
-          <g class="path-label label-fhir"><rect x="535" y="270" width="92" height="28" rx="14" /><text x="581" y="289">FHIR</text></g>
-          <g class="path-label label-permission"><rect x="1030" y="270" width="105" height="28" rx="14" /><text x="1082" y="289">{en ? 'PERMITTED' : 'ได้รับสิทธิ์'}</text></g>
-          <g class="path-label label-audit"><rect x="955" y="481" width="86" height="28" rx="14" /><text x="998" y="500">{en ? 'AUDIT' : 'บันทึก'}</text></g>
-        </svg>
-      </div>
+      <div class="hero-network" aria-hidden="true" data-three-hero></div>
       <div class="container hero-grid">
         <div class="hero-copy">
           <div class="eyebrow">{en ? 'Health data infrastructure · Thailand' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพ · ประเทศไทย'}</div>
@@ -564,6 +530,8 @@ const heroPhases = en ? [
 </Base>
 
 <script>
+  import * as THREE from 'three';
+
   document.querySelectorAll<HTMLElement>('[data-network-hero]').forEach((hero) => {
     const controls = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-hero-phase]'));
     const status = hero.querySelector<HTMLElement>('[data-hero-status]');
@@ -571,10 +539,13 @@ const heroPhases = en ? [
     const statusBody = status?.querySelector<HTMLElement>('span');
     if (!controls.length || !statusTitle || !statusBody) return;
 
+    const sceneHost = hero.querySelector<HTMLElement>('[data-three-hero]');
     let phase = 0;
     let visible = false;
     let userControlled = false;
     let timer: number | undefined;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let updateScene = (_next: number) => {};
 
     const setPhase = (next: number, byUser = false) => {
       phase = (next + controls.length) % controls.length;
@@ -587,6 +558,8 @@ const heroPhases = en ? [
       });
       statusTitle.textContent = `${String(phase + 1).padStart(2, '0')} · ${active.dataset.title ?? ''}`;
       statusBody.textContent = active.dataset.body ?? '';
+      updateScene(phase);
+      hero.dispatchEvent(new CustomEvent('healthtag:hero-phase-change', { detail: { phase } }));
       if (byUser) {
         userControlled = true;
         stop();
@@ -598,7 +571,7 @@ const heroPhases = en ? [
       timer = undefined;
     };
     const start = () => {
-      if (userControlled || !visible || timer !== undefined || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (userControlled || !visible || timer !== undefined || reducedMotion.matches) return;
       timer = window.setInterval(() => setPhase(phase + 1), 4200);
     };
 
@@ -617,38 +590,151 @@ const heroPhases = en ? [
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) start(); else stop();
+      setSceneActive(visible && !reducedMotion.matches);
     }, { threshold: 0.25 });
     observer.observe(hero);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setPhase(controls.length - 1);
+
+    let setSceneActive = (_active: boolean) => {};
+
+    if (sceneHost) {
+      try {
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x102f36, 0.052);
+        const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setClearColor(0x102f36, 0);
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.domElement.className = 'hero-network-canvas';
+        sceneHost.append(renderer.domElement);
+
+        const mobile = window.matchMedia('(max-width: 700px)');
+        const sceneTimer = new THREE.Timer();
+        sceneTimer.connect(document);
+        const teal = new THREE.Color(0x70d3c6);
+        const amber = new THREE.Color(0xe2a55c);
+        const nodeMaterial = new THREE.MeshStandardMaterial({ color: 0x1e6970, metalness: 0.42, roughness: 0.3, emissive: 0x0b4549, emissiveIntensity: 1.15 });
+        const trustMaterial = new THREE.MeshStandardMaterial({ color: 0x0b988b, metalness: 0.35, roughness: 0.24, emissive: 0x00766f, emissiveIntensity: 1.45 });
+        const patientMaterial = new THREE.MeshStandardMaterial({ color: 0x28747a, metalness: 0.42, roughness: 0.27, emissive: 0x0d565b, emissiveIntensity: 1.15 });
+        const auditMaterial = new THREE.MeshStandardMaterial({ color: 0x72451b, metalness: 0.32, roughness: 0.34, emissive: 0x7a3f09, emissiveIntensity: 1.2 });
+        const glowMaterial = (color: THREE.ColorRepresentation, opacity = 1) => new THREE.MeshBasicMaterial({ color, transparent: opacity < 1, opacity, blending: THREE.AdditiveBlending, depthWrite: false });
+        const resources: Array<THREE.BufferGeometry | THREE.Material | THREE.Texture> = [nodeMaterial, trustMaterial, patientMaterial, auditMaterial];
+        const root = new THREE.Group();
+        scene.add(root);
+        scene.add(new THREE.HemisphereLight(0xa8e6db, 0x071d22, 1.6));
+        const keyLight = new THREE.DirectionalLight(0x9ce8dc, 2.1); keyLight.position.set(-5, 7, 5); scene.add(keyLight);
+        const rimLight = new THREE.PointLight(0x35d8c5, 11, 22); rimLight.position.set(3, 2, 4); scene.add(rimLight);
+        const auditLight = new THREE.PointLight(0xf0a846, 4.5, 14); auditLight.position.set(4, -2, 2); scene.add(auditLight);
+
+        const unitBox = new THREE.BoxGeometry(1, 1, 1);
+        const unitEdges = new THREE.EdgesGeometry(unitBox);
+        const unitPlate = new THREE.BoxGeometry(.72, .035, .72);
+        const tealFrame = new THREE.LineBasicMaterial({ color: teal, transparent: true, opacity: .92 });
+        const amberFrame = new THREE.LineBasicMaterial({ color: amber, transparent: true, opacity: .92 });
+        const tealPlate = glowMaterial(teal, .72);
+        const amberPlate = glowMaterial(amber, .72);
+        resources.push(unitBox, unitEdges, unitPlate, tealFrame, amberFrame, tealPlate, amberPlate);
+
+        const addNode = (position: THREE.Vector3, scale: THREE.Vector3, material: THREE.Material, glow: THREE.ColorRepresentation) => {
+          const group = new THREE.Group(); group.position.copy(position);
+          const body = new THREE.Mesh(unitBox, material); body.scale.copy(scale); group.add(body);
+          const frame = new THREE.LineSegments(unitEdges, glow === amber ? amberFrame : tealFrame); frame.scale.copy(scale); group.add(frame);
+          const plate = new THREE.Mesh(unitPlate, glow === amber ? amberPlate : tealPlate); plate.scale.set(scale.x, 1, scale.z); plate.position.y = scale.y / 2 + .025; group.add(plate);
+          root.add(group); return group;
+        };
+        const crossGeometry = new THREE.BoxGeometry(1, 1, .12);
+        const crossMaterial = glowMaterial(0xddf3eb, .9); resources.push(crossGeometry, crossMaterial);
+        const addMedicalCross = (parent: THREE.Group, size = .28) => {
+          const cross = new THREE.Group();
+          const vertical = new THREE.Mesh(crossGeometry, crossMaterial); vertical.scale.set(size * .32, size, 1); cross.add(vertical);
+          const horizontal = new THREE.Mesh(crossGeometry, crossMaterial); horizontal.scale.set(size, size * .32, 1); cross.add(horizontal);
+          cross.position.set(0, parent.children[0].scale.y / 2 + .08, parent.children[0].scale.z / 2 + .08); parent.add(cross);
+        };
+        const hospital = addNode(new THREE.Vector3(-1.75, 1.05, .6), new THREE.Vector3(1.55, 1.02, 1.18), nodeMaterial, teal); addMedicalCross(hospital, .42);
+        const fhir = addNode(new THREE.Vector3(.55, .58, -.1), new THREE.Vector3(1.15, .9, 1.05), nodeMaterial, teal);
+        const trust = addNode(new THREE.Vector3(2.55, 1.32, 0), new THREE.Vector3(1.95, 1.95, 1.62), trustMaterial, teal);
+        const phr = addNode(new THREE.Vector3(5.55, 1.18, .35), new THREE.Vector3(1.3, 1.95, .34), patientMaterial, teal);
+        const audit = addNode(new THREE.Vector3(4.35, -1.9, .45), new THREE.Vector3(2.4, .76, 1.22), auditMaterial, amber);
+        const sourcePositions = [new THREE.Vector3(-.9, 2.85, -1), new THREE.Vector3(.75, 3.15, -.9), new THREE.Vector3(2.8, 3.35, -.75), new THREE.Vector3(4.85, 2.85, -.8), new THREE.Vector3(5.85, -.05, -.7), new THREE.Vector3(2.2, -.52, -.9)];
+        sourcePositions.forEach((position) => { const node = addNode(position, new THREE.Vector3(.62, .44, .56), nodeMaterial, teal); addMedicalCross(node, .2); });
+        const haloGeometry = new THREE.TorusGeometry(2.35, .018, 8, 72); const haloMaterial = new THREE.MeshBasicMaterial({ color: teal, transparent: true, opacity: .74, blending: THREE.AdditiveBlending, depthWrite: false }); resources.push(haloGeometry, haloMaterial);
+        const halo = new THREE.Mesh(haloGeometry, haloMaterial); halo.rotation.x = Math.PI / 2; halo.position.copy(trust.position); halo.position.y = -.02; root.add(halo);
+        const haloOuter = new THREE.Mesh(haloGeometry, new THREE.MeshBasicMaterial({ color: 0x8bd9d1, transparent: true, opacity: .27, blending: THREE.AdditiveBlending, depthWrite: false })); haloOuter.scale.setScalar(1.28); resources.push(haloOuter.material); haloOuter.rotation.x = Math.PI / 2; haloOuter.position.copy(trust.position); haloOuter.position.y = -.04; root.add(haloOuter);
+        const person = new THREE.Group();
+        const head = new THREE.Mesh(new THREE.SphereGeometry(.3, 18, 12), glowMaterial(0xddf3eb)); resources.push(head.geometry, head.material); head.position.y = .55; person.add(head);
+        const torso = new THREE.Mesh(new THREE.CapsuleGeometry(.25, .65, 4, 10), glowMaterial(0x70d3c6, .85)); resources.push(torso.geometry, torso.material); torso.position.y = -.05; person.add(torso); person.position.set(5.55, 1.28, .3); root.add(person);
+
+        const makePath = (points: THREE.Vector3[], color: THREE.ColorRepresentation, dashed = false) => {
+          const curve = new THREE.CatmullRomCurve3(points);
+          const geometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(56));
+          const material = new THREE.LineDashedMaterial({ color, transparent: true, opacity: .48, dashSize: dashed ? .16 : 1, gapSize: dashed ? .14 : 0, linewidth: 1 });
+          const line = new THREE.Line(geometry, material); if (dashed) line.computeLineDistances(); resources.push(geometry, material); root.add(line);
+          return { curve, line, material };
+        };
+        const dataPaths = [
+          makePath([new THREE.Vector3(-.95, 1.05, .55), new THREE.Vector3(-.45, 1.75, -.3), new THREE.Vector3(.05, .58, -.1)], teal),
+          makePath([new THREE.Vector3(1.1, .58, -.1), new THREE.Vector3(1.55, .3, -.45), new THREE.Vector3(1.6, 1.32, 0)], teal),
+          makePath([new THREE.Vector3(3.55, 1.32, 0), new THREE.Vector3(4.2, 2.25, -.2), new THREE.Vector3(4.75, 1.18, .25), new THREE.Vector3(4.9, 1.18, .35)], teal),
+        ];
+        sourcePositions.forEach((position) => makePath([position.clone().add(new THREE.Vector3(0, -.28, 0)), position.clone().lerp(new THREE.Vector3(.55, .58, -.1), .55).add(new THREE.Vector3(0, .2, -.35)), new THREE.Vector3(.05, .58, -.1)], teal));
+        const auditPath = makePath([new THREE.Vector3(2.55, .15, .05), new THREE.Vector3(2.75, -1.25, -.2), new THREE.Vector3(3.15, -1.9, .25)], amber, true);
+        const particles: Array<{ mesh: THREE.Mesh; curve: THREE.CatmullRomCurve3; offset: number; layer: number }> = [];
+        const particleGeometry = new THREE.SphereGeometry(.07, 10, 8); resources.push(particleGeometry);
+        const addParticles = (path: { curve: THREE.CatmullRomCurve3 }, color: THREE.ColorRepresentation, layer: number, count: number) => {
+          for (let index = 0; index < count; index += 1) { const material = glowMaterial(color); resources.push(material); const mesh = new THREE.Mesh(particleGeometry, material); root.add(mesh); particles.push({ mesh, curve: path.curve, offset: index / count, layer }); }
+        };
+        dataPaths.forEach((path, index) => addParticles(path, teal, index < 2 ? 1 : 2, mobile.matches ? 1 : 3));
+        addParticles(auditPath, amber, 3, mobile.matches ? 1 : 3);
+
+        const stars = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial({ color: 0x8bd9d1, size: .032, transparent: true, opacity: .34, depthWrite: false }));
+        const starCount = mobile.matches ? 42 : 110; const positions = new Float32Array(starCount * 3);
+        for (let index = 0; index < starCount; index += 1) { positions[index * 3] = (Math.random() - .5) * 15; positions[index * 3 + 1] = (Math.random() - .5) * 8; positions[index * 3 + 2] = -3 - Math.random() * 5; }
+        stars.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3)); resources.push(stars.geometry, stars.material); root.add(stars);
+
+        const floorVertices: number[] = []; const hexRadius = .54;
+        for (let row = -6; row <= 6; row += 1) for (let column = -9; column <= 9; column += 1) {
+          const x = column * hexRadius * 1.73 + (row & 1 ? hexRadius * .86 : 0) + 2.1; const z = row * hexRadius * 1.5;
+          for (let side = 0; side < 6; side += 1) { const a = Math.PI / 3 * side; const b = Math.PI / 3 * (side + 1); floorVertices.push(x + Math.cos(a) * hexRadius, 0, z + Math.sin(a) * hexRadius, x + Math.cos(b) * hexRadius, 0, z + Math.sin(b) * hexRadius); }
+        }
+        const floorGeometry = new THREE.BufferGeometry(); floorGeometry.setAttribute('position', new THREE.Float32BufferAttribute(floorVertices, 3));
+        const floor = new THREE.LineSegments(floorGeometry, new THREE.LineBasicMaterial({ color: 0x3bcabd, transparent: true, opacity: .24 })); floor.position.y = -2.31; resources.push(floorGeometry, floor.material); root.add(floor);
+
+        let running = false; let pointerX = 0; let pointerY = 0;
+        const resize = () => { const { width, height } = sceneHost.getBoundingClientRect(); if (!width || !height) return; const preferredRatio = Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.5); const maxPixels = mobile.matches ? 1_400_000 : 2_600_000; const pixelRatio = Math.min(preferredRatio, Math.sqrt(maxPixels / (width * height))); renderer.setPixelRatio(pixelRatio); renderer.setSize(width, height, false); camera.aspect = width / height; camera.position.set(mobile.matches ? 2.6 : 2.2, mobile.matches ? 6.8 : 5.35, mobile.matches ? 14.5 : 12.5); camera.lookAt(mobile.matches ? 2.8 : 2.5, .35, 0); camera.updateProjectionMatrix(); };
+        const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(sceneHost); resize();
+        const onPointerMove = (event: PointerEvent) => { if (mobile.matches || reducedMotion.matches) return; const rect = sceneHost.getBoundingClientRect(); pointerX = ((event.clientX - rect.left) / rect.width - .5) * .45; pointerY = ((event.clientY - rect.top) / rect.height - .5) * .25; };
+        hero.addEventListener('pointermove', onPointerMove);
+        updateScene = (next) => {
+          const activeNodes = [[hospital], [hospital, fhir], [trust, phr], [audit]][next] ?? [];
+          [hospital, fhir, trust, phr, audit].forEach((node) => { node.scale.setScalar(activeNodes.includes(node) ? 1.08 : 1); });
+          dataPaths.forEach((path, index) => path.material.opacity = next >= (index < 2 ? 1 : 2) ? .88 : .19);
+          auditPath.material.opacity = next === 3 ? .95 : .18;
+          auditLight.intensity = next === 3 ? 5 : 2.1;
+          rimLight.intensity = next + 3;
+        };
+        const render = (timestamp?: number) => { sceneTimer.update(timestamp); const elapsed = sceneTimer.getElapsed(); root.rotation.y += (pointerX - root.rotation.y) * .025; root.rotation.x += (pointerY - root.rotation.x) * .025; trust.rotation.y = Math.sin(elapsed * .7) * .06; halo.rotation.z = elapsed * .18; haloOuter.rotation.z = -elapsed * .1; person.position.y = 1.28 + Math.sin(elapsed * 1.4) * .06; particles.forEach((particle) => { const allowed = phase >= particle.layer; particle.mesh.visible = allowed; if (allowed) particle.mesh.position.copy(particle.curve.getPointAt((elapsed * .14 + particle.offset) % 1)); }); stars.rotation.y = elapsed * .012; renderer.render(scene, camera); };
+        setSceneActive = (active) => { if (reducedMotion.matches) { renderer.setAnimationLoop(null); render(); return; } if (active && !running) { running = true; sceneTimer.reset(); renderer.setAnimationLoop(render); } else if (!active && running) { running = false; renderer.setAnimationLoop(null); } };
+        const onMotionChange = () => { if (reducedMotion.matches) { setPhase(controls.length - 1); } setSceneActive(visible && !reducedMotion.matches); };
+        reducedMotion.addEventListener('change', onMotionChange);
+        const dispose = () => { observer.disconnect(); stop(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); hero.removeEventListener('pointermove', onPointerMove); reducedMotion.removeEventListener('change', onMotionChange); sceneTimer.dispose(); resources.forEach((resource) => resource.dispose()); renderer.dispose(); renderer.domElement.remove(); };
+        window.addEventListener('pagehide', dispose, { once: true });
+        document.addEventListener('astro:before-swap', dispose, { once: true });
+        updateScene(phase);
+      } catch {
+        sceneHost.classList.add('hero-network-fallback');
+      }
+    }
+    if (reducedMotion.matches) setPhase(controls.length - 1);
   });
 </script>
 
 <style>
-  .home-hero { position: relative; isolation: isolate; min-height: min(780px, calc(100svh - 76px)); padding: clamp(4rem, 9vw, 8.5rem) 0 clamp(3.5rem, 7vw, 6.5rem); overflow: hidden; color: var(--paper); border-bottom: 1px solid #21474b; background: var(--ink); }
+  .home-hero { position: relative; isolation: isolate; min-height: calc(100svh - 76px); padding: clamp(4rem, 9vw, 8.5rem) 0 clamp(3.5rem, 7vw, 6.5rem); overflow: hidden; color: var(--paper); border-bottom: 1px solid #21474b; background: var(--ink); }
   .home-hero .container { width: min(calc(100% - 48px), 1280px); }
-  .hero-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; color: rgba(139,217,209,.15); background: radial-gradient(circle at 71% 43%, rgba(0,118,111,.3), transparent 28%), linear-gradient(115deg, #102f36 0%, #102f36 42%, #0d292f 100%); }
-  .hero-network::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(16,47,54,.98) 0%, rgba(16,47,54,.89) 35%, rgba(16,47,54,.35) 69%, rgba(16,47,54,.76) 100%); }
-  .hero-network svg { display: block; width: 100%; height: 100%; min-width: 950px; opacity: .95; }
-  .network-grid { color: rgba(221,243,235,.14); }
-  .network-halo { fill: rgba(0,118,111,.12); stroke: rgba(139,217,209,.16); stroke-width: 1; }
-  .data-path, .audit-path, .pulse { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .data-path { stroke: rgba(139,217,209,.33); stroke-width: 2; }
-  .audit-path { stroke: rgba(223,169,91,.36); stroke-width: 2; stroke-dasharray: 5 7; }
-  .pulse { stroke-width: 3.5; stroke-dasharray: 8 92; stroke-dashoffset: 100; opacity: 0; }
-  .path-source, .path-fhir, .path-authorized { stroke: #70d3c6; }
-  .path-audit { stroke: #e2a55c; }
-  .network-node rect { stroke-width: 1.2; }
-  .network-node text { font-family: 'IBM Plex Sans', system-ui, sans-serif; }
-  .node-hospital rect, .node-fhir rect, .node-phr rect { fill: rgba(16,47,54,.77); stroke: rgba(139,217,209,.6); }
-  .node-trust rect { fill: rgba(0,118,111,.38); stroke: #82ddd1; }
-  .node-audit rect { fill: rgba(92,54,19,.35); stroke: #e2a55c; }
-  .node-kicker, .path-label text { fill: #9fcdc8; font: 600 11px/1.4 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: 1.1px; }
-  .node-title { fill: #f6f8f7; font-size: 31px; font-weight: 600; letter-spacing: -1px; }
-  .node-title-small { font-size: 20px; letter-spacing: -.4px; }
-  .node-copy { fill: #bdd0d0; font-size: 12px; }
-  .path-label rect { fill: #17444a; stroke: rgba(139,217,209,.5); }
-  .label-permission rect, .label-audit rect { fill: #5c3613; stroke: rgba(226,165,92,.7); }
-  .label-permission text, .label-audit text { fill: #ffd7a1; }
+  .hero-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(circle at 72% 43%, rgba(0,160,145,.5), transparent 34%), linear-gradient(115deg, #102f36 0%, #102f36 42%, #0b292f 100%); }
+  .hero-network::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(16,47,54,.99) 0%, rgba(16,47,54,.84) 35%, rgba(16,47,54,.1) 71%, rgba(16,47,54,.48) 100%); }
+  .hero-network-canvas { display: block; width: 100%; height: 100%; opacity: 1; }
+  .hero-network-fallback { background: radial-gradient(circle at 74% 40%, rgba(0,118,111,.42), transparent 25%), linear-gradient(125deg, #102f36, #0d292f); }
   .home-hero .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(20rem, .7fr); gap: clamp(2rem, 8vw, 8rem); align-items: end; }
   .home-hero h1 { max-width: 17ch; overflow-wrap: anywhere; font-size: clamp(3.1rem, 5vw, 5.7rem); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
   .home-hero h1:lang(th) { max-width: none; font-size: clamp(2.9rem, 4.2vw, 4.8rem); letter-spacing: -.045em; }
@@ -671,10 +757,6 @@ const heroPhases = en ? [
   .hero-phase-control.active > span:first-child { color: #ffd7a1; }
   .hero-phase-control:focus-visible { outline: 3px solid #ffd7a1; outline-offset: -2px; }
   .hero-story-note { margin-top: 1rem; color: #b5cbca; font-size: .61rem; letter-spacing: .035em; text-transform: none; }
-  .home-hero[data-phase='0'] .node-hospital rect, .home-hero[data-phase='1'] .node-fhir rect, .home-hero[data-phase='2'] .node-trust rect, .home-hero[data-phase='3'] .node-audit rect { stroke-width: 2.5; filter: drop-shadow(0 0 8px rgba(139,217,209,.48)); }
-  .home-hero[data-phase='3'] .node-audit rect { filter: drop-shadow(0 0 8px rgba(226,165,92,.5)); }
-  .home-hero[data-phase='1'] .pulse.path-source, .home-hero[data-phase='1'] .pulse.path-fhir, .home-hero[data-phase='2'] .pulse.path-authorized, .home-hero[data-phase='3'] .pulse.path-audit { opacity: 1; animation: hero-pulse 2.7s linear infinite; }
-  @keyframes hero-pulse { to { stroke-dashoffset: 0; } }
 
   .trust-bar { padding: 0 0 clamp(2.8rem, 5vw, 4.5rem); border-bottom: 1px solid var(--line); background: var(--white); }
   .trust-bar-frame { border-inline: 1px solid var(--line); }
@@ -820,8 +902,7 @@ const heroPhases = en ? [
     .home-hero .container { width: min(calc(100% - 28px), 1280px); }
     .home-hero h1 { max-width: none; font-size: clamp(2.55rem, 12vw, 3.6rem); letter-spacing: -.05em; }
     .home-hero .hero-copy > p { overflow-wrap: anywhere; }
-    .hero-network { left: -26rem; width: calc(100% + 26rem); }
-    .hero-network svg { min-width: 760px; transform: translateX(-6rem); }
+    .hero-network::after { background: linear-gradient(180deg, rgba(16,47,54,.88), rgba(16,47,54,.68) 58%, rgba(16,47,54,.96)); }
     .hero-story { padding-left: 1rem; }
     .proof-band-head { display: grid; align-items: start; }
     .proof-row, .capability-grid { grid-template-columns: 1fr; }
