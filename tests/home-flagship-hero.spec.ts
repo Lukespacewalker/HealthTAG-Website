@@ -21,3 +21,22 @@ test('flagship hero resolves to the final audit state for reduced motion', async
   await expect(hero).toHaveAttribute('data-phase', '3');
   await expect(hero.locator('[data-hero-phase]').nth(3)).toHaveAttribute('aria-pressed', 'true');
 });
+
+test('flagship scene progressively moves right on ultra-wide desktops', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/');
+  const canvas = page.locator('.hero-network-flagship-canvas');
+  await expect(canvas).toHaveCount(1);
+
+  const translateX = async () => canvas.evaluate((element) => {
+    const transform = getComputedStyle(element).transform;
+    if (transform === 'none') return 0;
+    return new DOMMatrixReadOnly(transform).m41;
+  });
+
+  await expect.poll(translateX).toBeLessThan(1);
+
+  await page.setViewportSize({ width: 3840, height: 2160 });
+  await expect.poll(translateX).toBeGreaterThan(850);
+  await expect.poll(translateX).toBeLessThanOrEqual(960);
+});
