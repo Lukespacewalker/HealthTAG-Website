@@ -25,18 +25,25 @@ test('flagship hero resolves to the final audit state for reduced motion', async
 test('flagship scene progressively moves right on ultra-wide desktops', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
+
+  const host = page.locator('[data-three-hero]');
   const canvas = page.locator('.hero-network-flagship-canvas');
   await expect(canvas).toHaveCount(1);
 
-  const translateX = async () => canvas.evaluate((element) => {
-    const transform = getComputedStyle(element).transform;
-    if (transform === 'none') return 0;
-    return new DOMMatrixReadOnly(transform).m41;
+  const horizontalOffset = async () => page.evaluate(() => {
+    const hostElement = document.querySelector<HTMLElement>('[data-three-hero]');
+    const canvasElement = document.querySelector<HTMLCanvasElement>('.hero-network-flagship-canvas');
+    if (!hostElement || !canvasElement) return Number.NaN;
+    return canvasElement.getBoundingClientRect().left - hostElement.getBoundingClientRect().left;
   });
 
-  await expect.poll(translateX).toBeLessThan(1);
+  await expect(host).toBeVisible();
+  await expect.poll(horizontalOffset).toBeGreaterThanOrEqual(-1);
+  await expect.poll(horizontalOffset).toBeLessThanOrEqual(1);
 
-  await page.setViewportSize({ width: 3840, height: 2160 });
-  await expect.poll(translateX).toBeGreaterThan(850);
-  await expect.poll(translateX).toBeLessThanOrEqual(960);
+  // Horizontal composition depends on viewport width. Keep the test height modest so
+  // CI does not allocate a full 4K WebGL framebuffer just to verify the CSS offset.
+  await page.setViewportSize({ width: 3840, height: 1200 });
+  await expect.poll(horizontalOffset).toBeGreaterThan(850);
+  await expect.poll(horizontalOffset).toBeLessThanOrEqual(961);
 });
