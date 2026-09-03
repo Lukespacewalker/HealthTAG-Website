@@ -262,28 +262,34 @@ const heroPhases = en ? [
         <div class="hero-copy">
           <div class="eyebrow">{en ? 'Health data infrastructure · Thailand' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพ · ประเทศไทย'}</div>
           <h1 aria-label={en ? undefined : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่ประเทศไทยวางใจได้'}>{en ? 'Trusted health data infrastructure for Thailand' : <><span>โครงสร้างพื้นฐาน</span><span>ข้อมูลสุขภาพ</span><span>ที่ประเทศไทย</span><span>วางใจได้</span></>}</h1>
-          <p class="vision-line">{en ? 'Your data. Your consent. One connected Thailand.' : 'ข้อมูลของคุณ ความยินยอมของคุณ เชื่อมถึงกันทั้งประเทศ'}</p>
           <p class="hero-body">{en
             ? 'HealthTAG connects hospital systems through open standards and checks identity and access before permitted data is returned. The original clinical records remain in hospital source systems.'
             : 'HealthTAG เชื่อมระบบโรงพยาบาลด้วยมาตรฐานเปิด พร้อมตรวจตัวตนและสิทธิ์ก่อนส่งข้อมูลที่ได้รับอนุญาต โดยเวชระเบียนต้นฉบับยังอยู่ในระบบต้นทางของโรงพยาบาล'}</p>
+          <div class="hero-story" aria-label={en ? 'Conceptual exchange sequence' : 'ลำดับแนวคิดการแลกเปลี่ยนข้อมูล'}>
+            <p class="hero-story-kicker">{en ? 'Authorized exchange' : 'การแลกเปลี่ยนที่ได้รับอนุญาต'}</p>
+            <div class="hero-phase-controls" role="group" aria-label={en ? 'Choose a sequence step' : 'เลือกขั้นตอน'}>
+              {heroPhases.map((phase, index) => (
+                <button type="button" class:list={['hero-phase-control', { active: index === 0 }]} data-hero-phase={index} aria-pressed={index === 0 ? 'true' : 'false'} data-title={phase.title} data-body={phase.body}>
+                  <span>{phase.number}</span><span>{phase.title}</span>
+                </button>
+              ))}
+            </div>
+            <p class="hero-story-status" aria-live="polite" data-hero-status><strong>{heroPhases[0].number} · {heroPhases[0].title}</strong><span>{heroPhases[0].body}</span></p>
+          </div>
           <div class="actions hero-actions">
             <a class="btn primary" href={`${prefix}/platform/`}>{en ? 'Explore the platform' : 'ดูภาพรวมแพลตฟอร์ม'}</a>
             <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
           </div>
-        </div>
-
-        <aside class="hero-story" aria-label={en ? 'Conceptual exchange sequence' : 'ลำดับแนวคิดการแลกเปลี่ยนข้อมูล'}>
-          <p class="hero-story-kicker">{en ? 'Authorized exchange' : 'การแลกเปลี่ยนที่ได้รับอนุญาต'}</p>
-          <p class="hero-story-status" aria-live="polite" data-hero-status><strong>{heroPhases[0].number} · {heroPhases[0].title}</strong><span>{heroPhases[0].body}</span></p>
-          <div class="hero-phase-controls" role="group" aria-label={en ? 'Choose a sequence step' : 'เลือกขั้นตอน'}>
-            {heroPhases.map((phase, index) => (
-              <button type="button" class:list={['hero-phase-control', { active: index === 0 }]} data-hero-phase={index} aria-pressed={index === 0 ? 'true' : 'false'} data-title={phase.title} data-body={phase.body}>
-                <span>{phase.number}</span><span>{phase.title}</span>
-              </button>
-            ))}
-          </div>
           <p class="hero-story-note">{en ? 'Conceptual view: clinical records remain with hospitals.' : 'ภาพแนวคิด: เวชระเบียนยังอยู่กับโรงพยาบาล'}</p>
-        </aside>
+          <button
+            type="button"
+            class="hero-motion-toggle"
+            data-hero-motion-toggle
+            data-pause-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+            data-play-label={en ? 'Play motion' : 'เล่นภาพเคลื่อนไหว'}
+            aria-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+          ><span aria-hidden="true" data-motion-icon>Ⅱ</span><span data-motion-label>{en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}</span></button>
+        </div>
       </div>
     </section>
 
@@ -534,6 +540,9 @@ const heroPhases = en ? [
 
   document.querySelectorAll<HTMLElement>('[data-network-hero]').forEach((hero) => {
     const controls = Array.from(hero.querySelectorAll<HTMLButtonElement>('[data-hero-phase]'));
+    const motionToggle = hero.querySelector<HTMLButtonElement>('[data-hero-motion-toggle]');
+    const motionIcon = motionToggle?.querySelector<HTMLElement>('[data-motion-icon]');
+    const motionLabel = motionToggle?.querySelector<HTMLElement>('[data-motion-label]');
     const status = hero.querySelector<HTMLElement>('[data-hero-status]');
     const statusTitle = status?.querySelector<HTMLElement>('strong');
     const statusBody = status?.querySelector<HTMLElement>('span');
@@ -543,6 +552,7 @@ const heroPhases = en ? [
     let phase = 0;
     let visible = false;
     let userControlled = false;
+    let motionPaused = false;
     let timer: number | undefined;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let updateScene = (_next: number) => {};
@@ -571,7 +581,7 @@ const heroPhases = en ? [
       timer = undefined;
     };
     const start = () => {
-      if (userControlled || !visible || timer !== undefined || reducedMotion.matches) return;
+      if (userControlled || motionPaused || !visible || timer !== undefined || reducedMotion.matches) return;
       timer = window.setInterval(() => setPhase(phase + 1), 4200);
     };
 
@@ -590,11 +600,28 @@ const heroPhases = en ? [
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible) start(); else stop();
-      setSceneActive(visible && !reducedMotion.matches);
+      setSceneActive(visible && !motionPaused && !reducedMotion.matches);
     }, { threshold: 0.25 });
     observer.observe(hero);
 
     let setSceneActive = (_active: boolean) => {};
+    const onMotionToggle = () => {
+      if (!motionToggle || !motionIcon || !motionLabel) return;
+      motionPaused = !motionPaused;
+      motionIcon.textContent = motionPaused ? '▶' : 'Ⅱ';
+      const nextLabel = motionPaused ? motionToggle.dataset.playLabel ?? '' : motionToggle.dataset.pauseLabel ?? '';
+      motionLabel.textContent = nextLabel;
+      motionToggle.setAttribute('aria-label', nextLabel);
+      if (motionPaused) {
+        stop();
+        setSceneActive(false);
+      } else {
+        userControlled = false;
+        start();
+        setSceneActive(visible && !reducedMotion.matches);
+      }
+    };
+    motionToggle?.addEventListener('click', onMotionToggle);
 
     if (sceneHost) {
       try {
@@ -620,6 +647,7 @@ const heroPhases = en ? [
         const glowMaterial = (color: THREE.ColorRepresentation, opacity = 1) => new THREE.MeshBasicMaterial({ color, transparent: opacity < 1, opacity, blending: THREE.AdditiveBlending, depthWrite: false });
         const resources: Array<THREE.BufferGeometry | THREE.Material | THREE.Texture> = [nodeMaterial, trustMaterial, patientMaterial, auditMaterial];
         const root = new THREE.Group();
+        root.position.x = mobile.matches ? .15 : 1.35;
         scene.add(root);
         scene.add(new THREE.HemisphereLight(0xa8e6db, 0x071d22, 1.6));
         const keyLight = new THREE.DirectionalLight(0x9ce8dc, 2.1); keyLight.position.set(-5, 7, 5); scene.add(keyLight);
@@ -700,7 +728,7 @@ const heroPhases = en ? [
         const floor = new THREE.LineSegments(floorGeometry, new THREE.LineBasicMaterial({ color: 0x3bcabd, transparent: true, opacity: .24 })); floor.position.y = -2.31; resources.push(floorGeometry, floor.material); root.add(floor);
 
         let running = false; let pointerX = 0; let pointerY = 0;
-        const resize = () => { const { width, height } = sceneHost.getBoundingClientRect(); if (!width || !height) return; const preferredRatio = Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.5); const maxPixels = mobile.matches ? 1_400_000 : 2_600_000; const pixelRatio = Math.min(preferredRatio, Math.sqrt(maxPixels / (width * height))); renderer.setPixelRatio(pixelRatio); renderer.setSize(width, height, false); camera.aspect = width / height; camera.position.set(mobile.matches ? 2.6 : 2.2, mobile.matches ? 6.8 : 5.35, mobile.matches ? 14.5 : 12.5); camera.lookAt(mobile.matches ? 2.8 : 2.5, .35, 0); camera.updateProjectionMatrix(); };
+        const resize = () => { const { width, height } = sceneHost.getBoundingClientRect(); if (!width || !height) return; const preferredRatio = Math.min(window.devicePixelRatio, mobile.matches ? 1.15 : 1.5); const maxPixels = mobile.matches ? 1_400_000 : 2_600_000; const pixelRatio = Math.min(preferredRatio, Math.sqrt(maxPixels / (width * height))); renderer.setPixelRatio(pixelRatio); renderer.setSize(width, height, false); camera.aspect = width / height; camera.position.set(mobile.matches ? 2.6 : -.35, mobile.matches ? 6.8 : 5.55, mobile.matches ? 14.5 : 13.4); camera.lookAt(mobile.matches ? 2.8 : .85, .35, 0); camera.updateProjectionMatrix(); };
         const resizeObserver = new ResizeObserver(resize); resizeObserver.observe(sceneHost); resize();
         const onPointerMove = (event: PointerEvent) => { if (mobile.matches || reducedMotion.matches) return; const rect = sceneHost.getBoundingClientRect(); pointerX = ((event.clientX - rect.left) / rect.width - .5) * .45; pointerY = ((event.clientY - rect.top) / rect.height - .5) * .25; };
         hero.addEventListener('pointermove', onPointerMove);
@@ -714,9 +742,9 @@ const heroPhases = en ? [
         };
         const render = (timestamp?: number) => { sceneTimer.update(timestamp); const elapsed = sceneTimer.getElapsed(); root.rotation.y += (pointerX - root.rotation.y) * .025; root.rotation.x += (pointerY - root.rotation.x) * .025; trust.rotation.y = Math.sin(elapsed * .7) * .06; halo.rotation.z = elapsed * .18; haloOuter.rotation.z = -elapsed * .1; person.position.y = 1.28 + Math.sin(elapsed * 1.4) * .06; particles.forEach((particle) => { const allowed = phase >= particle.layer; particle.mesh.visible = allowed; if (allowed) particle.mesh.position.copy(particle.curve.getPointAt((elapsed * .14 + particle.offset) % 1)); }); stars.rotation.y = elapsed * .012; renderer.render(scene, camera); };
         setSceneActive = (active) => { if (reducedMotion.matches) { renderer.setAnimationLoop(null); render(); return; } if (active && !running) { running = true; sceneTimer.reset(); renderer.setAnimationLoop(render); } else if (!active && running) { running = false; renderer.setAnimationLoop(null); } };
-        const onMotionChange = () => { if (reducedMotion.matches) { setPhase(controls.length - 1); } setSceneActive(visible && !reducedMotion.matches); };
+        const onMotionChange = () => { if (reducedMotion.matches) { setPhase(controls.length - 1); } setSceneActive(visible && !motionPaused && !reducedMotion.matches); };
         reducedMotion.addEventListener('change', onMotionChange);
-        const dispose = () => { observer.disconnect(); stop(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); hero.removeEventListener('pointermove', onPointerMove); reducedMotion.removeEventListener('change', onMotionChange); sceneTimer.dispose(); resources.forEach((resource) => resource.dispose()); renderer.dispose(); renderer.domElement.remove(); };
+        const dispose = () => { observer.disconnect(); stop(); renderer.setAnimationLoop(null); resizeObserver.disconnect(); hero.removeEventListener('pointermove', onPointerMove); motionToggle?.removeEventListener('click', onMotionToggle); reducedMotion.removeEventListener('change', onMotionChange); sceneTimer.dispose(); resources.forEach((resource) => resource.dispose()); renderer.dispose(); renderer.domElement.remove(); };
         window.addEventListener('pagehide', dispose, { once: true });
         document.addEventListener('astro:before-swap', dispose, { once: true });
         updateScene(phase);
@@ -729,34 +757,38 @@ const heroPhases = en ? [
 </script>
 
 <style>
-  .home-hero { position: relative; isolation: isolate; min-height: calc(100svh - 76px); padding: clamp(4rem, 9vw, 8.5rem) 0 clamp(3.5rem, 7vw, 6.5rem); overflow: hidden; color: var(--paper); border-bottom: 1px solid #21474b; background: var(--ink); }
+  .home-hero { position: relative; isolation: isolate; min-height: calc(100svh - 76px); padding: clamp(4rem, 9vw, 8.5rem) env(safe-area-inset-right) clamp(3.5rem, 7vw, 6.5rem) env(safe-area-inset-left); overflow: hidden; color: var(--paper); border-bottom: 1px solid #21474b; background: var(--ink); }
   .home-hero .container { width: min(calc(100% - 48px), 1280px); }
-  .hero-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(circle at 72% 43%, rgba(0,160,145,.5), transparent 34%), linear-gradient(115deg, #102f36 0%, #102f36 42%, #0b292f 100%); }
-  .hero-network::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(16,47,54,.99) 0%, rgba(16,47,54,.84) 35%, rgba(16,47,54,.1) 71%, rgba(16,47,54,.48) 100%); }
+  .hero-network { position: absolute; z-index: -1; inset: 0; overflow: hidden; background: radial-gradient(circle at 78% 43%, rgba(0,160,145,.56), transparent 34%), linear-gradient(115deg, #102f36 0%, #102f36 38%, #0b292f 100%); }
+  .hero-network::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(16,47,54,1) 0%, rgba(16,47,54,.98) 38%, rgba(16,47,54,.76) 49%, rgba(16,47,54,.14) 70%, rgba(16,47,54,.42) 100%); }
   .hero-network-canvas { display: block; width: 100%; height: 100%; opacity: 1; }
   .hero-network-fallback { background: radial-gradient(circle at 74% 40%, rgba(0,118,111,.42), transparent 25%), linear-gradient(125deg, #102f36, #0d292f); }
-  .home-hero .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(20rem, .7fr); gap: clamp(2rem, 8vw, 8rem); align-items: end; }
-  .home-hero h1 { max-width: 17ch; overflow-wrap: anywhere; font-size: clamp(3.1rem, 5vw, 5.7rem); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
+  .home-hero .hero-grid { grid-template-columns: minmax(0, 36rem) 1fr; align-items: center; min-height: inherit; }
+  .home-hero .hero-copy { grid-column: 1; max-width: 36rem; }
+  .home-hero h1 { max-width: 15ch; overflow-wrap: anywhere; font-size: clamp(3.1rem, 5vw, 5.7rem); line-height: .98; letter-spacing: -.06em; text-wrap: balance; }
   .home-hero h1:lang(th) { max-width: none; font-size: clamp(2.9rem, 4.2vw, 4.8rem); letter-spacing: -.045em; }
   .home-hero h1 span { display: block; }
   .home-hero .hero-copy > p { max-width: 62ch; color: #c6d7d6; }
   .home-hero .eyebrow { color: #8bd9d1; }
-  .home-hero .vision-line { margin: 1.3rem 0 0; color: #8bd9d1; font-size: clamp(1rem, 1.35vw, 1.16rem); font-weight: 600; }
-  .home-hero .hero-body { margin-top: .75rem; font-size: clamp(1rem, 1.35vw, 1.16rem); }
-  .hero-actions { margin-top: clamp(1.6rem, 3vw, 2.25rem); }
+  .home-hero .hero-body { margin-top: 1.15rem; font-size: clamp(1rem, 1.35vw, 1.16rem); }
+  .hero-actions { margin-top: clamp(1.35rem, 2.4vw, 1.75rem); }
   .home-hero .btn.secondary { color: var(--paper); border-color: rgba(221,243,235,.5); }
   .home-hero .btn.secondary:hover { color: var(--ink); border-color: var(--mint); background: var(--mint); }
-  .hero-story { padding: 1.2rem 0 0 1.4rem; border-left: 1px solid rgba(221,243,235,.36); }
+  .hero-story { max-width: 34rem; margin-top: clamp(1.35rem, 2.6vw, 1.8rem); }
   .hero-story-kicker, .hero-story-note { margin: 0; color: #8bd9d1; font: 600 .68rem/1.45 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .06em; text-transform: uppercase; }
-  .hero-story-status { display: grid; gap: .3rem; margin: .9rem 0 1.25rem; color: #c6d7d6; line-height: 1.45; }
-  .hero-story-status strong { color: var(--paper); font-size: clamp(1.1rem, 1.8vw, 1.45rem); letter-spacing: -.025em; }
-  .hero-phase-controls { display: grid; border-top: 1px solid rgba(221,243,235,.24); }
-  .hero-phase-control { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: .3rem; padding: .75rem 0; color: #b5cbca; text-align: left; border: 0; border-bottom: 1px solid rgba(221,243,235,.24); background: transparent; font: inherit; font-size: .83rem; line-height: 1.3; }
+  .hero-story-status { display: grid; gap: .3rem; margin: .9rem 0 0; color: #c6d7d6; line-height: 1.45; }
+  .hero-story-status strong { color: var(--paper); font-size: clamp(1rem, 1.5vw, 1.2rem); letter-spacing: -.025em; }
+  .hero-phase-controls { display: grid; max-width: 31rem; margin-top: .7rem; border-top: 1px solid rgba(221,243,235,.24); border-bottom: 1px solid rgba(221,243,235,.24); }
+  .hero-phase-control { display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: .45rem; min-width: 0; padding: .42rem .55rem; touch-action: manipulation; color: #b5cbca; text-align: left; border: 0; border-bottom: 1px solid rgba(221,243,235,.18); background: transparent; font: inherit; font-size: .78rem; line-height: 1.3; }
+  .hero-phase-control:last-child { border-bottom: 0; }
   .hero-phase-control > span:first-child { color: #8bd9d1; font: 600 .67rem/1.45 'IBM Plex Mono', ui-monospace, monospace; }
-  .hero-phase-control:hover, .hero-phase-control.active { color: var(--paper); }
+  .hero-phase-control:hover, .hero-phase-control.active { color: var(--paper); background: rgba(112,211,198,.12); }
   .hero-phase-control.active > span:first-child { color: #ffd7a1; }
   .hero-phase-control:focus-visible { outline: 3px solid #ffd7a1; outline-offset: -2px; }
-  .hero-story-note { margin-top: 1rem; color: #b5cbca; font-size: .61rem; letter-spacing: .035em; text-transform: none; }
+  .hero-story-note { margin-top: .85rem; color: #b5cbca; font-size: .61rem; letter-spacing: .035em; text-transform: none; }
+  .hero-motion-toggle { display: inline-flex; gap: .45rem; align-items: center; margin-top: .55rem; padding: .25rem 0; touch-action: manipulation; color: #b5cbca; border: 0; background: transparent; font: 600 .7rem/1.4 'IBM Plex Mono', ui-monospace, monospace; }
+  .hero-motion-toggle:hover { color: var(--paper); }
+  .hero-motion-toggle:focus-visible { outline: 3px solid #ffd7a1; outline-offset: 3px; }
 
   .trust-bar { padding: 0 0 clamp(2.8rem, 5vw, 4.5rem); border-bottom: 1px solid var(--line); background: var(--white); }
   .trust-bar-frame { border-inline: 1px solid var(--line); }
@@ -870,7 +902,7 @@ const heroPhases = en ? [
     .home-hero h1 { max-width: 12ch; }
     .home-hero { min-height: 0; }
     .hero-network::after { background: linear-gradient(180deg, rgba(16,47,54,.9), rgba(16,47,54,.78) 62%, rgba(16,47,54,.96)); }
-    .hero-story { max-width: 38rem; margin-top: 1rem; }
+    .home-hero .hero-grid { min-height: 0; }
     .governance-head { align-items: start; }
     .governance-grid article, .governance-grid article + article { padding: 1.65rem 0; border-left: 0; border-bottom: 1px solid rgba(221,243,235,.2); }
     .governance-grid article:last-child { border-bottom: 0; }
@@ -894,6 +926,7 @@ const heroPhases = en ? [
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-motion-toggle { display: none; }
     .trust-bar-list a, .trust-bar-list i { transition: none; }
   }
 
@@ -903,7 +936,6 @@ const heroPhases = en ? [
     .home-hero h1 { max-width: none; font-size: clamp(2.55rem, 12vw, 3.6rem); letter-spacing: -.05em; }
     .home-hero .hero-copy > p { overflow-wrap: anywhere; }
     .hero-network::after { background: linear-gradient(180deg, rgba(16,47,54,.88), rgba(16,47,54,.68) 58%, rgba(16,47,54,.96)); }
-    .hero-story { padding-left: 1rem; }
     .proof-band-head { display: grid; align-items: start; }
     .proof-row, .capability-grid { grid-template-columns: 1fr; }
     .proof-item, .proof-item + .proof-item { padding: 1.25rem 2.3rem 1.25rem 0; border-left: 0; border-bottom: 1px solid var(--line); }
