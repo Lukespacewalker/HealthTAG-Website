@@ -702,38 +702,55 @@ const heroPhases = en ? [
         // The audit layer is intentionally a small, linked record chain: it represents
         // consent/access events only, never a destination for clinical data.
         const auditChain = new THREE.Group(); auditChain.position.set(0, -1.9, .45); auditChain.visible = false; root.add(auditChain);
+        // Keep the blocks and their links in one moving group so the audit record
+        // reads as a continuous chain rather than unrelated boxes.
+        const auditRing = new THREE.Group(); auditChain.add(auditRing);
         const auditBlockGeometry = new THREE.BoxGeometry(.54, .38, .5);
         const auditBlockEdges = new THREE.EdgesGeometry(auditBlockGeometry);
         const auditLinkMaterial = new THREE.LineBasicMaterial({ color: amber, transparent: true, opacity: .22 });
-        resources.push(auditBlockGeometry, auditBlockEdges, auditLinkMaterial);
+        const auditConnectorMaterial = new THREE.MeshBasicMaterial({ color: amber, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthTest: true, depthWrite: false });
+        resources.push(auditBlockGeometry, auditBlockEdges, auditLinkMaterial, auditConnectorMaterial);
         const auditBlocks: Array<{ group: THREE.Group; material: THREE.MeshStandardMaterial; base: THREE.Vector3 }> = [];
-        const makeAuditBlock = (position: THREE.Vector3) => {
+        const makeAuditBlock = (position: THREE.Vector3, parent = auditRing) => {
           const group = new THREE.Group(); group.position.copy(position);
           const material = auditMaterial.clone(); material.emissiveIntensity = .34; material.transparent = true; material.opacity = .86;
           const body = new THREE.Mesh(auditBlockGeometry, material);
           const frame = new THREE.LineSegments(auditBlockEdges, amberFrame); frame.scale.setScalar(1.015);
           const plate = new THREE.Mesh(unitPlate, amberPlate); plate.scale.set(.54 / .72, 1, .5 / .72); plate.position.y = .215;
-          group.add(body, frame, plate); auditChain.add(group); resources.push(material);
+          group.add(body, frame, plate); parent.add(group); resources.push(material);
           return { group, material, base: position.clone() };
         };
         const auditCount = mobile.matches ? 5 : 8;
         const auditBlockPositions = Array.from({ length: auditCount }, (_, index) => {
-          const angle = Math.PI * (.15 + index / Math.max(1, auditCount - 1) * .7);
-          return new THREE.Vector3(.2 + Math.cos(angle) * 2.55, .05 + Math.sin(angle) * .18, .15 + Math.sin(angle) * .48);
+          const progress = index / Math.max(1, auditCount - 1);
+          const spacing = mobile.matches ? .68 : .76;
+          return new THREE.Vector3(-.35 + index * spacing, .1, -.05 + Math.sin(progress * Math.PI) * .34);
         });
         auditBlockPositions.forEach((position) => auditBlocks.push(makeAuditBlock(position)));
+        const auditBlockHalfSize = new THREE.Vector3(.27, .19, .25);
+        const blockSurfacePoint = (block: THREE.Vector3, toward: THREE.Vector3) => {
+          const direction = toward.clone().sub(block);
+          const scale = Math.min(
+            auditBlockHalfSize.x / Math.max(Math.abs(direction.x), .0001),
+            auditBlockHalfSize.y / Math.max(Math.abs(direction.y), .0001),
+            auditBlockHalfSize.z / Math.max(Math.abs(direction.z), .0001),
+          );
+          return block.clone().add(direction.multiplyScalar(scale));
+        };
         auditBlocks.slice(0, -1).forEach((block, index) => {
           const next = auditBlocks[index + 1];
-          const geometry = new THREE.BufferGeometry().setFromPoints([block.base.clone().add(new THREE.Vector3(.28, 0, 0)), next.base.clone().add(new THREE.Vector3(-.28, 0, 0))]);
-          const link = new THREE.Line(geometry, auditLinkMaterial); auditChain.add(link); resources.push(geometry);
+          const start = blockSurfacePoint(block.base, next.base);
+          const end = blockSurfacePoint(next.base, block.base);
+          const geometry = new THREE.TubeGeometry(new THREE.LineCurve3(start, end), 4, .018, 6, false);
+          const link = new THREE.Mesh(geometry, auditConnectorMaterial); auditRing.add(link); resources.push(geometry);
         });
         const pendingAuditBlock = makeAuditBlock(new THREE.Vector3(1.94, .78, .24));
         pendingAuditBlock.group.visible = false;
         const pendingAuditStart = pendingAuditBlock.base.clone();
-        const pendingAuditTarget = auditBlocks[0].base.clone().add(new THREE.Vector3(-.58, .12, .1));
+        const pendingAuditTarget = blockSurfacePoint(auditBlocks[0].base, auditBlocks[1].base).add(new THREE.Vector3(-.24, .12, 0));
         const pendingLinkGeometry = new THREE.BufferGeometry();
         const pendingLinkPositions = new Float32Array(6); pendingLinkGeometry.setAttribute('position', new THREE.BufferAttribute(pendingLinkPositions, 3));
-        const pendingLink = new THREE.Line(pendingLinkGeometry, auditLinkMaterial); pendingLink.visible = false; auditChain.add(pendingLink); resources.push(pendingLinkGeometry);
+        const pendingLink = new THREE.Line(pendingLinkGeometry, auditLinkMaterial); pendingLink.visible = false; auditRing.add(pendingLink); resources.push(pendingLinkGeometry);
         const haloGeometry = new THREE.TorusGeometry(1.7, .016, 8, 80); const haloMaterial = new THREE.MeshBasicMaterial({ color: teal, transparent: true, opacity: .68, blending: THREE.AdditiveBlending, depthWrite: false }); resources.push(haloGeometry, haloMaterial);
         const halo = new THREE.Mesh(haloGeometry, haloMaterial); halo.rotation.x = Math.PI / 2; halo.position.copy(walletHaloPosition); root.add(halo);
         const haloOuter = new THREE.Mesh(haloGeometry, new THREE.MeshBasicMaterial({ color: 0x8bd9d1, transparent: true, opacity: .22, blending: THREE.AdditiveBlending, depthWrite: false })); haloOuter.scale.setScalar(1.55); resources.push(haloOuter.material); haloOuter.rotation.x = Math.PI / 2; haloOuter.position.copy(halo.position); root.add(haloOuter);
@@ -816,8 +833,12 @@ const heroPhases = en ? [
           wallet.scale.setScalar(.93 + connectionProgress * .11 + dataProgress * .03);
           const auditCycle = reducedMotion.matches ? 4.3 : elapsed % 5.4;
           const auditActive = auditProgress > .02;
+          const auditPhaseActive = targetPhase === controls.length - 1 && auditActive && !reducedMotion.matches;
           auditChain.visible = auditProgress > .01;
           auditChain.scale.setScalar(.86 + auditProgress * .18);
+          auditRing.rotation.y = 0;
+          auditRing.position.x = auditPhaseActive ? Math.sin(elapsed * .38) * .34 : 0;
+          auditRing.position.z = auditPhaseActive ? Math.cos(elapsed * .38) * .08 : 0;
           amberFrame.opacity = .05 + auditProgress * .87;
           amberPlate.opacity = .04 + auditProgress * .68;
           auditLight.intensity = .25 + auditProgress * 4.75;
@@ -832,8 +853,10 @@ const heroPhases = en ? [
             pendingAuditBlock.group.position.lerpVectors(pendingAuditStart, pendingAuditTarget, easedSettle);
             pendingAuditBlock.material.opacity = auditCycle > 4.25 ? Math.max(0, (4.75 - auditCycle) / .5) : .92;
             const linkPositions = pendingLinkGeometry.getAttribute('position') as THREE.BufferAttribute;
-            linkPositions.setXYZ(0, pendingAuditBlock.group.position.x + .28, pendingAuditBlock.group.position.y, pendingAuditBlock.group.position.z);
-            linkPositions.setXYZ(1, auditBlocks[0].base.x - .28, auditBlocks[0].base.y, auditBlocks[0].base.z);
+            const blockSurface = blockSurfacePoint(auditBlocks[0].base, pendingAuditBlock.group.position);
+            const pendingSurface = blockSurfacePoint(pendingAuditBlock.group.position, auditBlocks[0].base);
+            linkPositions.setXYZ(0, pendingSurface.x, pendingSurface.y, pendingSurface.z);
+            linkPositions.setXYZ(1, blockSurface.x, blockSurface.y, blockSurface.z);
             linkPositions.needsUpdate = true;
           } else {
             pendingAuditBlock.group.position.copy(pendingAuditStart);
@@ -844,7 +867,8 @@ const heroPhases = en ? [
             block.material.emissiveIntensity = (.08 + auditProgress * .26) + confirmation * .7;
             block.material.opacity = (.04 + auditProgress * .66) + confirmation * .22;
           });
-          auditLinkMaterial.opacity = (.02 + auditProgress * .14) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .2 : 0);
+          auditLinkMaterial.opacity = (.02 + auditProgress * .4) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .26 : 0);
+          auditConnectorMaterial.opacity = (.02 + auditProgress * .5) + (auditActive && auditCycle >= 1.7 && auditCycle < 4.25 ? .24 : 0);
           pendingAuditBlock.material.emissiveIntensity = auditActive ? .42 + (settle > .96 ? .4 : .08) : .08;
           particles.forEach((particle) => {
             if (particle.audit) {
