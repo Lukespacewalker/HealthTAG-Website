@@ -7,12 +7,6 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const en = locale === 'en';
 const prefix = en ? '/en' : '';
-
-const healthcare = networkGroups.find((group) => group.id === 'healthcare')!;
-const featured = healthcare.organizations.find((organization) => organization.featured)!;
-const relatedSiriraj = healthcare.organizations.filter((organization) => ['siriraj-faculty', 'siph'].includes(organization.id));
-const otherMedical = healthcare.organizations.filter((organization) => !organization.featured && !['siriraj-faculty', 'siph'].includes(organization.id));
-const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 ---
 
 <section class="ecosystem-principle" data-founder-copy aria-labelledby="ecosystem-principle-heading">
@@ -21,77 +15,33 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
       <span>{en ? 'FOUNDER PRINCIPLE' : 'หลักการของผู้ก่อตั้ง'}</span>
       <h2 id="ecosystem-principle-heading">{en ? 'Ecosystem, not ego' : 'ระบบนิเวศสำคัญกว่าการยึดตัวเองเป็นศูนย์กลาง'}</h2>
     </div>
-    <p>{en ? 'Hospitals, universities, public agencies, and technology partners have different responsibilities. They connect through open standards with defined roles. A relationship with HealthTAG counts as a deployment only when that status is stated.' : 'โรงพยาบาล มหาวิทยาลัย หน่วยงานภาครัฐ และพันธมิตรเทคโนโลยีรับผิดชอบงานคนละส่วน โดยเชื่อมต่อกันผ่านมาตรฐานเปิดและกำหนดบทบาทให้ชัดเจน ความสัมพันธ์กับ HealthTAG จะนับเป็นการติดตั้งใช้งานเมื่อมีการระบุสถานะนั้นเท่านั้น'}</p>
+    <p>{en ? 'Hospitals, universities, public agencies, and technology organizations have different responsibilities. They connect through open standards with defined roles. A relationship with HealthTAG counts as a deployment only when that status is stated.' : 'โรงพยาบาล มหาวิทยาลัย หน่วยงานภาครัฐ และองค์กรเทคโนโลยีรับผิดชอบงานคนละส่วน โดยเชื่อมต่อกันผ่านมาตรฐานเปิดและกำหนดบทบาทให้ชัดเจน ความสัมพันธ์กับ HealthTAG จะนับเป็นการติดตั้งใช้งานเมื่อมีการระบุสถานะนั้นเท่านั้น'}</p>
   </div>
 </section>
 
 <div class="network-groups">
-  <section class="network-group healthcare-group" aria-labelledby="network-healthcare">
-    <div class="container">
-      <div class="group-heading">
-        <h2 id="network-healthcare">{healthcare.title[locale]}</h2>
-        <p>{healthcare.introduction[locale]}</p>
-      </div>
-
-      <article class="featured-network-card" data-organization={featured.id}>
-        <div class="featured-logo">
-          {featured.logo && <Image src={featured.logo} alt={featured.name[locale]} width={featured.logo.width} height={featured.logo.height} loading="eager" decoding="async" format="webp" quality={100} />}
-        </div>
-        <div class="featured-copy">
-          <span class="relationship-badge">{featured.badge[locale]}</span>
-          <h3>{featured.name[locale]}</h3>
-          <p>{featured.relationship[locale]}</p>
-          <a href={`${prefix}/deployments/`}>{en ? 'Read the Siriraj deployment case' : 'อ่านกรณีการติดตั้งที่ศิริราช'} <span aria-hidden="true">→</span></a>
-        </div>
-      </article>
-
-      <section class="ecosystem-cluster" aria-labelledby="siriraj-ecosystem-heading">
-        <div class="cluster-heading">
-          <span>{en ? 'Siriraj organizations in the HealthTAG network' : 'องค์กรศิริราชในเครือข่าย HealthTAG'}</span>
-          <h3 id="siriraj-ecosystem-heading">{en ? 'Siriraj network group' : 'กลุ่มเครือข่ายศิริราช'}</h3>
-          <p>{en ? 'All three organizations are in the HealthTAG network. The deployment case study applies to Siriraj Hospital.' : 'ทั้งสามองค์กรอยู่ในเครือข่าย HealthTAG ส่วนกรณีศึกษาการติดตั้งเป็นข้อมูลของโรงพยาบาลศิริราช'}</p>
-        </div>
-        <ul class="logo-grid ecosystem-grid" role="list">
-          {relatedSiriraj.map((organization) => (
-            <li class="logo-card" data-organization={organization.id}>
-              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>{organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}</div>
-              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <div class="other-medical">
-        <div class="subheading"><strong>{en ? 'Other medical institutions in the HealthTAG network' : 'สถาบันการแพทย์อื่นในเครือข่าย HealthTAG'}</strong></div>
-        <ul class="logo-grid medical-grid" role="list">
-          {otherMedical.map((organization) => (
-            <li class="logo-card" data-organization={organization.id}>
-              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>{organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}</div>
-              <div class="organization-copy"><span class="relationship-badge">{organization.badge[locale]}</span><h3>{organization.name[locale]}</h3>{organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  {otherGroups.map((group) => (
-    <section class="network-group" aria-labelledby={`network-${group.id}`}>
+  {networkGroups.map((group, index) => (
+    <section class:list={['network-group', { 'network-group-tinted': index % 2 === 1 }]} aria-labelledby={`network-${group.id}`} data-network-group={group.id}>
       <div class="container">
         <div class="group-heading">
-          <h2 id={`network-${group.id}`}>{group.title[locale]}</h2>
-          <p>{group.introduction[locale]}</p>
+          <p class="group-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
+          <div>
+            <h2 id={`network-${group.id}`}>{group.title[locale]}</h2>
+            <p>{group.introduction[locale]}</p>
+          </div>
         </div>
-        <ul class="logo-grid" role="list">
+        <ul class="organization-grid" role="list">
           {group.organizations.map((organization) => (
-            <li class="logo-card" data-organization={organization.id}>
-              <div class:list={['logo-frame', { 'text-mark': !organization.logo }]}>
-                {organization.logo ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} /> : <strong>{organization.name[locale]}</strong>}
+            <li class="organization-card" data-organization={organization.id}>
+              <div class:list={['organization-mark', { 'text-mark': !organization.logo }]}>
+                {organization.logo
+                  ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} />
+                  : <strong aria-hidden="true">{organization.mark?.[locale] ?? organization.name[locale]}</strong>}
               </div>
               <div class="organization-copy">
                 <span class="relationship-badge">{organization.badge[locale]}</span>
                 <h3>{organization.name[locale]}</h3>
-                {organization.relationship[locale] && <p>{organization.relationship[locale]}</p>}
+                <p>{organization.relationship[locale]}</p>
                 {organization.detailPage && <a href={`${prefix}/${organization.detailPage}/`} aria-label={`${en ? 'View evidence for' : 'ดูหลักฐานของ'} ${organization.name[locale]}`}>{en ? 'View evidence' : 'ดูหลักฐาน'} <span aria-hidden="true">→</span></a>}
                 {organization.detailPath && <a href={`${prefix}${organization.detailPath}`} aria-label={`${en ? 'View published record for' : 'ดูข้อมูลที่เผยแพร่ของ'} ${organization.name[locale]}`}>{en ? 'View published record' : 'ดูข้อมูลที่เผยแพร่'} <span aria-hidden="true">→</span></a>}
               </div>
@@ -106,49 +56,34 @@ const otherGroups = networkGroups.filter((group) => group.id !== 'healthcare');
 <style>
   .ecosystem-principle { padding: clamp(42px, 7vw, 72px) 0; border-top: 1px solid var(--line); background: var(--mint); }
   .principle-inner { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 7vw, 84px); align-items: start; }
-  .principle-inner span { color: var(--teal); font: 600 .72rem/1.2 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; }
+  .principle-inner span, .group-index { color: var(--teal); font: 600 .72rem/1.2 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; }
   .principle-inner h2 { max-width: 15ch; margin: 12px 0 0; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.16; letter-spacing: -.04em; }
   .principle-inner p { margin: 0; color: var(--ink); font-size: clamp(1rem, 1.4vw, 1.15rem); }
-  .network-group { padding: 66px 0 76px; border-top: 1px solid var(--line); }
-  .network-group:nth-child(odd) { background: #eef3f1; }
-  .healthcare-group { background: var(--paper) !important; }
-  .group-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; align-items: start; }
-  .group-heading h2 { margin: 0; font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.3; letter-spacing: -.035em; }
-  .group-heading p { margin: 6px 0 0; color: var(--muted); }
-  .featured-network-card { display: grid; grid-template-columns: .72fr 1.28fr; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--white); }
-  .featured-logo { min-height: 250px; display: grid; place-items: center; padding: 36px; background: var(--mint); border-right: 1px solid var(--line); }
-  .featured-logo img { width: auto; height: auto; max-height: 150px; object-fit: contain; }
-  .featured-copy { padding: clamp(28px, 4vw, 48px); align-self: center; }
-  .featured-copy h3 { margin: 14px 0 10px; font-size: clamp(2rem, 4vw, 3.6rem); line-height: 1.08; letter-spacing: -.045em; }
-  .featured-copy p { color: var(--muted); font-size: 1.03rem; }
-  .featured-copy a, .organization-copy a { color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  .network-group { padding: clamp(52px, 7vw, 82px) 0; border-top: 1px solid var(--line); }
+  .network-group-tinted { background: #eef3f1; }
+  .group-heading { display: grid; grid-template-columns: minmax(52px, .18fr) minmax(0, 1.82fr); gap: 22px; margin-bottom: 34px; align-items: start; }
+  .group-index { margin: 8px 0 0; }
+  .group-heading h2 { max-width: 22ch; margin: 0; font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.18; letter-spacing: -.035em; }
+  .group-heading div > p { max-width: 70ch; margin: 12px 0 0; color: var(--muted); }
+  .organization-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 0; margin: 0; }
+  .organization-card { min-width: 0; display: grid; grid-template-rows: 132px 1fr; border-top: 2px solid var(--ink); background: rgba(255, 255, 255, .72); }
+  .organization-mark { display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid var(--line); }
+  .organization-mark img { display: block; max-width: 100%; width: auto; max-height: 92px; height: auto; object-fit: contain; }
+  .organization-mark.text-mark { padding-inline: 24px; color: var(--teal); background: color-mix(in srgb, var(--mint) 65%, var(--white)); text-align: center; }
+  .organization-mark.text-mark strong { max-width: 18ch; font-size: clamp(1rem, 1.8vw, 1.35rem); line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .organization-copy { display: flex; flex-direction: column; align-items: flex-start; padding: 18px 18px 22px; }
   .relationship-badge { display: inline-flex; min-height: 29px; align-items: center; width: fit-content; border: 1px solid #8fbab3; border-radius: 999px; padding: 4px 9px; color: var(--ink); background: #f6fbf9; font-size: .69rem; font-weight: 600; letter-spacing: .055em; text-transform: uppercase; }
-  .ecosystem-cluster { display: grid; grid-template-columns: .85fr 1.15fr; gap: 24px; margin-top: 28px; padding: 28px; border: 1px dashed #9ebbb5; border-radius: 16px; }
-  .cluster-heading > span { color: var(--teal); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-  .cluster-heading h3 { margin: 10px 0; font-size: clamp(1.4rem, 2.6vw, 2.15rem); line-height: 1.2; letter-spacing: -.03em; }
-  .cluster-heading p, .subheading p { margin: 0; color: var(--muted); }
-  .other-medical { margin-top: 42px; }
-  .subheading { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
-  .subheading strong { font-size: 1.2rem; }
-  .logo-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-  .ecosystem-grid, .medical-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .logo-card { min-width: 0; border-top: 2px solid var(--ink); background: rgba(255, 255, 255, .72); }
-  .logo-frame { height: 146px; padding: 20px; display: flex; align-items: center; justify-content: center; }
-  .logo-frame img { display: block; max-width: 100%; width: auto; max-height: 102px; height: auto; object-fit: contain; }
-  .logo-frame.text-mark { padding-inline: 24px; color: var(--teal); background: color-mix(in srgb, var(--mint) 65%, var(--white)); text-align: center; }
-  .logo-frame.text-mark strong { max-width: 16ch; font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.2; letter-spacing: -.025em; }
-  .organization-copy { border-top: 1px solid var(--line); padding: 18px 4px 24px; }
-  .organization-copy h3 { margin: 13px 0 0; font-size: 1rem; line-height: 1.55; overflow-wrap: anywhere; }
-  .organization-copy p { margin: 8px 0 0; font-size: .84rem; color: var(--muted); }
-  .organization-copy a { display: inline-block; margin-top: 12px; font-size: .88rem; }
-  @media (max-width: 1050px) { .logo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ecosystem-grid, .medical-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 760px) {
-    .principle-inner, .group-heading, .featured-network-card, .ecosystem-cluster, .subheading { grid-template-columns: 1fr; gap: 18px; }
-    .featured-logo { min-height: 190px; border-right: 0; border-bottom: 1px solid var(--line); }
-    .logo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-    .ecosystem-cluster { padding: 20px; }
-    .logo-frame { padding: 14px; height: 132px; }
-    .organization-copy { padding-bottom: 20px; }
+  .organization-copy h3 { margin: 13px 0 0; font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
+  .organization-copy p { margin: 8px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+  .organization-copy a { margin-top: auto; padding-top: 14px; color: var(--teal); font-size: .88rem; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 960px) { .organization-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) {
+    .principle-inner { grid-template-columns: 1fr; gap: 18px; }
+    .group-heading { grid-template-columns: 1fr; gap: 10px; }
+    .group-index { margin: 0; }
+    .organization-grid { grid-template-columns: 1fr; gap: 12px; }
+    .organization-card { grid-template-rows: 132px 1fr; }
+    .organization-mark { padding: 15px; }
+    .organization-copy { padding: 16px 14px 20px; }
   }
-  @media (max-width: 400px) { .logo-grid { grid-template-columns: 1fr; } .logo-frame { height: 145px; } }
 </style>
