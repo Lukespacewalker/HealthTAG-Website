@@ -617,7 +617,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       ? 0
       : THREE.MathUtils.clamp((width - 1600) / 1200, 0, 1);
     const wideDesktopScale = 1 - wideDesktopOffset * 0.18;
-    root.position.x = mobile.matches ? -0.2 : 0.2 + wideDesktopOffset * 4.2;
+    root.position.x = mobile.matches ? -0.2 : 0.2 + wideDesktopOffset * 3.2;
     root.position.y = mobile.matches ? -0.15 : -wideDesktopOffset * 1.8;
     root.scale.setScalar(mobile.matches ? 1 : wideDesktopScale);
   };
