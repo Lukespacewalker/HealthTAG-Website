@@ -626,16 +626,19 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+
+    // Keep the network visually centred on tall desktop canvases. The hero grows
+    // with the viewport, while the camera uses a fixed vertical field of view;
+    // without this compensation the scene reads increasingly high on 4K screens.
+    const tallDesktopOffset = mobile.matches
+      ? 0
+      : THREE.MathUtils.clamp((height - 900) / 900, 0, 1);
+    root.position.x = mobile.matches ? -0.2 : 0.2;
+    root.position.y = mobile.matches ? -0.15 : -tallDesktopOffset * 2;
   };
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(host);
   resize();
-
-  const updateRootLayout = () => {
-    root.position.x = mobile.matches ? -0.2 : 0.2;
-    root.position.y = mobile.matches ? -0.15 : 0;
-  };
-  updateRootLayout();
 
   const setHospitalPulse = (hospital: THREE.Group, amount: number) => {
     hospital.userData.pulse = Math.max((hospital.userData.pulse ?? 0) * 0.9, amount);
@@ -840,7 +843,6 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
   disposers.push(() => host.closest<HTMLElement>('[data-network-hero]')?.removeEventListener('pointermove', onPointerMove));
 
   const onMobileChange = () => {
-    updateRootLayout();
     resize();
     renderOnce();
   };
