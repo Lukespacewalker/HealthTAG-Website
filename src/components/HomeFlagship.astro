@@ -169,20 +169,13 @@ const { locale } = Astro.props;
       radial-gradient(circle at 72% 44%, rgba(112, 211, 198, .07), transparent 28%),
       linear-gradient(90deg, rgba(16, 47, 54, 1) 0%, rgba(16, 47, 54, .98) 36%, rgba(16, 47, 54, .78) 49%, rgba(16, 47, 54, .16) 70%, rgba(16, 47, 54, .38) 100%);
   }
+  :global(.home-hero .hero-network-canvas) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   :global(.hero-network-flagship-canvas) {
     filter: saturate(.96) contrast(1.02);
-  }
-
-  /*
-   * Home copy lives inside a capped editorial container while WebGL spans the
-   * viewport. On very wide screens that makes the scene drift behind the copy.
-   * Shift only the rendered scene, progressively, so 1440 px keeps the approved
-   * composition while 4K uses the otherwise empty right-hand canvas area.
-   */
-  @media (min-width: 1441px) {
-    :global(.hero-network-flagship-canvas) {
-      transform: translateX(clamp(0px, calc(40vw - 576px), 960px));
-    }
   }
 
   @media (max-width: 620px) {
