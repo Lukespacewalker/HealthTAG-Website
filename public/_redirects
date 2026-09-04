@@ -73,4 +73,12 @@
 /posts/healthtag-runnerup-corporatespark-outbound-2025-china-nia  /awards/nia-corporate-spark-china/                       301
 /posts/katalyst-start-up-launchpad-2022                            /awards/katalyst-start-up-launchpad-2022/                301
 
-# Personal cards, jobs, and downloads remain unmapped until each destination is reviewed.
+# Existing employee-card QR codes omit the trailing slash.
+/card/tanawat       /card/tanawat/       301
+/card/dechowat      /card/dechowat/      301
+/card/tanapon       /card/tanapon/       301
+/card/Kornnaphat    /card/Kornnaphat/    301
+/card/Pensirinapang /card/Pensirinapang/ 301
+/card/purin         /card/purin/         301
+
+# Jobs and downloads remain unmapped until each destination is reviewed.

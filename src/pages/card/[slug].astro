@@ -1,0 +1,16 @@
+---
+import EmployeeCardPage from '../../components/EmployeeCardPage.astro';
+import { employeeCards } from '../../data/employee-cards';
+
+export function getStaticPaths() {
+  return employeeCards.map((employee) => ({
+    params: { slug: employee.slug },
+    props: { employee },
+  }));
+}
+
+const { employee } = Astro.props;
+---
+
+<EmployeeCardPage employee={employee} locale="th" />
+

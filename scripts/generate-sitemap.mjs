@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const contentRoot = path.join(root, 'src', 'content', 'publications');
 const output = path.join(root, 'public', 'sitemap.xml');
+const employeeCardSource = path.join(root, 'src', 'data', 'employee-cards.ts');
 const baseRoutes = [
   '/', '/platform/', '/interoperability/', '/phr/', '/how-it-works/', '/trust/', '/deployments/', '/network/', '/company/', '/investors/', '/evidence/',
   '/posts/', '/news/', '/articles/', '/awards/', '/contact/', '/support/', '/support/community-edition/user-manual/', '/privacy/',
@@ -31,7 +32,17 @@ for (const file of await filesBelow(contentRoot)) {
   detailRoutes.push(`${locale === 'en' ? '/en' : ''}/${section}/${slug}/`);
 }
 
-const routes = [...baseRoutes, ...baseRoutes.map((route) => route === '/' ? '/en/' : `/en${route}`), ...detailRoutes]
+const employeeCardData = await readFile(employeeCardSource, 'utf8');
+const employeeCardRoutes = [...employeeCardData.matchAll(/\bslug:\s*'([^']+)'/g)]
+  .map((match) => `/card/${match[1]}/`);
+
+const routes = [
+  ...baseRoutes,
+  ...baseRoutes.map((route) => route === '/' ? '/en/' : `/en${route}`),
+  ...employeeCardRoutes,
+  ...employeeCardRoutes.map((route) => `/en${route}`),
+  ...detailRoutes,
+]
   .sort((a, b) => a.localeCompare(b));
 const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map((route) => `  <url><loc>https://healthtag.io${route}</loc></url>`).join('\n')}\n</urlset>\n`;
 await writeFile(output, xml, 'utf8');

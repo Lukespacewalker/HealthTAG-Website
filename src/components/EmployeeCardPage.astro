@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BrandLogo from './BrandLogo.astro';
+import type { EmployeeCard } from '../data/employee-cards';
+
+interface Props {
+  employee: EmployeeCard;
+  locale: 'th' | 'en';
+}
+
+const { employee, locale } = Astro.props;
+const en = locale === 'en';
+const role = en ? employee.roleEn : employee.roleTh;
+const pagePath = `${en ? '/en' : ''}/card/${employee.slug}/`;
+const alternatePath = `${en ? '' : '/en'}/card/${employee.slug}/`;
+const title = `${en ? employee.nameEn : employee.nameTh} | HealthTAG`;
+const description = en
+  ? `${employee.nameEn}, ${employee.roleEn} at HealthTAG.`
+  : `${employee.nameTh} ${employee.roleTh} บริษัท เฮลธ์แท็ก จำกัด`;
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: en ? employee.nameEn : employee.nameTh,
+  alternateName: en ? employee.nameTh : employee.nameEn,
+  jobTitle: role,
+  email: employee.email,
+  url: new URL(pagePath, Astro.site ?? 'https://healthtag.io').href,
+  worksFor: {
+    '@type': 'Organization',
+    name: 'HealthTAG Co., Ltd.',
+    url: 'https://healthtag.io',
+  },
+});
+---
+
+<Base
+  locale={locale}
+  path={`card/${employee.slug}`}
+  canonicalPath={pagePath}
+  alternatePath={alternatePath}
+  title={title}
+  description={description}
+  socialType="website"
+>
+  <script type="application/ld+json" set:html={personSchema} is:inline></script>
+  <main class="card-page">
+    <div class="card-stage">
+      <article class="employee-card" aria-labelledby="employee-name">
+        <header class="card-header">
+          <div class="header-brand"><BrandLogo background="dark" priority /></div>
+          <button class="share-button" type="button" data-share aria-label={en ? 'Share this card' : 'แชร์การ์ดนี้'}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16a3 3 0 0 0-2.39 1.19l-6.13-3.06a3.2 3.2 0 0 0 0-2.26l6.13-3.06A3 3 0 1 0 15 7a3.2 3.2 0 0 0 .09.74L8.96 10.8a3 3 0 1 0 0 2.4l6.13 3.06A3 3 0 1 0 18 16Z" /></svg>
+          </button>
+          <div class="portrait-ring">
+            <Image
+              class="portrait"
+              src={employee.portrait}
+              alt={en ? `Portrait of ${employee.nameEn}` : `ภาพของ${employee.nameTh}`}
+              width={240}
+              widths={[160, 240, 360]}
+              sizes="112px"
+              format="webp"
+              quality={92}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
+        </header>
+
+        <div class="card-body">
+          <h1 id="employee-name">{employee.nameEn}</h1>
+          <p class="name-th" lang="th">{employee.nameTh}</p>
+          <p class="role">{role}</p>
+
+          <div class="actions">
+            <a class="contact-action" href={`mailto:${employee.email}`} aria-label={`${en ? 'Email' : 'อีเมล'} ${employee.nameEn}`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v.01l10 6.24 10-6.24V6a2 2 0 0 0-2-2Zm2 4.35-9.47 5.92a1 1 0 0 1-1.06 0L2 8.35V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8.35Z" /></svg>
+              <span>{en ? 'Email' : 'อีเมล'}</span>
+            </a>
+            <a class="contact-action" href={en ? '/en/' : '/'} aria-label={en ? 'Visit the HealthTAG website' : 'ไปยังเว็บไซต์ HealthTAG'}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.93 6h-3.08a15.7 15.7 0 0 0-1.43-3.56A8.05 8.05 0 0 1 18.93 8ZM12 4c.83 1.2 1.45 2.54 1.82 4h-3.64A13.68 13.68 0 0 1 12 4ZM4.26 14a7.8 7.8 0 0 1 0-4h3.4a16.6 16.6 0 0 0 0 4h-3.4Zm.81 2h3.08c.3 1.28.78 2.48 1.43 3.56A8.05 8.05 0 0 1 5.07 16ZM8.15 8H5.07a8.05 8.05 0 0 1 4.51-3.56A15.7 15.7 0 0 0 8.15 8ZM12 20a13.68 13.68 0 0 1-1.82-4h3.64A13.68 13.68 0 0 1 12 20Zm2.24-6H9.76a14.52 14.52 0 0 1 0-4h4.48a14.52 14.52 0 0 1 0 4Zm.18 5.56c.65-1.08 1.13-2.28 1.43-3.56h3.08a8.05 8.05 0 0 1-4.51 3.56ZM16.34 14a16.6 16.6 0 0 0 0-4h3.4a7.8 7.8 0 0 1 0 4h-3.4Z" /></svg>
+              <span>Website</span>
+            </a>
+          </div>
+
+          <div class="company-lockup"><BrandLogo /></div>
+          <p class="company-name">HealthTAG Co., Ltd.</p>
+        </div>
+        <div class="card-base" aria-hidden="true"></div>
+      </article>
+      <p class="share-status" data-share-status aria-live="polite"></p>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ copiedMessage: en ? 'Link copied' : 'คัดลอกลิงก์แล้ว', shareTitle: title }}>
+    const shareButton = document.querySelector('[data-share]');
+    const shareStatus = document.querySelector('[data-share-status]');
+
+    shareButton?.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: shareTitle, url: window.location.href });
+          return;
+        }
+        await navigator.clipboard.writeText(window.location.href);
+        if (shareStatus) {
+          shareStatus.textContent = copiedMessage;
+          window.setTimeout(() => { shareStatus.textContent = ''; }, 1800);
+        }
+      } catch {
+        // Closing the native share dialog is not an error the visitor needs to handle.
+      }
+    });
+  </script>
+</Base>
+
+<style>
+  .card-page {
+    min-height: calc(100vh - 76px);
+    display: grid;
+    place-items: center;
+    padding: clamp(36px, 8vw, 96px) 20px;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(0, 118, 111, .13), transparent 26rem),
+      radial-gradient(circle at 88% 76%, rgba(182, 106, 22, .11), transparent 24rem),
+      var(--paper);
+  }
+  .card-stage { width: min(100%, 420px); }
+  .employee-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(16, 47, 54, .18);
+    border-radius: 28px;
+    background: linear-gradient(180deg, #fff, #f7faf9);
+    box-shadow: 0 28px 76px rgba(16, 47, 54, .16);
+  }
+  .card-header {
+    position: relative;
+    height: 136px;
+    background:
+      radial-gradient(circle at 15% 0, rgba(255, 255, 255, .18), transparent 35%),
+      linear-gradient(135deg, #005c57 0%, #00766f 58%, #41a99e 100%);
+  }
+  .header-brand { position: absolute; top: 18px; left: 18px; width: 138px; }
+  .header-brand :global(.brand-logo) { width: 138px; }
+  .share-button {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(255, 255, 255, .14);
+    backdrop-filter: blur(10px);
+  }
+  .share-button:hover { background: rgba(255, 255, 255, .24); }
+  .share-button svg { width: 20px; fill: currentColor; }
+  .portrait-ring {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    padding: 4px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 14px 34px rgba(16, 47, 54, .24);
+  }
+  .portrait-ring :global(img) {
+    display: block;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 28%;
+    background: var(--mint);
+  }
+  .card-body { padding: 80px 28px 70px; text-align: center; }
+  .card-body h1 { margin: 0; font-size: clamp(1.5rem, 6vw, 1.72rem); line-height: 1.2; letter-spacing: -.025em; }
+  .name-th { margin: 8px 0 0; color: var(--muted); font-size: .96rem; }
+  .role { margin: 13px 0 0; color: var(--teal); font-weight: 600; }
+  .actions { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+  .contact-action {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--teal);
+    background: #fff;
+    font-size: .88rem;
+    font-weight: 600;
+  }
+  .contact-action:hover { border-color: var(--teal); background: var(--mint); }
+  .contact-action svg { width: 18px; fill: currentColor; }
+  .company-lockup { width: 150px; margin: 30px auto 0; }
+  .company-lockup :global(.brand-logo) { width: 150px; }
+  .company-name { margin: 9px 0 0; color: var(--muted); font-size: .76rem; }
+  .card-base { position: absolute; right: 0; bottom: 0; left: 0; height: 28px; background: var(--teal); }
+  .card-base::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 8px;
+    left: 8px;
+    height: 24px;
+    border-radius: 0 0 22px 22px;
+    background: #f7faf9;
+  }
+  .share-status { min-height: 1.6em; margin: 12px 0 0; color: var(--muted); text-align: center; font-size: .85rem; }
+  @media (max-width: 600px) {
+    .card-page { min-height: calc(100vh - 66px); padding-inline: 14px; }
+    .card-body { padding-inline: 20px; }
+  }
+</style>
