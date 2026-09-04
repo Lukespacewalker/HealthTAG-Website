@@ -22,7 +22,7 @@ test('flagship hero resolves to the final audit state for reduced motion', async
   await expect(hero.locator('[data-hero-phase]').nth(3)).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('flagship scene progressively moves right on ultra-wide desktops', async ({ page }) => {
+test('flagship canvas stays aligned with its host on ultra-wide desktops', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
 
@@ -30,20 +30,31 @@ test('flagship scene progressively moves right on ultra-wide desktops', async ({
   const canvas = page.locator('.hero-network-flagship-canvas');
   await expect(canvas).toHaveCount(1);
 
-  const horizontalOffset = async () => page.evaluate(() => {
+  const canvasAlignment = async () => page.evaluate(() => {
     const hostElement = document.querySelector<HTMLElement>('[data-three-hero]');
     const canvasElement = document.querySelector<HTMLCanvasElement>('.hero-network-flagship-canvas');
-    if (!hostElement || !canvasElement) return Number.NaN;
-    return canvasElement.getBoundingClientRect().left - hostElement.getBoundingClientRect().left;
+    if (!hostElement || !canvasElement) return { maxEdgeDelta: Number.NaN, transform: '' };
+    const hostRect = hostElement.getBoundingClientRect();
+    const canvasRect = canvasElement.getBoundingClientRect();
+    return {
+      maxEdgeDelta: Math.max(
+        Math.abs(canvasRect.left - hostRect.left),
+        Math.abs(canvasRect.top - hostRect.top),
+        Math.abs(canvasRect.right - hostRect.right),
+        Math.abs(canvasRect.bottom - hostRect.bottom),
+      ),
+      transform: getComputedStyle(canvasElement).transform,
+    };
   });
 
   await expect(host).toBeVisible();
-  await expect.poll(horizontalOffset).toBeGreaterThanOrEqual(-1);
-  await expect.poll(horizontalOffset).toBeLessThanOrEqual(1);
+  await expect.poll(async () => (await canvasAlignment()).maxEdgeDelta).toBeLessThanOrEqual(1);
+  await expect.poll(async () => (await canvasAlignment()).transform).toBe('none');
 
-  // Horizontal composition depends on viewport width. Keep the test height modest so
-  // CI does not allocate a full 4K WebGL framebuffer just to verify the CSS offset.
+  // Keep the test height modest so CI does not allocate a full 4K WebGL framebuffer.
+  // The scene itself moves inside WebGL; the canvas must continue covering its host
+  // instead of being translated beyond the hero and clipped by overflow.
   await page.setViewportSize({ width: 3840, height: 1200 });
-  await expect.poll(horizontalOffset).toBeGreaterThan(850);
-  await expect.poll(horizontalOffset).toBeLessThanOrEqual(961);
+  await expect.poll(async () => (await canvasAlignment()).maxEdgeDelta).toBeLessThanOrEqual(1);
+  await expect.poll(async () => (await canvasAlignment()).transform).toBe('none');
 });
