@@ -150,18 +150,6 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
   auditLight.position.set(3.5, -1.7, 2.4);
   scene.add(auditLight);
 
-  const groundMaterial = new THREE.MeshBasicMaterial({
-    color: COLORS.teal,
-    transparent: true,
-    opacity: 0.055,
-    depthWrite: false,
-  });
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(5.5, 96), groundMaterial);
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.set(1.9, -0.12, 0);
-  root.add(ground);
-  resources.push(ground.geometry, groundMaterial);
-
   const ringMaterial = new THREE.MeshBasicMaterial({
     color: COLORS.teal,
     transparent: true,
@@ -247,13 +235,8 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     group.add(shadow);
     resources.push(shadow.geometry, shadowMaterial);
 
-    const plinth = new THREE.Mesh(new THREE.BoxGeometry(width + 0.14, 0.12, depth + 0.14), hospitalSideMaterial);
-    plinth.position.y = 0.06;
-    group.add(plinth);
-    resources.push(plinth.geometry);
-
     const body = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), hospitalMaterial);
-    body.position.y = 0.12 + height / 2;
+    body.position.y = height / 2;
     group.add(body);
     resources.push(body.geometry);
 
@@ -274,28 +257,28 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
 
     if (type === 0) {
       const annex = new THREE.Mesh(new THREE.BoxGeometry(width * 0.28, height * 0.5, depth * 0.68), hospitalSideMaterial);
-      annex.position.set(-width * 0.58, 0.12 + height * 0.25, 0);
+      annex.position.set(-width * 0.58, height * 0.25, 0);
       group.add(annex);
       resources.push(annex.geometry);
     } else if (type === 1) {
       const tower = new THREE.Mesh(new THREE.BoxGeometry(width * 0.24, height * 0.66, depth * 0.46), hospitalSideMaterial);
-      tower.position.set(width * 0.42, 0.12 + height * 0.33, 0.02);
+      tower.position.set(width * 0.42, height * 0.33, 0.02);
       group.add(tower);
       resources.push(tower.geometry);
       const roof = new THREE.Mesh(new THREE.BoxGeometry(width * 0.78, 0.07, depth * 0.58), hospitalDarkMaterial);
-      roof.position.y = height + 0.16;
+      roof.position.y = height + 0.04;
       group.add(roof);
       resources.push(roof.geometry);
     } else {
       const wingGeometry = new THREE.BoxGeometry(width * 0.22, height * 0.68, depth * 0.82);
       const leftWing = new THREE.Mesh(wingGeometry, hospitalSideMaterial);
-      leftWing.position.set(-width * 0.53, 0.12 + height * 0.34, 0);
+      leftWing.position.set(-width * 0.53, height * 0.34, 0);
       const rightWing = leftWing.clone();
       rightWing.position.x *= -1;
       group.add(leftWing, rightWing);
       resources.push(wingGeometry);
       const roofPad = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.028, 24), hospitalDarkMaterial);
-      roofPad.position.y = height + 0.17;
+      roofPad.position.y = height + 0.05;
       group.add(roofPad);
       resources.push(roofPad.geometry);
     }
@@ -627,14 +610,16 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
-    // Keep the network visually centred on tall desktop canvases. The hero grows
-    // with the viewport, while the camera uses a fixed vertical field of view;
-    // without this compensation the scene reads increasingly high on 4K screens.
-    const tallDesktopOffset = mobile.matches
+    // Wide canvases expose more empty space below the fixed camera framing.
+    // Progressively lower the scene after laptop widths so 4K layouts keep the
+    // network centred in the right-hand half without changing the mobile view.
+    const wideDesktopOffset = mobile.matches
       ? 0
-      : THREE.MathUtils.clamp((height - 900) / 900, 0, 1);
-    root.position.x = mobile.matches ? -0.2 : 0.2;
-    root.position.y = mobile.matches ? -0.15 : -tallDesktopOffset * 2;
+      : THREE.MathUtils.clamp((width - 1600) / 1200, 0, 1);
+    const wideDesktopScale = 1 - wideDesktopOffset * 0.18;
+    root.position.x = mobile.matches ? -0.2 : 0.2 + wideDesktopOffset * 4.2;
+    root.position.y = mobile.matches ? -0.15 : -wideDesktopOffset * 1.8;
+    root.scale.setScalar(mobile.matches ? 1 : wideDesktopScale);
   };
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(host);
@@ -793,6 +778,11 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     const desiredTarget = mobile.matches
       ? new THREE.Vector3(1.95, THREE.MathUtils.lerp(0.22, -0.46, auditProgress), 0)
       : new THREE.Vector3(1.05, THREE.MathUtils.lerp(0.24, -0.52, auditProgress), 0);
+    if (!mobile.matches) {
+      const auditFramingOffset = root.position.y * auditProgress;
+      desiredCamera.y += auditFramingOffset;
+      desiredTarget.y += auditFramingOffset;
+    }
     if (!mobile.matches && !reducedMotion.matches) {
       desiredCamera.x += pointerX * 0.34;
       desiredCamera.y += pointerY * 0.12;
