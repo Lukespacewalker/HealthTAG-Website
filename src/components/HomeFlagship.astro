@@ -70,24 +70,44 @@ const { locale } = Astro.props;
       motionToggle.setAttribute('aria-label', label);
     };
 
-    const onPhaseChange = (event: Event) => {
-      const detail = (event as CustomEvent<{ phase?: number }>).detail;
-      if (typeof detail?.phase === 'number') scene?.setPhase(detail.phase);
-    };
-    hero.addEventListener('healthtag:hero-phase-change', onPhaseChange);
-
     const takeControl = () => {
       userControlled = true;
       stopTimer();
     };
+
+    const onControlClick = (event: Event) => {
+      const control = event.currentTarget as HTMLButtonElement;
+      takeControl();
+      setPhaseUi(Number(control.dataset.heroPhase ?? 0));
+    };
+
+    const onControlFocus = () => takeControl();
+
+    const onControlKeydown = (event: KeyboardEvent) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      takeControl();
+      const current = Number(hero.dataset.phase ?? 0);
+      const next = event.key === 'ArrowLeft'
+        ? current - 1
+        : event.key === 'ArrowRight'
+          ? current + 1
+          : event.key === 'Home'
+            ? 0
+            : controls.length - 1;
+      const bounded = Math.min(controls.length - 1, Math.max(0, next));
+      controls[bounded].focus();
+      setPhaseUi(bounded);
+    };
+
     controls.forEach((control) => {
-      control.addEventListener('click', takeControl);
-      control.addEventListener('focus', takeControl);
+      control.addEventListener('click', onControlClick);
+      control.addEventListener('focus', onControlFocus);
+      control.addEventListener('keydown', onControlKeydown);
     });
 
-    const onMotionCapture = (event: Event) => {
+    const onMotionToggle = (event: Event) => {
       event.preventDefault();
-      event.stopImmediatePropagation();
       paused = !paused;
       syncMotionButton();
       if (paused) {
@@ -100,6 +120,7 @@ const { locale } = Astro.props;
         scheduleNextPhase();
       }
     };
+    motionToggle?.addEventListener('click', onMotionToggle);
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
@@ -120,44 +141,26 @@ const { locale } = Astro.props;
     };
     reducedMotion.addEventListener('change', onReducedMotionChange);
 
-    let bootstrapFrame = 0;
-    const bootstrap = () => {
-      if (disposed) return;
-      const legacyCanvas = host.querySelector<HTMLCanvasElement>('.hero-network-canvas:not(.hero-network-flagship-canvas)');
-      const legacyReady = Boolean(legacyCanvas || host.classList.contains('hero-network-fallback'));
-      if (!legacyReady && bootstrapFrame < 60) {
-        bootstrapFrame += 1;
-        window.requestAnimationFrame(bootstrap);
-        return;
-      }
-
-      // Home still owns the semantic copy and no-WebGL fallback. Stop its legacy
-      // animation before mounting the flagship renderer into the same visual host.
-      motionToggle?.click();
-      try {
-        scene = mountHealthTagFlagshipHero(host);
-        hero.classList.add('flagship-network-hero');
-        hero.classList.remove('flagship-network-hero-failed');
-      } catch (error) {
-        console.warn('HealthTAG flagship hero could not start; keeping the static fallback.', error);
-        host.replaceChildren();
-        host.classList.add('hero-network-fallback');
-        hero.classList.add('flagship-network-hero-failed');
-        paused = true;
-        syncMotionButton();
-        return;
-      }
-
-      const phase = reducedMotion.matches ? controls.length - 1 : Number(hero.dataset.phase ?? 0);
-      setPhaseUi(phase);
-      paused = false;
+    try {
+      scene = mountHealthTagFlagshipHero(host);
+      hero.classList.add('flagship-network-hero');
+      hero.classList.remove('flagship-network-hero-failed');
+    } catch (error) {
+      console.warn('HealthTAG flagship hero could not start; keeping the static fallback.', error);
+      host.replaceChildren();
+      host.classList.add('hero-network-fallback');
+      hero.classList.add('flagship-network-hero-failed');
+      paused = true;
       syncMotionButton();
-      motionToggle?.addEventListener('click', onMotionCapture, { capture: true });
+    }
+
+    const phase = reducedMotion.matches ? controls.length - 1 : Number(hero.dataset.phase ?? 0);
+    setPhaseUi(phase);
+    if (scene) {
       scene.setActive(visible && !reducedMotion.matches);
       if (reducedMotion.matches) setPhaseUi(controls.length - 1);
       else scheduleNextPhase();
-    };
-    window.requestAnimationFrame(bootstrap);
+    }
 
     const dispose = () => {
       if (disposed) return;
@@ -165,12 +168,12 @@ const { locale } = Astro.props;
       stopTimer();
       observer.disconnect();
       reducedMotion.removeEventListener('change', onReducedMotionChange);
-      hero.removeEventListener('healthtag:hero-phase-change', onPhaseChange);
       controls.forEach((control) => {
-        control.removeEventListener('click', takeControl);
-        control.removeEventListener('focus', takeControl);
+        control.removeEventListener('click', onControlClick);
+        control.removeEventListener('focus', onControlFocus);
+        control.removeEventListener('keydown', onControlKeydown);
       });
-      motionToggle?.removeEventListener('click', onMotionCapture, { capture: true });
+      motionToggle?.removeEventListener('click', onMotionToggle);
       scene?.dispose();
       scene = null;
       delete hero.dataset.flagshipHeroMounted;
@@ -182,9 +185,6 @@ const { locale } = Astro.props;
 </script>
 
 <style>
-  :global(.home-hero .hero-network-canvas:not(.hero-network-flagship-canvas)) {
-    opacity: 0;
-  }
   :global(.home-hero.flagship-network-hero .hero-network) {
     background:
       radial-gradient(ellipse at 76% 45%, rgba(31, 139, 128, .3), transparent 34%),
