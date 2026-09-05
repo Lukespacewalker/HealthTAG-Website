@@ -26,6 +26,14 @@ jobs:
       - run: npm run validate
       - run: npx playwright install --with-deps chromium
       - run: npm run test:smoke
+      - name: Upload browser evidence
+        uses: actions/upload-artifact@v4
+        if: always() && github.event_name == 'pull_request'
+        with:
+          name: website-browser-evidence-${{ github.event.pull_request.number }}
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
       - uses: actions/upload-artifact@v4
         if: github.event_name == 'pull_request'
         with:
