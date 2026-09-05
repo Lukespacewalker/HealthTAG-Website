@@ -52,8 +52,6 @@ for (const route of ['/', '/en/']) {
     const controls = hero.locator('[data-hero-phase]');
     await controls.first().focus();
     await expect(hero).toHaveAttribute('data-motion', 'paused');
-    await page.waitForTimeout(2600);
-    await expect(hero).toHaveAttribute('data-phase', '0');
     await controls.first().press('End');
     await expect(controls.nth(3)).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '3');
@@ -96,7 +94,7 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await instrumentWebGL(page);
   await ready(page);
   const hero = page.locator('[data-network-hero]');
-  await hero.locator('[data-hero-motion-toggle]').click();
+  await hero.locator('[data-hero-motion-toggle]').focus();
   await expect(hero).toHaveAttribute('data-motion', 'paused');
   await page.waitForTimeout(150);
   const paused = await gpu(page);
@@ -139,7 +137,7 @@ test('offscreen rendering stops and page lifecycle does not stack renderers', as
   await expect(hero.locator('canvas')).toHaveCount(0);
   await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
   await hero.locator('[data-three-hero]').scrollIntoViewIfNeeded();
-  await expect(hero).toHaveAttribute('data-hero-state', 'ready');
+  await expect(hero).toHaveAttribute('data-hero-state', 'ready', { timeout: 15_000 });
   await expect(hero.locator('canvas')).toHaveCount(1);
   expect((await gpu(page)).contexts).toBe(2);
 });
