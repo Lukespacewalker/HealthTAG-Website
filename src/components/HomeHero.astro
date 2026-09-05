@@ -1,0 +1,136 @@
+---
+import HomeHeroPoster from './HomeHeroPoster.astro';
+interface Props { locale: 'th' | 'en' }
+const { locale } = Astro.props;
+const en = locale === 'en';
+const prefix = en ? '/en' : '';
+const phases = en ? [
+  { title: 'Hospital-held records', body: 'Hospitals retain clinical records in their own source systems.' },
+  { title: 'Connect to the Wallet', body: 'FHIR provides a standard structure for permitted information exchanged with the Wallet.' },
+  { title: 'Authorized data exchange', body: 'After identity and authorization are checked, permitted data can travel along the connections.' },
+  { title: 'Consent and access audit', body: 'Consent and access events are recorded on blockchain. Clinical records are not stored there.' },
+] : [
+  { title: 'เวชระเบียนอยู่กับโรงพยาบาล', body: 'โรงพยาบาลเก็บเวชระเบียนไว้ในระบบต้นทางของตนเอง' },
+  { title: 'เชื่อมต่อเข้าสู่ Wallet', body: 'FHIR กำหนดโครงสร้างมาตรฐานสำหรับแลกเปลี่ยนข้อมูลที่ได้รับอนุญาตกับ Wallet' },
+  { title: 'แลกเปลี่ยนข้อมูลที่ได้รับอนุญาต', body: 'หลังตรวจตัวตนและสิทธิ์แล้ว ข้อมูลที่ได้รับอนุญาตจึงเดินทางผ่านเส้นเชื่อมได้' },
+  { title: 'บันทึกความยินยอมและการเข้าถึง', body: 'บันทึกเหตุการณ์ความยินยอมและการเข้าถึงลงบนบล็อกเชน โดยไม่เก็บเวชระเบียนไว้บนบล็อกเชน' },
+];
+---
+
+<section class="hero home-hero flagship-network-hero" data-home-section="hero" data-network-hero data-phase="0" data-hero-state="fallback">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow">{en ? 'Health data infrastructure · Thailand' : 'โครงสร้างพื้นฐานข้อมูลสุขภาพ · ประเทศไทย'}</div>
+      <h1 aria-label={en ? undefined : 'โครงสร้างพื้นฐานข้อมูลสุขภาพที่ประเทศไทยวางใจได้'}>{en ? 'Trusted health data infrastructure for Thailand' : <><span>โครงสร้างพื้นฐาน</span><span>ข้อมูลสุขภาพ</span><span>ที่ประเทศไทยวางใจได้</span></>}</h1>
+      <p class="hero-body">{en
+        ? 'HealthTAG connects hospital systems through open standards and checks identity and access before permitted data is returned. The original clinical records remain in hospital source systems.'
+        : 'HealthTAG เชื่อมระบบโรงพยาบาลด้วยมาตรฐานเปิด พร้อมตรวจตัวตนและสิทธิ์ก่อนส่งข้อมูลที่ได้รับอนุญาต โดยเวชระเบียนต้นฉบับยังอยู่ในระบบต้นทางของโรงพยาบาล'}</p>
+      <div class="actions hero-actions">
+        <a class="btn primary" href={`${prefix}/platform/`}>{en ? 'Explore the platform' : 'ดูภาพรวมแพลตฟอร์ม'}</a>
+        <a class="btn secondary" href={`${prefix}/contact/`}>{en ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
+      </div>
+      <p class="hero-story-note">{en ? 'Conceptual view: clinical records remain with hospitals.' : 'ภาพแนวคิด: เวชระเบียนยังอยู่กับโรงพยาบาล'}</p>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-heading"><span>HealthTAG PHR</span><span>{en ? 'Authorized exchange' : 'การแลกเปลี่ยนที่ได้รับอนุญาต'}</span></div>
+      <div class="hero-art" aria-hidden="true">
+        <HomeHeroPoster />
+        <div class="hero-network" data-three-hero></div>
+      </div>
+      <div class="hero-legend" aria-label={en ? 'Connection types' : 'ประเภทเส้นเชื่อม'}>
+        <span><i class="data-line" aria-hidden="true"></i>{en ? 'Permitted health data' : 'ข้อมูลสุขภาพที่ได้รับอนุญาต'}</span>
+        <span><i class="audit-line" aria-hidden="true"></i>{en ? 'Consent and access events' : 'เหตุการณ์ความยินยอมและการเข้าถึง'}</span>
+      </div>
+    </div>
+    <div class="hero-story" aria-label={en ? 'Conceptual exchange sequence' : 'ลำดับแนวคิดการแลกเปลี่ยนข้อมูล'}>
+      <div class="hero-phase-controls" role="group" aria-label={en ? 'Choose a sequence step' : 'เลือกขั้นตอน'}>
+        {phases.map((phase, index) => (
+          <button type="button" class:list={['hero-phase-control', { active: index === 0 }]} data-hero-phase={index} aria-pressed={index === 0 ? 'true' : 'false'} data-title={phase.title} data-body={phase.body} disabled>
+            <span>{String(index + 1).padStart(2, '0')}</span><span>{phase.title}</span>
+          </button>
+        ))}
+      </div>
+      <div class="hero-story-footer">
+        <p class="hero-story-status" aria-live="off" aria-atomic="true" data-hero-status><strong>01 · {phases[0].title}</strong><span>{phases[0].body}</span></p>
+        <button type="button" class="hero-motion-toggle" data-hero-motion-toggle hidden
+          data-pause-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+          data-play-label={en ? 'Play motion' : 'เล่นภาพเคลื่อนไหว'}
+          data-replay-label={en ? 'Replay sequence' : 'เล่นลำดับภาพอีกครั้ง'}
+          aria-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
+        ><span aria-hidden="true" data-motion-icon>Ⅱ</span><span data-motion-label>{en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../lib/home-hero-controller';
+</script>
+
+<style>
+  .home-hero { position: relative; isolation: isolate; overflow: clip; color: var(--paper); background: var(--ink); border-bottom: 1px solid #31545a; padding: clamp(2.8rem, 5vw, 5.5rem) env(safe-area-inset-right) 2rem env(safe-area-inset-left); }
+  .home-hero .container { width: min(calc(100% - 48px), 1280px); }
+  .home-hero .hero-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 1.5rem 2rem; align-items: center; }
+  .hero-copy { min-width: 0; padding-block: 1rem; }
+  .home-hero .eyebrow { color: #9fd6ca; font-size: .72rem; letter-spacing: .07em; }
+  .home-hero h1 { max-width: 13ch; margin: 1.35rem 0 0; font-size: clamp(2.9rem, 4.4vw, 4.75rem); line-height: 1.06; letter-spacing: -.045em; text-wrap: balance; }
+  .home-hero h1:lang(th) { max-width: none; font-size: clamp(2.1rem, 3.2vw, 3.55rem); line-height: 1.25; letter-spacing: -.025em; }
+  .home-hero h1 span { display: block; }
+  .hero-body { max-width: 48ch; margin: 1.5rem 0 0; font-size: clamp(1rem, 1.12vw, 1.1rem); line-height: 1.8; color: #cadbd5; }
+  .hero-actions { gap: .75rem; margin-top: 1.8rem; }
+  .home-hero .btn.primary { background: #b5eadb; border-color: #b5eadb; color: #102f36; }
+  .home-hero .btn.primary:hover { background: #ddf3eb; border-color: #ddf3eb; }
+  .home-hero .btn.secondary { color: #ddf3eb; border-color: #698c89; }
+  .home-hero .btn.secondary:hover { background: #21464c; }
+  .hero-story-note { max-width: 46ch; margin-top: 1.1rem; color: #a6c4bc; font-size: .76rem; line-height: 1.6; }
+  .hero-visual { min-width: 0; align-self: stretch; display: flex; flex-direction: column; justify-content: center; }
+  .hero-visual-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; color: #c5dfd5; font-size: .72rem; letter-spacing: .02em; }
+  .hero-visual-heading > span:first-child { font: 500 .72rem/1.6 'IBM Plex Mono', monospace; }
+  .hero-visual-heading > span:last-child { color: #9bbdb5; }
+  .hero-art { position: relative; isolation: isolate; aspect-ratio: 5 / 4; width: 100%; background: radial-gradient(ellipse at 50% 45%, rgba(120,185,167,.07), transparent 65%); }
+  .hero-art :global(.hero-poster), .hero-network { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero-network { z-index: 1; opacity: 0; }
+  .home-hero[data-hero-state='ready'] .hero-network { opacity: 1; }
+  .home-hero[data-hero-state='ready'] .hero-art :global(.hero-poster) { visibility: hidden; }
+  .hero-network :global(canvas) { display: block; width: 100%; height: 100%; }
+  .hero-legend { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; color: #b9d0c7; font-size: .72rem; line-height: 1.6; }
+  .hero-legend > span { display: inline-flex; align-items: center; gap: .6rem; }
+  .hero-legend i { display: inline-block; width: 1.6rem; border-top: 2px solid #70d3c6; }
+  .hero-legend .audit-line { border-color: #e2a55c; border-top-style: dashed; }
+  .hero-story { grid-column: 1 / -1; min-width: 0; margin-top: 1.5rem; }
+  .hero-phase-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid #466764; }
+  .hero-phase-control { display: flex; gap: .75rem; min-width: 0; min-height: 3.8rem; padding: 1rem; align-items: center; background: transparent; color: #b9d0c7; border: 0; border-bottom: 2px solid transparent; font: inherit; font-size: .81rem; line-height: 1.55; text-align: left; cursor: pointer; touch-action: manipulation; }
+  .hero-phase-control > span:first-child { font: 500 .68rem/1.5 'IBM Plex Mono', monospace; color: #8ac6b7; }
+  .hero-phase-control + .hero-phase-control { border-left: 1px solid #315451; }
+  .hero-phase-control.active { color: #f6f8f7; border-bottom-color: #b5eadb; background: #1d4248; }
+  .hero-phase-control:hover:not(:disabled) { background: #254d51; color: #fff; }
+  .hero-phase-control:disabled { cursor: default; }
+  .hero-phase-control:focus-visible, .hero-motion-toggle:focus-visible { outline: 3px solid #ffd7a1; outline-offset: -3px; }
+  .hero-story-footer { display: flex; align-items: start; justify-content: space-between; gap: 1rem 2rem; min-height: 5.3rem; padding-top: 1rem; }
+  .hero-story-status { display: grid; gap: .3rem; max-width: 85ch; margin: 0; font-size: .8rem; line-height: 1.7; color: #b9d0c7; }
+  .hero-story-status strong { color: #ddf3eb; font-weight: 500; }
+  .hero-motion-toggle { display: inline-flex; flex: 0 0 auto; gap: .55rem; align-items: center; min-height: 44px; padding: .65rem .5rem; color: #d2e5dc; background: transparent; border: 0; font: inherit; font-size: .76rem; cursor: pointer; }
+  .hero-motion-toggle[hidden] { display: none; }
+  @media (max-width: 900px) {
+    .home-hero .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
+    .home-hero h1 { max-width: 20ch; font-size: clamp(2.6rem, 6.6vw, 4rem); }
+    .home-hero h1:lang(th) { font-size: clamp(2rem, 5.3vw, 3.3rem); }
+    .hero-body { max-width: 65ch; }
+    .hero-visual { max-width: 44rem; width: 100%; margin-inline: auto; }
+    .hero-story { margin-top: .5rem; }
+    .hero-phase-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-phase-control:nth-child(3) { border-left: 0; }
+    .hero-phase-control:nth-child(-n + 2) { border-bottom-color: #466764; }
+    .hero-phase-control.active { box-shadow: inset 0 -2px #b5eadb; }
+  }
+  @media (max-width: 480px) {
+    .home-hero .container { width: calc(100% - 32px); }
+    .home-hero h1 { font-size: clamp(2.5rem, 10.5vw, 3.2rem); }
+    .home-hero h1:lang(th) { font-size: clamp(1.75rem, 7.6vw, 2.4rem); }
+    .hero-visual-heading { font-size: .65rem; }
+    .hero-phase-control { padding: .8rem .6rem; gap: .5rem; font-size: .76rem; }
+    .hero-story-footer { flex-direction: column; gap: .25rem; min-height: 9.2rem; }
+    .hero-story-status { min-height: 5rem; }
+    .hero-legend { font-size: .66rem; gap: .35rem .8rem; }
+  }
+</style>
