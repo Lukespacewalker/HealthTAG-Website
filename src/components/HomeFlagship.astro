@@ -33,12 +33,12 @@ const { locale } = Astro.props;
     let disposed = false;
 
     const stopTimer = () => {
-      if (timer !== undefined) window.clearInterval(timer);
+      if (timer !== undefined) window.clearTimeout(timer);
       timer = undefined;
     };
 
     const setPhaseUi = (phase: number) => {
-      const next = (phase + controls.length) % controls.length;
+      const next = Math.min(controls.length - 1, Math.max(0, phase));
       const active = controls[next];
       hero.dataset.phase = String(next);
       controls.forEach((control, index) => {
@@ -51,12 +51,15 @@ const { locale } = Astro.props;
       scene?.setPhase(next);
     };
 
-    const startTimer = () => {
-      if (timer !== undefined || paused || userControlled || !visible || reducedMotion.matches) return;
-      timer = window.setInterval(() => {
-        const current = Number(hero.dataset.phase ?? 0);
+    const scheduleNextPhase = () => {
+      stopTimer();
+      if (paused || userControlled || !visible || reducedMotion.matches) return;
+      const current = Number(hero.dataset.phase ?? 0);
+      if (current >= controls.length - 1) return;
+      timer = window.setTimeout(() => {
         setPhaseUi(current + 1);
-      }, 4200);
+        scheduleNextPhase();
+      }, 3600);
     };
 
     const syncMotionButton = () => {
@@ -73,11 +76,14 @@ const { locale } = Astro.props;
     };
     hero.addEventListener('healthtag:hero-phase-change', onPhaseChange);
 
-    const onControlClick = () => {
+    const takeControl = () => {
       userControlled = true;
       stopTimer();
     };
-    controls.forEach((control) => control.addEventListener('click', onControlClick));
+    controls.forEach((control) => {
+      control.addEventListener('click', takeControl);
+      control.addEventListener('focus', takeControl);
+    });
 
     const onMotionCapture = (event: Event) => {
       event.preventDefault();
@@ -89,15 +95,16 @@ const { locale } = Astro.props;
         scene?.setActive(false);
       } else {
         userControlled = false;
+        if (Number(hero.dataset.phase ?? 0) >= controls.length - 1) setPhaseUi(0);
         scene?.setActive(visible && !reducedMotion.matches);
-        startTimer();
+        scheduleNextPhase();
       }
     };
 
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       scene?.setActive(visible && !paused && !reducedMotion.matches);
-      if (visible) startTimer(); else stopTimer();
+      if (visible) scheduleNextPhase(); else stopTimer();
     }, { threshold: 0.25 });
     observer.observe(hero);
 
@@ -108,7 +115,7 @@ const { locale } = Astro.props;
         scene?.setActive(false);
       } else if (!paused) {
         scene?.setActive(visible);
-        startTimer();
+        scheduleNextPhase();
       }
     };
     reducedMotion.addEventListener('change', onReducedMotionChange);
@@ -124,20 +131,31 @@ const { locale } = Astro.props;
         return;
       }
 
-      // Home.astro owns copy, controls, accessibility and fallback behavior. Pause only
-      // its legacy WebGL renderer, then hand the same host to the flagship scene.
+      // Home still owns the semantic copy and no-WebGL fallback. Stop its legacy
+      // animation before mounting the flagship renderer into the same visual host.
       motionToggle?.click();
-      scene = mountHealthTagFlagshipHero(host);
-      hero.classList.add('flagship-network-hero');
+      try {
+        scene = mountHealthTagFlagshipHero(host);
+        hero.classList.add('flagship-network-hero');
+        hero.classList.remove('flagship-network-hero-failed');
+      } catch (error) {
+        console.warn('HealthTAG flagship hero could not start; keeping the static fallback.', error);
+        host.replaceChildren();
+        host.classList.add('hero-network-fallback');
+        hero.classList.add('flagship-network-hero-failed');
+        paused = true;
+        syncMotionButton();
+        return;
+      }
+
       const phase = reducedMotion.matches ? controls.length - 1 : Number(hero.dataset.phase ?? 0);
       setPhaseUi(phase);
-
       paused = false;
       syncMotionButton();
       motionToggle?.addEventListener('click', onMotionCapture, { capture: true });
       scene.setActive(visible && !reducedMotion.matches);
       if (reducedMotion.matches) setPhaseUi(controls.length - 1);
-      else startTimer();
+      else scheduleNextPhase();
     };
     window.requestAnimationFrame(bootstrap);
 
@@ -148,7 +166,10 @@ const { locale } = Astro.props;
       observer.disconnect();
       reducedMotion.removeEventListener('change', onReducedMotionChange);
       hero.removeEventListener('healthtag:hero-phase-change', onPhaseChange);
-      controls.forEach((control) => control.removeEventListener('click', onControlClick));
+      controls.forEach((control) => {
+        control.removeEventListener('click', takeControl);
+        control.removeEventListener('focus', takeControl);
+      });
       motionToggle?.removeEventListener('click', onMotionCapture, { capture: true });
       scene?.dispose();
       scene = null;
@@ -164,10 +185,16 @@ const { locale } = Astro.props;
   :global(.home-hero .hero-network-canvas:not(.hero-network-flagship-canvas)) {
     opacity: 0;
   }
+  :global(.home-hero.flagship-network-hero .hero-network) {
+    background:
+      radial-gradient(ellipse at 76% 45%, rgba(31, 139, 128, .3), transparent 34%),
+      radial-gradient(ellipse at 82% 70%, rgba(7, 29, 34, .12), rgba(7, 29, 34, .7) 70%),
+      #102f36;
+  }
   :global(.home-hero.flagship-network-hero .hero-network::after) {
     background:
-      radial-gradient(circle at 72% 44%, rgba(112, 211, 198, .07), transparent 28%),
-      linear-gradient(90deg, rgba(16, 47, 54, 1) 0%, rgba(16, 47, 54, .98) 36%, rgba(16, 47, 54, .78) 49%, rgba(16, 47, 54, .16) 70%, rgba(16, 47, 54, .38) 100%);
+      radial-gradient(ellipse at 73% 48%, rgba(112, 211, 198, .055), transparent 30%),
+      linear-gradient(90deg, rgba(16, 47, 54, 1) 0%, rgba(16, 47, 54, .985) 34%, rgba(16, 47, 54, .84) 46%, rgba(16, 47, 54, .18) 66%, rgba(16, 47, 54, .32) 100%);
   }
   :global(.home-hero .hero-network-canvas) {
     display: block;
@@ -175,12 +202,21 @@ const { locale } = Astro.props;
     height: 100%;
   }
   :global(.hero-network-flagship-canvas) {
-    filter: saturate(.96) contrast(1.02);
+    filter: saturate(.9) contrast(1.035);
+  }
+  :global(.home-hero.flagship-network-hero-failed .hero-network) {
+    background:
+      radial-gradient(circle at 76% 42%, rgba(112, 211, 198, .2), transparent 24%),
+      linear-gradient(120deg, #102f36, #0b292f 72%, #071d22);
   }
 
   @media (max-width: 620px) {
     :global(.home-hero.flagship-network-hero .hero-network::after) {
-      background: linear-gradient(180deg, rgba(16, 47, 54, .9), rgba(16, 47, 54, .68) 58%, rgba(16, 47, 54, .96));
+      background:
+        linear-gradient(180deg, rgba(16, 47, 54, .96) 0%, rgba(16, 47, 54, .72) 48%, rgba(16, 47, 54, .94) 78%, #102f36 100%);
+    }
+    :global(.hero-network-flagship-canvas) {
+      filter: saturate(.86) contrast(1.025);
     }
   }
 </style>
