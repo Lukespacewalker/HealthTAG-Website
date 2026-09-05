@@ -39,7 +39,7 @@ async function instrumentWebGL(page: Page) {
     }
   });
 }
-const gpu = (page: Page) => page.evaluate(() => (window as Window & { __heroGpu: { contexts: number; draws: number } }).__heroGpu);
+const gpu = (page: Page) => page.evaluate(() => (window as unknown as Window & { __heroGpu: { contexts: number; draws: number } }).__heroGpu);
 
 for (const route of ['/', '/en/']) {
   test(`${route} has one renderer, keyboard steps, and accessible controls`, async ({ page }) => {
