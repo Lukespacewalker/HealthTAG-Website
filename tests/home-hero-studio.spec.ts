@@ -4,7 +4,8 @@ import AxeBuilder from '@axe-core/playwright';
 async function ready(page: Page, route = '/') {
   await page.goto(route);
   await page.locator('[data-three-hero]').scrollIntoViewIfNeeded();
-  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-hero-state', 'ready');
+  // CI software WebGL can take longer to compile the scene and reflection map.
+  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-hero-state', 'ready', { timeout: 15000 });
 }
 
 async function instrumentWebGL(page: Page) {
@@ -113,6 +114,9 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
 });
 
 test('clicking topics keeps playback running and preserves an explicit pause', async ({ page }) => {
+  // Retain every real click/GPU assertion while allowing software-rendered CI
+  // to finish the full interaction sequence (the default 45s expired mid-click).
+  test.setTimeout(90000);
   await instrumentWebGL(page);
   await ready(page);
   const hero = page.locator('[data-network-hero]');
