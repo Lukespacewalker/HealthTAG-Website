@@ -207,7 +207,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       receipts.push(block);
       const glow = new THREE.Sprite(keep(new THREE.SpriteMaterial({ map: glowTexture, color: 0xffbd59, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 })));
       glow.position.set(x, 0.26, 0.28);
-      glow.scale.setScalar(1.3);
+      glow.scale.setScalar(1.15);
       audit.add(glow);
       receiptGlows.push(glow);
       eventTargets.push(new THREE.Vector3(x, 0.38, 3.18));
@@ -347,8 +347,8 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
         const target = motion * auditLevel * Math.exp(-distance / 0.07);
         const speed = target > glowStrengths[i] ? 16 : 4;
         glowStrengths[i] += (target - glowStrengths[i]) * (1 - Math.exp(-speed * dt));
-        material.emissiveIntensity = 0.03 + glowStrengths[i] * 1.8;
-        receiptGlows[i].material.opacity = glowStrengths[i] * 0.7;
+        material.emissiveIntensity = 0.03 + glowStrengths[i] * 1.0;
+        receiptGlows[i].material.opacity = glowStrengths[i] * 0.35;
       });
       view.render(scene, camera);
     };

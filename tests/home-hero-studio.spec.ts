@@ -159,7 +159,7 @@ test('autoplay loops continuously and the pause button freezes and resumes playb
   await expect(hero).not.toHaveAttribute('data-phase', phase!, { timeout: 6000 });
 });
 
-test('blockchain emits a bright glow when an event passes through it', async ({ page }) => {
+test('blockchain emits a restrained glow when an event passes through it', async ({ page }, testInfo) => {
   await page.addInitScript(() => {
     const state = { peak: 0, armed: false };
     Object.assign(window, { __auditGlow: state });
@@ -185,7 +185,9 @@ test('blockchain emits a bright glow when an event passes through it', async ({ 
   const peak = () => page.evaluate(() => (window as unknown as { __auditGlow: { peak: number } }).__auditGlow.peak);
   expect(await peak()).toBeLessThan(0.3);
   await page.locator('[data-hero-phase="3"]').click();
-  await expect.poll(peak, { timeout: 7000 }).toBeGreaterThan(0.6);
+  await expect.poll(peak, { timeout: 7000 }).toBeGreaterThan(0.35);
+  await page.locator('[data-network-hero]').screenshot({ path: testInfo.outputPath('soft-audit-glow.png') });
+  expect(await peak()).toBeLessThan(0.85);
 });
 
 test('automatic scene changes send intermediate fade values to the GPU', async ({ page }) => {
