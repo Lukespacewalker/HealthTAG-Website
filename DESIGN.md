@@ -74,7 +74,8 @@ The palette follows the original HealthTAG icon's cyan-to-blue gradient, as requ
 | Paper | `#F6F8FC` | Primary page background |
 | White | `#FFFFFF` | Product surfaces and raised content |
 | Deep Navy | `#12243E` | Primary text and dark technical sections |
-| Brand Cyan | `#1578A5` | Primary actions, links, and data paths; sampled from original icon |
+| Brand Cyan | `#1578A5` | Illustration and data paths; sampled from original icon |
+| Action Blue | `#126B95` | Actions, links, and small text; darker for contrast on pale blue surfaces |
 | Brand Blue | `#41508D` | Gradient endpoint and 3D accent; sampled from original icon |
 | Pale Blue | `#E4F1FA` | Patient-facing and hospital source-system surfaces |
 | Muted Slate | `#53657C` | Supporting text |
