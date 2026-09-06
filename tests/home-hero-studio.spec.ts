@@ -4,7 +4,8 @@ import AxeBuilder from '@axe-core/playwright';
 async function ready(page: Page, route = '/') {
   await page.goto(route);
   await page.locator('[data-three-hero]').scrollIntoViewIfNeeded();
-  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-hero-state', 'ready');
+  // CI software WebGL can take longer to compile the scene and reflection map.
+  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-hero-state', 'ready', { timeout: 15000 });
 }
 
 async function instrumentWebGL(page: Page) {
@@ -51,13 +52,14 @@ for (const route of ['/', '/en/']) {
     expect((await gpu(page)).contexts).toBe(1);
     const controls = hero.locator('[data-hero-phase]');
     await controls.first().focus();
-    await expect(hero).toHaveAttribute('data-motion', 'paused');
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
     await controls.first().press('End');
     await expect(controls.nth(3)).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '3');
     await controls.nth(3).press('ArrowRight');
     await expect(controls.first()).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '0');
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
     expect((await new AxeBuilder({ page }).include('[data-network-hero]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
     expect(errors).toEqual([]);
   });
@@ -95,6 +97,7 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await ready(page);
   const hero = page.locator('[data-network-hero]');
   await hero.locator('[data-hero-motion-toggle]').focus();
+  await hero.locator('[data-hero-motion-toggle]').press('Enter');
   await expect(hero).toHaveAttribute('data-motion', 'paused');
   await page.waitForTimeout(150);
   const paused = await gpu(page);
@@ -110,17 +113,114 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await expect(hero.locator('canvas')).toHaveCount(1);
 });
 
-test('autoplay finishes once and restarts only on explicit replay', async ({ page }) => {
+test('clicking topics keeps playback running and preserves an explicit pause', async ({ page }) => {
+  // Retain every real click/GPU assertion while allowing software-rendered CI
+  // to finish the full interaction sequence (the default 45s expired mid-click).
+  test.setTimeout(90000);
+  await instrumentWebGL(page);
   await ready(page);
   const hero = page.locator('[data-network-hero]');
-  await expect(hero).toHaveAttribute('data-phase', '3', { timeout: 15000 });
-  await expect(hero).toHaveAttribute('data-motion', 'paused', { timeout: 5000 });
-  await expect(hero.locator('[data-motion-label]')).toHaveText('เล่นลำดับภาพอีกครั้ง');
-  await page.waitForTimeout(2500);
-  await expect(hero).toHaveAttribute('data-phase', '3');
+  for (const phase of [2, 3, 0, 1]) {
+    const before = await gpu(page);
+    await hero.locator('[data-hero-phase]').nth(phase).click();
+    await expect(hero).toHaveAttribute('data-phase', String(phase));
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
+    await expect.poll(async () => (await gpu(page)).draws).toBeGreaterThan(before.draws);
+  }
+  await expect(hero).toHaveAttribute('data-phase', '2', { timeout: 6000 });
   await hero.locator('[data-hero-motion-toggle]').click();
+  await hero.locator('[data-hero-phase]').nth(0).click();
   await expect(hero).toHaveAttribute('data-phase', '0');
+  await expect(hero).toHaveAttribute('data-motion', 'paused');
+  await page.waitForTimeout(150);
+  const stopped = await gpu(page);
+  await page.waitForTimeout(400);
+  expect((await gpu(page)).draws).toBe(stopped.draws);
+  expect(stopped.contexts).toBe(1);
+});
+
+test('autoplay loops continuously and the pause button freezes and resumes playback', async ({ page }) => {
+  test.setTimeout(65_000);
+  await ready(page);
+  const hero = page.locator('[data-network-hero]');
   await expect(hero).toHaveAttribute('data-motion', 'playing');
+  for (let cycle = 0; cycle < 2; cycle += 1) {
+    await expect(hero).toHaveAttribute('data-phase', '3', { timeout: 15000 });
+    // Step 04 now holds for 7.2s, twice its original 3.6s duration.
+    await page.waitForTimeout(4200);
+    await expect(hero).toHaveAttribute('data-phase', '3');
+    await expect(hero).toHaveAttribute('data-phase', '0', { timeout: 5000 });
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
+  }
+  const toggle = hero.locator('[data-hero-motion-toggle]');
+  await toggle.click();
+  await expect(hero).toHaveAttribute('data-motion', 'paused');
+  const phase = await hero.getAttribute('data-phase');
+  await page.waitForTimeout(5000);
+  await expect(hero).toHaveAttribute('data-phase', phase!);
+  await toggle.click();
+  await expect(hero).toHaveAttribute('data-motion', 'playing');
+  await expect(hero).not.toHaveAttribute('data-phase', phase!, { timeout: 6000 });
+});
+
+test('blockchain emits a restrained glow when an event passes through it', async ({ page }, testInfo) => {
+  await page.addInitScript(() => {
+    const state = { peak: 0, armed: false };
+    Object.assign(window, { __auditGlow: state });
+    const locations = new WeakSet<WebGLUniformLocation>();
+    const gl = WebGL2RenderingContext.prototype;
+    const originalLocation = gl.getUniformLocation;
+    const originalVector = gl.uniform3f;
+    gl.getUniformLocation = function(program, name) {
+      const location = originalLocation.call(this, program, name);
+      if (location && name === 'emissive') locations.add(location);
+      return location;
+    };
+    gl.uniform3f = function(location, x, y, z) {
+      if (state.armed && location && locations.has(location)) state.peak = Math.max(state.peak, x);
+      return originalVector.call(this, location, x, y, z);
+    };
+  });
+  await ready(page);
+  // PMREM's temporary room scene has emissive light cards. Only measure the
+  // visible hero after that environment-map initialization has completed.
+  await page.evaluate(() => { (window as unknown as { __auditGlow: { armed: boolean } }).__auditGlow.armed = true; });
+  await page.waitForTimeout(150);
+  const peak = () => page.evaluate(() => (window as unknown as { __auditGlow: { peak: number } }).__auditGlow.peak);
+  expect(await peak()).toBeLessThan(0.3);
+  await page.locator('[data-hero-phase="3"]').click();
+  await expect.poll(peak, { timeout: 7000 }).toBeGreaterThan(0.35);
+  await page.locator('[data-network-hero]').screenshot({ path: testInfo.outputPath('soft-audit-glow.png') });
+  expect(await peak()).toBeLessThan(0.85);
+});
+
+test('automatic scene changes send intermediate fade values to the GPU', async ({ page }) => {
+  await page.addInitScript(() => {
+    const levels: number[] = [];
+    Object.assign(window, { __heroFadeLevels: levels });
+    const locations = new WeakSet<WebGLUniformLocation>();
+    const gl = WebGL2RenderingContext.prototype;
+    const getLocation = gl.getUniformLocation;
+    const setFloat = gl.uniform1f;
+    gl.getUniformLocation = function(program, name) {
+      const location = getLocation.call(this, program, name);
+      if (location && name === 'uLevel') locations.add(location);
+      return location;
+    };
+    gl.uniform1f = function(location, value) {
+      if (location && locations.has(location)) {
+        levels.push(value);
+        if (levels.length > 2000) levels.shift();
+      }
+      return setFloat.call(this, location, value);
+    };
+  });
+  await ready(page);
+  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-phase', '1', { timeout: 6000 });
+  await expect.poll(() => page.evaluate(() => {
+    const levels = (window as unknown as { __heroFadeLevels: number[] }).__heroFadeLevels;
+    return new Set(levels.filter(value => value > 0.05 && value < 0.8).map(value => value.toFixed(3))).size;
+  })).toBeGreaterThan(5);
 });
 
 test('offscreen rendering stops and page lifecycle does not stack renderers', async ({ page }) => {
