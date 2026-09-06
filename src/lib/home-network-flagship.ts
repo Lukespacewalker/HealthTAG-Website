@@ -261,9 +261,11 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
         uniform float uFlow;
         uniform float uDashed;
         void main() {
-          float pulse = (1.0 - smoothstep(0.0, 0.075, abs(vUv.x - uHead))) * uFlow;
+          float envelope = smoothstep(0.0, 0.12, uHead) * (1.0 - smoothstep(0.88, 1.0, uHead));
+          float pulse = (1.0 - smoothstep(0.0, 0.075, abs(vUv.x - uHead))) * uFlow * envelope;
           float dash = mix(1.0, step(0.34, fract(vUv.x * 15.0)), uDashed);
-          float alpha = (0.08 + uLevel * 0.65 + pulse * 0.3) * dash;
+          float reveal = 1.0 - smoothstep(uLevel * 1.3, uLevel * 1.3 + 0.15, vUv.x);
+          float alpha = (0.06 + uLevel * 0.65 * reveal + pulse * 0.3) * dash;
           gl_FragColor = vec4(mix(uColor, vec3(0.88, 1.0, 0.96), pulse * 0.45), alpha);
           #include <tonemapping_fragment>
           #include <colorspace_fragment>
@@ -312,35 +314,42 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       const dt = timestamp === undefined || !lastTime ? 0 : Math.min(0.05, Math.max(0, (timestamp - lastTime) / 1000));
       if (timestamp !== undefined) lastTime = timestamp;
       clock += dt;
-      const blend = 1 - Math.exp(-7 * dt);
+      const blend = 1 - Math.exp(-2.5 * dt);
       // Keep the same clock and ease the visual states, including the 3 → 0 loop.
-      const fade = 1 - Math.exp(-3.8 * dt);
+      const fade = 1 - Math.exp(-1.5 * dt);
       phaseMix.forEach((value, index) => { phaseMix[index] = value + ((index === phase ? 1 : 0) - value) * fade; });
-      const exchange = phaseMix[2];
+      const exchange = phaseMix[2] + phaseMix[3];
       const auditLevel = phaseMix[3];
-      root.rotation.y += ((compact || reducedMotion.matches ? 0 : pointerX * 0.2) - root.rotation.y) * blend;
-      root.rotation.x += ((compact || reducedMotion.matches ? 0 : pointerY * 0.08) - root.rotation.x) * blend;
-      wallet.position.y = 1.7 + (reducedMotion.matches ? 0 : Math.sin(clock * 1.4) * 0.055);
-      wallet.rotation.y = -0.12 + (reducedMotion.matches ? 0 : Math.sin(clock * 0.8) * 0.07);
+      const motion = reducedMotion.matches ? 0 : 1;
+      root.rotation.y += ((Math.sin(clock * 0.18) * 0.045 + (compact ? 0 : pointerX * 0.16)) * motion - root.rotation.y) * blend;
+      root.rotation.x += ((compact ? 0 : pointerY * 0.05) * motion - root.rotation.x) * blend;
+      wallet.position.y = 1.7 + exchange * 0.1 + Math.sin(clock * 1.15) * 0.08 * motion;
+      wallet.scale.setScalar(1.12 + exchange * 0.045);
+      wallet.rotation.y = -0.12 + Math.sin(clock * 0.55) * 0.15 * motion;
+      halo.rotation.z = 0.15 + Math.sin(clock * 0.3) * 0.09 * motion;
       paths.forEach((path, i) => {
         path.material.uniforms.uLevel.value = (1 - phaseMix[0]) * 0.85;
-        path.material.uniforms.uHead.value = (clock * 0.24 + i * 0.17) % 1;
+        const travel = (clock * 0.19 + i * 0.17) % 1;
+        const envelope = THREE.MathUtils.smoothstep(travel, 0, 0.12) * (1 - THREE.MathUtils.smoothstep(travel, 0.88, 1));
+        path.material.uniforms.uHead.value = travel;
         path.material.uniforms.uFlow.value = exchange;
         const packet = packets[i];
         const curve = curves.get(path);
         packet.visible = path.visible && exchange > 0.001 && Boolean(curve);
-        packet.scale.setScalar(exchange);
+        packet.scale.setScalar(exchange * envelope);
         if (packet.visible && curve) {
-          packet.position.copy(curve.getPoint((clock * 0.24 + i * 0.17) % 1));
+          curve.getPoint(travel, packet.position);
           packet.rotation.set(clock, clock * 0.7, 0);
         }
       });
       auditPacket.visible = auditLevel > 0.001;
-      auditPacket.scale.setScalar(auditLevel);
+      const auditTravel = reducedMotion.matches ? 0.7 : (clock * 0.24) % 1;
+      const auditEnvelope = THREE.MathUtils.smoothstep(auditTravel, 0, 0.12) * (1 - THREE.MathUtils.smoothstep(auditTravel, 0.88, 1));
+      auditPacket.scale.setScalar(auditLevel * auditEnvelope);
       const receiptCurve = curves.get(auditPath);
-      if (receiptCurve) auditPacket.position.copy(receiptCurve.getPoint(reducedMotion.matches ? 0.7 : (clock * 0.35) % 1));
+      if (receiptCurve) receiptCurve.getPoint(auditTravel, auditPacket.position);
       auditPath.material.uniforms.uLevel.value = auditLevel;
-      auditPath.material.uniforms.uHead.value = (clock * 0.35) % 1;
+      auditPath.material.uniforms.uHead.value = auditTravel;
       auditPath.material.uniforms.uFlow.value = auditLevel;
       receipts.forEach((receipt, i) => {
         const material = receipt.material as THREE.MeshStandardMaterial;

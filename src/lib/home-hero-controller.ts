@@ -27,7 +27,6 @@ function mount(hero: HTMLElement): () => void {
   let timer: number | undefined;
   let remaining = PHASE_DURATION[phase];
   let deadline = 0;
-  let pointerIntent: boolean | undefined;
 
   const stopTimer = () => {
     if (timer !== undefined) {
@@ -102,9 +101,7 @@ function mount(hero: HTMLElement): () => void {
   controls.forEach((control, index) => {
     control.disabled = false;
     control.addEventListener('click', () => {
-      paused = true;
       stopTimer();
-      sync();
       setPhase(index, true);
       sync();
     }, { signal: events.signal });
@@ -117,21 +114,9 @@ function mount(hero: HTMLElement): () => void {
       target.click();
     }, { signal: events.signal });
   });
-  hero.addEventListener('focusin', () => {
-    paused = true;
-    sync();
-  }, { signal: events.signal });
-  // Preserve pointer intent when focusin changes a Pause button into a Play button.
-  toggle.addEventListener('pointerdown', () => { pointerIntent = !paused; }, { signal: events.signal });
-  toggle.addEventListener('pointercancel', () => { pointerIntent = undefined; }, { signal: events.signal });
   toggle.addEventListener('click', () => {
-    const shouldPause = pointerIntent ?? (!paused);
-    pointerIntent = undefined;
     stopTimer();
-    if (shouldPause) paused = true;
-    else {
-      paused = false;
-    }
+    paused = !paused;
     sync();
   }, { signal: events.signal });
   host.addEventListener('webglcontextlost', (event) => {

@@ -51,13 +51,14 @@ for (const route of ['/', '/en/']) {
     expect((await gpu(page)).contexts).toBe(1);
     const controls = hero.locator('[data-hero-phase]');
     await controls.first().focus();
-    await expect(hero).toHaveAttribute('data-motion', 'paused');
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
     await controls.first().press('End');
     await expect(controls.nth(3)).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '3');
     await controls.nth(3).press('ArrowRight');
     await expect(controls.first()).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '0');
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
     expect((await new AxeBuilder({ page }).include('[data-network-hero]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
     expect(errors).toEqual([]);
   });
@@ -95,6 +96,7 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await ready(page);
   const hero = page.locator('[data-network-hero]');
   await hero.locator('[data-hero-motion-toggle]').focus();
+  await hero.locator('[data-hero-motion-toggle]').press('Enter');
   await expect(hero).toHaveAttribute('data-motion', 'paused');
   await page.waitForTimeout(150);
   const paused = await gpu(page);
@@ -108,6 +110,29 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await page.setViewportSize({ width: 1440, height: 1000 });
   expect((await gpu(page)).contexts).toBe(1);
   await expect(hero.locator('canvas')).toHaveCount(1);
+});
+
+test('clicking topics keeps playback running and preserves an explicit pause', async ({ page }) => {
+  await instrumentWebGL(page);
+  await ready(page);
+  const hero = page.locator('[data-network-hero]');
+  for (const phase of [2, 3, 0, 1]) {
+    const before = await gpu(page);
+    await hero.locator('[data-hero-phase]').nth(phase).click();
+    await expect(hero).toHaveAttribute('data-phase', String(phase));
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
+    await expect.poll(async () => (await gpu(page)).draws).toBeGreaterThan(before.draws);
+  }
+  await expect(hero).toHaveAttribute('data-phase', '2', { timeout: 6000 });
+  await hero.locator('[data-hero-motion-toggle]').click();
+  await hero.locator('[data-hero-phase]').nth(0).click();
+  await expect(hero).toHaveAttribute('data-phase', '0');
+  await expect(hero).toHaveAttribute('data-motion', 'paused');
+  await page.waitForTimeout(150);
+  const stopped = await gpu(page);
+  await page.waitForTimeout(400);
+  expect((await gpu(page)).draws).toBe(stopped.draws);
+  expect(stopped.contexts).toBe(1);
 });
 
 test('autoplay loops continuously and the pause button freezes and resumes playback', async ({ page }) => {
