@@ -142,7 +142,10 @@ test('autoplay loops continuously and the pause button freezes and resumes playb
   await expect(hero).toHaveAttribute('data-motion', 'playing');
   for (let cycle = 0; cycle < 2; cycle += 1) {
     await expect(hero).toHaveAttribute('data-phase', '3', { timeout: 15000 });
-    await expect(hero).toHaveAttribute('data-phase', '0', { timeout: 6000 });
+    // Step 04 now holds for 7.2s, twice its original 3.6s duration.
+    await page.waitForTimeout(4200);
+    await expect(hero).toHaveAttribute('data-phase', '3');
+    await expect(hero).toHaveAttribute('data-phase', '0', { timeout: 5000 });
     await expect(hero).toHaveAttribute('data-motion', 'playing');
   }
   const toggle = hero.locator('[data-hero-motion-toggle]');
@@ -154,6 +157,35 @@ test('autoplay loops continuously and the pause button freezes and resumes playb
   await toggle.click();
   await expect(hero).toHaveAttribute('data-motion', 'playing');
   await expect(hero).not.toHaveAttribute('data-phase', phase!, { timeout: 6000 });
+});
+
+test('blockchain emits a bright glow when an event passes through it', async ({ page }) => {
+  await page.addInitScript(() => {
+    const state = { peak: 0, armed: false };
+    Object.assign(window, { __auditGlow: state });
+    const locations = new WeakSet<WebGLUniformLocation>();
+    const gl = WebGL2RenderingContext.prototype;
+    const originalLocation = gl.getUniformLocation;
+    const originalVector = gl.uniform3f;
+    gl.getUniformLocation = function(program, name) {
+      const location = originalLocation.call(this, program, name);
+      if (location && name === 'emissive') locations.add(location);
+      return location;
+    };
+    gl.uniform3f = function(location, x, y, z) {
+      if (state.armed && location && locations.has(location)) state.peak = Math.max(state.peak, x);
+      return originalVector.call(this, location, x, y, z);
+    };
+  });
+  await ready(page);
+  // PMREM's temporary room scene has emissive light cards. Only measure the
+  // visible hero after that environment-map initialization has completed.
+  await page.evaluate(() => { (window as unknown as { __auditGlow: { armed: boolean } }).__auditGlow.armed = true; });
+  await page.waitForTimeout(150);
+  const peak = () => page.evaluate(() => (window as unknown as { __auditGlow: { peak: number } }).__auditGlow.peak);
+  expect(await peak()).toBeLessThan(0.3);
+  await page.locator('[data-hero-phase="3"]').click();
+  await expect.poll(peak, { timeout: 7000 }).toBeGreaterThan(0.6);
 });
 
 test('automatic scene changes send intermediate fade values to the GPU', async ({ page }) => {

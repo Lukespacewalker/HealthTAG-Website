@@ -176,29 +176,6 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     addShadow(walletBase, 3.5, 2.5);
     root.add(walletBase);
 
-    // A static orbital frame gives the composition depth without implying live activity.
-    const orbitMaterial = keep(new THREE.MeshBasicMaterial({ color: 0x398dbb, transparent: true, opacity: 0.3, depthWrite: false }));
-    const orbit = new THREE.Mesh(keep(new THREE.TorusGeometry(3.65, 0.012, 5, 100)), orbitMaterial);
-    orbit.rotation.x = -Math.PI / 2;
-    orbit.position.y = -0.06;
-    root.add(orbit);
-    const innerOrbit = new THREE.Mesh(keep(new THREE.TorusGeometry(1.62, 0.018, 6, 80)), orbitMaterial);
-    innerOrbit.rotation.x = -Math.PI / 2;
-    innerOrbit.position.y = 0.05;
-    root.add(innerOrbit);
-    const halo = new THREE.Group();
-    halo.position.set(0, 1.55, -0.65);
-    halo.rotation.set(-0.18, 0.08, 0.15);
-    const haloMaterial = keep(new THREE.MeshBasicMaterial({ color: 0x55c5f4, transparent: true, opacity: 0.6, depthWrite: false }));
-    halo.add(new THREE.Mesh(keep(new THREE.TorusGeometry(1.95, 0.016, 6, 100)), haloMaterial));
-    const haloArc = new THREE.Mesh(keep(new THREE.TorusGeometry(2.04, 0.035, 6, 60, Math.PI * 0.7)), luminous);
-    haloArc.rotation.z = 0.2;
-    halo.add(haloArc);
-    const secondArc = new THREE.Mesh(keep(new THREE.TorusGeometry(2.04, 0.025, 6, 40, Math.PI * 0.32)), cobalt);
-    secondArc.rotation.z = Math.PI * 1.17;
-    halo.add(secondArc);
-    root.add(halo);
-
     const glowCanvas = document.createElement('canvas');
     glowCanvas.width = glowCanvas.height = 64;
     const glowContext = glowCanvas.getContext('2d');
@@ -216,30 +193,39 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     const audit = new THREE.Group();
     audit.position.set(0, 0.12, 2.9);
     const receipts: THREE.Mesh[] = [];
+    const receiptGlows: THREE.Sprite[] = [];
+    const glowStrengths = [0, 0, 0, 0];
+    const eventTargets: THREE.Vector3[] = [];
     const gold = keep(new THREE.MeshStandardMaterial({ color: 0xffcf85, metalness: 0.55, roughness: 0.24, emissive: 0xe2a55c, emissiveIntensity: 0.15 }));
-    const blockEdges = keep(new THREE.EdgesGeometry(keep(new THREE.BoxGeometry(0.64, 0.64, 0.64))));
+    const blockEdges = keep(new THREE.EdgesGeometry(keep(new THREE.BoxGeometry(0.5, 0.5, 0.5))));
     const edgeMaterial = keep(new THREE.LineBasicMaterial({ color: 0xffd99b, transparent: true, opacity: 0.85 }));
     for (let i = 0; i < 4; i += 1) {
       const x = (i - 1.5) * 1.05;
       const material = keep(new THREE.MeshPhysicalMaterial({ color: 0x76502b, roughness: 0.23, metalness: 0.5, clearcoat: 0.8, emissive: 0xe2a55c, emissiveIntensity: 0.05 }));
-      const block = addBox(audit, [0.64, 0.64, 0.64], [x, 0.34, 0], material, 0.035);
+      const block = addBox(audit, [0.5, 0.5, 0.5], [x, 0.26, 0], material, 0.03);
       block.add(new THREE.LineSegments(blockEdges, edgeMaterial));
       receipts.push(block);
+      const glow = new THREE.Sprite(keep(new THREE.SpriteMaterial({ map: glowTexture, color: 0xffbd59, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0 })));
+      glow.position.set(x, 0.26, 0.28);
+      glow.scale.setScalar(1.3);
+      audit.add(glow);
+      receiptGlows.push(glow);
+      eventTargets.push(new THREE.Vector3(x, 0.38, 3.18));
       // Hash marks and interlocking links make this read as a chain of blocks.
-      for (const offset of [-0.075, 0.075]) {
-        addBox(audit, [0.025, 0.28, 0.018], [x + offset, 0.35, 0.329], gold, 0.006);
-        addBox(audit, [0.28, 0.025, 0.018], [x, 0.35 + offset, 0.329], gold, 0.006);
+      for (const offset of [-0.056, 0.056]) {
+        addBox(audit, [0.02, 0.21, 0.018], [x + offset, 0.27, 0.259], gold, 0.006);
+        addBox(audit, [0.21, 0.02, 0.018], [x, 0.27 + offset, 0.259], gold, 0.006);
       }
     }
     addShadow(audit, 4.5, 1.35);
     root.add(audit);
-    const linkGeometry = keep(new THREE.TorusGeometry(0.12, 0.028, 8, 20));
+    const linkGeometry = keep(new THREE.TorusGeometry(0.07, 0.018, 8, 20));
     for (let i = 0; i < 3; i += 1) {
-      for (let half = 0; half < 2; half += 1) {
+      for (let ring = 0; ring < 4; ring += 1) {
         const link = new THREE.Mesh(linkGeometry, gold);
         link.scale.x = 1.5;
-        link.rotation.x = half ? Math.PI / 2 : 0;
-        link.position.set((i - 1) * 1.05 + (half ? 0.09 : -0.09), 0.34, 0);
+        link.rotation.x = ring % 2 ? Math.PI / 2 : 0;
+        link.position.set((i - 1) * 1.05 + (ring - 1.5) * 0.13, 0.26, 0);
         audit.add(link);
       }
     }
@@ -326,7 +312,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       wallet.position.y = 1.7 + exchange * 0.1 + Math.sin(clock * 1.15) * 0.08 * motion;
       wallet.scale.setScalar(1.12 + exchange * 0.045);
       wallet.rotation.y = -0.12 + Math.sin(clock * 0.55) * 0.15 * motion;
-      halo.rotation.z = 0.15 + Math.sin(clock * 0.3) * 0.09 * motion;
+
       paths.forEach((path, i) => {
         path.material.uniforms.uLevel.value = (1 - phaseMix[0]) * 0.85;
         const travel = (clock * 0.19 + i * 0.17) % 1;
@@ -343,17 +329,26 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
         }
       });
       auditPacket.visible = auditLevel > 0.001;
-      const auditTravel = reducedMotion.matches ? 0.7 : (clock * 0.24) % 1;
-      const auditEnvelope = THREE.MathUtils.smoothstep(auditTravel, 0, 0.12) * (1 - THREE.MathUtils.smoothstep(auditTravel, 0.88, 1));
+      // One event travels into the first block, then across the linked chain.
+      // Its actual position drives illumination, rather than unrelated sine pulses.
+      const auditCycle = reducedMotion.matches ? 0.28 : (clock * 0.18) % 1;
+      const auditTravel = Math.min(1, auditCycle / 0.4);
+      const auditEnvelope = THREE.MathUtils.smoothstep(auditCycle, 0, 0.04) * (1 - THREE.MathUtils.smoothstep(auditCycle, 0.96, 1));
       auditPacket.scale.setScalar(auditLevel * auditEnvelope);
       const receiptCurve = curves.get(auditPath);
-      if (receiptCurve) receiptCurve.getPoint(auditTravel, auditPacket.position);
+      if (auditCycle <= 0.4 && receiptCurve) receiptCurve.getPoint(auditTravel, auditPacket.position);
+      else auditPacket.position.set(-1.575 + 3.15 * (auditCycle - 0.4) / 0.6, 0.38, 3.18);
       auditPath.material.uniforms.uLevel.value = auditLevel;
       auditPath.material.uniforms.uHead.value = auditTravel;
       auditPath.material.uniforms.uFlow.value = auditLevel;
       receipts.forEach((receipt, i) => {
         const material = receipt.material as THREE.MeshStandardMaterial;
-        material.emissiveIntensity = 0.05 + auditLevel * (0.18 + Math.max(0, Math.sin(clock * 2 - i * 0.85)) * 0.3);
+        const distance = eventTargets[i].distanceToSquared(auditPacket.position);
+        const target = motion * auditLevel * Math.exp(-distance / 0.07);
+        const speed = target > glowStrengths[i] ? 16 : 4;
+        glowStrengths[i] += (target - glowStrengths[i]) * (1 - Math.exp(-speed * dt));
+        material.emissiveIntensity = 0.03 + glowStrengths[i] * 1.8;
+        receiptGlows[i].material.opacity = glowStrengths[i] * 0.7;
       });
       view.render(scene, camera);
     };
@@ -378,7 +373,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
           const end = new THREE.Vector3(hospital.position.x < 0 ? -1.25 : 1.25, 1.55, 0.15);
           replaceCurve(paths[i], start, end, 0.9);
         });
-        replaceCurve(auditPath, new THREE.Vector3(0.4, 0.8, 0.35), new THREE.Vector3(-1.575, 0.75, 2.9), 0.22);
+        replaceCurve(auditPath, new THREE.Vector3(0.4, 0.8, 0.35), new THREE.Vector3(-1.575, 0.38, 3.18), 0.22);
       }
       const ratio = Math.min(window.devicePixelRatio || 1, compact ? 1.25 : 1.5, Math.sqrt(1_600_000 / (width * height)));
       view.setPixelRatio(ratio);

@@ -26,9 +26,6 @@
       </g>
     </g>
   </defs>
-  <ellipse cx="408" cy="409" rx="300" ry="159" stroke="#398dbb" stroke-opacity=".3"/>
-  <ellipse cx="407" cy="294" rx="179" ry="165" stroke="#55c5f4" stroke-opacity=".6" stroke-width="2"/>
-  <path d="M252 200a185 172 0 0 1 329 41" stroke="#8ddcff" stroke-width="4" stroke-linecap="round"/>
   <ellipse cx="410" cy="422" rx="188" ry="62" fill="url(#hero-contact-shadow)"/>
   <g stroke="#78a2c4" stroke-width="2" opacity=".43">
     <path d="M145 296Q205 194 304 292"/><path d="M652 306Q604 228 541 300"/>
@@ -54,10 +51,10 @@
   </g>
   <path d="M430 417q-36 49-7 98" stroke="#d3a66f" stroke-width="2" stroke-dasharray="5 7"/>
   <ellipse cx="423" cy="556" rx="125" ry="29" fill="url(#hero-contact-shadow)"/>
-  <g stroke="#ffd99b" stroke-width="3" fill="none">
-    <ellipse cx="337" cy="542" rx="17" ry="7"/><ellipse cx="415" cy="542" rx="17" ry="7"/><ellipse cx="493" cy="542" rx="17" ry="7"/>
+  <g stroke="#ffd99b" stroke-width="1.6" fill="none">
+    {[337, 415, 493].map((center) => [0, 1, 2, 3].map((ring) => <ellipse cx={center + (ring - 1.5) * 9} cy="542" rx="6.5" ry={ring % 2 ? 1.8 : 4} />))}
   </g>
-  {[274, 352, 430, 508].map((x) => <g transform={`translate(${x} 513)`} stroke="#eec28a" stroke-width="1.5" stroke-linejoin="round">
+  {[274, 352, 430, 508].map((x) => <g transform={`translate(${x + 6} 520) scale(.78)`} stroke="#eec28a" stroke-width="1.5" stroke-linejoin="round">
     <path d="M0 10 35 16 51 3 16-3Z" fill="#c28a47"/>
     <path d="M0 10 35 16V56L0 50Z" fill="#76502b"/>
     <path d="m35 16 16-13v40L35 56Z" fill="#9b6934"/>

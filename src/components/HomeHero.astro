@@ -87,7 +87,8 @@ const phases = en ? [
   .hero-visual-heading { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; color: #c5d3df; font-size: .72rem; letter-spacing: .02em; }
   .hero-visual-heading > span:first-child { font: 500 .72rem/1.6 'IBM Plex Mono', monospace; }
   .hero-visual-heading > span:last-child { color: #9baebd; }
-  .hero-art { position: relative; isolation: isolate; aspect-ratio: 5 / 4; width: 100%; background: radial-gradient(ellipse at 46% 44%, rgba(21,120,165,.27), transparent 60%), radial-gradient(ellipse at 75% 28%, rgba(65,80,141,.3), transparent 58%); }
+  .hero-art { position: relative; isolation: isolate; aspect-ratio: 5 / 4; width: 100%; }
+  .hero-art::after { content: ''; position: absolute; inset: -18%; z-index: -2; pointer-events: none; background: radial-gradient(ellipse 38% 40% at 46% 48%, rgba(21,120,165,.27), transparent 100%), radial-gradient(ellipse 30% 34% at 62% 42%, rgba(65,80,141,.3), transparent 100%); }
   .hero-art::before { content: ''; position: absolute; inset: 4% -2%; z-index: -1; background-image: radial-gradient(circle, #7597bb 1px, transparent 1px); background-size: 28px 28px; opacity: .18; mask-image: radial-gradient(ellipse, #000, transparent 68%); }
   .hero-visual-heading > span:first-child { color: #8ddcff; }
   .home-hero .btn.primary { background: #d7efff; border-color: #d7efff; box-shadow: 0 6px 28px #1578a529; }

@@ -1,6 +1,6 @@
 import type { HealthTagFlagshipHero } from './home-network-flagship';
 
-const PHASE_DURATION = [3200, 3600, 4400, 3600];
+const PHASE_DURATION = [3200, 3600, 4400, 7200];
 const mounted = new Map<HTMLElement, () => void>();
 
 function mount(hero: HTMLElement): () => void {
