@@ -67,17 +67,18 @@ The site is light-first. Dark sections may be used sparingly to explain architec
 
 ## Visual system
 
-The current palette is intentional and should remain recognizable:
+The palette follows the original HealthTAG icon's cyan-to-blue gradient, as requested by the site owner on 2026-09-06. Original logo files remain unchanged. Existing `--teal` and `--mint` names are compatibility aliases for the brand action and pale blue surface colors.
 
 | Token | Hex | Purpose |
 | --- | --- | --- |
-| Paper | `#F6F8F7` | Primary page background |
+| Paper | `#F6F8FC` | Primary page background |
 | White | `#FFFFFF` | Product surfaces and raised content |
-| Deep Petrol | `#102F36` | Primary text and dark technical sections |
-| Clinical Teal | `#00766F` | Primary actions, links, and data paths |
-| Pale Mint | `#DDF3EB` | Patient-facing and hospital source-system surfaces |
-| Muted Slate | `#53676C` | Supporting text |
-| Soft Border | `#D5E0DC` | Dividers and component boundaries |
+| Deep Navy | `#12243E` | Primary text and dark technical sections |
+| Brand Cyan | `#1578A5` | Primary actions, links, and data paths; sampled from original icon |
+| Brand Blue | `#41508D` | Gradient endpoint and 3D accent; sampled from original icon |
+| Pale Blue | `#E4F1FA` | Patient-facing and hospital source-system surfaces |
+| Muted Slate | `#53657C` | Supporting text |
+| Soft Border | `#D5E0EE` | Dividers and component boundaries |
 | Signal Amber | `#B66A16` | Permission, time limits, consent, and audit accents |
 
 Amber is an accent, not a second brand color. Do not rely on color alone to distinguish relationship or system states.
@@ -123,7 +124,7 @@ Show, where relevant:
 
 Do not draw clinical data as flowing through blockchain. If the physical request sequence is not established, label the diagram as conceptual and show responsibilities rather than inventing topology.
 
-Use teal for clinical-data paths and amber for permission or audit paths, supported by labels, line patterns, or icons.
+Use brand cyan/blue for clinical-data paths and amber for permission or audit paths, supported by labels, line patterns, or icons.
 
 Implementation product names and the full Data Source Node architecture remain in separate technical documentation. Public pages use the generic component names above and do not link to that documentation until its access policy is decided. The Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
 
