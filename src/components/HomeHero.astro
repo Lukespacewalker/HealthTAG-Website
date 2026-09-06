@@ -37,6 +37,7 @@ const phases = en ? [
         <HomeHeroPoster />
         <div class="hero-network" data-three-hero></div>
       </div>
+      <div class="hero-blockchain-label"><strong>Blockchain</strong><span>{en ? 'Consent and access events' : 'บันทึกความยินยอมและการเข้าถึง'}</span></div>
       <div class="hero-legend" aria-label={en ? 'Connection types' : 'ประเภทเส้นเชื่อม'}>
         <span><i class="data-line" aria-hidden="true"></i>{en ? 'Permitted health data' : 'ข้อมูลสุขภาพที่ได้รับอนุญาต'}</span>
         <span><i class="audit-line" aria-hidden="true"></i>{en ? 'Consent and access events' : 'เหตุการณ์ความยินยอมและการเข้าถึง'}</span>
@@ -55,7 +56,6 @@ const phases = en ? [
         <button type="button" class="hero-motion-toggle" data-hero-motion-toggle hidden
           data-pause-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
           data-play-label={en ? 'Play motion' : 'เล่นภาพเคลื่อนไหว'}
-          data-replay-label={en ? 'Replay sequence' : 'เล่นลำดับภาพอีกครั้ง'}
           aria-label={en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}
         ><span aria-hidden="true" data-motion-icon>Ⅱ</span><span data-motion-label>{en ? 'Pause motion' : 'หยุดภาพเคลื่อนไหว'}</span></button>
       </div>
@@ -97,6 +97,9 @@ const phases = en ? [
   .home-hero[data-hero-state='ready'] .hero-art :global(.hero-poster) { visibility: hidden; }
   .hero-network :global(canvas) { display: block; width: 100%; height: 100%; }
   .hero-legend { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; color: #b9c6d0; font-size: .72rem; line-height: 1.6; }
+  .hero-blockchain-label { display: flex; justify-content: center; flex-wrap: wrap; gap: .25rem .65rem; margin: -.8rem 0 1.15rem; color: #efc48a; font-size: .7rem; line-height: 1.6; }
+  .hero-blockchain-label strong { font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
+  .hero-phase-control { transition: background-color .65s ease, border-color .65s ease, color .65s ease; }
   .hero-legend > span { display: inline-flex; align-items: center; gap: .6rem; }
   .hero-legend i { display: inline-block; width: 1.6rem; border-top: 2px solid #70a6d3; }
   .hero-legend .audit-line { border-color: #e2a55c; border-top-style: dashed; }

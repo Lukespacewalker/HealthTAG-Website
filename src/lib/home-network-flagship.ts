@@ -65,7 +65,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     try {
       const target = keep(pmrem.fromScene(environment, 0.04));
       scene.environment = target.texture;
-      scene.environmentIntensity = 0.65;
+      scene.environmentIntensity = 0.85;
     } finally {
       environment.dispose();
       pmrem.dispose();
@@ -82,7 +82,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     const ceramicSide = keep(new THREE.MeshStandardMaterial({ color: 0xa8bbcb, roughness: 0.58 }));
     const ink = keep(new THREE.MeshStandardMaterial({ color: 0x172d53, roughness: 0.38 }));
     const mint = keep(new THREE.MeshStandardMaterial({ color: 0xb4d4ee, roughness: 0.36 }));
-    const teal = keep(new THREE.MeshPhysicalMaterial({ color: 0x1578a5, roughness: 0.26, metalness: 0.06, clearcoat: 0.45, clearcoatRoughness: 0.25 }));
+    const teal = keep(new THREE.MeshPhysicalMaterial({ color: 0x1578a5, roughness: 0.2, metalness: 0.38, clearcoat: 1, clearcoatRoughness: 0.16 }));
     const amber = keep(new THREE.MeshStandardMaterial({ color: 0xe2a55c, roughness: 0.44 }));
     const cobalt = keep(new THREE.MeshPhysicalMaterial({ color: 0x41508d, roughness: 0.23, metalness: 0.3, clearcoat: 1 }));
     const luminous = keep(new THREE.MeshBasicMaterial({ color: 0x8ddcff, toneMapped: false }));
@@ -216,16 +216,32 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
     const audit = new THREE.Group();
     audit.position.set(0, 0.12, 2.9);
     const receipts: THREE.Mesh[] = [];
-    for (let i = 0; i < 3; i += 1) {
-      const material = keep(new THREE.MeshStandardMaterial({ color: 0xb88954, roughness: 0.5, emissive: 0xe2a55c, emissiveIntensity: 0 }));
-      receipts.push(addBox(audit, [0.56, 0.11, 0.42], [(i - 1) * 0.76, 0, 0], material));
-      addBox(audit, [0.22, 0.018, 0.025], [(i - 1) * 0.76, 0.064, -0.05], amber, 0.007);
-      addBox(audit, [0.16, 0.018, 0.025], [(i - 1) * 0.76 - 0.03, 0.064, 0.045], amber, 0.007);
+    const gold = keep(new THREE.MeshStandardMaterial({ color: 0xffcf85, metalness: 0.55, roughness: 0.24, emissive: 0xe2a55c, emissiveIntensity: 0.15 }));
+    const blockEdges = keep(new THREE.EdgesGeometry(keep(new THREE.BoxGeometry(0.64, 0.64, 0.64))));
+    const edgeMaterial = keep(new THREE.LineBasicMaterial({ color: 0xffd99b, transparent: true, opacity: 0.85 }));
+    for (let i = 0; i < 4; i += 1) {
+      const x = (i - 1.5) * 1.05;
+      const material = keep(new THREE.MeshPhysicalMaterial({ color: 0x76502b, roughness: 0.23, metalness: 0.5, clearcoat: 0.8, emissive: 0xe2a55c, emissiveIntensity: 0.05 }));
+      const block = addBox(audit, [0.64, 0.64, 0.64], [x, 0.34, 0], material, 0.035);
+      block.add(new THREE.LineSegments(blockEdges, edgeMaterial));
+      receipts.push(block);
+      // Hash marks and interlocking links make this read as a chain of blocks.
+      for (const offset of [-0.075, 0.075]) {
+        addBox(audit, [0.025, 0.28, 0.018], [x + offset, 0.35, 0.329], gold, 0.006);
+        addBox(audit, [0.28, 0.025, 0.018], [x, 0.35 + offset, 0.329], gold, 0.006);
+      }
     }
-    addShadow(audit, 3.2, 0.9);
+    addShadow(audit, 4.5, 1.35);
     root.add(audit);
-    for (let i = 0; i < 2; i += 1) {
-      addBox(audit, [0.2, 0.025, 0.025], [-0.38 + i * 0.76, 0, 0], amber, 0.008);
+    const linkGeometry = keep(new THREE.TorusGeometry(0.12, 0.028, 8, 20));
+    for (let i = 0; i < 3; i += 1) {
+      for (let half = 0; half < 2; half += 1) {
+        const link = new THREE.Mesh(linkGeometry, gold);
+        link.scale.x = 1.5;
+        link.rotation.x = half ? Math.PI / 2 : 0;
+        link.position.set((i - 1) * 1.05 + (half ? 0.09 : -0.09), 0.34, 0);
+        audit.add(link);
+      }
     }
 
     const makePathMaterial = (auditPath = false) => keep(new THREE.ShaderMaterial({
@@ -233,6 +249,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
         uColor: { value: new THREE.Color(auditPath ? 0xe2a55c : 0x70a6d3) },
         uLevel: { value: 0 },
         uHead: { value: -1 },
+        uFlow: { value: 0 },
         uDashed: { value: auditPath ? 1 : 0 },
       },
       vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
@@ -241,9 +258,10 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
         uniform vec3 uColor;
         uniform float uLevel;
         uniform float uHead;
+        uniform float uFlow;
         uniform float uDashed;
         void main() {
-          float pulse = 1.0 - smoothstep(0.0, 0.075, abs(vUv.x - uHead));
+          float pulse = (1.0 - smoothstep(0.0, 0.075, abs(vUv.x - uHead))) * uFlow;
           float dash = mix(1.0, step(0.34, fract(vUv.x * 15.0)), uDashed);
           float alpha = (0.08 + uLevel * 0.65 + pulse * 0.3) * dash;
           gl_FragColor = vec4(mix(uColor, vec3(0.88, 1.0, 0.96), pulse * 0.45), alpha);
@@ -284,6 +302,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
 
     let compact: boolean | undefined;
     let phase = reducedMotion.matches ? 3 : 0;
+    const phaseMix: number[] = [0, 1, 2, 3].map((index) => index === phase ? 1 : 0);
     let clock = 0;
     let lastTime = 0;
     let pointerX = 0;
@@ -293,30 +312,39 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       const dt = timestamp === undefined || !lastTime ? 0 : Math.min(0.05, Math.max(0, (timestamp - lastTime) / 1000));
       if (timestamp !== undefined) lastTime = timestamp;
       clock += dt;
-      const blend = dt ? 1 - Math.exp(-7 * dt) : 1;
+      const blend = 1 - Math.exp(-7 * dt);
+      // Keep the same clock and ease the visual states, including the 3 → 0 loop.
+      const fade = 1 - Math.exp(-3.8 * dt);
+      phaseMix.forEach((value, index) => { phaseMix[index] = value + ((index === phase ? 1 : 0) - value) * fade; });
+      const exchange = phaseMix[2];
+      const auditLevel = phaseMix[3];
       root.rotation.y += ((compact || reducedMotion.matches ? 0 : pointerX * 0.2) - root.rotation.y) * blend;
       root.rotation.x += ((compact || reducedMotion.matches ? 0 : pointerY * 0.08) - root.rotation.x) * blend;
       wallet.position.y = 1.7 + (reducedMotion.matches ? 0 : Math.sin(clock * 1.4) * 0.055);
       wallet.rotation.y = -0.12 + (reducedMotion.matches ? 0 : Math.sin(clock * 0.8) * 0.07);
       paths.forEach((path, i) => {
-        path.material.uniforms.uLevel.value = phase >= 1 ? 0.85 : 0;
-        path.material.uniforms.uHead.value = phase === 2 ? (clock * 0.32 + i * 0.17) % 1 : -1;
+        path.material.uniforms.uLevel.value = (1 - phaseMix[0]) * 0.85;
+        path.material.uniforms.uHead.value = (clock * 0.24 + i * 0.17) % 1;
+        path.material.uniforms.uFlow.value = exchange;
         const packet = packets[i];
         const curve = curves.get(path);
-        packet.visible = path.visible && phase === 2 && Boolean(curve);
+        packet.visible = path.visible && exchange > 0.001 && Boolean(curve);
+        packet.scale.setScalar(exchange);
         if (packet.visible && curve) {
-          packet.position.copy(curve.getPoint((clock * 0.32 + i * 0.17) % 1));
+          packet.position.copy(curve.getPoint((clock * 0.24 + i * 0.17) % 1));
           packet.rotation.set(clock, clock * 0.7, 0);
         }
       });
-      auditPacket.visible = phase === 3;
+      auditPacket.visible = auditLevel > 0.001;
+      auditPacket.scale.setScalar(auditLevel);
       const receiptCurve = curves.get(auditPath);
-      if (receiptCurve) auditPacket.position.copy(receiptCurve.getPoint(reducedMotion.matches ? 0.7 : (clock * 0.5) % 1));
-      auditPath.material.uniforms.uLevel.value = phase === 3 ? 1 : 0;
-      auditPath.material.uniforms.uHead.value = phase === 3 && active ? (clock * 0.5) % 1 : -1;
+      if (receiptCurve) auditPacket.position.copy(receiptCurve.getPoint(reducedMotion.matches ? 0.7 : (clock * 0.35) % 1));
+      auditPath.material.uniforms.uLevel.value = auditLevel;
+      auditPath.material.uniforms.uHead.value = (clock * 0.35) % 1;
+      auditPath.material.uniforms.uFlow.value = auditLevel;
       receipts.forEach((receipt, i) => {
         const material = receipt.material as THREE.MeshStandardMaterial;
-        material.emissiveIntensity = phase === 3 ? 0.12 + (active ? Math.max(0, Math.sin(clock * 3 - i)) * 0.16 : 0) : 0;
+        material.emissiveIntensity = 0.05 + auditLevel * (0.18 + Math.max(0, Math.sin(clock * 2 - i * 0.85)) * 0.3);
       });
       view.render(scene, camera);
     };
@@ -341,7 +369,7 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
           const end = new THREE.Vector3(hospital.position.x < 0 ? -1.25 : 1.25, 1.55, 0.15);
           replaceCurve(paths[i], start, end, 0.9);
         });
-        replaceCurve(auditPath, new THREE.Vector3(0.4, 0.8, 0.35), new THREE.Vector3(0, 0.2, 2.9), 0.05);
+        replaceCurve(auditPath, new THREE.Vector3(0.4, 0.8, 0.35), new THREE.Vector3(-1.575, 0.75, 2.9), 0.22);
       }
       const ratio = Math.min(window.devicePixelRatio || 1, compact ? 1.25 : 1.5, Math.sqrt(1_600_000 / (width * height)));
       view.setPixelRatio(ratio);
@@ -386,8 +414,10 @@ export function mountHealthTagFlagshipHero(host: HTMLElement): HealthTagFlagship
       setPhase(next) {
         if (disposed) return;
         phase = Math.min(3, Math.max(0, Math.trunc(next)));
-        clock = 0;
-        draw();
+        if (!active) {
+          phaseMix.forEach((_, index) => { phaseMix[index] = index === phase ? 1 : 0; });
+          draw();
+        }
       },
       setActive(next) {
         if (disposed) return;

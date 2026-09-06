@@ -1,6 +1,6 @@
 import type { HealthTagFlagshipHero } from './home-network-flagship';
 
-const PHASE_DURATION = [2200, 2400, 3200, 1400];
+const PHASE_DURATION = [3200, 3600, 4400, 3600];
 const mounted = new Map<HTMLElement, () => void>();
 
 function mount(hero: HTMLElement): () => void {
@@ -20,20 +20,25 @@ function mount(hero: HTMLElement): () => void {
   let scene: HealthTagFlagshipHero | null = null;
   let phase = reduced.matches ? 3 : 0;
   let paused = reduced.matches;
-  let finished = reduced.matches;
   let visible = false;
   let loading = false;
   let failed = Boolean(connection?.saveData);
   let disposed = false;
   let timer: number | undefined;
+  let remaining = PHASE_DURATION[phase];
+  let deadline = 0;
   let pointerIntent: boolean | undefined;
 
   const stopTimer = () => {
-    if (timer !== undefined) window.clearTimeout(timer);
+    if (timer !== undefined) {
+      remaining = Math.max(0, deadline - performance.now());
+      window.clearTimeout(timer);
+    }
     timer = undefined;
   };
   const setPhase = (next: number, byUser = false) => {
     phase = (next + controls.length) % controls.length;
+    remaining = PHASE_DURATION[phase];
     const selected = controls[phase];
     hero.dataset.phase = String(phase);
     controls.forEach((control, index) => {
@@ -47,23 +52,23 @@ function mount(hero: HTMLElement): () => void {
   };
   const sync = () => {
     if (disposed) return;
-    const playing = Boolean(scene && visible && !document.hidden && !paused && !finished && !reduced.matches);
+    const playing = Boolean(scene && visible && !document.hidden && !paused && !reduced.matches);
     scene?.setActive(playing);
     hero.dataset.motion = playing ? 'playing' : 'paused';
-    const text = finished ? toggle.dataset.replayLabel : paused ? toggle.dataset.playLabel : toggle.dataset.pauseLabel;
+    const text = paused ? toggle.dataset.playLabel : toggle.dataset.pauseLabel;
     label.textContent = text ?? '';
-    icon.textContent = finished ? '↻' : paused ? '▶' : 'Ⅱ';
+    icon.textContent = paused ? '▶' : 'Ⅱ';
     toggle.setAttribute('aria-label', text ?? '');
     toggle.hidden = !scene || reduced.matches;
     if (!playing) {
       stopTimer();
     } else if (timer === undefined) {
+      deadline = performance.now() + remaining;
       timer = window.setTimeout(() => {
         timer = undefined;
-        if (phase < controls.length - 1) setPhase(phase + 1);
-        else finished = true;
+        setPhase(phase + 1);
         sync();
-      }, PHASE_DURATION[phase]);
+      }, remaining);
     }
   };
   const fallback = () => {
@@ -98,8 +103,8 @@ function mount(hero: HTMLElement): () => void {
     control.disabled = false;
     control.addEventListener('click', () => {
       paused = true;
-      finished = false;
       stopTimer();
+      sync();
       setPhase(index, true);
       sync();
     }, { signal: events.signal });
@@ -117,17 +122,15 @@ function mount(hero: HTMLElement): () => void {
     sync();
   }, { signal: events.signal });
   // Preserve pointer intent when focusin changes a Pause button into a Play button.
-  toggle.addEventListener('pointerdown', () => { pointerIntent = !paused && !finished; }, { signal: events.signal });
+  toggle.addEventListener('pointerdown', () => { pointerIntent = !paused; }, { signal: events.signal });
   toggle.addEventListener('pointercancel', () => { pointerIntent = undefined; }, { signal: events.signal });
   toggle.addEventListener('click', () => {
-    const shouldPause = pointerIntent ?? (!paused && !finished);
+    const shouldPause = pointerIntent ?? (!paused);
     pointerIntent = undefined;
     stopTimer();
     if (shouldPause) paused = true;
     else {
-      if (finished) setPhase(0);
       paused = false;
-      finished = false;
     }
     sync();
   }, { signal: events.signal });
@@ -138,7 +141,7 @@ function mount(hero: HTMLElement): () => void {
   reduced.addEventListener('change', () => {
     if (reduced.matches) {
       paused = true;
-      finished = true;
+      scene?.setActive(false);
       setPhase(3);
     }
     sync();

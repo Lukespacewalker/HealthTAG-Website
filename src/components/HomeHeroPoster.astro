@@ -54,11 +54,15 @@
   </g>
   <path d="M430 417q-36 49-7 98" stroke="#d3a66f" stroke-width="2" stroke-dasharray="5 7"/>
   <ellipse cx="423" cy="556" rx="125" ry="29" fill="url(#hero-contact-shadow)"/>
-  <path d="M343 543h160" stroke="#d3a66f" stroke-width="1.5" stroke-dasharray="4 5"/>
-  <g fill="#ad8655" stroke="#dfb985" stroke-width="1">
-    <path d="m329 526 41 5 15 19-42-5z"/><path d="m399 526 41 5 15 19-42-5z"/><path d="m469 526 41 5 15 19-42-5z"/>
+  <g stroke="#ffd99b" stroke-width="3" fill="none">
+    <ellipse cx="337" cy="542" rx="17" ry="7"/><ellipse cx="415" cy="542" rx="17" ry="7"/><ellipse cx="493" cy="542" rx="17" ry="7"/>
   </g>
-  <path d="m343 534 19 2m51-2 19 2m51-2 19 2" stroke="#f0d3aa" stroke-width="2" stroke-linecap="round"/>
+  {[274, 352, 430, 508].map((x) => <g transform={`translate(${x} 513)`} stroke="#eec28a" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M0 10 35 16 51 3 16-3Z" fill="#c28a47"/>
+    <path d="M0 10 35 16V56L0 50Z" fill="#76502b"/>
+    <path d="m35 16 16-13v40L35 56Z" fill="#9b6934"/>
+    <path d="m12 21 0 23m12-21v23M6 28l25 4M6 38l25 4" fill="none" stroke="#ffdc9e" stroke-width="2.5"/>
+  </g>)}
 </svg>
 
 <style>

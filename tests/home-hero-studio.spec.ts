@@ -110,17 +110,54 @@ test('pause stops GPU work; resize redraws without restarting playback', async (
   await expect(hero.locator('canvas')).toHaveCount(1);
 });
 
-test('autoplay finishes once and restarts only on explicit replay', async ({ page }) => {
+test('autoplay loops continuously and the pause button freezes and resumes playback', async ({ page }) => {
+  test.setTimeout(65_000);
   await ready(page);
   const hero = page.locator('[data-network-hero]');
-  await expect(hero).toHaveAttribute('data-phase', '3', { timeout: 15000 });
-  await expect(hero).toHaveAttribute('data-motion', 'paused', { timeout: 5000 });
-  await expect(hero.locator('[data-motion-label]')).toHaveText('เล่นลำดับภาพอีกครั้ง');
-  await page.waitForTimeout(2500);
-  await expect(hero).toHaveAttribute('data-phase', '3');
-  await hero.locator('[data-hero-motion-toggle]').click();
-  await expect(hero).toHaveAttribute('data-phase', '0');
   await expect(hero).toHaveAttribute('data-motion', 'playing');
+  for (let cycle = 0; cycle < 2; cycle += 1) {
+    await expect(hero).toHaveAttribute('data-phase', '3', { timeout: 15000 });
+    await expect(hero).toHaveAttribute('data-phase', '0', { timeout: 6000 });
+    await expect(hero).toHaveAttribute('data-motion', 'playing');
+  }
+  const toggle = hero.locator('[data-hero-motion-toggle]');
+  await toggle.click();
+  await expect(hero).toHaveAttribute('data-motion', 'paused');
+  const phase = await hero.getAttribute('data-phase');
+  await page.waitForTimeout(5000);
+  await expect(hero).toHaveAttribute('data-phase', phase!);
+  await toggle.click();
+  await expect(hero).toHaveAttribute('data-motion', 'playing');
+  await expect(hero).not.toHaveAttribute('data-phase', phase!, { timeout: 6000 });
+});
+
+test('automatic scene changes send intermediate fade values to the GPU', async ({ page }) => {
+  await page.addInitScript(() => {
+    const levels: number[] = [];
+    Object.assign(window, { __heroFadeLevels: levels });
+    const locations = new WeakSet<WebGLUniformLocation>();
+    const gl = WebGL2RenderingContext.prototype;
+    const getLocation = gl.getUniformLocation;
+    const setFloat = gl.uniform1f;
+    gl.getUniformLocation = function(program, name) {
+      const location = getLocation.call(this, program, name);
+      if (location && name === 'uLevel') locations.add(location);
+      return location;
+    };
+    gl.uniform1f = function(location, value) {
+      if (location && locations.has(location)) {
+        levels.push(value);
+        if (levels.length > 2000) levels.shift();
+      }
+      return setFloat.call(this, location, value);
+    };
+  });
+  await ready(page);
+  await expect(page.locator('[data-network-hero]')).toHaveAttribute('data-phase', '1', { timeout: 6000 });
+  await expect.poll(() => page.evaluate(() => {
+    const levels = (window as unknown as { __heroFadeLevels: number[] }).__heroFadeLevels;
+    return new Set(levels.filter(value => value > 0.05 && value < 0.8).map(value => value.toFixed(3))).size;
+  })).toBeGreaterThan(5);
 });
 
 test('offscreen rendering stops and page lifecycle does not stack renderers', async ({ page }) => {
