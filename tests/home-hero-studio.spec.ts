@@ -51,14 +51,20 @@ for (const route of ['/', '/en/']) {
     const hero = page.locator('[data-network-hero]');
     expect((await gpu(page)).contexts).toBe(1);
     const controls = hero.locator('[data-hero-phase]');
+    const toggle = hero.locator('[data-hero-motion-toggle]');
+    // Freeze autoplay while asserting keyboard selection so slow software-rendered CI
+    // cannot advance past the selected phase before Playwright observes it.
+    await toggle.click();
+    await expect(hero).toHaveAttribute('data-motion', 'paused');
     await controls.first().focus();
-    await expect(hero).toHaveAttribute('data-motion', 'playing');
     await controls.first().press('End');
     await expect(controls.nth(3)).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '3');
     await controls.nth(3).press('ArrowRight');
     await expect(controls.first()).toBeFocused();
     await expect(hero).toHaveAttribute('data-phase', '0');
+    await expect(hero).toHaveAttribute('data-motion', 'paused');
+    await toggle.click();
     await expect(hero).toHaveAttribute('data-motion', 'playing');
     expect((await new AxeBuilder({ page }).include('[data-network-hero]').withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()).violations).toEqual([]);
     expect(errors).toEqual([]);
