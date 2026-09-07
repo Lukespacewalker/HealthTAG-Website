@@ -16,7 +16,7 @@ import mahidolUniversity from '../assets/network/mahidol-university.png';
 import ministryOfPublicHealth from '../assets/network/ministry-of-public-health.png';
 import odess from '../assets/network/odess.png';
 import ramathibodi from '../assets/network/ramathibodi.png';
-import thaiMedicalInformaticsAssociation from '../assets/network/thai-medical-informatics-association.jpg';
+import thaiHealthInformationStandardsDevelopmentCenter from '../assets/network/this.svg';
 import tropicalMedicine from '../assets/network/tropical-medicine.jpg';
 import trueCorporation from '../assets/network/true.svg';
 import who from '../assets/network/who.svg';
@@ -88,7 +88,7 @@ export const networkGroups: NetworkGroup[] = [
       { id: 'who-thailand', name: { th: 'องค์การอนามัยโลก ประเทศไทย', en: 'World Health Organization Thailand' }, logo: who, relationship: { th: 'เข้าร่วม Regional Digital Health Wallets Thailand Inception Workshop ปี 2569', en: 'Participated in the Regional Digital Health Wallets Thailand Inception Workshop, 2026' }, badge: { th: 'การมีส่วนร่วมในเวที', en: 'Event participation' }, detailPage: 'evidence' },
       { id: 'kub-chain', name: { th: 'KUB Chain', en: 'KUB Chain' }, logo: kubChain, darkLogo: true, relationship: { th: 'ความร่วมมือและบันทึกความเข้าใจด้าน Layer 2 สำหรับสุขภาพ ปี 2568', en: 'Layer 2 for healthcare collaboration and MoU, 2025' }, badge: { th: 'ความร่วมมือ', en: 'Collaboration' } },
       { id: 'sil-th', name: { th: 'Standards and Interoperability Lab–Thailand', en: 'Standards and Interoperability Lab–Thailand' }, logo: silth, relationship: { th: 'ความร่วมมือด้านมาตรฐานและการเชื่อมโยงข้อมูล ตั้งแต่ปี 2563', en: 'Collaboration on standards and interoperability since 2020' }, badge: { th: 'ความร่วมมือด้านมาตรฐาน', en: 'Standards collaboration' } },
-      { id: 'thai-medical-informatics-association', name: { th: 'สมาคมเวชสารสนเทศไทย', en: 'Thai Medical Informatics Association' }, logo: thaiMedicalInformaticsAssociation, relationship: { th: 'ความร่วมมือด้าน Terminology Server ปี 2568', en: 'Terminology Server collaboration, 2025' }, badge: { th: 'ความร่วมมือด้านมาตรฐาน', en: 'Standards collaboration' } },
+      { id: 'thai-health-information-standards-development-center', name: { th: 'สำนักพัฒนามาตรฐานระบบข้อมูลสุขภาพไทย (สมสท.)', en: 'Thai Health Information Standards Development Center (THIS)' }, logo: thaiHealthInformationStandardsDevelopmentCenter, relationship: { th: 'ความร่วมมือด้าน Terminology Server ปี 2568', en: 'Terminology Server collaboration, 2025' }, badge: { th: 'ความร่วมมือด้านมาตรฐาน', en: 'Standards collaboration' } },
     ],
   },
 ];

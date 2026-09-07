@@ -16,6 +16,6 @@ Retrieved: 2026-09-07. Each file was downloaded unchanged from the named organiz
 | `huawei.png` | [Huawei](https://www.huawei.com/-/media/hcomponent-header/1.0.1.20260424171441/component/img/huawei_logo.png) | 266 × 60 | `492E58A2680A4F4607185E21D55183F0D2AC976B8F4737512A495672D31E4070` |
 | `who.svg` | [World Health Organization](https://www.who.int/ResourcePackages/WHO/assets/dist/images/logos/en/h-logo-blue.svg) | scalable | `11E3B2A3084CA926A799DD3BFF768A11903D86FEB985904C5722A6791E145742` |
 | `kub-chain.png` | [KUB Chain](https://www.kubchain.com/images/logo/KUB-logo.png) | 102 × 33 | `72FF2FE01982932EF7506964315E6C923EC2E1CC77682A0A6DD201E90F811427` |
-| `thai-medical-informatics-association.jpg` | [Thai Medical Informatics Association](https://tmi.or.th/wp-content/uploads/2021/12/TMI-logo.jpg) | 1024 × 1024 | `1EA1C278AB477CF824C4943CF36ECC8C5C1D8A1A0D61DE9394A5B6B84E9B1D76` |
+| `this.svg` | [Thai Health Information Standards Development Center (THIS)](https://this.or.th/wp-content/uploads/2022/07/logo.svg) | 276 × 129 | `A760288B256E483422C8D5B5AACD56ACCC2A08E1FA46FDB74A5FD612354FE656` |
 
 The Ministry of Public Health and KUB Chain files use their official light-on-dark variants. The Network component supplies a dark surface behind those files without recoloring them.
