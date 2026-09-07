@@ -33,9 +33,11 @@ const prefix = en ? '/en' : '';
         <ul class="organization-grid" role="list">
           {group.organizations.map((organization) => (
             <li class="organization-card" data-organization={organization.id}>
-              <div class:list={['organization-mark', { 'text-mark': !organization.logo }]}>
+              <div class:list={['organization-mark', { 'text-mark': !organization.logo, 'dark-logo': organization.darkLogo }]}>
                 {organization.logo
-                  ? <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} />
+                  ? organization.logo.format === 'svg'
+                    ? <img src={organization.logo.src} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" />
+                    : <Image src={organization.logo} alt={organization.name[locale]} width={organization.logo.width} height={organization.logo.height} loading="lazy" decoding="async" format="webp" quality={100} />
                   : <strong aria-hidden="true">{organization.mark?.[locale] ?? organization.name[locale]}</strong>}
               </div>
               <div class="organization-copy">
@@ -71,6 +73,7 @@ const prefix = en ? '/en' : '';
   .organization-mark img { display: block; max-width: 100%; width: auto; max-height: 92px; height: auto; object-fit: contain; }
   .organization-mark.text-mark { padding-inline: 24px; color: var(--teal); background: color-mix(in srgb, var(--mint) 65%, var(--white)); text-align: center; }
   .organization-mark.text-mark strong { max-width: 18ch; font-size: clamp(1rem, 1.8vw, 1.35rem); line-height: 1.2; letter-spacing: -.025em; overflow-wrap: anywhere; }
+  .organization-mark.dark-logo { background: var(--ink); }
   .organization-copy { display: flex; flex-direction: column; align-items: flex-start; padding: 18px 18px 22px; }
   .relationship-badge { display: inline-flex; min-height: 29px; align-items: center; width: fit-content; border: 1px solid #8fa7ba; border-radius: 999px; padding: 4px 9px; color: var(--ink); background: #f6f9fb; font-size: .69rem; font-weight: 600; letter-spacing: .055em; text-transform: uppercase; }
   .organization-copy h3 { margin: 13px 0 0; font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
