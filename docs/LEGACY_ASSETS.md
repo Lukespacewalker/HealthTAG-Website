@@ -41,6 +41,8 @@ The site owner identified `hospital-partner5.png` as **คณะแพทยศ�
 
 Identity mappings are taken from source records, not face recognition. Preserve target spelling and role text during this asset-only migration. Team roles are shown as a historical contributor record, not current employment. People without a verified image remain in a text list. No private phone numbers, personal social profiles, placeholder contact details, or pravatar images are migrated.
 
+The owner-supplied current team portraits under `src/assets/team/current/` retain their original JPG files. Files ending in `-cutout.png` are transparent-background derivatives made from those originals for the Company page and employee cards. Astro generates transparent WebP renditions for delivery; the named portraits themselves are not redrawn or replaced.
+
 ## Support images
 
 The legacy Support component maps these original files directly to the named downloads. They are retained unchanged and used only where the image helps identify an interface or device.

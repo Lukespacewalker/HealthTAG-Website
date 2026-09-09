@@ -22,13 +22,10 @@ export const pageContent: Record<string, Record<Locale, PageCopy>> = {
 export const team = [
   ['Dechowat Promda', 'Chief Executive Officer'],
   ['Suttisak Denduangchai', 'Tech Lead Developer'],
-  ['Tanasit Klubtavee', 'Project Manager'],
   ['Tanapon Inprasit', 'Developer'],
   ['Tanawat Udom', 'Developer'],
   ['Purin Janbai', 'Developer'],
   ['Pensirinapang Jaitaboot', 'Software Tester'],
   ['Kornnaphat Khumphuak', 'Graphic Designer'],
   ['Aumphon Kaewatsadorn', 'General Administration'],
-  ['Akkarachai Kaewsakul', 'Account Executive'],
-  ['Chatchawan Sudsoom', 'Account Executive'],
 ];

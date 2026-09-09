@@ -1,12 +1,12 @@
 import type { ImageMetadata } from 'astro';
 import dechowat from '../assets/legacy/team/dechowat.png';
-import aumphon from '../assets/team/current/aumphon-kaewatsadorn.jpg';
-import kornnaphat from '../assets/team/current/kornnaphat-khumphuak.jpg';
-import pensirinapang from '../assets/team/current/pensirinapang-jaitaboot.jpg';
-import purin from '../assets/team/current/purin-janbai.jpg';
-import suttisak from '../assets/team/current/suttisak-denduangchai.jpg';
-import tanapon from '../assets/team/current/tanapon-inprasit.jpg';
-import tanawat from '../assets/team/current/tanawat-udom.jpg';
+import aumphon from '../assets/team/current/aumphon-kaewatsadorn-cutout.png';
+import kornnaphat from '../assets/team/current/kornnaphat-khumphuak-cutout.png';
+import pensirinapang from '../assets/team/current/pensirinapang-jaitaboot-cutout.png';
+import purin from '../assets/team/current/purin-janbai-cutout.png';
+import suttisak from '../assets/team/current/suttisak-denduangchai-cutout.png';
+import tanapon from '../assets/team/current/tanapon-inprasit-cutout.png';
+import tanawat from '../assets/team/current/tanawat-udom-cutout.png';
 
 export type PortraitId = 'dechowat' | 'aumphon' | 'kornnaphat' | 'pensirinapang' | 'purin' | 'suttisak' | 'tanapon' | 'tanawat';
 export const portraits: Record<PortraitId, ImageMetadata> = {
