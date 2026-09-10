@@ -201,6 +201,10 @@ For Thai, use Thai sentence structure and retain technical names only where they
 - Avoid animation that exists only to make data appear active or live.
 - External links should be understandable without relying only on a small arrow icon.
 
+## Copied appearance-control contract
+
+The public website and `health-tag-document` keep separate, repo-local appearance controls. Their copied contract uses exactly `auto`, `light`, and `dark`; stores an explicit preference under the origin-scoped `healthtag-theme` key; exposes `data-theme="auto|light|dark"` and `data-resolved-theme="light|dark"` on the root element; and updates the visible label, accessible name, selected `aria-pressed` state, `color-scheme`, and `theme-color`. Auto follows `prefers-color-scheme`, while storage failures fall back safely. The matching internal-document implementation is `health-tag-document/src/components/manual/ThemeMenu.astro` with `src/scripts/manual.ts`. There is no shared package, submodule, runtime fetch, or cross-repository build dependency; keep these values and behavior aligned until a shared package is deliberately introduced.
+
 ## Brand assets
 
 Use the original HealthTAG wordmark and verified migrated assets. Follow `docs/LEGACY_ASSETS.md` for provenance and identity mappings.

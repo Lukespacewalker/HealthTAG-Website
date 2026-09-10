@@ -151,7 +151,7 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(internalDocs.locator('a')).toHaveAttribute('href', 'https://internal.documents.healthtag.io/');
   await expect(internalDocs.locator('a')).toHaveAttribute('target', '_blank');
   await expect(internalDocs.locator('a')).toHaveAttribute('rel', /noopener/);
-  await expect(page.locator('#community-edition')).not.toContainText('Data Source Node — Internal documentation');
+  await expect(page.locator('#community-edition #data-source-node-docs')).toHaveCount(0);
   const downloadHrefs = await page.locator('main a[href^="https://"]').evaluateAll((links) => links.map((link) => (link as HTMLAnchorElement).href));
   expect(downloadHrefs.length).toBeGreaterThanOrEqual(5);
   expect(downloadHrefs.every((href) => href.startsWith('https://'))).toBe(true);
@@ -166,7 +166,7 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(englishInternalDocs.locator('a')).toHaveAttribute('href', 'https://internal.documents.healthtag.io/');
   await expect(englishInternalDocs.locator('a')).toHaveAttribute('target', '_blank');
   await expect(englishInternalDocs.locator('a')).toHaveAttribute('rel', /noopener/);
-  await expect(page.locator('#community-edition')).not.toContainText('Data Source Node — Internal documentation');
+  await expect(page.locator('#community-edition #data-source-node-docs')).toHaveCount(0);
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
 });
 

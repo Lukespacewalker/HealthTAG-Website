@@ -127,7 +127,6 @@ const orgJson = JSON.stringify({
         document.documentElement.dataset.theme = preference;
         document.documentElement.dataset.resolvedTheme = resolved;
         document.documentElement.style.colorScheme = resolved;
-        document.documentElement.classList.add('theme-ready');
       })();
     </script>
   </head>
@@ -223,5 +222,8 @@ const orgJson = JSON.stringify({
         </nav>
       </div>
     </footer>
+    <script>
+      import('../scripts/theme-menu.ts').catch(() => {});
+    </script>
   </body>
 </html>
