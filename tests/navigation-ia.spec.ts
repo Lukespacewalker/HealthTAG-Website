@@ -20,6 +20,8 @@ test.describe('grouped desktop navigation', () => {
     const currentLink = currentGroup.locator('a[aria-current="page"]');
     await expect(currentLink).toHaveAttribute('href', '/trust/');
     await expect(currentLink).toHaveText('ความยินยอม ความไว้วางใจ และสิทธิ์เข้าถึง');
+    await expect(desktopNav.locator('.language-switch')).toHaveText('EN');
+    await expect(desktopNav.locator('.language-switch')).toHaveAttribute('href', '/en/trust/');
   });
 
   for (const [route, href, groupLabel] of [
@@ -70,7 +72,8 @@ test.describe('grouped mobile navigation', () => {
 
     await expect(nav.getByRole('link', { name: 'ศูนย์ช่วยเหลือ', exact: true })).toHaveAttribute('href', '/support/');
     await expect(nav.getByRole('link', { name: 'ความเป็นส่วนตัวของเว็บไซต์', exact: true })).toHaveAttribute('href', '/privacy/');
-    await expect(nav.getByRole('link', { name: 'English', exact: true })).toHaveAttribute('href', '/en/news/');
+    await expect(nav.locator('.language-switch')).toHaveText('EN');
+    await expect(nav.locator('.language-switch')).toHaveAttribute('href', '/en/news/');
     await expect(nav.getByRole('link', { name: 'คุยกับ HealthTAG', exact: true })).toHaveAttribute('href', '/contact/');
   });
 
@@ -84,6 +87,8 @@ test.describe('grouped mobile navigation', () => {
     await expect(page.locator('footer a[href="/en/company/#values"]')).toHaveText('Values');
     await expect(page.locator('footer a[href="/en/company/#founder"]')).toHaveText('Founder');
     await expect(page.locator('footer a[href="/en/company/#team"]')).toHaveText('Team');
+    await expect(page.locator('.mobile-utilities .language-switch')).toHaveText('TH');
+    await expect(page.locator('.mobile-utilities .language-switch')).toHaveAttribute('href', '/company/');
   });
 });
 
