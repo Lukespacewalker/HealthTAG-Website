@@ -109,13 +109,13 @@ const prefix = en ? '/en' : '';
   .responsibility p { margin: 0; color: var(--muted); }
   .custody { background: var(--mint); }
   .identity-card{background:var(--white)}
-  .authorization { background: var(--ink); color: var(--paper); }
+  .authorization { background: var(--fixed-dark); color: var(--fixed-dark-text); }
   .authorization .mono { color: #9ac2e3; }
-  .authorization p { color: #bdc7d0; }
+  .authorization p { color: var(--fixed-dark-muted); }
   .window { margin-top: 20px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 4.1rem; line-height: 1; color: #f1c28d; letter-spacing: -.08em; }
   .window span { margin-left: 7px; font-size: .9rem; letter-spacing: 0; }
-  .api-card{background:#eef1f3}
-  .ledger { background: var(--amber-soft); border-color: #dfc7a9 !important; }
+  .api-card{background:var(--surface-neutral)}
+  .ledger { background: var(--amber-soft); border-color: var(--warning-border) !important; }
   .ledger .mono { color: var(--amber-ink); }
   .consent-section { background: var(--white); }
   .consent-section .section-head .mono { display: block; margin-bottom: 1rem; }
@@ -125,11 +125,11 @@ const prefix = en ? '/en' : '';
   .decision-index { color: var(--amber-ink); font: 600 .78rem/1 'IBM Plex Mono', ui-monospace, monospace; }
   .consent-grid h3 { margin: 14px 0 10px; font-size: clamp(1.35rem, 2.2vw, 1.8rem); }
   .consent-grid p { margin: 0; color: var(--muted); }
-  .intelligence-section { background: var(--ink); color: var(--white); }
+  .intelligence-section { background: var(--fixed-dark); color: var(--fixed-dark-text); }
   .intelligence-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
   .intelligence-grid .mono { color: #9ac2e3; }
   .intelligence-grid h2 { max-width: 16ch; margin: 16px 0 0; }
-  .intelligence-grid p { margin: 0; color: #bdc7d0; font-size: clamp(1rem, 1.4vw, 1.15rem); }
+  .intelligence-grid p { margin: 0; color: var(--fixed-dark-muted); font-size: clamp(1rem, 1.4vw, 1.15rem); }
   .does-section { background: var(--paper); }
   .does-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
   .does-grid > div { padding: 25px 0 0; border-top: 3px solid var(--teal); }

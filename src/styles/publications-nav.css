@@ -186,7 +186,7 @@
 
 .mobile-panel a[aria-current='page'] { color: var(--ink); }
 .mobile-panel .btn { margin-top: 16px; }
-.mobile-panel .btn[aria-current='page'] { color: var(--white); }
+.mobile-panel .btn[aria-current='page'] { color: var(--on-action); }
 
 .footer-main {
   grid-template-columns: minmax(260px,1.25fr) repeat(4,minmax(135px,.72fr));
