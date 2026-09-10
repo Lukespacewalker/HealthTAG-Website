@@ -3,7 +3,9 @@ import { expect, test, type Page } from '@playwright/test';
 const storageKey = 'healthtag-theme';
 
 async function openThemeMenu(page: Page) {
-  await page.locator('.desktop-nav [data-theme-trigger]').click();
+  const trigger = page.locator('.desktop-nav [data-theme-trigger]');
+  await expect(trigger).toBeVisible();
+  await trigger.click();
   return page.locator('.desktop-nav [data-theme-control]');
 }
 
