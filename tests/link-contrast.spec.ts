@@ -96,6 +96,29 @@ for (const theme of ['light', 'dark']) {
   }
 }
 
+test.describe('no-JavaScript operating-system dark mode', () => {
+  test.use({ colorScheme: 'dark' });
+
+  for (const width of [390, 1440]) {
+    for (const route of ['/company/', '/contact/', '/evidence/']) {
+      test(`keeps representative surfaces accessible at ${width}px ${route}`, async ({ page }) => {
+        const cdp = await page.context().newCDPSession(page);
+        await cdp.send('Emulation.setScriptExecutionDisabled', { value: true });
+        await page.setViewportSize({ width, height: 1000 });
+        const response = await page.goto(route);
+        expect(response?.status(), route).toBe(200);
+        expect(await page.locator('html').getAttribute('data-resolved-theme')).toBeNull();
+        await cdp.send('Emulation.setScriptExecutionDisabled', { value: false });
+
+        const result = await new AxeBuilder({ page }).withRules(['color-contrast']).analyze();
+        expect(result.violations).toEqual([]);
+        expect(await page.locator('html').getAttribute('data-resolved-theme')).toBeNull();
+        expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBe(0);
+      });
+    }
+  }
+});
+
 test('focused links have contrasting light and dark indicator bands', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
