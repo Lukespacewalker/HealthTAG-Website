@@ -68,11 +68,13 @@ test('PHR states patient ownership while preserving product and NFC boundaries',
 test('Network presents Ecosystem, Not Ego without changing relationship status', async ({ page }) => {
   await page.goto('/en/network/');
   await expect(page.locator('.ecosystem-principle')).toContainText('Ecosystem, not ego');
-  await expect(page.locator('.ecosystem-principle')).toContainText('counts as a deployment only when that status is stated');
+  await expect(page.locator('.ecosystem-principle')).toContainText('They connect through open standards with defined roles.');
+  await expect(page.locator('[data-network-group="deployments"] .relationship-badge', { hasText: 'Live deployment' }).first()).toBeVisible();
 
   await page.goto('/network/');
   await expect(page.locator('.ecosystem-principle')).toContainText('ระบบนิเวศสำคัญกว่าการยึดตัวเองเป็นศูนย์กลาง');
-  await expect(page.locator('.ecosystem-principle')).toContainText('จะนับเป็นการติดตั้งใช้งานเมื่อมีการระบุสถานะนั้นเท่านั้น');
+  await expect(page.locator('.ecosystem-principle')).toContainText('เชื่อมต่อกันผ่านมาตรฐานเปิดและกำหนดบทบาทให้ชัดเจน');
+  await expect(page.locator('[data-network-group="deployments"] .relationship-badge', { hasText: 'การติดตั้งใช้งานจริง' }).first()).toBeVisible();
 });
 
 for (const route of ['/trust/', '/how-it-works/', '/interoperability/', '/phr/', '/network/', '/en/trust/', '/en/how-it-works/', '/en/interoperability/', '/en/phr/', '/en/network/']) {

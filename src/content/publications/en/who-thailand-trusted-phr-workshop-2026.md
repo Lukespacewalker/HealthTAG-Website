@@ -17,7 +17,7 @@ sources:
     url: "https://www.nationthailand.com/health-wellness/40067590"
     organization: "The Nation"
     type: context
-  - label: "Information and photographs confirmed by the site owner"
+  - label: "HealthTAG workshop report and photographs"
     organization: "HealthTAG"
     type: "owner-confirmed"
 images:
@@ -41,4 +41,4 @@ HealthTAG contributed perspectives from its work on health data infrastructure, 
 
 The discussion covered how personal health records can help people access their own health information and how digital health wallets can carry information or digital credentials when people receive care. Trust therefore depends on more than connecting systems. It also requires clear identity, access, and accountability across the organizations involved.
 
-HealthTAG shared its experience in health data infrastructure with other people working on digital health in Thailand. The external report confirms the workshop but does not name HealthTAG. HealthTAG confirms its participation and provided the photographs published here.
+The Nation reported the details of the Regional Digital Health Wallets Thailand Inception Workshop. HealthTAG's workshop report records its contribution to the discussion and includes photographs from the event.
