@@ -24,7 +24,7 @@ test('milestones preserve the confirmed relationship and recognition boundaries'
   const milestones = page.locator('#milestones');
 
   await expect(milestones).toContainText('funded by BTFP through Mahidol University');
-  await expect(milestones).toContainText('ETDA Digital Service Sandbox Certified');
+  await expect(milestones).toContainText('Exited the ETDA Digital Service Sandbox');
   await expect(milestones).toContainText('five live institutions');
   await expect(milestones.locator('li.relationship')).not.toHaveCount(0);
   await expect(milestones.locator('li.recognition')).not.toHaveCount(0);

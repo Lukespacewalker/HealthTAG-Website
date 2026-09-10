@@ -20,7 +20,7 @@ const en = locale === 'en';
           <div class="eyebrow">HealthTAG / {en ? 'Evidence & sources' : 'หลักฐานและแหล่งข้อมูล'}</div>
           <h1>{en ? 'Published records related to HealthTAG' : 'หลักฐานที่เผยแพร่เกี่ยวกับ HealthTAG'}</h1>
         </div>
-        <p>{en ? 'External sources confirm the event, award, programme, or collaboration. HealthTAG supplies participation and implementation details when the source does not.' : 'แหล่งภายนอกยืนยันตัวงาน รางวัล โครงการ หรือความร่วมมือ ส่วน HealthTAG ให้ข้อมูลการเข้าร่วมและรายละเอียดการติดตั้งที่แหล่งภายนอกไม่ได้ระบุ'}</p>
+        <p>{en ? 'Published records of programmes, awards, collaborations, and public forums involving HealthTAG.' : 'บันทึกจากหน่วยงานต้นทางเกี่ยวกับโครงการ รางวัล ความร่วมมือ และเวทีสาธารณะที่ HealthTAG มีส่วนเกี่ยวข้อง'}</p>
       </div>
     </section>
 
@@ -39,14 +39,7 @@ const en = locale === 'en';
                 <div><dt>{en ? 'Source organization' : 'หน่วยงานต้นทาง'}</dt><dd>{item.sourceOrganization[locale]}</dd></div>
                 <div><dt>{en ? 'Source publication' : 'วันที่เผยแพร่ของแหล่งข้อมูล'}</dt><dd>{item.sourcePublicationDate[locale]}</dd></div>
               </dl>
-              <section class="claim-block external-claim">
-                <span>{en ? 'What the source states' : 'ข้อมูลจากหน่วยงานที่เกี่ยวข้อง'}</span>
-                <p>{item.externallyConfirmed[locale]}</p>
-              </section>
-              <section class="claim-block context-claim">
-                <span>{en ? 'Information from HealthTAG' : 'ข้อมูลจาก HealthTAG'}</span>
-                <p>{item.healthTagContext[locale]}</p>
-              </section>
+              <p class="evidence-summary">{item.summary[locale]}</p>
               <div class="source-links">
                 <a class="source-link" href={item.href[locale]} target="_blank" rel="noopener noreferrer" aria-label={`${en ? 'Open the primary reference for' : 'เปิดแหล่งข้อมูลหลักของ'} ${item.title} ${en ? 'in a new tab' : 'ในแท็บใหม่'}`}>{en ? 'Open primary reference' : 'เปิดแหล่งข้อมูลหลัก'} <span aria-hidden="true">↗</span></a>
                 {item.supportingLinks?.map((link) => {
@@ -79,10 +72,7 @@ const en = locale === 'en';
   .source-meta div { border-top: 1px solid var(--line); padding-top: 10px; }
   .source-meta dt { color: var(--muted); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
   .source-meta dd { margin: 4px 0 0; font-size: .9rem; font-weight: 600; }
-  .claim-block { display: grid; grid-template-columns: minmax(150px, .35fr) minmax(0, 1.65fr); gap: 22px; padding: 20px 0; border-top: 1px solid var(--line); }
-  .claim-block > span { font-size: .72rem; font-weight: 600; letter-spacing: .065em; text-transform: uppercase; color: var(--teal); }
-  .claim-block p { margin: 0; color: var(--muted); }
-  .context-claim > span { color: var(--amber-ink); }
+  .evidence-summary { margin: 0; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); }
   .source-links { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 22px; }
   .source-link { display: inline-flex; gap: 8px; color: var(--teal); font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
   .source-link.secondary { color: var(--ink); font-size: .9rem; }
@@ -91,7 +81,6 @@ const en = locale === 'en';
     .evidence-index { display: grid; grid-template-columns: auto 1fr auto; align-items: center; padding: 20px; border-right: 0; border-bottom: 1px solid var(--line); }
     .evidence-tag { margin: 0; }
     .source-meta { grid-template-columns: 1fr; gap: 10px; }
-    .claim-block { grid-template-columns: 1fr; gap: 8px; }
   }
   @media (max-width: 420px) { .evidence-index { grid-template-columns: auto 1fr; } .evidence-tag { grid-column: 1 / -1; } }
 </style>

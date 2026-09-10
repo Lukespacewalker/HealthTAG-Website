@@ -132,7 +132,7 @@ test('network presents relationship types in its four current groups', async ({ 
   await page.goto('/en/network/');
   await expect(page.locator('body')).not.toContainText('Historical Network');
   await expect(page.locator('[data-network-group]')).toHaveCount(4);
-  await expect(page.locator('[data-network-group="government"] .relationship-badge', { hasText: 'Sandbox certified' })).toBeVisible();
+  await expect(page.locator('[data-network-group="government"] .relationship-badge', { hasText: 'Sandbox outcome' })).toBeVisible();
 });
 
 test('support separates the recommended and legacy reader paths', async ({ page }) => {
