@@ -1,0 +1,70 @@
+---
+interface Props { locale: 'th' | 'en' }
+
+const { locale } = Astro.props;
+const isEn = locale === 'en';
+const labels = isEn
+  ? { control: 'Appearance', auto: 'Auto', light: 'Light', dark: 'Dark' }
+  : { control: 'รูปแบบการแสดงผล', auto: 'อัตโนมัติ', light: 'สว่าง', dark: 'มืด' };
+---
+
+<details data-theme-control data-theme-label={labels.control} data-theme-auto={labels.auto} data-theme-light={labels.light} data-theme-dark={labels.dark}>
+  <summary data-theme-trigger aria-label={`${labels.control}: ${labels.auto}`}>
+    <span aria-hidden="true">◐</span>
+    <span data-theme-trigger-label>{labels.auto}</span>
+  </summary>
+  <div data-theme-menu>
+    <button type="button" data-theme-option="auto" aria-pressed="true"><span aria-hidden="true">◐</span>{labels.auto}</button>
+    <button type="button" data-theme-option="light" aria-pressed="false"><span aria-hidden="true">☼</span>{labels.light}</button>
+    <button type="button" data-theme-option="dark" aria-pressed="false"><span aria-hidden="true">☾</span>{labels.dark}</button>
+  </div>
+</details>
+
+<script>
+  type ThemePreference = 'auto' | 'light' | 'dark';
+  const storageKey = 'healthtag-theme';
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  const isTheme = (value: string | undefined | null): value is ThemePreference =>
+    value === 'auto' || value === 'light' || value === 'dark';
+  const resolve = (value: ThemePreference) => value === 'auto' ? (media.matches ? 'dark' : 'light') : value;
+
+  const controls = Array.from(document.querySelectorAll<HTMLElement>('[data-theme-control]'));
+  const themeColor = (value: ThemePreference) => resolve(value) === 'dark' ? '#0b1423' : '#f6f8fc';
+  const updateControls = (preference: ThemePreference) => {
+    for (const control of controls) {
+      const label = control.dataset.themeLabel ?? '';
+      const selected = control.dataset[`theme${preference[0].toUpperCase()}${preference.slice(1)}`] ?? preference;
+      const trigger = control.querySelector<HTMLElement>('[data-theme-trigger]');
+      const triggerLabel = control.querySelector<HTMLElement>('[data-theme-trigger-label]');
+      if (trigger) trigger.setAttribute('aria-label', `${label}: ${selected}`);
+      if (triggerLabel) triggerLabel.textContent = selected;
+      for (const option of control.querySelectorAll<HTMLButtonElement>('[data-theme-option]')) {
+        option.setAttribute('aria-pressed', String(option.dataset.themeOption === preference));
+      }
+    }
+  };
+  const apply = (preference: ThemePreference) => {
+    const resolved = resolve(preference);
+    document.documentElement.dataset.theme = preference;
+    document.documentElement.dataset.resolvedTheme = resolved;
+    document.documentElement.style.colorScheme = resolved;
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content', themeColor(preference));
+    updateControls(preference);
+  };
+
+  let preference: ThemePreference = isTheme(document.documentElement.dataset.theme) ? document.documentElement.dataset.theme : 'auto';
+  apply(preference);
+  for (const control of controls) {
+    control.addEventListener('click', (event) => {
+      const option = (event.target as Element).closest<HTMLButtonElement>('[data-theme-option]');
+      if (!option || !isTheme(option.dataset.themeOption)) return;
+      preference = option.dataset.themeOption;
+      apply(preference);
+      try { localStorage.setItem(storageKey, preference); } catch {}
+      control.removeAttribute('open');
+    });
+  }
+  media.addEventListener('change', () => {
+    if (document.documentElement.dataset.theme === 'auto') apply('auto');
+  });
+</script>

@@ -7,6 +7,7 @@ import '../styles/publications-nav.css';
 import '../styles/publications.css';
 import '../styles/thai.css';
 import BrandLogo from '../components/BrandLogo.astro';
+import ThemeMenu from '../components/ThemeMenu.astro';
 import {
   isNavigationGroupCurrent,
   isNavigationItemCurrent,
@@ -113,6 +114,22 @@ const orgJson = JSON.stringify({
     <meta name="twitter:image" content={socialImage} />
     <meta name="twitter:image:alt" content={socialImageAlt} />
     <script type="application/ld+json" set:html={orgJson} is:inline></script>
+    <script is:inline>
+      (() => {
+        const allowed = new Set(['auto', 'light', 'dark']);
+        let preference = 'auto';
+        try {
+          const stored = localStorage.getItem('healthtag-theme');
+          if (stored && allowed.has(stored)) preference = stored;
+        } catch {}
+        const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+        const resolved = preference === 'auto' ? (systemDark ? 'dark' : 'light') : preference;
+        document.documentElement.dataset.theme = preference;
+        document.documentElement.dataset.resolvedTheme = resolved;
+        document.documentElement.style.colorScheme = resolved;
+        document.documentElement.classList.add('theme-ready');
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">{isEn ? 'Skip to main content' : 'ข้ามไปยังเนื้อหาหลัก'}</a>
@@ -140,7 +157,8 @@ const orgJson = JSON.stringify({
           </div>
           <div class="desktop-nav-utilities">
             <a href={navigationHref(navigationUtilities.support, locale)} aria-current={normalizedPath === 'support' ? 'page' : undefined}>{navigationUtilities.support.label[locale]}</a>
-            <a class="lang" href={alternatePath} lang={isEn ? 'th' : 'en'} aria-label={isEn ? 'อ่านภาษาไทย' : 'Read in English'}>{isEn ? 'TH' : 'EN'}</a>
+            <a class="lang language-switch" href={alternatePath} lang={isEn ? 'th' : 'en'} aria-label={isEn ? 'อ่านภาษาไทย' : 'Read in English'}>{isEn ? 'TH' : 'EN'}</a>
+            <ThemeMenu locale={locale} />
             <a class="nav-cta" href={navigationHref(navigationUtilities.contact, locale)} aria-current={normalizedPath === 'contact' ? 'page' : undefined}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
           </div>
         </nav>
@@ -166,7 +184,10 @@ const orgJson = JSON.stringify({
               <div class="mobile-utilities">
                 <a href={navigationHref(navigationUtilities.support, locale)} aria-current={normalizedPath === 'support' ? 'page' : undefined}>{navigationUtilities.support.label[locale]}</a>
                 <a href={navigationHref(navigationUtilities.privacy, locale)} aria-current={normalizedPath === 'privacy' ? 'page' : undefined}>{navigationUtilities.privacy.label[locale]}</a>
-                <a href={alternatePath} lang={isEn ? 'th' : 'en'}>{isEn ? 'ภาษาไทย' : 'English'}</a>
+                <div class="mobile-utility-controls">
+                  <a class="language-switch" href={alternatePath} lang={isEn ? 'th' : 'en'} aria-label={isEn ? 'อ่านภาษาไทย' : 'Read in English'}>{isEn ? 'TH' : 'EN'}</a>
+                  <ThemeMenu locale={locale} />
+                </div>
               </div>
               <a class="btn primary" href={navigationHref(navigationUtilities.contact, locale)} aria-current={normalizedPath === 'contact' ? 'page' : undefined}>{isEn ? 'Talk to HealthTAG' : 'คุยกับ HealthTAG'}</a>
             </nav>

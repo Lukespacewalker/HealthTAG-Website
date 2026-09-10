@@ -2,12 +2,23 @@
 import { Image } from 'astro:assets';
 import light from '../assets/legacy/brand/logo-light.png';
 import dark from '../assets/legacy/brand/logo-dark.png';
-interface Props { background?: 'light' | 'dark'; priority?: boolean }
-const { background = 'light', priority = false } = Astro.props;
-const logo = background === 'dark' ? dark : light;
+interface Props { background?: 'light' | 'dark' | 'theme'; priority?: boolean }
+const { background = 'theme', priority = false } = Astro.props;
 ---
-<Image class="brand-logo" src={logo} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />
+<span class="brand-logo-set" data-background={background}>
+  {background !== 'dark' && <Image class="brand-logo brand-logo-light" src={light} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
+  {background === 'theme' && <Image class="brand-logo brand-logo-dark" src={dark} alt="" aria-hidden="true" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
+  {background === 'dark' && <Image class="brand-logo brand-logo-dark" src={dark} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
+</span>
 <style>
+  .brand-logo-set { display: block; position: relative; width: 178px; max-width: 100%; }
   .brand-logo { display: block; width: 178px; max-width: 100%; height: auto; }
-  @media (max-width: 600px) { .brand-logo { width: 150px; } }
+  .brand-logo-set[data-background='theme'] .brand-logo-dark { display: none; }
+  :global(html[data-resolved-theme='dark']) .brand-logo-set[data-background='theme'] .brand-logo-light { display: none; }
+  :global(html[data-resolved-theme='dark']) .brand-logo-set[data-background='theme'] .brand-logo-dark { display: block; }
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-resolved-theme])) .brand-logo-set[data-background='theme'] .brand-logo-light { display: none; }
+    :global(html:not([data-resolved-theme])) .brand-logo-set[data-background='theme'] .brand-logo-dark { display: block; }
+  }
+  @media (max-width: 600px) { .brand-logo-set,.brand-logo { width: 150px; } }
 </style>
