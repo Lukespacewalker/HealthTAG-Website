@@ -5,10 +5,10 @@ import dark from '../assets/legacy/brand/logo-dark.png';
 interface Props { background?: 'light' | 'dark' | 'theme'; priority?: boolean }
 const { background = 'theme', priority = false } = Astro.props;
 ---
-<span class="brand-logo-set" data-background={background}>
-  {background !== 'dark' && <Image class="brand-logo brand-logo-light" src={light} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
-  {background === 'theme' && <Image class="brand-logo brand-logo-dark" src={dark} alt="" aria-hidden="true" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
-  {background === 'dark' && <Image class="brand-logo brand-logo-dark" src={dark} alt="HealthTAG" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />}
+<span class="brand-logo-set" data-background={background} role="img" aria-label="HealthTAG">
+  {background !== 'dark' && <span aria-hidden="true"><Image class="brand-logo brand-logo-light" src={light} alt="" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" /></span>}
+  {background === 'theme' && <span aria-hidden="true"><Image class="brand-logo brand-logo-dark" src={dark} alt="" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" /></span>}
+  {background === 'dark' && <span aria-hidden="true"><Image class="brand-logo brand-logo-dark" src={dark} alt="" width={178} height={34} widths={[178, 356]} sizes="(max-width: 600px) 150px, 178px" format="png" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" /></span>}
 </span>
 <style>
   .brand-logo-set { display: block; position: relative; width: 178px; max-width: 100%; }

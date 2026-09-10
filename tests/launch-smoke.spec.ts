@@ -145,6 +145,13 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('#community-edition')).toContainText('open source');
   await expect(page.locator('#community-edition')).toContainText('คนละผลิตภัณฑ์');
   await expect(page.locator('#community-edition a[href="/support/community-edition/user-manual/"]')).toBeVisible();
+  const internalDocs = page.locator('#data-source-node-docs');
+  await expect(internalDocs).toContainText('เอกสารภายใน');
+  await expect(internalDocs).toContainText('ต้องได้รับสิทธิ์');
+  await expect(internalDocs.locator('a')).toHaveAttribute('href', 'https://internal.documents.healthtag.io/');
+  await expect(internalDocs.locator('a')).toHaveAttribute('target', '_blank');
+  await expect(internalDocs.locator('a')).toHaveAttribute('rel', /noopener/);
+  await expect(page.locator('#community-edition')).not.toContainText('Data Source Node — Internal documentation');
   const downloadHrefs = await page.locator('main a[href^="https://"]').evaluateAll((links) => links.map((link) => (link as HTMLAnchorElement).href));
   expect(downloadHrefs.length).toBeGreaterThanOrEqual(5);
   expect(downloadHrefs.every((href) => href.startsWith('https://'))).toBe(true);
@@ -153,6 +160,13 @@ test('support separates the recommended and legacy reader paths', async ({ page 
   await expect(page.locator('#legacy')).toContainText('Not recommended for new installations');
   await expect(page.locator('#community-edition')).toContainText('Latest available manual');
   await expect(page.locator('#community-edition a[href="/en/support/community-edition/user-manual/"]')).toBeVisible();
+  const englishInternalDocs = page.locator('#data-source-node-docs');
+  await expect(englishInternalDocs).toContainText('Internal documentation');
+  await expect(englishInternalDocs).toContainText('authorized access');
+  await expect(englishInternalDocs.locator('a')).toHaveAttribute('href', 'https://internal.documents.healthtag.io/');
+  await expect(englishInternalDocs.locator('a')).toHaveAttribute('target', '_blank');
+  await expect(englishInternalDocs.locator('a')).toHaveAttribute('rel', /noopener/);
+  await expect(page.locator('#community-edition')).not.toContainText('Data Source Node — Internal documentation');
   await expect(page.locator('a.lang')).toHaveAttribute('href', '/support/');
 });
 

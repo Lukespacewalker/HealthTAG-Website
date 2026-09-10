@@ -17,9 +17,11 @@ The site explains HealthTAG as healthcare interoperability infrastructure. Patie
 | [`docs/NEWS_ASSETS.md`](./docs/NEWS_ASSETS.md) | Provenance and usage boundaries for first-party news photography |
 | [`docs/PUBLICATION_ASSETS.md`](./docs/PUBLICATION_ASSETS.md) | Provenance and checksums for migrated article and award images |
 
-The Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy. Its future public-access policy will be decided separately. Public website copy uses generic component names and does not link to the document for now:
+The Data Source Node architecture documentation is the primary technical reference when changing architecture diagrams or implementation copy. Public architecture pages use generic component names. Support may link authorized staff to the private technical documentation:
 
 `https://health-tag-document.suttisak-lukesp.workers.dev/guides/data-source-node/architecture/`
+
+The Support route provides the approved access-qualified link: `https://internal.documents.healthtag.io/`.
 
 ## Product architecture at a glance
 

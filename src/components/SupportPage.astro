@@ -70,6 +70,11 @@ const links = {
             <strong>Community Edition</strong>
             <small>{en ? 'Installation and usage manual' : 'คู่มือติดตั้งและใช้งาน'}</small>
           </a>
+          <a href="#data-source-node-docs">
+            <span class="path-code">INTERNAL</span>
+            <strong>Data Source Node</strong>
+            <small>{en ? 'Authorized technical documentation' : 'เอกสารเทคนิคสำหรับผู้ได้รับสิทธิ์'}</small>
+          </a>
           <a href="#legacy">
             <span class="path-code legacy-code">LEGACY</span>
             <strong>{en ? 'Older HealthTAG reader' : 'โปรแกรม HealthTAG รุ่นเดิม'}</strong>
@@ -179,11 +184,26 @@ const links = {
       </div>
     </section>
 
+    <section class="section internal-docs-section" id="data-source-node-docs">
+      <div class="container internal-docs-grid">
+        <div>
+          <span class="sequence">04 / Internal</span>
+          <h2>Data Source Node</h2>
+        </div>
+        <div class="internal-docs-copy">
+          <span class="status-badge">INTERNAL</span>
+          <h3>{en ? 'Internal documentation' : 'เอกสารภายใน'}</h3>
+          <p>{en ? 'Internal technical documentation for authorized HealthTAG technical staff. Data Source Node is separate from Community Edition and requires authorized access.' : 'เอกสารเทคนิคภายในสำหรับทีมเทคนิค HealthTAG ที่ได้รับสิทธิ์ Data Source Node แยกจาก Community Edition และต้องได้รับสิทธิ์ในการเข้าถึง'}</p>
+          <a class="btn primary" href="https://internal.documents.healthtag.io/" target="_blank" rel="noopener noreferrer">{en ? 'Open internal documentation' : 'เปิดเอกสารภายใน'} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
     <section class="section legacy-section" id="legacy">
       <div class="container">
         <div class="section-head">
           <div>
-            <span class="sequence legacy-sequence">04 / Legacy</span>
+            <span class="sequence legacy-sequence">05 / Legacy</span>
             <h2>{en ? 'Older HealthTAG NFC Reader' : 'HealthTAG NFC Reader รุ่นเดิม'}</h2>
           </div>
           <p>{en ? 'This program remains available for older installations. New installations should use HealthTAG NFC & Smartcard Reader above.' : 'โปรแกรมนี้มีไว้สำหรับระบบเดิม การติดตั้งใหม่ควรใช้ HealthTAG NFC & Smartcard Reader ด้านบน'}</p>
@@ -250,7 +270,7 @@ const links = {
   .setup-index { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--white); }
   .setup-index-grid { display: grid; grid-template-columns: .55fr 1.45fr; align-items: stretch; }
   .setup-index h2 { margin: 0; padding: 30px 30px 30px 0; align-self: center; font-size: 1.15rem; letter-spacing: -.02em; }
-  .setup-paths { display: grid; grid-template-columns: repeat(4,1fr); border-left: 1px solid var(--line); }
+  .setup-paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); border-left: 1px solid var(--line); }
   .setup-paths a { min-width: 0; padding: 24px; border-right: 1px solid var(--line); display: flex; flex-direction: column; transition: background .18s ease; }
   .setup-paths a:last-child { border-right: 0; }
   .setup-paths a:hover { background: var(--mint); }
@@ -304,6 +324,13 @@ const links = {
   .community-warning { margin-top: 24px; padding: 18px 20px; border-left: 4px solid var(--amber); background: var(--amber-soft); }
   .community-warning strong { color: var(--amber-ink); }
   .community-warning p { margin: 5px 0 0; color: var(--warning-text); font-size: .9rem; }
+  .internal-docs-section { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--mint); scroll-margin-top: 84px; }
+  .internal-docs-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: clamp(32px, 7vw, 96px); align-items: start; }
+  .internal-docs-grid h2 { margin: 0; font-size: clamp(2.2rem, 4vw, 4.1rem); line-height: 1; letter-spacing: -.045em; }
+  .internal-docs-copy { padding: clamp(28px, 4vw, 46px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+  .internal-docs-copy h3 { margin: 16px 0 10px; font-size: 1.55rem; }
+  .internal-docs-copy p { margin: 0; color: var(--muted); }
+  .internal-docs-copy .btn { margin-top: 22px; }
   .legacy-section { background: var(--surface-legacy); }
   .legacy-panel { border: 1px solid var(--warning-border); border-radius: var(--radius); background: var(--white); overflow: hidden; }
   .legacy-panel summary { list-style: none; min-height: 96px; padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
@@ -326,12 +353,9 @@ const links = {
   .support-contact .btn.secondary { color: var(--fixed-dark-text); border-color: color-mix(in srgb, var(--fixed-dark-text) 55%, transparent); }
   .support-contact .btn.secondary:hover, .support-contact .btn.secondary:focus-visible { color: var(--fixed-dark); background: var(--fixed-dark-text); border-color: var(--fixed-dark-text); }
   @media (max-width: 900px) {
-    .support-hero-grid, .setup-index-grid, .program-spread, .android-grid, .support-contact-grid, .community-product { grid-template-columns: 1fr; }
+    .support-hero-grid, .setup-index-grid, .program-spread, .android-grid, .support-contact-grid, .community-product, .internal-docs-grid { grid-template-columns: 1fr; }
     .setup-index h2 { padding: 24px 0; }
     .setup-paths { border-left: 0; border-top: 1px solid var(--line); }
-    .setup-paths { grid-template-columns: repeat(2, 1fr); }
-    .setup-paths a:nth-child(2) { border-right: 0; }
-    .setup-paths a:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
     .driver-notice { grid-template-columns: auto 1fr; }
     .driver-notice .btn { grid-column: 1 / -1; justify-self: start; }
     .install-steps { grid-template-columns: 1fr 1fr; }
@@ -339,7 +363,7 @@ const links = {
     .install-steps li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
   }
   @media (max-width: 650px) {
-    .setup-paths, .legacy-content { grid-template-columns: 1fr; }
+    .legacy-content { grid-template-columns: 1fr; }
     .setup-paths a { border-right: 0; border-bottom: 1px solid var(--line); }
     .setup-paths a:last-child { border-bottom: 0; }
     .driver-notice { grid-template-columns: 1fr; }

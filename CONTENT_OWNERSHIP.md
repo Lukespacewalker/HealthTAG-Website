@@ -16,7 +16,7 @@ To avoid repetition, each recurring concept has one canonical page:
 - **Company:** mission, vision, the selected vision tagline, all six core values, company milestones, founder context, and current team.
 - **Investors:** company positioning for prospective investors, the business model at an approved public level, verified traction and evidence links, and the investor enquiry route. It does not own deployment facts or detailed technical architecture.
 - **Contact:** corporate enquiry routing, sensitive-data warning, and the honest email fallback.
-- **Support:** reader selection, drivers and installers, setup steps, the Community Edition open-source manual, legacy downloads, troubleshooting, and support escalation. Data Source Node documentation remains separate, and its access policy will be decided later.
+- **Support:** reader selection, drivers and installers, setup steps, the Community Edition open-source manual, the access-qualified route to private Data Source Node documentation, legacy downloads, troubleshooting, and support escalation. Technical details remain in the private site.
 - **Privacy:** corporate website/contact handling and its separation from clinical systems and PHR access.
 
 When adding content, prefer linking to the canonical page instead of repeating implementation details elsewhere.

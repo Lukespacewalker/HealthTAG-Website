@@ -127,7 +127,7 @@ Do not draw clinical data as flowing through blockchain. If the physical request
 
 Use brand cyan/blue for clinical-data paths and amber for permission or audit paths, supported by labels, line patterns, or icons.
 
-Implementation product names and the full Data Source Node architecture remain in separate technical documentation. Public pages use the generic component names above and do not link to that documentation until its access policy is decided. The Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
+Implementation product names and the full Data Source Node architecture remain in separate technical documentation. Public architecture pages use the generic component names above. Support may link authorized staff to private technical documentation, while the Community Edition manual may retain exact open-source product names when they are necessary to complete installation steps.
 
 ### Product proof
 
