@@ -164,7 +164,7 @@ const businessModel = en
             <article>
               <div class="evidence-meta"><span class="record-type">{item.tag[locale]}</span><span>{item.sourceOrganization[locale]}</span></div>
               <h3>{item.title}</h3>
-              <p>{item.externallyConfirmed[locale]}</p>
+              <p>{item.summary[locale]}</p>
               <div class="record-links">
                 <a href={`${prefix}/evidence/#${item.id}`}>{en ? 'Evidence record' : 'หน้าหลักฐาน'} <span aria-hidden="true">→</span></a>
                 <a href={item.href[locale]} target="_blank" rel="noopener noreferrer">{en ? 'Open the source' : 'เปิดแหล่งข้อมูล'}: {item.sourceOrganization[locale]} <span aria-hidden="true">↗</span></a>

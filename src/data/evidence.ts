@@ -11,8 +11,7 @@ export interface EvidenceEntry {
   lastVerifiedDate: string;
   tag: Localized;
   title: string;
-  externallyConfirmed: Localized;
-  healthTagContext: Localized;
+  summary: Localized;
   href: Localized;
   supportingLinks?: Array<{
     label: Localized;
@@ -30,13 +29,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-02',
     tag: { th: 'เวทีสาธารณะ', en: 'Public Forum' },
     title: 'Regional Digital Health Wallets (DHW) Thailand Inception Workshop',
-    externallyConfirmed: {
-      th: 'The Nation รายงานว่า WHO และประเทศไทยจัด Regional Digital Health Wallets (DHW) Thailand Inception Workshop เมื่อวันที่ 17 มิถุนายน 2569 เพื่อเริ่มความร่วมมือด้านกระเป๋าข้อมูลสุขภาพดิจิทัลระดับภูมิภาค',
-      en: 'The Nation reports that WHO and Thailand held the Regional Digital Health Wallets (DHW) Thailand Inception Workshop on 17 June 2026 to begin regional cooperation on digital health wallets.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ยืนยันการเข้าร่วมงานและเผยแพร่ภาพจากงานบนเว็บไซต์ของบริษัท แหล่งข่าวภายนอกยืนยันตัวงาน แต่ไม่ได้ระบุชื่อ HealthTAG',
-      en: 'HealthTAG confirms its participation and has published photographs from the workshop. The external report confirms the event but does not name HealthTAG.',
+    summary: {
+      th: 'The Nation รายงานว่า WHO และประเทศไทยจัด Regional Digital Health Wallets (DHW) Thailand Inception Workshop เมื่อวันที่ 17 มิถุนายน 2569 เพื่อเริ่มความร่วมมือด้านกระเป๋าข้อมูลสุขภาพดิจิทัลระดับภูมิภาค HealthTAG เข้าร่วมงานและเผยแพร่ภาพจากงานบนเว็บไซต์ของบริษัท',
+      en: 'The Nation reports that WHO and Thailand held the Regional Digital Health Wallets (DHW) Thailand Inception Workshop on 17 June 2026 to begin regional cooperation on digital health wallets. HealthTAG participated in the workshop and published photographs from the event.',
     },
     href: { th: 'https://www.nationthailand.com/health-wellness/40067590', en: 'https://www.nationthailand.com/health-wellness/40067590' },
     supportingLinks: [{
@@ -53,13 +48,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-02',
     tag: { th: 'ความร่วมมือที่ประกาศ', en: 'Announced Collaboration' },
     title: 'Mahidol University and Ministry of Public Health MOU',
-    externallyConfirmed: {
-      th: 'กระทรวงสาธารณสุขและมหาวิทยาลัยมหิดลลงนามบันทึกความเข้าใจเพื่อเชื่อมโยงข้อมูลด้านการแพทย์และสาธารณสุขบน Digital Health Platform ของกระทรวง เมื่อวันที่ 5 มิถุนายน 2569',
-      en: 'The Ministry of Public Health and Mahidol University signed an MOU on 5 June 2026 to connect medical and public-health data through the Ministry\'s Digital Health Platform.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG สนับสนุนเทคโนโลยีให้ MU Health Wallet เชื่อมข้อมูลหมอพร้อมสำเร็จ และร่วมจัดแสดงในงาน Digital Health Forum ส่วนผู้ลงนาม MOU คือมหาวิทยาลัยมหิดลและกระทรวงสาธารณสุข',
-      en: 'HealthTAG provides technology support for MU Health Wallet, completed the Mor Prom connection, and exhibited at Digital Health Forum. The MOU was signed by Mahidol University and the Ministry of Public Health.',
+    summary: {
+      th: 'กระทรวงสาธารณสุขและมหาวิทยาลัยมหิดลลงนามบันทึกความเข้าใจเมื่อวันที่ 5 มิถุนายน 2569 เพื่อเชื่อมโยงข้อมูลด้านการแพทย์และสาธารณสุขบน Digital Health Platform ของกระทรวง ในส่วนของ MU Health Wallet HealthTAG สนับสนุนเทคโนโลยีสำหรับการเชื่อมข้อมูลหมอพร้อมและร่วมจัดแสดงในงาน Digital Health Forum',
+      en: 'The Ministry of Public Health and Mahidol University signed an MOU on 5 June 2026 to connect medical and public-health data through the Ministry\'s Digital Health Platform. HealthTAG provides technology support for MU Health Wallet\'s Mor Prom connection and exhibited at Digital Health Forum.',
     },
     href: { th: 'https://www.thecoverage.info/news/content/11474', en: 'https://www.thecoverage.info/news/content/11474' },
   },
@@ -72,13 +63,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-02',
     tag: { th: 'รางวัล', en: 'Award' },
     title: 'ASEAN Digital Awards 2024 · Silver',
-    externallyConfirmed: {
-      th: 'depa ระบุผลงาน Decentralized Health Care ของบริษัท เฮลธ์แท็ก จำกัด เป็นรางวัล Silver หมวด Public Sector ใน ASEAN Digital Awards 2024',
+    summary: {
+      th: 'depa ระบุผลงาน Decentralized Health Care ของบริษัท เฮลธ์แท็ก จำกัด เป็นผู้ได้รับรางวัล Silver หมวด Public Sector ใน ASEAN Digital Awards 2024',
       en: 'depa lists Decentralized Health Care by HealthTAG Co., Ltd. as the Silver winner in the Public Sector category at the ASEAN Digital Awards 2024.',
-    },
-    healthTagContext: {
-      th: 'ผลนี้ยืนยันรางวัล Silver เท่านั้น ไม่ใช่การรับรองด้านกฎระเบียบ ความมั่นคงปลอดภัย หรือการติดตั้งใช้งาน',
-      en: 'The result confirms the Silver award only. It is not a regulatory approval, security certification, or deployment record.',
     },
     href: { th: 'https://www.depa.or.th/th/asean-digital-awards', en: 'https://www.depa.or.th/th/asean-digital-awards' },
     supportingLinks: [{
@@ -95,18 +82,18 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-08-30',
     tag: { th: 'โครงการ', en: 'Programme' },
     title: 'Siriraj 5G Smart Hospital',
-    externallyConfirmed: {
-      th: 'ศิริราชประกาศเปิดตัว Siriraj World Class 5G Smart Hospital พร้อมโครงการย่อย 9 โครงการ โดยมี Permission based blockchain for personal health record เป็นหนึ่งในโครงการ',
-      en: 'Siriraj announced the Siriraj World Class 5G Smart Hospital with nine subprojects, including Permission based blockchain for personal health record.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ระบุว่าเข้าร่วมโครงการย่อยด้าน PHR และทีม IT ศิริราชใช้ HIS-to-FHIR script ของตนเอง ประกาศของศิริราชไม่ได้เอ่ยชื่อ HealthTAG หรือรายละเอียดการติดตั้งดังกล่าว',
-      en: 'HealthTAG says it participated in the PHR subproject and that Siriraj IT uses its own HIS-to-FHIR script. The Siriraj announcement does not mention HealthTAG or those implementation details.',
+    summary: {
+      th: 'ศิริราชประกาศเปิดตัว Siriraj World Class 5G Smart Hospital พร้อมโครงการย่อย 9 โครงการ ซึ่งรวม Permission based blockchain for personal health record ไว้ด้วย HealthTAG เข้าร่วมโครงการย่อยด้าน PHR และทีม IT ศิริราชใช้ HIS-to-FHIR script ของตนเอง',
+      en: 'Siriraj announced the Siriraj World Class 5G Smart Hospital with nine subprojects, including Permission based blockchain for personal health record. HealthTAG participated in the PHR subproject and Siriraj IT uses its own HIS-to-FHIR script.',
     },
     href: {
       th: 'https://si.mahidol.ac.th/th/hotnewsdetail.asp?hn_id=2728',
       en: 'https://www2.si.mahidol.ac.th/en/news-events/siriraj-jointly-launched-siriraj-world-class-5g-smart-hospital-with-nbtc-huawei/',
     },
+    supportingLinks: [{
+      label: { th: 'รายละเอียดการดำเนินงาน', en: 'Implementation details' },
+      href: { th: '/news/siriraj-5g-smart-hospital/', en: '/en/news/siriraj-5g-smart-hospital/' },
+    }],
   },
   {
     id: 'apicta-2022',
@@ -117,13 +104,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-08-30',
     tag: { th: 'รางวัล', en: 'Award' },
     title: 'APICTA · Cross Category: Start-Up',
-    externallyConfirmed: {
+    summary: {
       th: 'รายชื่อผู้ชนะอย่างเป็นทางการของ APICTA ระบุ Healthtag จากประเทศไทย พร้อมผลิตภัณฑ์ BLOCKCHAIN-BASED PHR & HEALTH DATA MANAGEMENT PLATFORM เป็นผู้ชนะหมวด Cross Category: Start-Up',
-      en: 'APICTA’s official winner list names Healthtag of Thailand and BLOCKCHAIN-BASED PHR & HEALTH DATA MANAGEMENT PLATFORM as the Cross Category: Start-Up winner.',
-    },
-    healthTagContext: {
-      th: 'ผลการประกวดนี้ยืนยันรางวัลเท่านั้น และไม่ได้ครอบคลุมการอนุมัติด้านกฎระเบียบ การรับรองความปลอดภัย หรือการติดตั้งใช้งาน',
-      en: 'The result confirms the award only. It does not cover regulatory approval, security certification, or a deployment.',
+      en: 'APICTA\'s official winner list names Healthtag of Thailand and BLOCKCHAIN-BASED PHR & HEALTH DATA MANAGEMENT PLATFORM as the Cross Category: Start-Up winner.',
     },
     href: { th: 'https://apicta.org/files/apicta_wl_2022.html', en: 'https://apicta.org/files/apicta_wl_2022.html' },
   },
@@ -133,16 +116,12 @@ export const evidence: EvidenceEntry[] = [
     displayDate: { th: '1 ก.ค. 2566 ถึง 30 มิ.ย. 2567', en: '1 Jul 2023 to 30 Jun 2024' },
     sourceOrganization: { th: 'ETDA', en: 'ETDA' },
     sourcePublicationDate: { th: 'หน้าประกาศสถานะโครงการ', en: 'Programme status page' },
-    lastVerifiedDate: '2026-08-30',
-    tag: { th: 'Sandbox Certified', en: 'Sandbox Certified' },
+    lastVerifiedDate: '2026-09-10',
+    tag: { th: 'ผลการทดสอบ Sandbox', en: 'Sandbox Outcome' },
     title: 'ETDA Digital Service Sandbox',
-    externallyConfirmed: {
-      th: 'ETDA แสดงรายการบริการ HealthTAG ใน Digital Service Sandbox พร้อมช่วงทดสอบและสถานะออกจาก Sandbox หลังผลเป็นไปตามเป้าหมายและตัวชี้วัดความสำเร็จที่กำหนด',
-      en: 'ETDA lists the HealthTAG service in its Digital Service Sandbox and records its exit after meeting the defined test goals and success indicators.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ใช้คำว่า Sandbox Certified สำหรับผลการทดสอบในโรงพยาบาลเครือศิริราช 3 แห่ง โดยหมายถึงการผ่านเป้าหมายและตัวชี้วัดของ Sandbox ไม่ใช่การอนุมัติด้านกฎระเบียบหรือการรับรองระบบประเภทอื่น',
-      en: 'HealthTAG uses Sandbox Certified for this test outcome across three hospitals in the Siriraj network, meaning that the service met the Sandbox goals and success indicators. It is not regulatory approval or another form of system certification.',
+    summary: {
+      th: 'ETDA แสดงรายการบริการ HealthTAG ใน Digital Service Sandbox พร้อมช่วงทดสอบและสถานะออกจาก Sandbox หลังผลเป็นไปตามเป้าหมายและตัวชี้วัดที่กำหนด การทดสอบครอบคลุมโรงพยาบาลเครือศิริราช 3 แห่ง',
+      en: 'ETDA lists the HealthTAG service in its Digital Service Sandbox and records its exit after meeting the defined test goals and indicators. The test covered three hospitals in the Siriraj network.',
     },
     href: { th: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx', en: 'https://www.etda.or.th/th/Our-Service/Digital-Service-Sandbox/announce.aspx' },
   },
@@ -155,13 +134,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-08-30',
     tag: { th: 'ความร่วมมือสาธารณะ', en: 'Public Collaboration' },
     title: 'depa × HealthTAG',
-    externallyConfirmed: {
-      th: 'depa ประกาศบันทึกความเข้าใจกับ HealthTAG เพื่อพัฒนาโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน',
-      en: 'depa announced an MoU with HealthTAG to develop blockchain infrastructure for public services.',
-    },
-    healthTagContext: {
-      th: 'ประกาศระบุว่า depa และ HealthTAG ทำบันทึกความเข้าใจร่วมกัน แต่ไม่ได้ระบุว่ามีการติดตั้งระบบสุขภาพหรือเปิดให้บริการแล้ว',
-      en: 'The announcement confirms an MoU between depa and HealthTAG, but does not state that a healthcare system has been deployed or that a service is live.',
+    summary: {
+      th: 'depa ประกาศบันทึกความเข้าใจกับ HealthTAG เพื่อร่วมพัฒนาโครงสร้างพื้นฐาน blockchain สำหรับบริการประชาชน',
+      en: 'depa announced an MOU with HealthTAG to jointly develop blockchain infrastructure for public services.',
     },
     href: { th: 'https://www.depa.or.th/th/article-view/20230112_03', en: 'https://www.depa.or.th/th/article-view/20230112_03' },
   },
@@ -174,13 +149,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-03',
     tag: { th: 'ทุนโครงการ', en: 'Project Grant' },
     title: 'NIA Thematic Innovation Grant',
-    externallyConfirmed: {
-      th: 'NIA อธิบาย Thematic Innovation Grant ว่าเป็นทุนสนับสนุนผู้ประกอบการในอุตสาหกรรมเป้าหมาย เพื่อทดสอบตลาดและปรับปรุงผลิตภัณฑ์หรือบริการนวัตกรรม',
-      en: 'NIA describes the Thematic Innovation Grant as support for businesses in target industries to test markets and improve innovative products or services.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ยืนยันว่าได้ลงนามสัญญาและรับทุน Thematic Innovation Grant ในปี 2568',
-      en: 'HealthTAG confirms that it signed the grant agreement and received Thematic Innovation Grant funding in 2025.',
+    summary: {
+      th: 'NIA อธิบาย Thematic Innovation Grant ว่าเป็นทุนสนับสนุนผู้ประกอบการในอุตสาหกรรมเป้าหมายสำหรับทดสอบตลาดและปรับปรุงผลิตภัณฑ์หรือบริการนวัตกรรม HealthTAG ลงนามสัญญาและได้รับทุนนี้ในปี 2568',
+      en: 'NIA describes the Thematic Innovation Grant as support for businesses in target industries to test markets and improve innovative products or services. HealthTAG signed the grant agreement and received the funding in 2025.',
     },
     href: { th: 'https://www.nia.or.th/event/detail/17986', en: 'https://www.nia.or.th/event/detail/17986' },
   },
@@ -193,13 +164,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-08-30',
     tag: { th: 'โครงการ', en: 'Programme' },
     title: 'NIA Corporate SPARK Outbound · China',
-    externallyConfirmed: {
-      th: 'NIA ระบุ HealthTAG เป็นหนึ่งในสามผู้ประกอบการไทยที่ได้รับคัดเลือกเข้าร่วม China Program 2025 พร้อมกิจกรรม business matching และการสนับสนุนด้านการขยายตลาด',
-      en: 'NIA names HealthTAG as one of three Thai companies selected for the 2025 China Program, including business matching and market-expansion support.',
-    },
-    healthTagContext: {
-      th: 'แหล่งข้อมูลยืนยันการเข้าร่วมโครงการ โดยไม่ได้ระบุการติดตั้งใช้งานหรือสัญญาในประเทศจีน',
-      en: 'The source confirms programme participation and does not describe a deployment or contract in China.',
+    summary: {
+      th: 'NIA ระบุ HealthTAG เป็นหนึ่งในสามผู้ประกอบการไทยที่ได้รับคัดเลือกเข้าร่วม China Program 2025 ซึ่งมีกิจกรรม business matching และการสนับสนุนด้านการขยายตลาด',
+      en: 'NIA names HealthTAG as one of three Thai companies selected for the 2025 China Program, which includes business matching and market-expansion support.',
     },
     href: { th: 'https://www.nia.or.th/Shanghai-CorporateSPARK2025', en: 'https://www.nia.or.th/Shanghai-CorporateSPARK2025' },
   },
@@ -212,13 +179,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-02',
     tag: { th: 'รางวัลและทุนสนับสนุน', en: 'Award and Funding' },
     title: 'ODESS Laureate 2024',
-    externallyConfirmed: {
-      th: 'ODESS ระบุ HealthTAG ในรายชื่อ digital health laureates ปี 2024 และแสดงข้อมูลโครงการ Decentralized Health Care, empowering Well-being Countrywide จากประเทศไทย',
-      en: 'ODESS includes HealthTAG among its 2024 digital health laureates and profiles the Thai initiative Decentralized Health Care, empowering Well-being Countrywide.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ยืนยันว่าเป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก สถานะ laureate ไม่ใช่การรับรองด้านกฎระเบียบหรือหลักฐานการติดตั้งในโรงพยาบาลแห่งใดแห่งหนึ่ง',
-      en: 'HealthTAG confirms that it was the first project from Thailand selected by ODESS. Laureate status is not regulatory certification or evidence of deployment at a specific hospital.',
+    summary: {
+      th: 'ODESS ระบุ HealthTAG ในรายชื่อ digital health laureates ปี 2024 พร้อมข้อมูลโครงการ Decentralized Health Care, empowering Well-being Countrywide จากประเทศไทย โดย HealthTAG เป็นโครงการแรกจากประเทศไทยที่ได้รับคัดเลือก',
+      en: 'ODESS includes HealthTAG among its 2024 digital health laureates and profiles the Thai initiative Decentralized Health Care, empowering Well-being Countrywide. HealthTAG was the first project from Thailand selected by ODESS.',
     },
     href: { th: 'https://www.odess.io/en/the-conference/laureates/', en: 'https://www.odess.io/en/the-conference/laureates/' },
     supportingLinks: [
@@ -245,13 +208,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-08-30',
     tag: { th: 'ความร่วมมือเชิงยุทธศาสตร์', en: 'Strategic Collaboration' },
     title: 'Orbix Technology × HealthTAG',
-    externallyConfirmed: {
-      th: 'ธนาคารกสิกรไทยประกาศความร่วมมือ Orbix Technology และ HealthTAG โดยกล่าวถึง HealthTAG Wallet, HL7 FHIR, Quarix และการทดสอบระบบ',
-      en: 'KASIKORNBANK announced a collaboration between Orbix Technology and HealthTAG, referring to HealthTAG Wallet, HL7 FHIR, Quarix, and system testing.',
-    },
-    healthTagContext: {
-      th: 'ประกาศระบุว่านวัตกรรมทางการเงินบางส่วนยังอยู่ระหว่างการหารือ และต้องได้รับอนุมัติจากหน่วยงานกำกับก่อนให้บริการเชิงพาณิชย์',
-      en: 'The announcement says some financial services remained under discussion and would require regulatory approval before commercial launch.',
+    summary: {
+      th: 'ธนาคารกสิกรไทยประกาศความร่วมมือระหว่าง Orbix Technology และ HealthTAG โดยกล่าวถึง HealthTAG Wallet, HL7 FHIR, Quarix และการทดสอบระบบ นวัตกรรมทางการเงินบางส่วนยังอยู่ระหว่างการหารือและต้องได้รับอนุมัติจากหน่วยงานกำกับก่อนเปิดให้บริการเชิงพาณิชย์',
+      en: 'KASIKORNBANK announced a collaboration between Orbix Technology and HealthTAG involving HealthTAG Wallet, HL7 FHIR, Quarix, and system testing. Some financial services remain under discussion and require regulatory approval before commercial launch.',
     },
     href: { th: 'https://www.kasikornbank.com/th/news/pages/healthtag.aspx', en: 'https://www.kasikornbank.com/en/news/pages/healthtag.aspx' },
   },
@@ -264,13 +223,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-02',
     tag: { th: 'งานวิชาการและเวทีสาธารณะ', en: 'Academic and Public Forum' },
     title: "DON'T TRUST JUST VERIFY!",
-    externallyConfirmed: {
-      th: 'TED.com ระบุ Dechowat Promda เป็นผู้พูดในงาน TEDxSirirajFacultyOfMedicine เมื่อเดือนกุมภาพันธ์ 2565 ในหัวข้อ "DON\'T TRUST JUST VERIFY!"',
-      en: 'TED.com identifies Dechowat Promda as the speaker of "DON\'T TRUST JUST VERIFY!" at TEDxSirirajFacultyOfMedicine in February 2022.',
-    },
-    healthTagContext: {
-      th: 'การบรรยายกล่าวถึงข้อมูลสุขภาพที่ตรวจสอบได้และการดูแลที่เชื่อมถึงกันระหว่างสถานพยาบาล TEDx เป็นเวทีสาธารณะ ไม่ใช่รางวัล',
-      en: 'The talk discusses verifiable health data and connected care across healthcare institutions. TEDx is a public-speaking record, not an award.',
+    summary: {
+      th: 'TED.com ระบุ Dechowat Promda เป็นผู้พูดในงาน TEDxSirirajFacultyOfMedicine เมื่อเดือนกุมภาพันธ์ 2565 ในหัวข้อ "DON\'T TRUST JUST VERIFY!" การบรรยายกล่าวถึงข้อมูลสุขภาพที่ตรวจสอบได้และการดูแลที่เชื่อมถึงกันระหว่างสถานพยาบาล',
+      en: 'TED.com identifies Dechowat Promda as the speaker of "DON\'T TRUST JUST VERIFY!" at TEDxSirirajFacultyOfMedicine in February 2022. The talk discusses verifiable health data and connected care across healthcare institutions.',
     },
     href: { th: 'https://www.ted.com/talks/dechowat_promda_don_t_trust_just_verify', en: 'https://www.ted.com/talks/dechowat_promda_don_t_trust_just_verify' },
     supportingLinks: [
@@ -293,13 +248,9 @@ export const evidence: EvidenceEntry[] = [
     lastVerifiedDate: '2026-09-03',
     tag: { th: 'กิจกรรมที่จะจัดขึ้น', en: 'Upcoming Event' },
     title: 'KBTG Techtopia 2026: Human of Tomorrow',
-    externallyConfirmed: {
-      th: 'Zipevent ระบุว่างาน KBTG Techtopia: Human of Tomorrow จะจัดวันที่ 16 กันยายน 2569 เวลา 08.00-18.30 น. ที่ศูนย์การประชุมแห่งชาติสิริกิติ์',
-      en: 'Zipevent lists KBTG Techtopia: Human of Tomorrow for 16 September 2026, from 08:00 to 18:30, at Queen Sirikit National Convention Center.',
-    },
-    healthTagContext: {
-      th: 'HealthTAG ยืนยันว่า นพ.เดโชวัต พรมดา มีกำหนดร่วมเสวนาในหัวข้อ "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain" ข้อมูลกำหนดการนี้อาจเปลี่ยนแปลงได้',
-      en: 'HealthTAG confirms that Dechowat Promda, M.D. is scheduled to join the panel "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain". The event is upcoming, and the programme may change.',
+    summary: {
+      th: 'Zipevent ระบุว่างาน KBTG Techtopia: Human of Tomorrow จะจัดวันที่ 16 กันยายน 2569 เวลา 08.00-18.30 น. ที่ศูนย์การประชุมแห่งชาติสิริกิติ์ โดย นพ.เดโชวัต พรมดา มีกำหนดร่วมเสวนาในหัวข้อ "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain" ทั้งนี้ กำหนดการอาจเปลี่ยนแปลงได้',
+      en: 'Zipevent lists KBTG Techtopia: Human of Tomorrow for 16 September 2026, from 08:00 to 18:30, at Queen Sirikit National Convention Center. Dechowat Promda, M.D. is scheduled to join the panel "Future of Finance and Data Wallet Ecosystem Empowered by Blockchain". The programme may change.',
     },
     href: { th: 'https://www.zipeventapp.com/e/kbtg-techtopia-2026', en: 'https://www.zipeventapp.com/e/kbtg-techtopia-2026' },
   },
