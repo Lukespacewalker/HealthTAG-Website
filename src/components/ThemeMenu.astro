@@ -62,6 +62,7 @@ const labels = isEn
       apply(preference);
       try { localStorage.setItem(storageKey, preference); } catch {}
       control.removeAttribute('open');
+      control.querySelector<HTMLElement>('[data-theme-trigger]')?.focus();
     });
   }
   media.addEventListener('change', () => {

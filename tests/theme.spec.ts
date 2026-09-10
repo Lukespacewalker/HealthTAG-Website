@@ -42,6 +42,32 @@ test('invalid storage falls back to auto and exposes accurate accessible state',
   await expect(control.locator('[data-theme-option="dark"]')).toHaveAttribute('aria-pressed', 'false');
 });
 
+test('keyboard selection closes the menu and returns focus to its trigger', async ({ page }) => {
+  await page.goto('/en/');
+  const control = await openThemeMenu(page);
+  const trigger = control.locator('[data-theme-trigger]');
+  const dark = control.locator('[data-theme-option="dark"]');
+  await dark.focus();
+  await dark.press('Enter');
+  await expect(page.locator('html')).toHaveAttribute('data-resolved-theme', 'dark');
+  await expect(control).not.toHaveAttribute('open', '');
+  await expect(trigger).toBeFocused();
+});
+
+test('navigation visibility and topology panel styling remain responsive', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/how-it-works/');
+  await expect(page.locator('.mobile-nav')).toBeHidden();
+  await expect(page.locator('.desktop-nav')).toBeVisible();
+  const topology = page.locator('.topology-card');
+  await expect(topology).toHaveCSS('border-top-width', '1px');
+  await expect(topology).toHaveCSS('border-top-left-radius', '28px');
+  await page.setViewportSize({ width: 1200, height: 900 });
+  await expect(page.locator('.mobile-nav')).toBeHidden();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.locator('.mobile-nav')).toBeVisible();
+});
+
 test('mobile navigation contains working language and appearance controls', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/support/');
